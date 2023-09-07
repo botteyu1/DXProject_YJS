@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "Map.h"
 
 // Ό³Έν :
-class PlayMap : public GameEngineActor
+class PlayMap : public Map
 {
 public:
 	static PlayMap* MainMap;
@@ -18,7 +18,7 @@ public:
 	PlayMap& operator=(const PlayMap& _Other) = delete;
 	PlayMap& operator=(PlayMap&& _Other) noexcept = delete;
 
-	GameEngineColor GetColor(float4 _Pos, GameEngineColor _DefaultColor = {255, 255, 255, 255});
+	
 
 protected:
 	void Start() override;
