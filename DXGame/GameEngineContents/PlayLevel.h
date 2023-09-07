@@ -14,6 +14,11 @@ public:
 	PlayLevel(PlayLevel&& _Other) noexcept = delete;
 	PlayLevel& operator=(const PlayLevel& _Other) = delete;
 	PlayLevel& operator=(PlayLevel&& _Other) noexcept = delete;
+	
+	std::shared_ptr<class PlayMap> GetPlayMap()
+	{
+		return PlayMapPtr;
+	}
 
 protected:
 	void Start() override;
@@ -25,5 +30,6 @@ protected:
 
 private:
 
+	std::shared_ptr< PlayMap> PlayMapPtr = nullptr;
 };
 

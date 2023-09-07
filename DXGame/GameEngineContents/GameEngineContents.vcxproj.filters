@@ -16,7 +16,10 @@
       <Filter>Object\Map</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Player</Filter>
+      <Filter>Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -35,7 +38,10 @@
       <Filter>Object\Map</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Player</Filter>
+      <Filter>Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -48,7 +54,10 @@
     <Filter Include="Object\Map">
       <UniqueIdentifier>{890109a6-e908-4c21-90f8-ef6cbf78cffc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Player">
+    <Filter Include="Actor">
+      <UniqueIdentifier>{4eee0c46-e550-4a11-a039-878a8b3bfb43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player">
       <UniqueIdentifier>{617709fc-8025-469d-8487-23d80f5257a2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

@@ -31,7 +31,6 @@ void Player::Start()
 			// GameEngineTexture::Load(File.GetStringPath());
 		}
 
-		GameEngineSprite::CreateCut("TestPlayer.png", 6, 6);
 		//GameEngineSprite::CreateSingle("TestMap.png");
 
 
@@ -56,8 +55,8 @@ void Player::Start()
 
 void Player::Update(float _Delta)
 {
+	Actor::Update(_Delta);
 	float Speed = 100.0f;
-
 
 	if (GameEngineInput::IsPress('A'))
 	{
@@ -89,11 +88,9 @@ void Player::Update(float _Delta)
 		Transform.AddLocalRotation({ 0.0f, 0.0f, -360.0f * _Delta });
 	}
 
+
+	// 플레이어 카메라 포커스
 	GameEngineColor Color = PlayMap::MainMap->GetColor(Transform.GetWorldPosition(), GameEngineColor::RED);
-
-
-	// 땅에 딱붙게하고 싶다면 while돌려서 올려주세요.
-
-
-	// float4 Color = GetColor(Transform.GetWorldPosition());
+	std::shared_ptr<GameEngineCamera> MainCamara = GetLevel()->GetMainCamera();
+	MainCamara->Transform.SetLocalPosition(Transform.GetWorldPosition());
 }

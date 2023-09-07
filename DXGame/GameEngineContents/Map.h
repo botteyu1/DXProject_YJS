@@ -18,6 +18,9 @@ public:
 
 	GameEngineColor GetColor(float4 _Pos, GameEngineColor _DefaultColor = { 255, 255, 255, 255 });
 protected:
+	std::shared_ptr<GameEngineSpriteRenderer> MainBackGround;
+	std::shared_ptr<GameEngineSpriteRenderer> PixelBackGround;
+
 
 private:
 

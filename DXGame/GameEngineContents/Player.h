@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "Actor.h"
 
 // Ό³Έν :
-class Player : public GameEngineActor
+class Player : public Actor
 {
 public:
 	// constrcuter destructer

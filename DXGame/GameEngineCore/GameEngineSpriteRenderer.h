@@ -58,6 +58,11 @@ public:
 	GameEngineSpriteRenderer& operator=(const GameEngineSpriteRenderer& _Other) = delete;
 	GameEngineSpriteRenderer& operator=(GameEngineSpriteRenderer&& _Other) noexcept = delete;
 
+	std::shared_ptr<GameEngineSprite> GetSprite()
+	{
+		return Sprite;
+	}
+
 	// 스프라이트는 기본적으로 
 	void SetSprite(std::string_view _Name, unsigned int index = 0);
 
