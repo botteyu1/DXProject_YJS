@@ -30,7 +30,7 @@ void PlayLevel::Start()
 	}
 
 	{
-		PlayMapPtr = CreateActor<PlayMap>();
+		SetMap(CreateActor<PlayMap>());
 	}
 
 }

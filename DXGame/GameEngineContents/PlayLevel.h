@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineLevel.h>
+#include "Level.h"
 
 // Ό³Έν :
-class PlayLevel : public GameEngineLevel
+class PlayLevel : public Level
 {
 public:
 	// constrcuter destructer
@@ -30,6 +30,6 @@ protected:
 
 private:
 
-	std::shared_ptr< PlayMap> PlayMapPtr = nullptr;
+	std::shared_ptr<PlayMap> PlayMapPtr = nullptr;
 };
 

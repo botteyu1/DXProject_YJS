@@ -21,6 +21,18 @@
     <ClCompile Include="Actor.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveState.cpp">
+      <Filter>Actor\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackState.cpp">
+      <Filter>Actor\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherState.cpp">
+      <Filter>Actor\Player\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
@@ -43,6 +55,9 @@
     <ClInclude Include="Actor.h">
       <Filter>Actor</Filter>
     </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Level</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -59,6 +74,9 @@
     </Filter>
     <Filter Include="Actor\Player">
       <UniqueIdentifier>{617709fc-8025-469d-8487-23d80f5257a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\State">
+      <UniqueIdentifier>{69426412-584d-42e2-8f94-28a9ef79da24}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

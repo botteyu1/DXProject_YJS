@@ -82,15 +82,39 @@ public:
 
 	inline void SetAutoScaleRatio(float _Ratio)
 	{
+		AutoScaleRatio = { _Ratio,_Ratio,_Ratio };
+	}
+	inline void SetAutoScaleRatio(float4 _Ratio)
+	{
 		AutoScaleRatio = _Ratio;
+	}
+
+	//ÁÂ¿ì¹ÝÀü
+	inline void Flip()
+	{
+		AutoScaleRatio.X *= -1;
+	}
+
+	
+	inline void FlipOn()
+	{
+		AutoScaleRatio.X = -abs(AutoScaleRatio.X);
+	}
+
+	inline void FlipOff()
+	{
+		AutoScaleRatio.X = abs(AutoScaleRatio.X);
 	}
 
 	void SetSamplerState(SamplerOption _Option);
 
-	bool IsCurAnimationEnd() 
+	bool IsCurAnimationEnd()
 	{
 		return CurFrameAnimations->IsEnd;
 	}
+
+	bool IsAnimationEnd(std::string_view _AnimationName);
+	
 
 	void AnimationPauseSwitch();
 	void AnimationPauseOn();
@@ -115,7 +139,7 @@ private:
 
 	std::shared_ptr<class GameEngineSampler> Sampler;
 	bool IsImageSize = false;
-	float AutoScaleRatio = 1.0f;
+	float4 AutoScaleRatio = { 1.0f,1.0f,1.0f };
 	bool IsPause = false;
 };
 

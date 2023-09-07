@@ -1,7 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
-// 설명 :
+// 설명 : 실제로움직이는 객체들 ex)몬스터 플레이어  
 class Actor : public GameEngineActor
 {
 public:

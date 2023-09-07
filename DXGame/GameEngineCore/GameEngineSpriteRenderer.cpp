@@ -242,7 +242,11 @@ void GameEngineSpriteRenderer::SetSamplerState(SamplerOption _Option)
 		break;
 	}
 }
-
+bool GameEngineSpriteRenderer::IsAnimationEnd(std::string_view _AnimationName)
+{
+	std::string UpperName = GameEngineString::ToUpperReturn(_AnimationName);
+	return FrameAnimations.find(UpperName.data())->second->IsEnd;
+}
 void GameEngineSpriteRenderer::SetFrameEvent(std::string_view _AnimationName, int _Frame, std::function<void(GameEngineSpriteRenderer*)> _Function)
 {
 	std::string UpperName = GameEngineString::ToUpperReturn(_AnimationName);

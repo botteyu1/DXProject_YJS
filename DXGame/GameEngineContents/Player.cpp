@@ -28,27 +28,29 @@ void Player::Start()
 
 			GameEngineSprite::CreateFolder(Dir.GetStringPath());
 
-			// GameEngineTexture::Load(File.GetStringPath());
 		}
-
-		//GameEngineSprite::CreateSingle("TestMap.png");
 
 
 		MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>();
-		MainSpriteRenderer->CreateAnimation("Run", "LD_Idle", 0.0333f, -1, -1, true);
-		MainSpriteRenderer->ChangeAnimation("Run");
+		MainSpriteRenderer->CreateAnimation("LD_Idle", "LD_Idle", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_RunUturn", "LD_RunUturn", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_Run", "LD_Run", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_RunToIdle", "LD_RunToIdle", 0.0333f, -1, -1, true);
+		//MainSpriteRenderer->SetEndEvent("LD_RunUturn", std::bind(&Player::EndUturnEvent, this, MainSpriteRenderer.get()));
 		MainSpriteRenderer->SetSamplerState(SamplerOption::LINEAR);
-		MainSpriteRenderer->Transform.SetLocalPosition({ 100.0f, 0.0f, 0.0f });
+		MainSpriteRenderer->AutoSpriteSizeOn();
+		
+
+		
 
 		//MainSpriteRenderer->SetEndEvent("Run", std::bind(&Player::TestEvent, this, std::placeholders::_1));
-
 		// MainSpriteRenderer->Transform.SetLocalScale({5, 5});
-		MainSpriteRenderer->AutoSpriteSizeOn();
-		MainSpriteRenderer->SetAutoScaleRatio(1.0f);
 	}
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
 	Transform.SetLocalPosition({ HalfWindowScale.X, -HalfWindowScale.Y, -500.0f });
+
+	ChangeState(PlayerState::Idle);
 
 }
 
@@ -56,27 +58,11 @@ void Player::Start()
 void Player::Update(float _Delta)
 {
 	Actor::Update(_Delta);
-	float Speed = 100.0f;
 
-	if (GameEngineInput::IsPress('A'))
-	{
-		Transform.AddLocalPosition(float4::LEFT * _Delta * Speed);
-	}
+	StateUpdate(_Delta);
+	
 
-	if (GameEngineInput::IsPress('D'))
-	{
-		Transform.AddLocalPosition(float4::RIGHT * _Delta * Speed);
-	}
-
-	if (GameEngineInput::IsPress('W'))
-	{
-		Transform.AddLocalPosition(float4::UP * _Delta * Speed);
-	}
-
-	if (GameEngineInput::IsPress('S'))
-	{
-		Transform.AddLocalPosition(float4::DOWN * _Delta * Speed);
-	}
+	
 
 	if (GameEngineInput::IsPress('Q'))
 	{
@@ -93,4 +79,68 @@ void Player::Update(float _Delta)
 	GameEngineColor Color = PlayMap::MainMap->GetColor(Transform.GetWorldPosition(), GameEngineColor::RED);
 	std::shared_ptr<GameEngineCamera> MainCamara = GetLevel()->GetMainCamera();
 	MainCamara->Transform.SetLocalPosition(Transform.GetWorldPosition());
+}
+
+
+
+
+
+
+void Player::ChangeState(PlayerState _State)
+{
+	if (_State != State)
+	{
+		switch (_State)
+		{
+		case PlayerState::Idle:	
+			IdleStart();
+			break;
+		case PlayerState::Jump:
+			JumpStart();
+			break;
+		case PlayerState::Run:
+			RunStart();
+			break;
+		case PlayerState::RunUturn:
+			RunUturnStart();
+			break;
+		case PlayerState::RunToIdle:
+			RunToIdleStart();
+			break;
+		case PlayerState::Attack:
+			AttackStart();
+			break;
+		default:
+			break;
+		}
+	}
+	State = _State;
+}
+
+
+void Player::StateUpdate(float _Delta)
+{
+	switch (State)
+	{
+	case PlayerState::Idle:
+		IdleUpdate(_Delta);
+		break;
+	case PlayerState::Jump:
+		JumpUpdate(_Delta);
+		break;
+	case PlayerState::Run:
+		RunUpdate(_Delta);
+		break;	
+	case PlayerState::RunUturn:
+		RunUturnUpdate(_Delta);
+		break;
+	case PlayerState::RunToIdle:
+		RunToIdleUpdate(_Delta);
+		break;
+	case PlayerState::Attack:
+		AttackUpdate(_Delta);
+		break;
+	default:
+		break;
+	}
 }

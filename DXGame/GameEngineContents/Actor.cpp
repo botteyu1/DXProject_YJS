@@ -19,7 +19,7 @@ void Actor::Start()
 
 void Actor::Update(float _Delta)
 {
-	GameEngineColor Color = static_cast<PlayLevel*>(GetLevel())->GetPlayMap()->GetColor(Transform.GetWorldPosition(), GameEngineColor::RED);
+	GameEngineColor Color = static_cast<Level*>(GetLevel())->GetMap()->GetColor(Transform.GetWorldPosition(), GameEngineColor::RED);
 
 	if (GameEngineColor::RED != Color)
 	{
