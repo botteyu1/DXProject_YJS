@@ -13,6 +13,10 @@ ContentsCore::~ContentsCore()
 
 void ContentsCore::Start()
 {
+
+	//기본 샘플러 지정
+	GameEngineSpriteRenderer::SetDefaultSampler("POINT");
+
 	GameEngineCore::CreateLevel<PlayLevel>("PlayLevel");
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
 	GameEngineCore::ChangeLevel("PlayLevel");

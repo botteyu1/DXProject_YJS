@@ -214,6 +214,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="Level.h">
       <SubType>
       </SubType>

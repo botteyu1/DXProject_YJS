@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "PlayMap.h"
 
+
 PlayLevel::PlayLevel() 
 {
 }
@@ -26,7 +27,7 @@ void PlayLevel::Start()
 
 
 	{
-		std::shared_ptr<Player> Object = CreateActor<Player>();
+		std::shared_ptr<Player> Object = CreateActor<Player>(ContentsObjectType::Player);
 	}
 
 	{

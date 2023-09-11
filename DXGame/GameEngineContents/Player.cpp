@@ -22,23 +22,30 @@ void Player::Start()
 		std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
 
 		for (size_t i = 0; i < Directorys.size(); i++)
-		{
-			// 구조적으로 잘 이해하고 있는지를 자신이 명확하게 인지하기 위해서
+		{ 
 			GameEngineDirectory& Dir = Directorys[i];
 
 			GameEngineSprite::CreateFolder(Dir.GetStringPath());
 
 		}
-
+		 
 
 		MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>();
 		MainSpriteRenderer->CreateAnimation("LD_Idle", "LD_Idle", 0.0333f, -1, -1, true);
 		MainSpriteRenderer->CreateAnimation("LD_RunUturn", "LD_RunUturn", 0.0333f, -1, -1, true);
 		MainSpriteRenderer->CreateAnimation("LD_Run", "LD_Run", 0.0333f, -1, -1, true);
 		MainSpriteRenderer->CreateAnimation("LD_RunToIdle", "LD_RunToIdle", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_Jump_Start", "LD_Jump_Start", 0.0533f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_Jump_Landing", "LD_Jump_Landing", 0.0533f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_Jump_Falling", "LD_Jump_Falling", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_01", "LD_ComboMove_01", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_02", "LD_ComboMove_02", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_03", "LD_ComboMove_03", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_04", "LD_ComboMove_04", 0.0333f, -1, -1, true);
 		//MainSpriteRenderer->SetEndEvent("LD_RunUturn", std::bind(&Player::EndUturnEvent, this, MainSpriteRenderer.get()));
 		MainSpriteRenderer->SetSamplerState(SamplerOption::LINEAR);
 		MainSpriteRenderer->AutoSpriteSizeOn();
+		
 		
 
 		
@@ -95,8 +102,14 @@ void Player::ChangeState(PlayerState _State)
 		case PlayerState::Idle:	
 			IdleStart();
 			break;
-		case PlayerState::Jump:
-			JumpStart();
+		case PlayerState::Jump_Falling:
+			Jump_FallingStart();
+			break;
+		case PlayerState::Jump_Landing:
+			Jump_LandingStart();
+			break;
+		case PlayerState::Jump_Start:
+			Jump_StartStart();
 			break;
 		case PlayerState::Run:
 			RunStart();
@@ -107,8 +120,8 @@ void Player::ChangeState(PlayerState _State)
 		case PlayerState::RunToIdle:
 			RunToIdleStart();
 			break;
-		case PlayerState::Attack:
-			AttackStart();
+		case PlayerState::ComboMove:
+			ComboMoveStart();
 			break;
 		default:
 			break;
@@ -125,8 +138,14 @@ void Player::StateUpdate(float _Delta)
 	case PlayerState::Idle:
 		IdleUpdate(_Delta);
 		break;
-	case PlayerState::Jump:
-		JumpUpdate(_Delta);
+	case PlayerState::Jump_Falling:
+		Jump_FallingUpdate(_Delta);
+		break;
+	case PlayerState::Jump_Landing:
+		Jump_LandingUpdate(_Delta);
+		break;
+	case PlayerState::Jump_Start:
+		Jump_StartUpdate(_Delta);
 		break;
 	case PlayerState::Run:
 		RunUpdate(_Delta);
@@ -137,8 +156,8 @@ void Player::StateUpdate(float _Delta)
 	case PlayerState::RunToIdle:
 		RunToIdleUpdate(_Delta);
 		break;
-	case PlayerState::Attack:
-		AttackUpdate(_Delta);
+	case PlayerState::ComboMove:
+		ComboMoveUpdate(_Delta);
 		break;
 	default:
 		break;

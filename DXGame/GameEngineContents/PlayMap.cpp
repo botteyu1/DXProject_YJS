@@ -39,7 +39,7 @@ void PlayMap::Start()
 	{
 		PixelBackGround = CreateComponent<GameEngineSpriteRenderer>(-100);
 		PixelBackGround->SetSprite("OfficePixel2.png");
-		MainBackGround = CreateComponent<GameEngineSpriteRenderer>(-100);
+		MainBackGround = CreateComponent<GameEngineSpriteRenderer>(-99);
 		MainBackGround->SetSprite("Office_background_Frieze.png");
 
 		std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("Office_background_Frieze.png");

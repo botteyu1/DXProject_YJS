@@ -1,4 +1,6 @@
 #pragma once
+#include <GameEngineBase/GameEngineMath.h>
+#include <list>
 
 // 기하구조를 표현하고
 // 부모자식관계를 처리한다.
@@ -17,20 +19,11 @@ enum class ColType
 	MAX,
 };
 
-class GameEngineTransform;
-class CollisionParameter
-{
-public:
-	GameEngineTransform& Left;
-	GameEngineTransform& Right;
-	ColType LeftType = ColType::AABBBOX2D;
-	ColType RightType = ColType::AABBBOX2D;
-};
 
-class CollisionData 
+class CollisionData
 {
 public:
-	union 
+	union
 	{
 		// 다이렉트 x에서 지원해주는 충돌용 도형
 		DirectX::BoundingSphere SPHERE;
@@ -45,6 +38,41 @@ public:
 	}
 };
 
+class GameEngineTransform;
+class CollisionParameter
+{
+public:
+	CollisionData& Left;
+	CollisionData& Right;
+	ColType LeftType = ColType::AABBBOX2D;
+	ColType RightType = ColType::AABBBOX2D;
+
+	inline int GetLeftTypeToInt() const
+	{
+		return static_cast<int>(LeftType);
+	}
+
+	inline int GetRightTypeToInt() const
+	{
+		return static_cast<int>(RightType);
+	}
+
+	CollisionParameter(
+		CollisionData& _Left,
+		CollisionData& _Right,
+		ColType _LeftType = ColType::AABBBOX2D,
+		ColType _RightType = ColType::AABBBOX2D
+	) 
+		: 
+		Left(_Left),
+		Right(_Right),
+		LeftType(_LeftType),
+		RightType(_RightType)
+	{
+
+	}
+};
+
 // 왜 굳이. 
 class TransformData 
 {
@@ -53,14 +81,17 @@ public:
 
 	float4 Scale = float4::ONENULL;
 	float4 Rotation = float4::ZERONULL;
+	float4 Quaternion = float4::ZERO;
 	float4 Position = float4::ZERO;
 	
 	float4 LocalScale;
 	float4 LocalRotation;
+	float4 LocalQuaternion;
 	float4 LocalPosition;
 
 	float4 WorldScale;
 	float4 WorldRotation;
+	float4 WorldQuaternion;
 	float4 WorldPosition;
 
 	float4x4 ScaleMatrix; // 크
@@ -136,12 +167,26 @@ public:
 		TransformUpdate();
 	}
 
+	void AddLocalScale(const float4& _Value)
+	{
+		TransData.Scale += _Value;
+		TransformUpdate();
+	}
+
+
+	void SetLocalRotation(const float4& _Value)
+	{
+		TransData.Rotation = _Value;
+		TransformUpdate();
+	}
+
 	void AddLocalRotation(const float4& _Value)
 	{
 		TransData.Rotation += _Value;
 		TransformUpdate();
 
 	}
+
 
 	void SetLocalPosition(const float4& _Value)
 	{
@@ -154,8 +199,6 @@ public:
 		TransData.Position += _Value;
 		TransformUpdate();
 	}
-
-
 
 
 	// Get
@@ -230,16 +273,15 @@ public:
 	//                    내가 사각형이고            날                           상대는 구               상대
 	static bool Collision(const CollisionParameter& _Data);
 
-	// ColType _ThisType, GameEngineTransform& _LeftTrans, ColType _OtherType, GameEngineTransform& _RightTrans
-
+	CollisionData ColData;
 protected:
 
 private:
-	CollisionData ColData;
 
 	GameEngineTransform* Parent = nullptr;
 	std::list<GameEngineTransform*> Childs;
 	TransformData TransData;
 
 };
+
 

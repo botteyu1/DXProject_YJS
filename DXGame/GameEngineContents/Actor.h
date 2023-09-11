@@ -19,8 +19,11 @@ protected:
 
 	void Start() override;
 	void Update(float _Delta) override;
+	float4 Dir = float4::ZERO;
+	float4 GrivityForce = { 0.0f, 0.0f, 0.0f, 1.0f }; //Áß·ÂÈû
+	bool GrivityCheck = true; //Áß·ÂÈû
 
 private:
-	float4 GrivityForce = { 0.0f, 0.0f, 0.0f, 1.0f }; //Áß·ÂÈû
+
 };
 

@@ -58,6 +58,7 @@
     <ClInclude Include="Level.h">
       <Filter>Level</Filter>
     </ClInclude>
+    <ClInclude Include="ContentsEnum.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
