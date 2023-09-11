@@ -38,5 +38,9 @@ void Player::InputAttackUpdate(float _Delta)
 	if (GameEngineInput::IsDown(VK_LBUTTON))
 	{
 		ChangeState(PlayerState::ComboMove);
+		FlipCheck();
+		return;
 	}
+
+	return;
 }

@@ -84,6 +84,7 @@ void Player::RunUpdate(float _Delta)
 	}
 
 	InputJumpUpdate(_Delta);
+	InputAttackUpdate(_Delta);
 }
 
 void Player::RunUturnUpdate(float _Delta)
@@ -99,12 +100,13 @@ void Player::RunUturnUpdate(float _Delta)
 
 	if (Dir == float4::ZERO)
 	{
-		
 		FlipCheck();
-		//MainSpriteRenderer->Flip();
 		ChangeState(PlayerState::Idle);
 	}
+
 	InputJumpUpdate(_Delta);
+
+	InputAttackUpdate(_Delta);
 }
 
 void Player::RunToIdleUpdate(float _Delta)
@@ -129,6 +131,7 @@ void Player::RunToIdleUpdate(float _Delta)
 	}
 
 	InputJumpUpdate(_Delta);
+	InputAttackUpdate(_Delta);
 }
 
 
