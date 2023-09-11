@@ -15,6 +15,8 @@ public:
 	Actor& operator=(const Actor& _Other) = delete;
 	Actor& operator=(Actor&& _Other) noexcept = delete;
 
+
+
 protected:
 
 	void Start() override;

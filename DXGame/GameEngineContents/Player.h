@@ -11,9 +11,18 @@ enum class PlayerState
 	RunUturn,
 	RunToIdle,
 	ComboMove,
+	ComboMove_Rest,
 	Max, // 일반적으로 사용하지 않는 값.
 };
 
+class AnimationData
+{
+public:
+	float DashDistance; // 애니메이션에서 이동할 대쉬 거리 
+
+	//int NextComboFrame;  //콤보가 계속 될떄 애니메이션이 바뀌는 프레임
+	//bool HaveToIdle;
+};
 // 설명 :
 class Player : public Actor
 {
@@ -33,21 +42,17 @@ protected:
 	void Start() override;
 	void Update(float _Delta) override;
 
-
-
-
-	
-
-
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer;
 
 	float Speed = 700.0f;
 
 	PlayerState State = PlayerState::Max;
-	
+	std::map<std::string, AnimationData> PlayerAnimationDataMap;
 	
 	int ComboCount = 1;
+	float CurDash = 0.0f; //현재까지 움직인 대쉬 거리
+	AnimationData* CurAnimationData; //현재 애니메이션 Data
 
 	bool Flip = false;
 	bool NextCombo = false; // 다음 콤보 입력했느지 확인 
@@ -82,6 +87,9 @@ private:
 
 	void ComboMoveStart();
 	void ComboMoveUpdate(float _Delta);
+
+	void ComboMove_RestStart();
+	void ComboMove_RestUpdate(float _Delta);
 
 	void InputMoveUpdate(float _Delta);
 	void InputJumpUpdate(float _Delta);

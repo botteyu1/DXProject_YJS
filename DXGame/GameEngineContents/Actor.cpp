@@ -19,7 +19,7 @@ void Actor::Start()
 
 void Actor::Update(float _Delta)
 {
-	Dir = float4::ZERO;
+	//Dir = float4::ZERO;
 
 	//공중인지 체크
 	float4 WorldPosition = Transform.GetWorldPosition();

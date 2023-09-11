@@ -77,7 +77,7 @@ public:
 		bool _Loop = true
 	);
 
-	void ChangeAnimation(std::string_view _AnimationName, bool _Force = false);
+	void ChangeAnimation(std::string_view _AnimationName, bool _Force = false, unsigned int _FrameIndex = 0);
 
 	void AutoSpriteSizeOn();
 	void AutoSpriteSizeOff();
@@ -91,6 +91,7 @@ public:
 	{
 		AutoScaleRatio = _Ratio;
 	}
+
 	void Flip()
 	{
 		AutoScaleRatio.X = -AutoScaleRatio.X;
@@ -110,6 +111,11 @@ public:
 	bool IsCurAnimationEnd() 
 	{
 		return CurFrameAnimations->IsEnd;
+	}
+
+	bool IsCurAnimation(std::string_view _AnimationName)
+	{
+		return CurFrameAnimations->AnimationName == _AnimationName;
 	}
 
 	void AnimationPauseSwitch();
@@ -134,6 +140,11 @@ public:
 	const SpriteData& GetCurSprite()
 	{
 		return CurSprite;
+	}
+
+	inline unsigned int GetCurIndex() const
+	{
+		return CurFrameAnimations->CurIndex;
 	}
 
 protected:

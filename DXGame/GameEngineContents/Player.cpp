@@ -38,13 +38,24 @@ void Player::Start()
 		MainSpriteRenderer->CreateAnimation("LD_Jump_Start", "LD_Jump_Start", 0.0533f, -1, -1, true);
 		MainSpriteRenderer->CreateAnimation("LD_Jump_Landing", "LD_Jump_Landing", 0.0533f, -1, -1, true);
 		MainSpriteRenderer->CreateAnimation("LD_Jump_Falling", "LD_Jump_Falling", 0.0333f, -1, -1, true);
-		MainSpriteRenderer->CreateAnimation("LD_ComboMove_01", "LD_ComboMove_01", 0.0333f, -1, -1, true);
+
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_01", "LD_ComboMove_01", 0.0233f, -1, -1, true);
+		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_01", {0.0f}));
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_02", "LD_ComboMove_02", 0.0333f, -1, -1, true);
+		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_02", {100.0f}));
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_03", "LD_ComboMove_03", 0.0333f, -1, -1, true);
+		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_03", {100.0f}));
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_04", "LD_ComboMove_04", 0.0333f, -1, -1, true);
+		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_04", {50.0f}));
+
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_01_Rest", "LD_ComboMove_01_Rest", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_02_Rest", "LD_ComboMove_02_Rest", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_03_Rest", "LD_ComboMove_03_Rest", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_04_Rest", "LD_ComboMove_04_Rest", 0.0333f, -1, -1, true);
 		//MainSpriteRenderer->SetEndEvent("LD_RunUturn", std::bind(&Player::EndUturnEvent, this, MainSpriteRenderer.get()));
 		MainSpriteRenderer->SetSamplerState(SamplerOption::LINEAR);
 		MainSpriteRenderer->AutoSpriteSizeOn();
+		MainSpriteRenderer->SetPivotType(PivotType::Bottom);
 		
 		
 
@@ -83,9 +94,9 @@ void Player::Update(float _Delta)
 
 
 	// 플레이어 카메라 포커스
-	GameEngineColor Color = PlayMap::MainMap->GetColor(Transform.GetWorldPosition(), GameEngineColor::RED);
-	std::shared_ptr<GameEngineCamera> MainCamara = GetLevel()->GetMainCamera();
-	MainCamara->Transform.SetLocalPosition(Transform.GetWorldPosition());
+	//GameEngineColor Color = PlayMap::MainMap->GetColor(Transform.GetWorldPosition(), GameEngineColor::RED);
+	//std::shared_ptr<GameEngineCamera> MainCamara = GetLevel()->GetMainCamera();
+	//MainCamara->Transform.SetLocalPosition(Transform.GetWorldPosition());
 }
 
 
@@ -95,38 +106,40 @@ void Player::Update(float _Delta)
 
 void Player::ChangeState(PlayerState _State)
 {
-	if (_State != State)
+	
+	switch (_State)
 	{
-		switch (_State)
-		{
-		case PlayerState::Idle:	
-			IdleStart();
-			break;
-		case PlayerState::Jump_Falling:
-			Jump_FallingStart();
-			break;
-		case PlayerState::Jump_Landing:
-			Jump_LandingStart();
-			break;
-		case PlayerState::Jump_Start:
-			Jump_StartStart();
-			break;
-		case PlayerState::Run:
-			RunStart();
-			break;
-		case PlayerState::RunUturn:
-			RunUturnStart();
-			break;
-		case PlayerState::RunToIdle:
-			RunToIdleStart();
-			break;
-		case PlayerState::ComboMove:
-			ComboMoveStart();
-			break;
-		default:
-			break;
-		}
+	case PlayerState::Idle:	
+		IdleStart();
+		break;
+	case PlayerState::Jump_Falling:
+		Jump_FallingStart();
+		break;
+	case PlayerState::Jump_Landing:
+		Jump_LandingStart();
+		break;
+	case PlayerState::Jump_Start:
+		Jump_StartStart();
+		break;
+	case PlayerState::Run:
+		RunStart();
+		break;
+	case PlayerState::RunUturn:
+		RunUturnStart();
+		break;
+	case PlayerState::RunToIdle:
+		RunToIdleStart();
+		break;
+	case PlayerState::ComboMove:
+		ComboMoveStart();
+		break;
+	case PlayerState::ComboMove_Rest:
+		ComboMove_RestStart();
+		break;
+	default:
+		break;
 	}
+	
 	State = _State;
 }
 
@@ -158,6 +171,9 @@ void Player::StateUpdate(float _Delta)
 		break;
 	case PlayerState::ComboMove:
 		ComboMoveUpdate(_Delta);
+		break;
+	case PlayerState::ComboMove_Rest:
+		ComboMove_RestUpdate(_Delta);
 		break;
 	default:
 		break;

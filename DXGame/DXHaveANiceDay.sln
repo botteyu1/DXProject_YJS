@@ -44,6 +44,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{3F16BB9D-DBD7-43AA-9A4B-A6C9E1DB4BA3}"
 	ProjectSection(SolutionItems) = preProject
 		Doc\랜파.jpg = Doc\랜파.jpg
+		단기알정.txt = 단기알정.txt
 		할일.txt = 할일.txt
 	EndProjectSection
 EndProject
