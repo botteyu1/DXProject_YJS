@@ -8,12 +8,13 @@ void Player::IdleStart()
 }
 
 void Player::Jump_FallingStart()
-{
+{ 
 	MainSpriteRenderer->ChangeAnimation("LD_Jump_Falling");
 }
 void Player::Jump_LandingStart()
 {
 	MainSpriteRenderer->ChangeAnimation("LD_Jump_Landing");
+	
 }
 void Player::Jump_StartStart()
 {
@@ -21,7 +22,6 @@ void Player::Jump_StartStart()
 	
 	GrivityForce.Y += 1500.f;
 	Transform.AddLocalPosition({ 0.0f,1.0f });
-	
 }
 
 void Player::RunStart()
@@ -45,6 +45,7 @@ void Player::DashStart()
 {
 	MainSpriteRenderer->ChangeAnimation("LD_Dash");
 	CurDash = 0.0f;
+	ForceGrivityOff = true;
 }
 
 
@@ -139,6 +140,7 @@ void Player::RunToIdleUpdate(float _Delta)
 	InputJumpUpdate(_Delta);
 	InputAttackUpdate(_Delta);
 	InputDashUpdate(_Delta);
+
 }
 
 
@@ -153,6 +155,7 @@ void Player::Jump_FallingUpdate(float _Delta)
 	}
 	FlipCheck();
 	InputAttackUpdate(_Delta);
+	InputDashUpdate(_Delta);
 }
 
 
@@ -164,18 +167,15 @@ void Player::Jump_LandingUpdate(float _Delta)
 		ChangeState(PlayerState::Idle);
 	}
 	InputJumpUpdate(_Delta);
-
 	InputDashUpdate(_Delta);
+	InputAttackUpdate(_Delta);
+	 //혹시모르는 점프시작 콤보 초기화
 }
 
 
 
 void Player::Jump_StartUpdate(float _Delta)
 {
-
-	InputDashUpdate(_Delta);
-	InputMoveUpdate(_Delta);
-	InputAttackUpdate(_Delta);
 	if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
 		ChangeState(PlayerState::Jump_Falling);
@@ -184,13 +184,25 @@ void Player::Jump_StartUpdate(float _Delta)
 	{
 		GrivityForce.Y += 5000.0f * _Delta;
 	}
+	InputDashUpdate(_Delta);
+	InputMoveUpdate(_Delta);
+	InputAttackUpdate(_Delta);
+
+	InputDashUpdate(_Delta);
+	//AerialComboCount = 0; // 착지할떄 공중콤보 초기화
+	
 }
 
 void Player::DashUpdate(float _Delta)
 {
 	if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
-		if (GameEngineInput::IsPress('A') or GameEngineInput::IsPress('D'))
+		ForceGrivityOff = false;
+		if (AerialCheck == true)
+		{
+			ChangeState(PlayerState::Jump_Falling);
+		}
+		else if (GameEngineInput::IsPress('A') or GameEngineInput::IsPress('D'))
 		{
 			ChangeState(PlayerState::Run);
 		}

@@ -29,15 +29,21 @@ void Actor::Update(float _Delta)
 	
 	if (GameEngineColor::RED != Color and ForceGrivityOff == false)
 	{
+		AerialCheck = true;
 		GrivityForce.Y -= _Delta * 5000.f; 
 		Transform.AddLocalPosition(GrivityForce * _Delta);
+	}
+	//중력이 꺼져도 공중인지 체크하고 중력초기화
+	else if (GameEngineColor::RED != Color)
+	{
 		AerialCheck = true;
+		GrivityForce = 0.0f;
 	}
 	else
 	{
 		GrivityForce = 0.0f;  
 
-		if (AerialCheck == true)
+		if (AerialCheck == true and ForceGrivityOff == false)
 		{
 			while(true)
 			{

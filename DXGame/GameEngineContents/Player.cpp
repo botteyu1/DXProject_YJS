@@ -32,38 +32,41 @@ void Player::Start()
 
 		MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>();
 		MainSpriteRenderer->CreateAnimation("LD_Idle", "LD_Idle", 0.0333f, -1, -1, true);
-		MainSpriteRenderer->CreateAnimation("LD_RunUturn", "LD_RunUturn", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_RunUturn", "LD_RunUturn", 0.0333f, -1, -1, false);
 		MainSpriteRenderer->CreateAnimation("LD_Run", "LD_Run", 0.0333f, -1, -1, true);
-		MainSpriteRenderer->CreateAnimation("LD_RunToIdle", "LD_RunToIdle", 0.0333f, -1, -1, true);
-		MainSpriteRenderer->CreateAnimation("LD_Jump_Start", "LD_Jump_Start", 0.0533f, -1, -1, true);
-		MainSpriteRenderer->CreateAnimation("LD_Jump_Landing", "LD_Jump_Landing", 0.0533f, -1, -1, true);
-		MainSpriteRenderer->CreateAnimation("LD_Jump_Falling", "LD_Jump_Falling", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_RunToIdle", "LD_RunToIdle", 0.0333f, -1, -1, false);
+		MainSpriteRenderer->CreateAnimation("LD_Jump_Start", "LD_Jump_Start", 0.0533f, -1, -1, false);
+		MainSpriteRenderer->CreateAnimation("LD_Jump_Landing", "LD_Jump_Landing", 0.0533f, -1, -1, false);
+		MainSpriteRenderer->CreateAnimation("LD_Jump_Falling", "LD_Jump_Falling", 0.3333f, -1, -1, true);
 
-		MainSpriteRenderer->CreateAnimation("LD_ComboMove_01", "LD_ComboMove_01", 0.0233f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_01", "LD_ComboMove_01", 0.0233f, -1, -1, false);
 		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_01", {0.0f}));
-		MainSpriteRenderer->CreateAnimation("LD_ComboMove_02", "LD_ComboMove_02", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_02", "LD_ComboMove_02", 0.0333f, -1, -1, false);
 		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_02", {100.0f}));
-		MainSpriteRenderer->CreateAnimation("LD_ComboMove_03", "LD_ComboMove_03", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_03", "LD_ComboMove_03", 0.0333f, -1, -1, false);
 		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_03", {100.0f}));
-		MainSpriteRenderer->CreateAnimation("LD_ComboMove_04", "LD_ComboMove_04", 0.0333f, -1, -1, true);
-		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_04", {50.0f}));
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_04", "LD_ComboMove_04", 0.0333f, -1, -1, false);
+		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_04", {50.0f, true }));
 		
-		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_01", "LD_ComboAerial_01", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_01", "LD_ComboAerial_01", 0.0333f, -1, -1, false);
 		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_01", {0.0f}));
-		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_02", "LD_ComboAerial_02", 0.0233f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_02", "LD_ComboAerial_02", 0.0233f, -1, -1, false);
 		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_02", {30.0f}));
-		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_03", "LD_ComboAerial_03", 0.0333f, -1, -1, true);
-		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_03", {100.0f}));
+		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_03", "LD_ComboAerial_03", 0.0333f, -1, -1, false);
+		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_03", {100.0f , true}));
+		MainSpriteRenderer->CreateAnimation("LD_JumpingAttack", "LD_JumpingAttack", 0.0333f, -1, -1, false);
+		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_JumpingAttack", {500.0f , true}));
+		MainSpriteRenderer->CreateAnimation("LD_AerialDownAttack", "LD_AerialDownAttack", 0.0333f, -1, -1, false);
 
-		MainSpriteRenderer->CreateAnimation("LD_ComboMove_01_Rest", "LD_ComboMove_01_Rest", 0.0333f, -1, -1, true);
-		MainSpriteRenderer->CreateAnimation("LD_ComboMove_02_Rest", "LD_ComboMove_02_Rest", 0.0333f, -1, -1, true);
-		MainSpriteRenderer->CreateAnimation("LD_ComboMove_03_Rest", "LD_ComboMove_03_Rest", 0.0333f, -1, -1, true);
-		MainSpriteRenderer->CreateAnimation("LD_ComboMove_04_Rest", "LD_ComboMove_04_Rest", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_01_Rest", "LD_ComboMove_01_Rest", 0.0333f, -1, -1, false);
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_02_Rest", "LD_ComboMove_02_Rest", 0.0333f, -1, -1, false);
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_03_Rest", "LD_ComboMove_03_Rest", 0.0333f, -1, -1, false);
+		MainSpriteRenderer->CreateAnimation("LD_ComboMove_04_Rest", "LD_ComboMove_04_Rest", 0.0333f, -1, -1, false);
 
-		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_01_Rest", "LD_ComboAerial_01_Rest", 0.0333f, -1, -1, true);
-		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_02_Rest", "LD_ComboAerial_02_Rest", 0.0333f, -1, -1, true);
-		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_03_Rest", "LD_ComboAerial_03_Rest", 0.0333f, -1, -1, true);
-		MainSpriteRenderer->CreateAnimation("LD_Dash", "LD_Dash", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_01_Rest", "LD_ComboAerial_01_Rest", 0.0333f, -1, -1, false);
+		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_02_Rest", "LD_ComboAerial_02_Rest", 0.0333f, -1, -1, false);
+		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_03_Rest", "LD_ComboAerial_03_Rest", 0.0333f, -1, -1, false);
+		MainSpriteRenderer->CreateAnimation("LD_Dash", "LD_Dash", 0.0333f, -1, -1, false);
 		//MainSpriteRenderer->SetEndEvent("LD_RunUturn", std::bind(&Player::EndUturnEvent, this, MainSpriteRenderer.get()));
 		MainSpriteRenderer->SetSamplerState(SamplerOption::LINEAR);
 		MainSpriteRenderer->AutoSpriteSizeOn();
@@ -91,8 +94,12 @@ void Player::Update(float _Delta)
 
 	StateUpdate(_Delta);
 	
-
-	
+	if (AerialCheck == false)
+	{
+		JumpingAttackEnd = false;
+		AerialComboCount = 0;
+	}
+	 
 
 	if (GameEngineInput::IsPress('Q'))
 	{
@@ -154,6 +161,12 @@ void Player::ChangeState(PlayerState _State)
 	case PlayerState::ComboAerial_Rest:
 		ComboAerial_RestStart();
 		break;
+	case PlayerState::JumpingAttack:
+		JumpingAttackStart();
+		break;
+	case PlayerState::AerialDownAttack:
+		AerialDownAttackStart();
+		break;
 	case PlayerState::Dash:
 		DashStart();
 		break;
@@ -201,6 +214,12 @@ void Player::StateUpdate(float _Delta)
 		break;
 	case PlayerState::ComboAerial_Rest:
 		ComboAerial_RestUpdate(_Delta);
+		break;
+	case PlayerState::JumpingAttack:
+		JumpingAttackUpdate(_Delta);
+		break;
+	case PlayerState::AerialDownAttack:
+		AerialDownAttackUpdate(_Delta);
 		break;
 	case PlayerState::Dash:
 		DashUpdate(_Delta);

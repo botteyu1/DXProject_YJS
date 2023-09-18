@@ -19,19 +19,33 @@ void Player::ComboMove_RestStart()
 
 void Player::ComboAerialStart()
 {
-	ComboCount++;
-	std::string AnimationName = "LD_ComboAerial_0" + std::to_string(ComboCount);
+	AerialComboCount++;
+	std::string AnimationName = "LD_ComboAerial_0" + std::to_string(AerialComboCount);
 	MainSpriteRenderer->ChangeAnimation(AnimationName);
 	CurAnimationData = &PlayerAnimationDataMap.find(AnimationName)->second;
 	NextCombo = false;
 	CurDash = 0;
 	ForceGrivityOff = true;
-}
+} 
 
 void Player::ComboAerial_RestStart()
 {
 	ForceGrivityOff = false;
-	MainSpriteRenderer->ChangeAnimation("LD_ComboAerial_0" + std::to_string(ComboCount) + "_Rest");
+	MainSpriteRenderer->ChangeAnimation("LD_ComboAerial_0" + std::to_string(AerialComboCount) + "_Rest");
+}
+
+void Player::JumpingAttackStart()
+{
+	MainSpriteRenderer->ChangeAnimation("LD_JumpingAttack");
+	CurAnimationData = &PlayerAnimationDataMap.find("LD_JumpingAttack")->second;
+	ForceGrivityOff = true;
+	CurDash = 0;
+}
+
+void Player::AerialDownAttackStart()
+{
+	MainSpriteRenderer->ChangeAnimation("LD_AerialDownAttack");
+	GrivityForce.Y -= 3500.f;
 }
 
 // 프레임으로 다음콤보 시작 위치 확인
@@ -45,7 +59,7 @@ void Player::ComboMoveUpdate(float _Delta)
 	}
 	if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
-		if (NextCombo == true and ComboCount < 4)
+		if (NextCombo == true and AerialComboCount < 4)
 		{
 			ChangeState(PlayerState::ComboMove);
 		}
@@ -54,6 +68,7 @@ void Player::ComboMoveUpdate(float _Delta)
 			ChangeState(PlayerState::ComboMove_Rest);
 		}
 	}
+	InputDashUpdate(_Delta);
 	// 대쉬 처리
 
 	// 현재 대쉬거리와 목표 대쉬거리가 같으면 대쉬처리x
@@ -85,14 +100,21 @@ void Player::ComboMoveUpdate(float _Delta)
 
 void Player::ComboMove_RestUpdate(float _Delta)
 {
-	if (GameEngineInput::IsDown(VK_LBUTTON) and ComboCount < 4)
+	if (GameEngineInput::IsPress('W') and GameEngineInput::IsDown(VK_LBUTTON))
+	{
+		ChangeState(PlayerState::JumpingAttack);
+	}
+
+	else if (GameEngineInput::IsDown(VK_LBUTTON) and ComboCount < 4)
 	{
 		ChangeState(PlayerState::ComboMove);
 	}
-	if (MainSpriteRenderer->IsCurAnimationEnd())
+	else if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
 	}
+
+	InputDashUpdate(_Delta);
 }
 
 
@@ -105,7 +127,7 @@ void Player::ComboAerialUpdate(float _Delta)
 	}
 	if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
-		if (NextCombo == true and ComboCount < 3)
+		if (NextCombo == true and AerialComboCount < 3)
 		{
 			ChangeState(PlayerState::ComboAerial);
 
@@ -115,6 +137,10 @@ void Player::ComboAerialUpdate(float _Delta)
 			ChangeState(PlayerState::ComboAerial_Rest);
 		}
 	}
+
+	
+
+	InputDashUpdate(_Delta);
 	// 대쉬 처리
 
 	// 현재 대쉬거리와 목표 대쉬거리가 같으면 대쉬처리x
@@ -123,8 +149,8 @@ void Player::ComboAerialUpdate(float _Delta)
 		return;
 	}
 
-	float Speed = 2000.0f;
-	float NextPos = Speed * _Delta;
+	
+	float NextPos = DashSpeed * _Delta;
 
 	CurDash += NextPos;
 
@@ -132,8 +158,6 @@ void Player::ComboAerialUpdate(float _Delta)
 	{
 		NextPos -= CurDash - CurAnimationData->DashDistance;
 		CurDash = CurAnimationData->DashDistance;
-
-
 	}
 	if (Flip == true)
 	{
@@ -144,17 +168,70 @@ void Player::ComboAerialUpdate(float _Delta)
 
 void Player::ComboAerial_RestUpdate(float _Delta)
 {
-	if (GameEngineInput::IsDown(VK_LBUTTON) and ComboCount < 3)
+	if (GameEngineInput::IsPress('W') and GameEngineInput::IsDown(VK_LBUTTON))
+	{
+		ChangeState(PlayerState::JumpingAttack);
+	}
+	else if (GameEngineInput::IsDown(VK_LBUTTON) and AerialComboCount < 3)
 	{
 		ChangeState(PlayerState::ComboAerial);
 	}
-	if (MainSpriteRenderer->IsCurAnimationEnd())
+	else if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
-		ChangeState(PlayerState::Idle);
-		
+		ChangeState(PlayerState::Jump_Falling);
 	}
+
+	InputDashUpdate(_Delta);
 }
 
+void Player::JumpingAttackUpdate(float _Delta)
+{
+	if (MainSpriteRenderer->IsCurAnimationEnd())
+	{
+		ForceGrivityOff = false;
+		if (AerialCheck == true)
+		{
+			ChangeState(PlayerState::Jump_Falling);
+		}
+		else if (GameEngineInput::IsPress('A') or GameEngineInput::IsPress('D'))
+		{
+			ChangeState(PlayerState::Run);
+		}
+		else
+		{
+			ChangeState(PlayerState::Idle);
+		}
+	}
+
+	// 대쉬처리
+	if (CurDash == CurAnimationData->DashDistance)
+	{
+		return;
+	}
+
+	float NextPos = JumpingAttackSpeed * _Delta;
+
+	CurDash += NextPos;
+
+	if (CurDash >= CurAnimationData->DashDistance)
+	{
+		NextPos -= CurDash - CurAnimationData->DashDistance;
+		CurDash = CurAnimationData->DashDistance;
+	}
+
+	Transform.AddLocalPosition(float4::UP * NextPos);
+}
+
+
+
+
+void Player::AerialDownAttackUpdate(float _Delta)
+{
+	if (MainSpriteRenderer->IsCurAnimationEnd() and AerialCheck == false)
+	{
+ 		ChangeState(PlayerState::Idle);
+	}
+}
 
 
 void Player::InputAttackUpdate(float _Delta)
@@ -163,7 +240,15 @@ void Player::InputAttackUpdate(float _Delta)
 	{
 		ComboCount = 0;
 		FlipCheck();
-		if (AerialCheck == true)
+		if (GameEngineInput::IsPress('W'))
+		{
+			ChangeState(PlayerState::JumpingAttack);
+		}
+		else if (AerialCheck == true and AerialComboCount < 3 and GameEngineInput::IsPress('S'))
+		{
+			ChangeState(PlayerState::AerialDownAttack);
+		}
+ 		else if (AerialCheck == true and AerialComboCount < 3)
 		{
 			ChangeState(PlayerState::ComboAerial);
 		}
