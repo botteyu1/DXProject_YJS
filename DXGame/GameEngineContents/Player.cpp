@@ -47,11 +47,23 @@ void Player::Start()
 		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_03", {100.0f}));
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_04", "LD_ComboMove_04", 0.0333f, -1, -1, true);
 		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_04", {50.0f}));
+		
+		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_01", "LD_ComboAerial_01", 0.0333f, -1, -1, true);
+		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_01", {0.0f}));
+		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_02", "LD_ComboAerial_02", 0.0233f, -1, -1, true);
+		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_02", {30.0f}));
+		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_03", "LD_ComboAerial_03", 0.0333f, -1, -1, true);
+		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_03", {100.0f}));
 
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_01_Rest", "LD_ComboMove_01_Rest", 0.0333f, -1, -1, true);
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_02_Rest", "LD_ComboMove_02_Rest", 0.0333f, -1, -1, true);
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_03_Rest", "LD_ComboMove_03_Rest", 0.0333f, -1, -1, true);
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_04_Rest", "LD_ComboMove_04_Rest", 0.0333f, -1, -1, true);
+
+		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_01_Rest", "LD_ComboAerial_01_Rest", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_02_Rest", "LD_ComboAerial_02_Rest", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_03_Rest", "LD_ComboAerial_03_Rest", 0.0333f, -1, -1, true);
+		MainSpriteRenderer->CreateAnimation("LD_Dash", "LD_Dash", 0.0333f, -1, -1, true);
 		//MainSpriteRenderer->SetEndEvent("LD_RunUturn", std::bind(&Player::EndUturnEvent, this, MainSpriteRenderer.get()));
 		MainSpriteRenderer->SetSamplerState(SamplerOption::LINEAR);
 		MainSpriteRenderer->AutoSpriteSizeOn();
@@ -136,6 +148,15 @@ void Player::ChangeState(PlayerState _State)
 	case PlayerState::ComboMove_Rest:
 		ComboMove_RestStart();
 		break;
+	case PlayerState::ComboAerial:
+		ComboAerialStart();
+		break;
+	case PlayerState::ComboAerial_Rest:
+		ComboAerial_RestStart();
+		break;
+	case PlayerState::Dash:
+		DashStart();
+		break;
 	default:
 		break;
 	}
@@ -174,6 +195,15 @@ void Player::StateUpdate(float _Delta)
 		break;
 	case PlayerState::ComboMove_Rest:
 		ComboMove_RestUpdate(_Delta);
+		break;
+	case PlayerState::ComboAerial:
+		ComboAerialUpdate(_Delta);
+		break;
+	case PlayerState::ComboAerial_Rest:
+		ComboAerial_RestUpdate(_Delta);
+		break;
+	case PlayerState::Dash:
+		DashUpdate(_Delta);
 		break;
 	default:
 		break;

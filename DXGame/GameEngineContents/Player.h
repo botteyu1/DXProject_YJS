@@ -12,6 +12,9 @@ enum class PlayerState
 	RunToIdle,
 	ComboMove,
 	ComboMove_Rest,
+	ComboAerial,
+	ComboAerial_Rest,
+	Dash,
 	Max, // 일반적으로 사용하지 않는 값.
 };
 
@@ -90,10 +93,21 @@ private:
 
 	void ComboMove_RestStart();
 	void ComboMove_RestUpdate(float _Delta);
+	
+	void ComboAerialStart();
+	void ComboAerialUpdate(float _Delta);
+
+	void ComboAerial_RestStart();
+	void ComboAerial_RestUpdate(float _Delta);
+
+	void DashStart();
+	void DashUpdate(float _Delta);
 
 	void InputMoveUpdate(float _Delta);
 	void InputJumpUpdate(float _Delta);
 	void InputAttackUpdate(float _Delta);
+	void InputDashUpdate(float _Delta);
+
 	void FlipCheck();
 
 

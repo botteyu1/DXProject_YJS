@@ -41,6 +41,12 @@ void Player::RunToIdleStart()
 	MainSpriteRenderer->ChangeAnimation("LD_RunToIdle");
 }
 
+void Player::DashStart()
+{
+	MainSpriteRenderer->ChangeAnimation("LD_Dash");
+	CurDash = 0.0f;
+}
+
 
 
 
@@ -48,7 +54,6 @@ void Player::RunToIdleStart()
 void Player::IdleUpdate(float _Delta)
 {
 	bool PreFlip = Flip;
-	InputMoveUpdate(_Delta);
 
 
 	if (Dir != float4::ZERO)
@@ -62,10 +67,10 @@ void Player::IdleUpdate(float _Delta)
 			ChangeState(PlayerState::RunUturn);
 		}
 	}
+	InputMoveUpdate(_Delta);
 	InputJumpUpdate(_Delta);
-
 	InputAttackUpdate(_Delta);
-	
+	InputDashUpdate(_Delta);
 }
 
 void Player::RunUpdate(float _Delta)
@@ -85,6 +90,7 @@ void Player::RunUpdate(float _Delta)
 
 	InputJumpUpdate(_Delta);
 	InputAttackUpdate(_Delta);
+	InputDashUpdate(_Delta);
 }
 
 void Player::RunUturnUpdate(float _Delta)
@@ -105,7 +111,7 @@ void Player::RunUturnUpdate(float _Delta)
 	}
 
 	InputJumpUpdate(_Delta);
-
+	InputDashUpdate(_Delta);
 	InputAttackUpdate(_Delta);
 }
 
@@ -132,6 +138,7 @@ void Player::RunToIdleUpdate(float _Delta)
 
 	InputJumpUpdate(_Delta);
 	InputAttackUpdate(_Delta);
+	InputDashUpdate(_Delta);
 }
 
 
@@ -140,11 +147,12 @@ void Player::Jump_FallingUpdate(float _Delta)
 {
 	InputMoveUpdate(_Delta);
 
-	if (GrivityCheck == false)
+	if (AerialCheck == false)
 	{
 		ChangeState(PlayerState::Jump_Landing);
 	}
 	FlipCheck();
+	InputAttackUpdate(_Delta);
 }
 
 
@@ -156,13 +164,18 @@ void Player::Jump_LandingUpdate(float _Delta)
 		ChangeState(PlayerState::Idle);
 	}
 	InputJumpUpdate(_Delta);
+
+	InputDashUpdate(_Delta);
 }
 
 
 
 void Player::Jump_StartUpdate(float _Delta)
 {
+
+	InputDashUpdate(_Delta);
 	InputMoveUpdate(_Delta);
+	InputAttackUpdate(_Delta);
 	if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
 		ChangeState(PlayerState::Jump_Falling);
@@ -173,9 +186,30 @@ void Player::Jump_StartUpdate(float _Delta)
 	}
 }
 
+void Player::DashUpdate(float _Delta)
+{
+	if (MainSpriteRenderer->IsCurAnimationEnd())
+	{
+		if (GameEngineInput::IsPress('A') or GameEngineInput::IsPress('D'))
+		{
+			ChangeState(PlayerState::Run);
+		}
+		else
+		{
+			ChangeState(PlayerState::Idle);
+		}
+	}
 
+	if (Flip == true)
+	{
+		Transform.AddLocalPosition(float4::LEFT * _Delta * 2000.0f);
+	}
+	if (Flip == false)
+	{
+		Transform.AddLocalPosition(float4::RIGHT * _Delta * 2000.0f);
+	}
 
-
+}
 
 
 void Player::InputMoveUpdate(float _Delta)
@@ -218,9 +252,16 @@ void Player::InputJumpUpdate(float _Delta)
 	{
 		ChangeState(PlayerState::Jump_Start);
 	}
-	
 }
 
+
+void Player::InputDashUpdate(float _Delta)
+{
+	if (GameEngineInput::IsDown(VK_LSHIFT))
+	{
+		ChangeState(PlayerState::Dash);
+	}
+}
 
 void Player::FlipCheck()
 {

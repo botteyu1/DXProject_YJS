@@ -27,17 +27,17 @@ void Actor::Update(float _Delta)
 	//WorldPosition.Y -= 1.0f;
 	GameEngineColor Color = static_cast<Level*>(GetLevel())->GetMap()->GetColor(WorldPosition, GameEngineColor::RED);
 	
-	if (GameEngineColor::RED != Color)
+	if (GameEngineColor::RED != Color and ForceGrivityOff == false)
 	{
 		GrivityForce.Y -= _Delta * 5000.f; 
 		Transform.AddLocalPosition(GrivityForce * _Delta);
-		GrivityCheck = true;
+		AerialCheck = true;
 	}
 	else
 	{
 		GrivityForce = 0.0f;  
 
-		if (GrivityCheck == true)
+		if (AerialCheck == true)
 		{
 			while(true)
 			{
@@ -49,7 +49,7 @@ void Actor::Update(float _Delta)
 				}
 				else
 				{
-					GrivityCheck = false;
+					AerialCheck = false;
 					break;
 				}
 			}
