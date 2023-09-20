@@ -45,6 +45,7 @@ void Player::DashStart()
 {
 	MainSpriteRenderer->ChangeAnimation("LD_Dash");
 	CurDash = 0.0f;
+	//GrivityForce.Y = 0.0f;
 	ForceGrivityOff = true;
 }
 
@@ -161,7 +162,13 @@ void Player::Jump_FallingUpdate(float _Delta)
 
 void Player::Jump_LandingUpdate(float _Delta)
 {
+	bool PreFlip = Flip;
 	InputMoveUpdate(_Delta);
+
+	if (Flip != PreFlip)
+	{
+		ChangeState(PlayerState::RunUturn);
+	}
 	if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);

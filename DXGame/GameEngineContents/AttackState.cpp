@@ -244,7 +244,7 @@ void Player::InputAttackUpdate(float _Delta)
 		{
 			ChangeState(PlayerState::JumpingAttack);
 		}
-		else if (AerialCheck == true and AerialComboCount < 3 and GameEngineInput::IsPress('S'))
+		else if (AerialCheck == true and GameEngineInput::IsPress('S'))
 		{
 			ChangeState(PlayerState::AerialDownAttack);
 		}

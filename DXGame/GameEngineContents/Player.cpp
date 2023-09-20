@@ -70,11 +70,10 @@ void Player::Start()
 		//MainSpriteRenderer->SetEndEvent("LD_RunUturn", std::bind(&Player::EndUturnEvent, this, MainSpriteRenderer.get()));
 		MainSpriteRenderer->SetSamplerState(SamplerOption::LINEAR);
 		MainSpriteRenderer->AutoSpriteSizeOn();
-		MainSpriteRenderer->SetPivotType(PivotType::Bottom);
+		//MainSpriteRenderer->SetPivotType(PivotType::Bottom);
 		
-		
-
-		
+		const SpriteData& Sprite = MainSpriteRenderer->GetCurSprite();
+		//Sprite.GetScale();
 
 		//MainSpriteRenderer->SetEndEvent("Run", std::bind(&Player::TestEvent, this, std::placeholders::_1));
 		// MainSpriteRenderer->Transform.SetLocalScale({5, 5});
