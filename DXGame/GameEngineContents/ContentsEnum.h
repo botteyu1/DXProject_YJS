@@ -3,7 +3,8 @@
 enum class ContentsRenderType
 {
 	BackGround,
-	Play,
+	Enemy,
+	Player,
 };
 
 
@@ -11,11 +12,11 @@ enum class ContentsObjectType
 {
 	BackGround,
 	Player,
-	Monster,
+	Enemy,
 };
 
 enum class ContentsCollisionType
 {
 	Player,
-	Monster,
+	Enemy,
 };

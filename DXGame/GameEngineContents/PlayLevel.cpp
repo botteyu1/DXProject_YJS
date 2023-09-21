@@ -2,6 +2,7 @@
 #include "PlayLevel.h"
 #include "Player.h"
 #include "PlayMap.h"
+#include "Ghost_Man.h"
 
 
 PlayLevel::PlayLevel() 
@@ -15,10 +16,6 @@ PlayLevel::~PlayLevel()
 void PlayLevel::Start()
 {
 
-	
-	{
-		
-	}
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
 
@@ -34,7 +31,9 @@ void PlayLevel::Start()
 		SetMap(CreateActor<PlayMap>());
 	}
 
+	CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
 }
+
 
 void PlayLevel::Update(float _Delta)
 {

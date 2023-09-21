@@ -49,7 +49,7 @@ protected:
 	void Update(float _Delta) override;
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer;
+	
 
 	float Speed = 700.0f;
 	float DashSpeed = 2000.0f;

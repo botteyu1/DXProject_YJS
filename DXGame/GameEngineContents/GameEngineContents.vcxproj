@@ -172,6 +172,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Ghost_Man.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Level.cpp">
       <SubType>
       </SubType>
@@ -215,6 +223,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="Enemy.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Ghost_Man.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Level.h">
       <SubType>
       </SubType>

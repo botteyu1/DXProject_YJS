@@ -33,6 +33,12 @@
     <ClCompile Include="OtherState.cpp">
       <Filter>Actor\Player\State</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Actor\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghost_Man.cpp">
+      <Filter>Actor\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
@@ -49,9 +55,6 @@
     <ClInclude Include="Map.h">
       <Filter>Object\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Actor\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Actor.h">
       <Filter>Actor</Filter>
     </ClInclude>
@@ -59,6 +62,15 @@
       <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="Enemy.h">
+      <Filter>Actor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghost_Man.h">
+      <Filter>Actor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Actor\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -78,6 +90,9 @@
     </Filter>
     <Filter Include="Actor\Player\State">
       <UniqueIdentifier>{69426412-584d-42e2-8f94-28a9ef79da24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Enemy">
+      <UniqueIdentifier>{f4e0cd62-caf0-4eb1-bbe9-4d229147f7a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
