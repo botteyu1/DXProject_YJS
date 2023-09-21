@@ -32,6 +32,18 @@ void Enemy::ChangeState(EnemyState _State)
 	case EnemyState::Hit:
 		HitStart();
 		break;
+	case EnemyState::Run:
+		RunStart();
+		break;
+	case EnemyState::Surprised:
+		SurprisedStart();
+		break;
+	case EnemyState::Uturn:
+		UturnStart();
+		break;
+	case EnemyState::Waiting:
+		WaitingStart();
+		break;
 	default:
 		break;
 	}
@@ -59,7 +71,17 @@ void Enemy::StateUpdate(float _Delta)
 	case EnemyState::Hit:
 		HitUpdate(_Delta);
 		break;
-	case EnemyState::Max:
+	case EnemyState::Run:
+		RunUpdate(_Delta);
+		break;
+	case EnemyState::Surprised:
+		SurprisedUpdate(_Delta);
+		break;
+	case EnemyState::Uturn:
+		UturnUpdate(_Delta);
+		break;
+	case EnemyState::Waiting:
+		WaitingUpdate(_Delta);
 		break;
 	default:
 		break;
@@ -104,5 +126,37 @@ void Enemy::HitStart()
 }
 
 void Enemy::HitUpdate(float _Delta)
+{
+}
+
+void Enemy::RunStart()
+{
+}
+
+void Enemy::RunUpdate(float _Delta)
+{
+}
+
+void Enemy::SurprisedStart()
+{
+}
+
+void Enemy::SurprisedUpdate(float _Delta)
+{
+}
+
+void Enemy::UturnStart()
+{
+}
+
+void Enemy::UturnUpdate(float _Delta)
+{
+}
+
+void Enemy::WaitingStart()
+{
+}
+
+void Enemy::WaitingUpdate(float _Delta)
 {
 }

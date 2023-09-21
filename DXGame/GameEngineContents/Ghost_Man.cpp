@@ -32,6 +32,10 @@ void Ghost_Man::Start()
 	MainSpriteRenderer->CreateAnimation("Ghost_idle", "Ghost_idle", 0.0666f, -1, -1, true);
 	MainSpriteRenderer->CreateAnimation("Ghost_Death", "Ghost_Death", 0.0666f, -1, -1, true);
 	MainSpriteRenderer->CreateAnimation("Ghost_Hit", "Ghost_Hit", 0.0666f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("Ghost_Run", "Ghost_Run", 0.0666f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("Ghost_Surprised", "Ghost_Surprised", 0.0666f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("Ghost_Uturn", "Ghost_Uturn", 0.0666f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("Ghost_Waiting", "Ghost_Waiting", 0.0666f, -1, -1, true);
 
 	MainSpriteRenderer->SetSamplerState(SamplerOption::LINEAR);
 	MainSpriteRenderer->AutoSpriteSizeOn();
@@ -60,6 +64,7 @@ void Ghost_Man::IdleUpdate(float _Delta)
 
 void Ghost_Man::AttackStart()
 {
+	MainSpriteRenderer->ChangeAnimation("Ghost_Attack");
 }
 
 void Ghost_Man::AttackUpdate(float _Delta)
@@ -68,14 +73,17 @@ void Ghost_Man::AttackUpdate(float _Delta)
 
 void Ghost_Man::AppearStart()
 {
+	MainSpriteRenderer->ChangeAnimation("Ghost_Attack");
 }
 
 void Ghost_Man::AppearUpdate(float _Delta)
 {
+
 }
 
 void Ghost_Man::DeathStart()
 {
+	MainSpriteRenderer->ChangeAnimation("Ghost_Death");
 }
 
 void Ghost_Man::DeathUpdate(float _Delta)
@@ -84,9 +92,46 @@ void Ghost_Man::DeathUpdate(float _Delta)
 
 void Ghost_Man::HitStart()
 {
+	MainSpriteRenderer->ChangeAnimation("Ghost_Hit");
 }
 
 void Ghost_Man::HitUpdate(float _Delta)
+{
+}
+
+void Ghost_Man::RunStart()
+{
+	MainSpriteRenderer->ChangeAnimation("Ghost_Run");
+}
+
+void Ghost_Man::RunUpdate(float _Delta)
+{
+}
+
+void Ghost_Man::SurprisedStart()
+{
+	MainSpriteRenderer->ChangeAnimation("Ghost_Surprised");
+}
+
+void Ghost_Man::SurprisedUpdate(float _Delta)
+{
+}
+
+void Ghost_Man::UturnStart()
+{
+	MainSpriteRenderer->ChangeAnimation("Ghost_Uturn");
+}
+
+void Ghost_Man::UturnUpdate(float _Delta)
+{
+}
+
+void Ghost_Man::WaitingStart()
+{
+	MainSpriteRenderer->ChangeAnimation("Ghost_Waiting");
+}
+
+void Ghost_Man::WaitingUpdate(float _Delta)
 {
 }
 

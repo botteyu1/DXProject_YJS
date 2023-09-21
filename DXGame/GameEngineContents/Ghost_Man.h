@@ -38,6 +38,17 @@ private:
 	void HitStart();
 	void HitUpdate(float _Delta);
 
+	void RunStart();
+	void RunUpdate(float _Delta);
+
+	void SurprisedStart();
+	void SurprisedUpdate(float _Delta);
+
+	void UturnStart();
+	void UturnUpdate(float _Delta);
+
+	void WaitingStart();
+	void WaitingUpdate(float _Delta);
 
 
 };

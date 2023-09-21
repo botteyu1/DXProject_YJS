@@ -8,6 +8,10 @@ enum class EnemyState
 	Appear,
 	Death,
 	Hit,
+	Run,
+	Surprised,
+	Uturn,
+	Waiting,
 	Max, // 일반적으로 사용하지 않는 값.
 };
 
@@ -52,6 +56,18 @@ protected:
 	
 	virtual void HitStart();
 	virtual void HitUpdate(float _Delta);
+
+	virtual void RunStart();
+	virtual void RunUpdate(float _Delta);
+
+	virtual void SurprisedStart();
+	virtual void SurprisedUpdate(float _Delta);
+
+	virtual void UturnStart();
+	virtual void UturnUpdate(float _Delta);
+
+	virtual void WaitingStart();
+	virtual void WaitingUpdate(float _Delta);
 
 	
 	void FlipCheck();
