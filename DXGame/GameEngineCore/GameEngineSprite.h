@@ -12,7 +12,7 @@ public:
 	// 이미지를 자르는 용도로 사용됩니다.
 	float4 SpritePivot;
 
-	const float4& GetScale();
+	const float4  GetScale();
 };
 
 // 설명 :

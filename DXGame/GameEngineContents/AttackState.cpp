@@ -5,15 +5,14 @@ void Player::ComboMoveStart()
 {
 	ComboCount++;
 	std::string AnimationName = "LD_ComboMove_0" + std::to_string(ComboCount);
-	MainSpriteRenderer->ChangeAnimation(AnimationName);
-	CurAnimationData = &PlayerAnimationDataMap.find(AnimationName)->second;
+	ChangeMainAnimation(AnimationName);
 	NextCombo = false;
-	CurDash = 0;
 }
 
 void Player::ComboMove_RestStart()
 {
-	MainSpriteRenderer->ChangeAnimation("LD_ComboMove_0" + std::to_string(ComboCount) + "_Rest");
+	std::string AnimationName = "LD_ComboMove_0" + std::to_string(ComboCount) + "_Rest";
+	MainSpriteRenderer->ChangeAnimation(AnimationName);
 }
 
 
@@ -21,10 +20,9 @@ void Player::ComboAerialStart()
 {
 	AerialComboCount++;
 	std::string AnimationName = "LD_ComboAerial_0" + std::to_string(AerialComboCount);
-	MainSpriteRenderer->ChangeAnimation(AnimationName);
-	CurAnimationData = &PlayerAnimationDataMap.find(AnimationName)->second;
+	ChangeMainAnimation(AnimationName);
+
 	NextCombo = false;
-	CurDash = 0;
 	ForceGrivityOff = true;
 } 
 
@@ -37,14 +35,14 @@ void Player::ComboAerial_RestStart()
 void Player::JumpingAttackStart()
 {
 	MainSpriteRenderer->ChangeAnimation("LD_JumpingAttack");
-	CurAnimationData = &PlayerAnimationDataMap.find("LD_JumpingAttack")->second;
+	CurAnimationData = &AnimationDataMap.find("LD_JumpingAttack")->second;
 	ForceGrivityOff = true;
 	CurDash = 0;
 }
 
 void Player::AerialDownAttackStart()
 {
-	MainSpriteRenderer->ChangeAnimation("LD_AerialDownAttack");
+	ChangeMainAnimation("LD_AerialDownAttack");
 	GrivityForce.Y -= 3500.f;
 }
 
@@ -59,7 +57,7 @@ void Player::ComboMoveUpdate(float _Delta)
 	}
 	if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
-		if (NextCombo == true and AerialComboCount < 4)
+		if (NextCombo == true and ComboCount < 4)
 		{
 			ChangeState(PlayerState::ComboMove);
 		}
@@ -69,31 +67,8 @@ void Player::ComboMoveUpdate(float _Delta)
 		}
 	}
 	InputDashUpdate(_Delta);
-	// 대쉬 처리
-
-	// 현재 대쉬거리와 목표 대쉬거리가 같으면 대쉬처리x
-	if (CurDash == CurAnimationData->DashDistance)
-	{
-		return;
-	}
+	DashProcessUpdate(_Delta, float4::RIGHT, DashSpeed);
 	
-	float Speed = 2000.0f;
-	float NextPos = Speed * _Delta;
-	
-	CurDash += NextPos;
-
-	if (CurDash >= CurAnimationData->DashDistance)
-	{
-		NextPos -= CurDash - CurAnimationData->DashDistance;
-		CurDash = CurAnimationData->DashDistance;
-
-		
-	}
-	if (Flip == true)
-	{
-		NextPos = -NextPos;
-	}
-	Transform.AddLocalPosition(NextPos);
 }
 
 
@@ -112,6 +87,7 @@ void Player::ComboMove_RestUpdate(float _Delta)
 	else if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
+		
 	}
 
 	InputDashUpdate(_Delta);
@@ -141,29 +117,8 @@ void Player::ComboAerialUpdate(float _Delta)
 	
 
 	InputDashUpdate(_Delta);
-	// 대쉬 처리
 
-	// 현재 대쉬거리와 목표 대쉬거리가 같으면 대쉬처리x
-	if (CurDash == CurAnimationData->DashDistance)
-	{
-		return;
-	}
-
-	
-	float NextPos = DashSpeed * _Delta;
-
-	CurDash += NextPos;
-
-	if (CurDash >= CurAnimationData->DashDistance)
-	{
-		NextPos -= CurDash - CurAnimationData->DashDistance;
-		CurDash = CurAnimationData->DashDistance;
-	}
-	if (Flip == true)
-	{
-		NextPos = -NextPos;
-	}
-	Transform.AddLocalPosition(NextPos);
+	DashProcessUpdate(_Delta, float4::RIGHT, DashSpeed);
 }
 
 void Player::ComboAerial_RestUpdate(float _Delta)
@@ -203,23 +158,8 @@ void Player::JumpingAttackUpdate(float _Delta)
 		}
 	}
 
-	// 대쉬처리
-	if (CurDash == CurAnimationData->DashDistance)
-	{
-		return;
-	}
-
-	float NextPos = JumpingAttackSpeed * _Delta;
-
-	CurDash += NextPos;
-
-	if (CurDash >= CurAnimationData->DashDistance)
-	{
-		NextPos -= CurDash - CurAnimationData->DashDistance;
-		CurDash = CurAnimationData->DashDistance;
-	}
-
-	Transform.AddLocalPosition(float4::UP * NextPos);
+	DashProcessUpdate(_Delta, float4::UP, DashSpeed);
+	
 }
 
 

@@ -20,15 +20,7 @@ enum class PlayerState
 	Max, // 일반적으로 사용하지 않는 값.
 };
 
-class AnimationData
-{
-public:
-	float DashDistance; // 애니메이션에서 이동할 대쉬 거리 
-	bool ComboEnd = false; //마지막 콤보인지 여부
 
-	//int NextComboFrame;  //콤보가 계속 될떄 애니메이션이 바뀌는 프레임
-	//bool HaveToIdle;
-};
 // 설명 :
 class Player : public Actor
 {
@@ -51,19 +43,17 @@ protected:
 private:
 	
 
-	float Speed = 700.0f;
-	float DashSpeed = 2000.0f;
+	float MoveSpeed = 700.0f;
+	float JumpingSpeed = 1500.0f;
 	float JumpingAttackSpeed = 1500.0f;
 
 	PlayerState State = PlayerState::Max;
-	std::map<std::string, AnimationData> PlayerAnimationDataMap;
 
 	int ComboCount = 1;
 	int AerialComboCount = 1;
-	float CurDash = 0.0f; //현재까지 움직인 대쉬 거리
-	AnimationData* CurAnimationData; //현재 애니메이션 Data
 
-	bool Flip = false;
+	
+
 	bool NextCombo = false; // 다음 콤보 입력했느지 확인 
 	bool AerialComboEnd = false; //공콤 끝났는지 여부;
 	bool JumpingAttackEnd = false; //점핑어택 끝났는지 여부;

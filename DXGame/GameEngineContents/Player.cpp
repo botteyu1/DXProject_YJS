@@ -22,67 +22,82 @@ void Player::Start()
 		std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
 
 		for (size_t i = 0; i < Directorys.size(); i++)
-		{ 
+		{
 			GameEngineDirectory& Dir = Directorys[i];
 
 			GameEngineSprite::CreateFolder(Dir.GetStringPath());
 
 		}
-		 
+
 
 		MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Player);
 		MainSpriteRenderer->CreateAnimation("LD_Idle", "LD_Idle", 0.0333f, -1, -1, true);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Idle", {}));
+
 		MainSpriteRenderer->CreateAnimation("LD_RunUturn", "LD_RunUturn", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_RunUturn", {}));
 		MainSpriteRenderer->CreateAnimation("LD_Run", "LD_Run", 0.0333f, -1, -1, true);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Run", {}));
 		MainSpriteRenderer->CreateAnimation("LD_RunToIdle", "LD_RunToIdle", 0.0333f, -1, -1, false);
-		MainSpriteRenderer->CreateAnimation("LD_Jump_Start", "LD_Jump_Start", 0.0533f, -1, -1, false);
-		MainSpriteRenderer->CreateAnimation("LD_Jump_Landing", "LD_Jump_Landing", 0.0533f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_RunToIdle", {}));
+
+		MainSpriteRenderer->CreateAnimation("LD_Jump_Start", "LD_Jump_Start", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Jump_Start", {}));
+		MainSpriteRenderer->CreateAnimation("LD_Jump_Landing", "LD_Jump_Landing", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Jump_Landing", {}));
 		MainSpriteRenderer->CreateAnimation("LD_Jump_Falling", "LD_Jump_Falling", 0.3333f, -1, -1, true);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Jump_Falling", {}));
 
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_01", "LD_ComboMove_01", 0.0233f, -1, -1, false);
-		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_01", {0.0f}));
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_01", { 0.8f , 30.0f}));
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_02", "LD_ComboMove_02", 0.0333f, -1, -1, false);
-		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_02", {100.0f}));
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_02", { 0.8f, 100.0f}));
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_03", "LD_ComboMove_03", 0.0333f, -1, -1, false);
-		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_03", {100.0f}));
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_03", { 0.8f, 100.0f }));
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_04", "LD_ComboMove_04", 0.0333f, -1, -1, false);
-		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_04", {50.0f, true }));
-		
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_04", { 0.8f ,50.0f, true }));
+
 		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_01", "LD_ComboAerial_01", 0.0333f, -1, -1, false);
-		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_01", {0.0f}));
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_01", { 0.8f }));
 		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_02", "LD_ComboAerial_02", 0.0233f, -1, -1, false);
-		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_02", {30.0f}));
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_02", { 0.8f, 30.0f }));
 		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_03", "LD_ComboAerial_03", 0.0333f, -1, -1, false);
-		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_03", {100.0f , true}));
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_03", { 0.8f, 100.0f , true }));
+
 		MainSpriteRenderer->CreateAnimation("LD_JumpingAttack", "LD_JumpingAttack", 0.0333f, -1, -1, false);
-		PlayerAnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_JumpingAttack", {500.0f , true}));
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_JumpingAttack", { 0.5f, 500.0f , true }));
 		MainSpriteRenderer->CreateAnimation("LD_AerialDownAttack", "LD_AerialDownAttack", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_AerialDownAttack", {}));
 
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_01_Rest", "LD_ComboMove_01_Rest", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_01_Rest", {}));
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_02_Rest", "LD_ComboMove_02_Rest", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_02_Rest", {}));
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_03_Rest", "LD_ComboMove_03_Rest", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_03_Rest", {}));
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_04_Rest", "LD_ComboMove_04_Rest", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_04_Rest", {}));
 
 		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_01_Rest", "LD_ComboAerial_01_Rest", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_01_Rest", {}));
 		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_02_Rest", "LD_ComboAerial_02_Rest", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_02_Rest", {}));
 		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_03_Rest", "LD_ComboAerial_03_Rest", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_03_Rest", {}));
 		MainSpriteRenderer->CreateAnimation("LD_Dash", "LD_Dash", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Dash", {}));
 		//MainSpriteRenderer->SetEndEvent("LD_RunUturn", std::bind(&Player::EndUturnEvent, this, MainSpriteRenderer.get()));
-		MainSpriteRenderer->SetSamplerState(SamplerOption::LINEAR);
-		MainSpriteRenderer->AutoSpriteSizeOn();
-		//MainSpriteRenderer->SetPivotType(PivotType::Bottom);
-		
-		const SpriteData& Sprite = MainSpriteRenderer->GetCurSprite();
-		//Sprite.GetScale();
 
-		//MainSpriteRenderer->SetEndEvent("Run", std::bind(&Player::TestEvent, this, std::placeholders::_1));
-		// MainSpriteRenderer->Transform.SetLocalScale({5, 5});
+		MainSpriteRenderer->AutoSpriteSizeOn();
+		MainSpriteRenderer->SetPivotValue({ 0.5f, 1.0f });
+		ChangeState(PlayerState::Idle);
+
+		DefaultScale = MainSpriteRenderer->GetCurSprite().Texture.get()->GetScale();  
 	}
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
 	Transform.SetLocalPosition({ HalfWindowScale.X, -HalfWindowScale.Y, -500.0f });
 
-	ChangeState(PlayerState::Idle);
 
 }
 

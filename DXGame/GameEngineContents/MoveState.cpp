@@ -20,7 +20,7 @@ void Player::Jump_StartStart()
 {
 	MainSpriteRenderer->ChangeAnimation("LD_Jump_Start");
 	
-	GrivityForce.Y += 1500.f;
+	GrivityForce.Y += JumpingSpeed;
 	Transform.AddLocalPosition({ 0.0f,1.0f });
 }
 
@@ -260,7 +260,7 @@ void Player::InputMoveUpdate(float _Delta)
 
 	if (Dir != float4::ZERO)
 	{
-		Transform.AddLocalPosition(Dir * _Delta * Speed * 1.0f);
+		Transform.AddLocalPosition(Dir * _Delta * MoveSpeed * 1.0f);
 	}
 }
 
@@ -286,12 +286,14 @@ void Player::FlipCheck()
 {
 	if (Flip == true)
 	{
-		MainSpriteRenderer->FlipOn();
+		MainSpriteRenderer->LeftFlip();
+
+		//MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
 		//Flip = true;
 	}
 	else if (Flip == false)
 	{
-		MainSpriteRenderer->FlipOff();
-		//Flip = false;
+		MainSpriteRenderer->RightFlip();
+		//MainSpriteRenderer->SetPivotValue({ 1.0f, 1.0f });
 	}
 }

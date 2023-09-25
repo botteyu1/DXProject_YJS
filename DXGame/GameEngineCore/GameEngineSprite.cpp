@@ -1,7 +1,7 @@
 #include "PreCompile.h"
 #include "GameEngineSprite.h"
 
-const float4& SpriteData::GetScale()
+const float4 SpriteData::GetScale()
 {
 	return Texture->GetScale() * float4( SpritePivot.Scale2DX, SpritePivot.Scale2DY, 1.0f, 0.0f);
 }

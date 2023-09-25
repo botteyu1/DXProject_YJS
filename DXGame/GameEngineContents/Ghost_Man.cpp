@@ -37,9 +37,9 @@ void Ghost_Man::Start()
 	MainSpriteRenderer->CreateAnimation("Ghost_Uturn", "Ghost_Uturn", 0.0666f, -1, -1, true);
 	MainSpriteRenderer->CreateAnimation("Ghost_Waiting", "Ghost_Waiting", 0.0666f, -1, -1, true);
 
-	MainSpriteRenderer->SetSamplerState(SamplerOption::LINEAR);
+	//MainSpriteRenderer->SetSamplerState(SamplerOption::LINEAR);
 	MainSpriteRenderer->AutoSpriteSizeOn();
-	MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
+	MainSpriteRenderer->SetPivotValue({ 0.5f, 1.0f });
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
 	Transform.SetLocalPosition({ HalfWindowScale.X + 400.0f, -HalfWindowScale.Y, -500.0f });
