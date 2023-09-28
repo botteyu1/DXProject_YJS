@@ -396,3 +396,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/DXGame/ContentsResources/Texture/Map/Stage1_Pixel.png
+/DXGame/ContentsResources/Texture/Map/Stage1.png
