@@ -21,6 +21,7 @@ protected:
 	std::shared_ptr<GameEngineSpriteRenderer> MainBackGround;
 	std::shared_ptr<GameEngineSpriteRenderer> PixelBackGround;
 
+	void Update(float _Delta) override;
 
 private:
 

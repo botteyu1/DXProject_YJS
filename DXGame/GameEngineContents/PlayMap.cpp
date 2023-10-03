@@ -33,16 +33,21 @@ void PlayMap::Start()
 
 		GameEngineSprite::CreateSingle("Office_background_Frieze.png");
 		GameEngineSprite::CreateSingle("OfficePixel2.png");
+		GameEngineSprite::CreateSingle("W1_Kit_background_Traile_Pixel.png");
+		GameEngineSprite::CreateSingle("W1_Kit_background_Traile.png");
+		GameEngineSprite::CreateSingle("Stage1.png");
+		GameEngineSprite::CreateSingle("Stage1_Pixel.png");
 	}
 
 
 	{
 		PixelBackGround = CreateComponent<GameEngineSpriteRenderer>(-100);
-		PixelBackGround->SetSprite("OfficePixel2.png");
+		PixelBackGround->SetSprite("Stage1_Pixel.png");
+		PixelBackGround->Off();
 		MainBackGround = CreateComponent<GameEngineSpriteRenderer>(-99);
-		MainBackGround->SetSprite("Office_background_Frieze.png");
+		MainBackGround->SetSprite("Stage1.png");
 
-		std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("Office_background_Frieze.png");
+		std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("Stage1.png");
 
 		float4 HScale = Tex->GetScale().Half();
 		HScale.Y *= -1.0f;

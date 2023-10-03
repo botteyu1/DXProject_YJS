@@ -34,32 +34,43 @@ void Ghost_Man::Start()
 	MainSpriteRenderer->CreateAnimation("Ghost_Hit", "Ghost_Hit", 0.0666f, -1, -1, true);
 	MainSpriteRenderer->CreateAnimation("Ghost_Run", "Ghost_Run", 0.0666f, -1, -1, true);
 	MainSpriteRenderer->CreateAnimation("Ghost_Surprised", "Ghost_Surprised", 0.0666f, -1, -1, true);
-	MainSpriteRenderer->CreateAnimation("Ghost_Uturn", "Ghost_Uturn", 0.0666f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("Ghost_Uturn", "Ghost_Uturn", 0.0666f, -1, -1, false);
 	MainSpriteRenderer->CreateAnimation("Ghost_Waiting", "Ghost_Waiting", 0.0666f, -1, -1, true);
 
 	//MainSpriteRenderer->SetSamplerState(SamplerOption::LINEAR);
 	MainSpriteRenderer->AutoSpriteSizeOn();
-	MainSpriteRenderer->SetPivotValue({ 0.5f, 1.0f });
+	MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
 	Transform.SetLocalPosition({ HalfWindowScale.X + 400.0f, -HalfWindowScale.Y, -500.0f });
-
 	ChangeState(EnemyState::Idle);
+
+	DefaultScale = MainSpriteRenderer->GetCurSprite().Texture.get()->GetScale();
+
 }
 
 void Ghost_Man::Update(float _Delta)
 {
 	Actor::Update(_Delta);
 	StateUpdate(_Delta);
+
+	
+	
 }
 
 void Ghost_Man::IdleStart()
 {
 	MainSpriteRenderer->ChangeAnimation("Ghost_idle");
+	MotionTime = 0.0f;
 }
 
 void Ghost_Man::IdleUpdate(float _Delta)
 {
+	MotionTime += _Delta;
+	if (MotionTime >= 2.0f)
+	{
+		ChangeState(EnemyState::Uturn);
+	}
 }
 
 void Ghost_Man::AttackStart()
@@ -102,10 +113,19 @@ void Ghost_Man::HitUpdate(float _Delta)
 void Ghost_Man::RunStart()
 {
 	MainSpriteRenderer->ChangeAnimation("Ghost_Run");
+	MotionTime = 0.0f;
 }
 
 void Ghost_Man::RunUpdate(float _Delta)
 {
+	Transform.AddLocalPosition(Dir * _Delta * MoveSpeed);
+
+	MotionTime += _Delta;
+	if (MotionTime >= 2.0f)
+	{
+		ChangeState(EnemyState::Idle);
+	}
+
 }
 
 void Ghost_Man::SurprisedStart()
@@ -124,6 +144,11 @@ void Ghost_Man::UturnStart()
 
 void Ghost_Man::UturnUpdate(float _Delta)
 {
+	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
+	{
+		Flip = !Flip;
+		ChangeState(EnemyState::Run);
+	}
 }
 
 void Ghost_Man::WaitingStart()

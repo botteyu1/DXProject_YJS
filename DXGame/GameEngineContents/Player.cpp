@@ -126,10 +126,10 @@ void Player::Update(float _Delta)
 	}
 
 
-	// 플레이어 카메라 포커스
-	//GameEngineColor Color = PlayMap::MainMap->GetColor(Transform.GetWorldPosition(), GameEngineColor::RED);
-	//std::shared_ptr<GameEngineCamera> MainCamara = GetLevel()->GetMainCamera();
-	//MainCamara->Transform.SetLocalPosition(Transform.GetWorldPosition());
+	//플레이어 카메라 포커스
+	GameEngineColor Color = PlayMap::MainMap->GetColor(Transform.GetWorldPosition(), GameEngineColor::RED);
+	std::shared_ptr<GameEngineCamera> MainCamara = GetLevel()->GetMainCamera();
+	MainCamara->Transform.SetLocalPosition(Transform.GetWorldPosition());
 }
 
 

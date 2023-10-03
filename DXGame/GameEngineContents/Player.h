@@ -49,8 +49,8 @@ private:
 
 	PlayerState State = PlayerState::Max;
 
-	int ComboCount = 1;
-	int AerialComboCount = 1;
+	int ComboCount = 0;
+	int AerialComboCount = 0;
 
 	
 

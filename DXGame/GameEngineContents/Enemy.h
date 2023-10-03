@@ -30,6 +30,8 @@ public:
 	Enemy& operator=(Enemy&& _Other) noexcept = delete;
 
 protected:
+	float MotionTime = 0.0f; // 기본적으로 적이 행동하는  시간
+	float MoveSpeed = 400.0f;
 
 private:
 	

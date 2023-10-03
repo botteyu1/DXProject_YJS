@@ -87,7 +87,6 @@ void Player::ComboMove_RestUpdate(float _Delta)
 	else if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
-		
 	}
 
 	InputDashUpdate(_Delta);
@@ -158,7 +157,7 @@ void Player::JumpingAttackUpdate(float _Delta)
 		}
 	}
 
-	DashProcessUpdate(_Delta, float4::UP, DashSpeed);
+	DashProcessUpdate(_Delta, float4::UP, 2000.0f);
 	
 }
 

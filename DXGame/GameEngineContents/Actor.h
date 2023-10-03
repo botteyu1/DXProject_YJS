@@ -36,24 +36,28 @@ protected:
 	void ChangeMainAnimation(std::string_view _AnimationName);
 	void DashProcessUpdate(float _Delta, const float4& _Dir, float _Speed); //공격같은 실행할떄 대쉬업데이트
 
+	GameEngineColor PixelCollisionCheck(float4 _Pixel, GameEngineColor _DefaultColor = GameEngineColor::RED);
+
 	std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer; //기본 렌더러
 	float4 DefaultScale; // 피봇설정을 위한 기본 크기
 
 	float4 Dir = float4::ZERO; //바라보는 방향/
+	
+	bool FlipPrev = false;
 	bool Flip = false;
 
 
 	std::map<std::string, AnimationData> AnimationDataMap;
 	AnimationData* CurAnimationData; //현재 애니메이션 Data
 
-	float DashSpeed = 2000.0f;
+	float DashSpeed = 1000.0f;
 	float CurDash = 0.0f; //현재까지 움직인 대쉬 거리
 
 
 	float4 GrivityForce = { 0.0f, 0.0f, 0.0f, 1.0f }; //중력힘
 	bool ForceGrivityOff = false; 
 	bool AerialCheck = true; //땅에 붙었을떄 땅까지 픽셀올리는 체크
-
+	bool a = false;
 	
 
 private:

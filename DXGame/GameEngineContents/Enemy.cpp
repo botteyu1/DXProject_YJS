@@ -11,6 +11,30 @@ Enemy::~Enemy()
 
 void Enemy::FlipCheck()
 {
+	if (Flip == true)
+	{
+		
+		if (Flip != FlipPrev)
+		{
+			Dir = float4::LEFT;
+			MainSpriteRenderer->SetPivotValue({ 1.0f, 1.0f });
+			MainSpriteRenderer->LeftFlip();
+			MainSpriteRenderer->Transform.AddLocalPosition({ -DefaultScale.X,0.0f });
+		}
+		FlipPrev = Flip;
+	}
+	if (Flip == false)
+	{
+		
+		if (Flip != FlipPrev)
+		{
+			Dir = float4::RIGHT;
+			MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
+			MainSpriteRenderer->RightFlip();
+			MainSpriteRenderer->Transform.AddLocalPosition({ DefaultScale.X,0.0f });
+		}
+		FlipPrev = Flip;
+	}
 }
 
 void Enemy::ChangeState(EnemyState _State)
@@ -47,7 +71,7 @@ void Enemy::ChangeState(EnemyState _State)
 	default:
 		break;
 	}
-
+	FlipCheck();
 	State = _State;
 }
 
