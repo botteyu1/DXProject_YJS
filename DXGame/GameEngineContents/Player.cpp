@@ -104,10 +104,40 @@ void Player::Start()
 
 void Player::Update(float _Delta)
 {
+	//플레이어 카메라 포커스
+	GameEngineColor Color = PlayMap::MainMap->GetColor(Transform.GetWorldPosition(), GameEngineColor::RED);
+	std::shared_ptr<GameEngineCamera> MainCamara = GetLevel()->GetMainCamera();
+	MainCamara->Transform.SetLocalPosition(Transform.GetWorldPosition());
+
+	if (GameEngineInput::IsDown('P'))
+	{
+		Debug = !Debug;
+	}
+	
+	if (Debug == true)
+	{
+		if(GameEngineInput::IsPress('S'))
+		{
+			Transform.AddLocalPosition({ 0.0f, -500.0f * _Delta });
+		}
+		if(GameEngineInput::IsPress('W'))
+		{
+			Transform.AddLocalPosition({ 0.0f, 500.0f * _Delta });
+		}
+		if(GameEngineInput::IsPress('A'))
+		{
+			Transform.AddLocalPosition({ -500.0f * _Delta , 0.0f  });
+		}
+		if(GameEngineInput::IsPress('D'))
+		{
+			Transform.AddLocalPosition({ 500.0f * _Delta , 0.0f  });
+		}
+
+		return;
+	}
+
 	Actor::Update(_Delta);
 
-	
-	
 	if (AerialCheck == false)
 	{
 		JumpingAttackEnd = false;
@@ -116,21 +146,15 @@ void Player::Update(float _Delta)
 
 	StateUpdate(_Delta);
 
-	if (GameEngineInput::IsPress('Q'))
+	if (GameEngineInput::IsPress('['))
 	{
-		Transform.AddLocalRotation({ 0.0f, 0.0f, 360.0f * _Delta });
+		
 	}
 
-	if (GameEngineInput::IsPress('E'))
-	{
-		Transform.AddLocalRotation({ 0.0f, 0.0f, -360.0f * _Delta });
-	}
+	
 
 
-	//플레이어 카메라 포커스
-	GameEngineColor Color = PlayMap::MainMap->GetColor(Transform.GetWorldPosition(), GameEngineColor::RED);
-	std::shared_ptr<GameEngineCamera> MainCamara = GetLevel()->GetMainCamera();
-	MainCamara->Transform.SetLocalPosition(Transform.GetWorldPosition());
+	
 }
 
 

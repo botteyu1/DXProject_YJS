@@ -57,6 +57,7 @@ private:
 	bool NextCombo = false; // 다음 콤보 입력했느지 확인 
 	bool AerialComboEnd = false; //공콤 끝났는지 여부;
 	bool JumpingAttackEnd = false; //점핑어택 끝났는지 여부;
+	bool Debug = false;
 
 
 
