@@ -106,14 +106,15 @@ void Player::Update(float _Delta)
 {
 	Actor::Update(_Delta);
 
-	StateUpdate(_Delta);
+	
 	
 	if (AerialCheck == false)
 	{
 		JumpingAttackEnd = false;
-		AerialComboCount = 0;
+		
 	}
-	 
+
+	StateUpdate(_Delta);
 
 	if (GameEngineInput::IsPress('Q'))
 	{

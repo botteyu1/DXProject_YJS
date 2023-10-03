@@ -125,6 +125,7 @@ void Player::ComboAerial_RestUpdate(float _Delta)
 	if (GameEngineInput::IsPress('W') and GameEngineInput::IsDown(VK_LBUTTON))
 	{
 		ChangeState(PlayerState::JumpingAttack);
+		AerialComboCount = 0;
 	}
 	else if (GameEngineInput::IsDown(VK_LBUTTON) and AerialComboCount < 3)
 	{
@@ -133,6 +134,7 @@ void Player::ComboAerial_RestUpdate(float _Delta)
 	else if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
 		ChangeState(PlayerState::Jump_Falling);
+		AerialComboCount = 0;
 	}
 
 	InputDashUpdate(_Delta);

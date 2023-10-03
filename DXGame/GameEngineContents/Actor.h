@@ -57,7 +57,6 @@ protected:
 	float4 GrivityForce = { 0.0f, 0.0f, 0.0f, 1.0f }; //중력힘
 	bool ForceGrivityOff = false; 
 	bool AerialCheck = true; //땅에 붙었을떄 땅까지 픽셀올리는 체크
-	bool a = false;
 	
 
 private:

@@ -19,11 +19,76 @@ void Actor::Start()
 
 void Actor::Update(float _Delta)
 {
-	//Dir = float4::ZERO;
+	GameEngineColor Color = PixelCollisionCheck({ 0.0f,-1.0f });
+	float MovePixel = 0.0f;
+
+	while (GameEngineColor::RED == Color)
+	{
+		// ¾Æ·¡ ÇÈ¼¿
+		Color = PixelCollisionCheck({ 0.0f, MovePixel });
+		if (GameEngineColor::RED != Color)
+		{
+			Transform.AddLocalPosition({ 0.0f, MovePixel });
+			break;
+		}
+		// ¿ìÃø ÇÈ¼¿
+		Color = PixelCollisionCheck({ MovePixel, 0.0f });
+		if (GameEngineColor::RED != Color)
+		{
+
+			Transform.AddLocalPosition({ MovePixel, 0.0f });
+			break;
+		}
+		// ÁÂÃø ÇÈ¼¿
+		Color = PixelCollisionCheck({ -MovePixel, 0.0f });
+		if (GameEngineColor::RED != Color)
+		{
+
+			Transform.AddLocalPosition({ -MovePixel, 0.0f });
+			break;
+		}
+		
+		// À§ÂÊ ÇÈ¼¿
+		Color = PixelCollisionCheck({ 0.0f, -MovePixel });
+		if (GameEngineColor::RED != Color)
+		{
+
+ 			Transform.AddLocalPosition({ 0.0f , -MovePixel });
+			break;
+		}
+		
+		//´ë°¢¼± ÇÈ¼¿ È®ÀÎ
+		Color = PixelCollisionCheck({ MovePixel, MovePixel });
+		if (GameEngineColor::RED != Color)
+		{
+			Transform.AddLocalPosition({ MovePixel, MovePixel });
+			break;
+		}
+		Color = PixelCollisionCheck({ -MovePixel, MovePixel });
+		if (GameEngineColor::RED != Color)
+		{
+			Transform.AddLocalPosition({ -MovePixel, MovePixel });
+			break;
+		}
+		Color = PixelCollisionCheck({ MovePixel, -MovePixel });
+		if (GameEngineColor::RED != Color)
+		{
+			Transform.AddLocalPosition({ MovePixel, -MovePixel });
+			break;
+		}
+		Color = PixelCollisionCheck({ -MovePixel, -MovePixel });
+		if (GameEngineColor::RED != Color)
+		{
+			Transform.AddLocalPosition({ -MovePixel, -MovePixel });
+			break;
+		}
+		
+		MovePixel += 1.0f;
+	}
 
 	//°øÁßÀÎÁö Ã¼Å©
-	GameEngineColor Color = PixelCollisionCheck({ 0.0f,-1.0f });
-	float4 UpPixel = { 0.0f, 1.0f };
+	 Color = PixelCollisionCheck({ 0.0f,-1.0f });
+	 MovePixel = 0.0f;
 
 		//°øÁß
 	if (GameEngineColor::RED != Color and ForceGrivityOff == false)
@@ -42,21 +107,17 @@ void Actor::Update(float _Delta)
 	else
 	{
 		GrivityForce = 0.0f;  
+		AerialCheck = false;
 
-		// ÂøÁö
-		if (AerialCheck == true and ForceGrivityOff == false)
-		{
-			while(GameEngineColor::RED == Color)
-			{								
-				Transform.AddLocalPosition(UpPixel);
-	
-				Color = PixelCollisionCheck({ 0.0f,0.0f });
-			}
-			AerialCheck = false;
-		}
-		
+		/*if (AerialCheck == true and ForceGrivityOff == false)*/
 	}
+	// ÂøÁö
+	
 
+	
+	
+	Color = PixelCollisionCheck({ 1.0f,0.0f });
+	GameEngineColor Color2 = PixelCollisionCheck({ -1.0f, 0.0f });
 	
 	
 
