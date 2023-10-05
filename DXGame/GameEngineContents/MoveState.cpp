@@ -14,6 +14,7 @@ void Player::Jump_FallingStart()
 void Player::Jump_LandingStart()
 {
 	MainSpriteRenderer->ChangeAnimation("LD_Jump_Landing");
+	ThroughFloorCheck = false;
 	
 }
 void Player::Jump_StartStart()
@@ -57,6 +58,10 @@ void Player::IdleUpdate(float _Delta)
 {
 	bool PreFlip = Flip;
 
+	InputMoveUpdate(_Delta);
+	InputJumpUpdate(_Delta);
+	InputAttackUpdate(_Delta);
+	InputDashUpdate(_Delta);
 
 	if (Dir != float4::ZERO)
 	{
@@ -69,16 +74,14 @@ void Player::IdleUpdate(float _Delta)
 			ChangeState(PlayerState::RunUturn);
 		}
 	}
-	InputMoveUpdate(_Delta);
-	InputJumpUpdate(_Delta);
-	InputAttackUpdate(_Delta);
-	InputDashUpdate(_Delta);
+	
 }
 
 void Player::RunUpdate(float _Delta)
 {
 	bool PreFlip = Flip;
 	InputMoveUpdate(_Delta);
+	
 	
 	if (Flip != PreFlip)
 	{
@@ -267,6 +270,14 @@ void Player::InputMoveUpdate(float _Delta)
 //점프 시작 업데이트
 void Player::InputJumpUpdate(float _Delta)
 {
+	if (GameEngineInput::IsDown(VK_SPACE) and GameEngineInput::IsPress('S') and AerialCheck == false)
+	{
+		ChangeState(PlayerState::Jump_Falling);
+		ThroughFloorCheck = true;
+		return;
+	}
+		
+
 	if (GameEngineInput::IsDown(VK_SPACE))
 	{
 		ChangeState(PlayerState::Jump_Start);

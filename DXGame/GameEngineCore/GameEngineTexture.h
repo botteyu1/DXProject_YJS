@@ -7,6 +7,8 @@ class GameEngineColor
 {
 public:
 	static const GameEngineColor RED;
+	static const GameEngineColor BLUE;
+	static const GameEngineColor WHITE;
 
 	unsigned char R = 0;
 	unsigned char G = 0;

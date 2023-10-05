@@ -141,20 +141,19 @@ void Player::Update(float _Delta)
 	if (AerialCheck == false)
 	{
 		JumpingAttackEnd = false;
-		
+		ThroughFloorCheck = false;
 	}
 
 	StateUpdate(_Delta);
 
-	if (GameEngineInput::IsPress('['))
+	/*if (GameEngineInput::IsPress('A'))
 	{
-		
+		Flip = true;
 	}
-
-	
-
-
-	
+	if (GameEngineInput::IsPress('D'))
+	{
+		Flip = false;
+	}*/
 }
 
 

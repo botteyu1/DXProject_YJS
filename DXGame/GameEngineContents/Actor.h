@@ -56,7 +56,8 @@ protected:
 
 	float4 GrivityForce = { 0.0f, 0.0f, 0.0f, 1.0f }; //중력힘
 	bool ForceGrivityOff = false; 
-	bool AerialCheck = true; //땅에 붙었을떄 땅까지 픽셀올리는 체크
+	bool AerialCheck = true; // 공중인지 체크 공중이면 트루
+	bool ThroughFloorCheck = false; //특정 바닥(파란색)을 통과할 수 있는 지 체크
 	
 
 private:

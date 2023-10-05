@@ -17,25 +17,33 @@ void Actor::Start()
 
 }
 
+
+
 void Actor::Update(float _Delta)
 {
 	GameEngineColor Color = PixelCollisionCheck({ 0.0f,-1.0f });
-	float MovePixel = 0.0f;
+	float MovePixel = -1.0f;
 
-	while (GameEngineColor::RED == Color)
+	while (GameEngineColor::WHITE != Color)
 	{
+		MovePixel += 1.0f;
+
 		// 아래 픽셀
 		Color = PixelCollisionCheck({ 0.0f, MovePixel });
-		if (GameEngineColor::RED != Color)
+		if (ThroughFloorCheck == false and GameEngineColor::BLUE == Color)
+		{
+			continue;
+		}
+		if (GameEngineColor::WHITE == Color)
 		{
 			Transform.AddLocalPosition({ 0.0f, MovePixel });
 			break;
 		}
+
 		// 우측 픽셀
 		Color = PixelCollisionCheck({ MovePixel, 0.0f });
 		if (GameEngineColor::RED != Color)
 		{
-
 			Transform.AddLocalPosition({ MovePixel, 0.0f });
 			break;
 		}
@@ -83,7 +91,7 @@ void Actor::Update(float _Delta)
 			break;
 		}
 		
-		MovePixel += 1.0f;
+		
 	}
 
 	//공중인지 체크
@@ -91,24 +99,28 @@ void Actor::Update(float _Delta)
 	 MovePixel = 0.0f;
 
 		//공중
-	if (GameEngineColor::RED != Color and ForceGrivityOff == false)
+	
+	if (
+		(GameEngineColor::WHITE == Color or
+		GameEngineColor::BLUE == Color and ThroughFloorCheck == true) and  //바닥 통과 체크
+		ForceGrivityOff == false 
+		)
 	{
 		AerialCheck = true;
 		GrivityForce.Y -= _Delta * 5000.f; 
 		Transform.AddLocalPosition(GrivityForce * _Delta);
 	}
 	//중력이 꺼져도 공중인지 체크하고 중력초기화
-	else if (GameEngineColor::RED != Color)
+	/*else if (GameEngineColor::WHITE == Color)
 	{
 		AerialCheck = true;
 		GrivityForce = 0.0f;
-	}
+	}*/
 	//지상 
 	else
 	{
 		GrivityForce = 0.0f;  
 		AerialCheck = false;
-
 		/*if (AerialCheck == true and ForceGrivityOff == false)*/
 	}
 	// 착지
