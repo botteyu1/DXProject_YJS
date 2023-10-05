@@ -44,16 +44,25 @@ void PlayMap::Start()
 		PixelBackGround = CreateComponent<GameEngineSpriteRenderer>(-100);
 		PixelBackGround->SetSprite("Stage1_Pixel.png");
 		PixelBackGround->Off();
+		PixelBackGround2 = CreateComponent<GameEngineSpriteRenderer>(-100);
+		PixelBackGround2->SetSprite("Stage1_Pixel.png");
+		PixelBackGround2->Off();
 		MainBackGround = CreateComponent<GameEngineSpriteRenderer>(-99);
 		MainBackGround->SetSprite("Stage1.dds");
+		MainBackGround2 = CreateComponent<GameEngineSpriteRenderer>(-99);
+		MainBackGround2->SetSprite("Stage1.dds");
+		//MainBackGround2->Off();
 
 		std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("Stage1.dds");
 
-		float4 HScale = Tex->GetScale().Half();
-		HScale.Y *= -1.0f;
+		float4 Scale = Tex->GetScale();
+		Scale.Y *= -1.0f;
+		float4 HScale = Scale.Half();
 
 		MainBackGround->Transform.SetLocalPosition(HScale);
 		PixelBackGround->Transform.SetLocalPosition(HScale);
+		MainBackGround2->Transform.SetLocalPosition(float4{Scale.X, 0.0f} + HScale);
+		PixelBackGround2->Transform.SetLocalPosition(float4{Scale.X, 0.0f} + HScale);
 
 
 	}

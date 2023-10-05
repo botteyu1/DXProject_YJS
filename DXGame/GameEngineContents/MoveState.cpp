@@ -81,7 +81,9 @@ void Player::RunUpdate(float _Delta)
 {
 	bool PreFlip = Flip;
 	InputMoveUpdate(_Delta);
-	
+	InputJumpUpdate(_Delta);
+	InputAttackUpdate(_Delta);
+	InputDashUpdate(_Delta);
 	
 	if (Flip != PreFlip)
 	{
@@ -93,9 +95,7 @@ void Player::RunUpdate(float _Delta)
 		ChangeState(PlayerState::RunToIdle);
 	}
 
-	InputJumpUpdate(_Delta);
-	InputAttackUpdate(_Delta);
-	InputDashUpdate(_Delta);
+	
 }
 
 void Player::RunUturnUpdate(float _Delta)

@@ -124,15 +124,8 @@ void Actor::Update(float _Delta)
 		/*if (AerialCheck == true and ForceGrivityOff == false)*/
 	}
 	// ÂøÁö
-	
-
-	
-	
 	Color = PixelCollisionCheck({ 1.0f,0.0f });
 	GameEngineColor Color2 = PixelCollisionCheck({ -1.0f, 0.0f });
-	
-	
-
 }
 
 void Actor::ChangeMainAnimation(std::string_view _AnimationName)
