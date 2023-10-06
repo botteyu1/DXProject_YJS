@@ -42,7 +42,7 @@ void Ghost_Man::Start()
 	MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
-	Transform.SetLocalPosition({ HalfWindowScale.X + 400.0f, -HalfWindowScale.Y, -500.0f });
+	Transform.SetLocalPosition({ HalfWindowScale.X + 700.0f, -HalfWindowScale.Y, -500.0f });
 	ChangeState(EnemyState::Idle);
 
 	DefaultScale = MainSpriteRenderer->GetCurSprite().Texture.get()->GetScale();
@@ -158,5 +158,6 @@ void Ghost_Man::WaitingStart()
 
 void Ghost_Man::WaitingUpdate(float _Delta)
 {
+
 }
 

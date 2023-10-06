@@ -31,26 +31,25 @@ void PlayMap::Start()
 
 		
 
-		GameEngineSprite::CreateSingle("Office_background_Frieze.png");
-		GameEngineSprite::CreateSingle("OfficePixel2.png");
-		GameEngineSprite::CreateSingle("W1_Kit_background_Traile_Pixel.png");
-		GameEngineSprite::CreateSingle("W1_Kit_background_Traile.png");
+		
 		GameEngineSprite::CreateSingle("Stage1.dds");
-		GameEngineSprite::CreateSingle("Stage1_Pixel.png");
+		GameEngineSprite::CreateSingle("Stage2.dds");
+		GameEngineSprite::CreateSingle("StagePixel1.png");
+		GameEngineSprite::CreateSingle("StagePixel2.png");
 	}
 
 
 	{
 		PixelBackGround = CreateComponent<GameEngineSpriteRenderer>(-100);
-		PixelBackGround->SetSprite("Stage1_Pixel.png");
+		PixelBackGround->SetSprite("StagePixel1.png");
 		PixelBackGround->Off();
 		PixelBackGround2 = CreateComponent<GameEngineSpriteRenderer>(-100);
-		PixelBackGround2->SetSprite("Stage1_Pixel.png");
+		PixelBackGround2->SetSprite("StagePixel2.png");
 		PixelBackGround2->Off();
 		MainBackGround = CreateComponent<GameEngineSpriteRenderer>(-99);
 		MainBackGround->SetSprite("Stage1.dds");
 		MainBackGround2 = CreateComponent<GameEngineSpriteRenderer>(-99);
-		MainBackGround2->SetSprite("Stage1.dds");
+		MainBackGround2->SetSprite("Stage2.dds");
 		//MainBackGround2->Off();
 
 		std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("Stage1.dds");

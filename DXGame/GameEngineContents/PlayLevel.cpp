@@ -31,7 +31,7 @@ void PlayLevel::Start()
 		SetMap(CreateActor<PlayMap>());
 	}
 
-	//CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
+	CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
 }
 
 

@@ -98,7 +98,10 @@ void Player::Start()
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
 	Transform.SetLocalPosition({ HalfWindowScale.X, -HalfWindowScale.Y, -500.0f });
 
+	// 콜리전 추가
 
+	MainCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Player);
+	MainCollision->Transform.SetLocalScale({ -100.0f, 100.0f, 1.0f });
 }
 
 

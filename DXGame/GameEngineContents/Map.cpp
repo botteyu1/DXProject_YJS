@@ -23,6 +23,7 @@ GameEngineColor Map::GetColor(float4 _Pos, GameEngineColor _DefaultColor)
 
 	if (_Pos.X >= Scale.X)
 	{
+		Tex = PixelBackGround2->GetCurSprite().Texture;
 		_Pos.X -= Scale.X;
 	}
 	

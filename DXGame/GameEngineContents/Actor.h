@@ -39,6 +39,7 @@ protected:
 	GameEngineColor PixelCollisionCheck(float4 _Pixel, GameEngineColor _DefaultColor = GameEngineColor::RED);
 
 	std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer; //기본 렌더러
+	std::shared_ptr<GameEngineCollision> MainCollision;
 	float4 DefaultScale; // 피봇설정을 위한 기본 크기
 
 	float4 Dir = float4::ZERO; //바라보는 방향/
