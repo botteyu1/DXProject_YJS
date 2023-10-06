@@ -6,13 +6,14 @@ void Player::ComboMoveStart()
 	ComboCount++;
 	std::string AnimationName = "LD_ComboMove_0" + std::to_string(ComboCount);
 	ChangeMainAnimation(AnimationName);
+
 	NextCombo = false;
 }
 
 void Player::ComboMove_RestStart()
 {
 	std::string AnimationName = "LD_ComboMove_0" + std::to_string(ComboCount) + "_Rest";
-	MainSpriteRenderer->ChangeAnimation(AnimationName);
+	ChangeMainAnimation(AnimationName);
 }
 
 
@@ -29,12 +30,12 @@ void Player::ComboAerialStart()
 void Player::ComboAerial_RestStart()
 {
 	ForceGrivityOff = false;
-	MainSpriteRenderer->ChangeAnimation("LD_ComboAerial_0" + std::to_string(AerialComboCount) + "_Rest");
+	ChangeMainAnimation("LD_ComboAerial_0" + std::to_string(AerialComboCount) + "_Rest");
 }
 
 void Player::JumpingAttackStart()
 {
-	MainSpriteRenderer->ChangeAnimation("LD_JumpingAttack");
+	ChangeMainAnimation("LD_JumpingAttack");
 	CurAnimationData = &AnimationDataMap.find("LD_JumpingAttack")->second;
 	ForceGrivityOff = true;
 	CurDash = 0;

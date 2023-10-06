@@ -63,6 +63,9 @@ bool GameEngineCollision::CollisionEvent(int _Order, const EventParameter& _Even
 	{
 		return false;
 	}
+
+	
+
 	std::shared_ptr<GameEngineCollisionGroup> OtherGroup = GetLevel()->Collisions[_Order];
 
 	std::set<std::shared_ptr<GameEngineCollision>>::iterator Start = Others.begin();

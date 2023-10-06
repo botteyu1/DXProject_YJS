@@ -65,6 +65,12 @@ public:
 	// 담을 필요 없다.
 	bool Collision(int _Order, const float4& _Next, std::function<void(std::vector<std::shared_ptr<GameEngineCollision>>& _Collisions)> _Collision);
 
+	/*template<typename EnumType>
+	bool CollisionEvent(EnumType _Order)
+	{
+		return CollisionEvent(static_cast<int>(_Order), *CollisionEventParameter);
+	}*/
+
 	template<typename EnumType>
 	bool CollisionEvent(EnumType _Order, const EventParameter& _Event)
 	{
@@ -86,6 +92,11 @@ public:
 		return CollisionType;
 	}
 
+	/*void SetCollisionEventParameter(EventParameter& _CollisionEventParameter)
+	{
+		CollisionEventParameter = &_CollisionEventParameter;
+	}*/
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
@@ -93,6 +104,8 @@ protected:
 
 private:
 	ColType CollisionType = ColType::SPHERE2D;
+	//EventParameter* CollisionEventParameter = nullptr;
 	std::set<std::shared_ptr<GameEngineCollision>> Others;
+
 };
 

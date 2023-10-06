@@ -18,5 +18,7 @@ enum class ContentsObjectType
 enum class ContentsCollisionType
 {
 	Player,
+	Player_Attack,
 	Enemy,
+	Enemy_Attack,
 };

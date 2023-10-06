@@ -34,7 +34,17 @@ public:
 	Player(Player&& _Other) noexcept = delete;
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
+	void static ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right);
 
+	int GetDamageComobo()
+	{
+		return DamageComobo;
+	}
+
+	float GetDamageComoboScale()
+	{
+		return DamageComoboScale;
+	}
 
 protected:
 	void Start() override;
@@ -52,6 +62,9 @@ private:
 	int ComboCount = 0;
 	int AerialComboCount = 0;
 
+	int DamageComobo = 10; // 기본공격 데미지
+	float DamageComoboScale = 1.0f; // 기본 공격 스케일
+
 	
 
 	bool NextCombo = false; // 다음 콤보 입력했느지 확인 
@@ -60,6 +73,7 @@ private:
 	bool Debug = false;
 
 
+	
 
 
 	//============================

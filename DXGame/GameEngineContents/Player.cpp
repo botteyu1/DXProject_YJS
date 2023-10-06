@@ -49,13 +49,13 @@ void Player::Start()
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Jump_Falling", {}));
 
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_01", "LD_ComboMove_01", 0.0233f, -1, -1, false);
-		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_01", { 0.8f , 30.0f}));
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_01", { 0.8f , 30.0f, false, {350.0f, 70.0f}, {130.0f, 50.0f} }));
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_02", "LD_ComboMove_02", 0.0333f, -1, -1, false);
-		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_02", { 0.8f, 100.0f}));
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_02", { 0.8f, 100.0f, false, {200.0f, 50.0f}, {100.0f, 80.0f} }));
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_03", "LD_ComboMove_03", 0.0333f, -1, -1, false);
-		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_03", { 0.8f, 100.0f }));
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_03", { 0.8f, 200.0f, false, {200.0f, 50.0f}, {100.0f, 80.0f} }));
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_04", "LD_ComboMove_04", 0.0333f, -1, -1, false);
-		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_04", { 0.8f ,50.0f, true }));
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_04", { 0.8f ,50.0f, true ,{200.0f, 50.0f}, {100.0f, 80.0f} }));
 
 		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_01", "LD_ComboAerial_01", 0.0333f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_01", { 0.8f }));
@@ -101,14 +101,26 @@ void Player::Start()
 	// 콜리전 추가
 
 	MainCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Player);
-	MainCollision->Transform.SetLocalScale({ -100.0f, 100.0f, 1.0f });
+	MainCollision->Transform.SetLocalScale({ 50.0f, 100.0f, 1.0f });
+	MainCollision->Transform.SetLocalPosition({ 0.0f, 80.0f, 1.0f });
+
+	AttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Player_Attack);
+	AttackCollision->Off();
+
+	
+
+	//AttackCollision->SetCollisionEventParameter(Parameter);
+
+
+	Actor::Start();
 }
 
 
 void Player::Update(float _Delta)
 {
+	
 	//플레이어 카메라 포커스
-	GameEngineColor Color = PlayMap::MainMap->GetColor(Transform.GetWorldPosition(), GameEngineColor::RED);
+	//GameEngineColor Color = PlayMap::MainMap->GetColor(Transform.GetWorldPosition(), GameEngineColor::RED);
 	std::shared_ptr<GameEngineCamera> MainCamara = GetLevel()->GetMainCamera();
 	MainCamara->Transform.SetLocalPosition(Transform.GetWorldPosition());
 
@@ -149,17 +161,29 @@ void Player::Update(float _Delta)
 
 	StateUpdate(_Delta);
 
-	/*if (GameEngineInput::IsPress('A'))
-	{
-		Flip = true;
-	}
-	if (GameEngineInput::IsPress('D'))
-	{
-		Flip = false;
-	}*/
+
+	EventParameter Parameter;
+
+	Parameter.Enter = ComboHit;
+
+	
+		
+	AttackCollision->CollisionEvent<ContentsCollisionType>(ContentsCollisionType::Enemy,{ ComboHit,nullptr,nullptr});
+	
+
+	//MainCollision->CollisionEvent<ContentsCollisionType>(ContentsCollisionType::Enemy, Parameter);
+	
+
+	
 }
 
 
+
+void Player::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)
+{
+	int Damage = static_cast<int>( - _Left->GetParent<Player>()->GetDamageComobo() * _Left->GetParent<Player>()->GetDamageComoboScale());
+	_Right->GetParent<Actor>()->AddHP(Damage);
+}
 
 
 

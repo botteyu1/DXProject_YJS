@@ -2,24 +2,25 @@
 #include "Player.h"
 
 
+
 void Player::IdleStart()
 {
-	MainSpriteRenderer->ChangeAnimation("LD_Idle");
+	ChangeMainAnimation("LD_Idle");
 }
 
 void Player::Jump_FallingStart()
 { 
-	MainSpriteRenderer->ChangeAnimation("LD_Jump_Falling");
+	ChangeMainAnimation("LD_Jump_Falling");
 }
 void Player::Jump_LandingStart()
 {
-	MainSpriteRenderer->ChangeAnimation("LD_Jump_Landing");
+	ChangeMainAnimation("LD_Jump_Landing");
 	ThroughFloorCheck = false;
 	
 }
 void Player::Jump_StartStart()
 {
-	MainSpriteRenderer->ChangeAnimation("LD_Jump_Start");
+	ChangeMainAnimation("LD_Jump_Start");
 	
 	GrivityForce.Y += JumpingSpeed;
 	Transform.AddLocalPosition({ 0.0f,1.0f });
@@ -28,30 +29,27 @@ void Player::Jump_StartStart()
 void Player::RunStart()
 {
 	FlipCheck();
-	MainSpriteRenderer->ChangeAnimation("LD_Run");
+	ChangeMainAnimation("LD_Run");
 }
 
 void Player::RunUturnStart()
 {
-	MainSpriteRenderer->ChangeAnimation("LD_RunUturn");
+	ChangeMainAnimation("LD_RunUturn");
 }
 
 void Player::RunToIdleStart()
 {
 	
-	MainSpriteRenderer->ChangeAnimation("LD_RunToIdle");
+	ChangeMainAnimation("LD_RunToIdle");
 }
 
 void Player::DashStart()
 {
-	MainSpriteRenderer->ChangeAnimation("LD_Dash");
+	ChangeMainAnimation("LD_Dash");
 	CurDash = 0.0f;
 	//GrivityForce.Y = 0.0f;
 	ForceGrivityOff = true;
 }
-
-
-
 
 
 void Player::IdleUpdate(float _Delta)

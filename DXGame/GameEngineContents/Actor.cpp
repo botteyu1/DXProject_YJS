@@ -14,7 +14,8 @@ Actor::~Actor()
 
 void Actor::Start()
 {
-
+	MainCollision->SetCollisionType(ColType::AABBBOX2D);
+	AttackCollision->SetCollisionType(ColType::AABBBOX2D);
 }
 
 
@@ -96,10 +97,8 @@ void Actor::Update(float _Delta)
 
 	//공중인지 체크
 	 Color = PixelCollisionCheck({ 0.0f,-1.0f });
-	 MovePixel = 0.0f;
 
-		//공중
-	
+	//공중
 	if (
 		(GameEngineColor::WHITE == Color or
 		GameEngineColor::BLUE == Color and ThroughFloorCheck == true) and  //바닥 통과 체크
@@ -123,23 +122,47 @@ void Actor::Update(float _Delta)
 		AerialCheck = false;
 		/*if (AerialCheck == true and ForceGrivityOff == false)*/
 	}
-	// 착지
-	Color = PixelCollisionCheck({ 1.0f,0.0f });
-	GameEngineColor Color2 = PixelCollisionCheck({ -1.0f, 0.0f });
+	
+
+
+	//HP 체크
+
+	if (HP <= 0)
+	{
+		Death();
+	}
+
 }
 
 void Actor::ChangeMainAnimation(std::string_view _AnimationName)
 {
 	MainSpriteRenderer->ChangeAnimation(_AnimationName);
 	CurAnimationData = &AnimationDataMap.find(_AnimationName.data())->second;
+	float Pivot = CurAnimationData->PivotX;
+	float4 CollisionScale = CurAnimationData->CollisionScale;
+	float4 CollisionPosition = CurAnimationData->CollisionPosition;
+
 	if (Flip == true)
 	{
-		MainSpriteRenderer->SetPivotValue({ 1.0f - CurAnimationData->PivotX, 1.0f });
+		Pivot = 1.0f - Pivot;
+		CollisionPosition.X = -CollisionPosition.X;
 	}
-	else
+	MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
+
+	//  공격 콜리전 활성화
+	if (CollisionScale != float4::ZERO)
 	{
-		MainSpriteRenderer->SetPivotValue({ CurAnimationData->PivotX, 1.0f });
+		AttackCollision->On();
+		AttackCollision->Transform.SetLocalScale(CollisionScale);
+		AttackCollision->Transform.SetLocalPosition(CollisionPosition);
 	}
+	else if(AttackCollision != nullptr)
+	{
+		AttackCollision->Off();
+		AttackCollision->Transform.SetLocalScale(CollisionScale);
+		AttackCollision->Transform.SetLocalPosition(CollisionPosition);
+	}
+
 	CurDash = 0;
 }
 

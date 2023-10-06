@@ -47,15 +47,19 @@ void Ghost_Man::Start()
 
 	DefaultScale = MainSpriteRenderer->GetCurSprite().Texture.get()->GetScale();
 
+	MainCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy);
+	MainCollision->Transform.SetLocalScale({ 50.0f, 100.0f });
+	MainCollision->Transform.SetLocalPosition({ -80.0f, 80.0f, 1.0f });
+
+	AttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Attack);
+
+	Actor::Start();
 }
 
 void Ghost_Man::Update(float _Delta)
 {
 	Actor::Update(_Delta);
 	StateUpdate(_Delta);
-
-	
-	
 }
 
 void Ghost_Man::IdleStart()
