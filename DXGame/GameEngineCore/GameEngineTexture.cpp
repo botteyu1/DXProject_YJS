@@ -9,8 +9,13 @@
 #endif
 
 const GameEngineColor GameEngineColor::RED = {255, 0, 0, 255 };
-const GameEngineColor GameEngineColor::BLUE = {0, 0, 255, 255 };
-const GameEngineColor GameEngineColor::WHITE = {255, 255, 255, 255 };
+const GameEngineColor GameEngineColor::GREEN = { 0, 255, 0, 255 };;
+const GameEngineColor GameEngineColor::BLUE = { 0, 0, 255, 255 };
+const GameEngineColor GameEngineColor::MAGENTA = { 255, 0, 255, 255 };
+const GameEngineColor GameEngineColor::YELLOW = { 255, 255, 0, 255 };
+const GameEngineColor GameEngineColor::AQUA = { 0, 255, 255, 255 };
+const GameEngineColor GameEngineColor::BLACK = { 0, 0, 0, 255 };;
+const GameEngineColor GameEngineColor::WHITE = { 255, 255, 255, 255 };
 
 GameEngineTexture::GameEngineTexture() 
 {
@@ -103,12 +108,12 @@ void GameEngineTexture::ResLoad(std::string_view _Path)
 		Image.GetImages(),
 		Image.GetImageCount(), // 이미지가 겹쳐있을수 있다.
 		Image.GetMetadata(),
-		&SRV 
-		
+		&SRV
 	))
 	{
 		MsgBoxAssert("텍스처 로드에 실패했습니다." + std::string(_Path.data()));
 	}
+
 	Desc.Width = static_cast<UINT>(Data.width);
 	Desc.Height = static_cast<UINT>(Data.height);
 }
