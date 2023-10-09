@@ -44,6 +44,7 @@ protected:
 	void DashProcessUpdate(float _Delta, const float4& _Dir, float _Speed); //공격같은 실행할떄 대쉬업데이트
 
 	GameEngineColor PixelCollisionCheck(float4 _Pixel, GameEngineColor _DefaultColor = GameEngineColor::RED);
+	GameEngineColor PosCollisionCheck(float4 _Pos, GameEngineColor _DefaultColor = GameEngineColor::RED);
 
 	std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer; //기본 렌더러
 	std::shared_ptr<GameEngineCollision> MainCollision;
@@ -52,7 +53,7 @@ protected:
 
 	float4 Dir = float4::ZERO; //바라보는 방향/
 	
-	bool FlipPrev = false;
+	bool FlipPrev = true;
 	bool Flip = false;
 
 

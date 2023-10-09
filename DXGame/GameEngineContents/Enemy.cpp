@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Enemy.h"
+#include "Player.h"
 
 Enemy::Enemy() 
 {
@@ -8,6 +9,59 @@ Enemy::Enemy()
 Enemy::~Enemy()
 {
 }
+
+void Enemy::TakeDamage(GameEngineCollision* _Player ,int _Damage)
+{
+	HP -= _Damage;
+	ChangeState(EnemyState::Hit);
+
+	//맞을 떄 플레이어 쪽을 바라보도록
+	LookPlayer();
+	FlipCheck();
+}
+
+void Enemy::LookPlayer()
+{
+	float4 PlayerPos = Player::GetMainPlayer()->Transform.GetLocalPosition();
+	float4 EnemyPos = Transform.GetLocalPosition();
+	if (PlayerPos.X < EnemyPos.X)
+	{
+		Flip = true;
+	}
+	else
+	{
+		Flip = false;
+	}
+	
+}
+bool Enemy::IsDetectPlayer()
+{
+	if (DetectCollision->Collision<ContentsCollisionType>(ContentsCollisionType::Player))
+	{
+		float4 PlayerPos = Player::GetMainPlayer()->Transform.GetLocalPosition() + (0.0f, -100.0f);
+		float4 EnemyPos = Transform.GetLocalPosition()+ (0.0f, -100.0f);
+		float4 Distance = PlayerPos - EnemyPos;
+
+		for (int i = 1; i < 10; i++)
+		{
+			float4 CheckPos = EnemyPos + (Distance * ( static_cast<float>(i)/ 10.0f ));
+			GameEngineColor Color = PosCollisionCheck(CheckPos);
+			if (Color == GameEngineColor::RED or Color == GameEngineColor::BLUE)
+			{
+ 				return false;
+			}
+		}
+		return true;
+	}
+	return false;
+}
+
+
+void Enemy::Start()
+{
+	Actor::Start();
+}
+
 
 void Enemy::FlipCheck()
 {
@@ -71,7 +125,6 @@ void Enemy::ChangeState(EnemyState _State)
 	default:
 		break;
 	}
-	FlipCheck();
 	State = _State;
 }
 

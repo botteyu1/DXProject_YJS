@@ -1,6 +1,5 @@
 #include "PreCompile.h"
 #include "Ghost_Man.h"
-
 Ghost_Man::Ghost_Man() 
 {
 }
@@ -53,7 +52,17 @@ void Ghost_Man::Start()
 
 	AttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Attack);
 
-	Actor::Start();
+	DetectCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Detect);
+	DetectCollision->Transform.SetLocalScale({ 1000.0f, 1000.0f });
+	DetectCollision->Transform.SetLocalPosition({ -80.0f, 80.0f, 1.0f });
+	DetectCollision->SetCollisionType(ColType::AABBBOX2D);
+
+	DetectAttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Detect);
+	DetectAttackCollision->Transform.SetLocalScale({ 300.0f, 100.0f });
+	DetectAttackCollision->Transform.SetLocalPosition({ -80.0f, 80.0f, 1.0f });
+	DetectAttackCollision->SetCollisionType(ColType::AABBBOX2D);
+
+	Enemy::Start();
 }
 
 void Ghost_Man::Update(float _Delta)
@@ -70,9 +79,34 @@ void Ghost_Man::IdleStart()
 
 void Ghost_Man::IdleUpdate(float _Delta)
 {
+
+	bool PreFlip = Flip;
+	if (IsDetectPlayer())
+	{
+		//발견중이였다면
+		if (DetectPlayer == true)
+		{
+			LookPlayer();
+			if (PreFlip != Flip)
+			{
+				ChangeState(EnemyState::Uturn);
+			}
+			return;
+		}
+		// 새로 발견하면
+		else
+		{
+			DetectPlayer = true;
+			ChangeState(EnemyState::Surprised);
+		}
+	}
+
+	
 	MotionTime += _Delta;
 	if (MotionTime >= 2.0f)
 	{
+		//패턴끝날때까지 못찾으면 false
+		DetectPlayer = false;
 		ChangeState(EnemyState::Uturn);
 	}
 }
@@ -84,6 +118,10 @@ void Ghost_Man::AttackStart()
 
 void Ghost_Man::AttackUpdate(float _Delta)
 {
+	if (true == MainSpriteRenderer->IsCurAnimationEnd())
+	{
+		ChangeState(EnemyState::Run);
+	}
 }
 
 void Ghost_Man::AppearStart()
@@ -93,7 +131,10 @@ void Ghost_Man::AppearStart()
 
 void Ghost_Man::AppearUpdate(float _Delta)
 {
-
+	if (true == MainSpriteRenderer->IsCurAnimationEnd())
+	{
+		ChangeState(EnemyState::Run);
+	}
 }
 
 void Ghost_Man::DeathStart()
@@ -112,6 +153,10 @@ void Ghost_Man::HitStart()
 
 void Ghost_Man::HitUpdate(float _Delta)
 {
+	if (true == MainSpriteRenderer->IsCurAnimationEnd())
+	{
+		ChangeState(EnemyState::Idle);
+	}
 }
 
 void Ghost_Man::RunStart()
@@ -124,12 +169,41 @@ void Ghost_Man::RunUpdate(float _Delta)
 {
 	Transform.AddLocalPosition(Dir * _Delta * MoveSpeed);
 
+	// 플레이어 발견시
+	bool PreFlip = Flip;
+	
+	if (IsDetectPlayer())
+	{
+		//발견중이였다면
+		if (DetectPlayer == true)
+		{
+			LookPlayer();
+			if (PreFlip != Flip)
+			{
+				ChangeState(EnemyState::Uturn);
+				return;
+			}
+			if (DetectAttackCollision->Collision<ContentsCollisionType>(ContentsCollisionType::Player))
+			{
+				ChangeState(EnemyState::Attack);
+			}
+			return;
+		}
+		// 새로 발견하면
+		else
+		{
+			DetectPlayer = true;
+			ChangeState(EnemyState::Surprised);
+			return;
+		}		
+	}
+
 	MotionTime += _Delta;
 	if (MotionTime >= 2.0f)
 	{
+		Flip = !Flip;
 		ChangeState(EnemyState::Idle);
 	}
-
 }
 
 void Ghost_Man::SurprisedStart()
@@ -139,6 +213,11 @@ void Ghost_Man::SurprisedStart()
 
 void Ghost_Man::SurprisedUpdate(float _Delta)
 {
+	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
+	{
+		FlipCheck();
+		ChangeState(EnemyState::Run);
+	}
 }
 
 void Ghost_Man::UturnStart()
@@ -150,7 +229,7 @@ void Ghost_Man::UturnUpdate(float _Delta)
 {
 	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
 	{
-		Flip = !Flip;
+		FlipCheck();
 		ChangeState(EnemyState::Run);
 	}
 }
@@ -162,6 +241,10 @@ void Ghost_Man::WaitingStart()
 
 void Ghost_Man::WaitingUpdate(float _Delta)
 {
-
+	if (IsDetectPlayer())
+	{
+		DetectPlayer = true;
+		ChangeState(EnemyState::Appear);
+	}
 }
 

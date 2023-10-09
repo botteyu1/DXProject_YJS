@@ -21,4 +21,5 @@ enum class ContentsCollisionType
 	Player_Attack,
 	Enemy,
 	Enemy_Attack,
+	Enemy_Detect,
 };

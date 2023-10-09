@@ -17,6 +17,7 @@ enum class PlayerState
 	JumpingAttack,
 	AerialDownAttack,
 	Dash,
+	Hit,
 	Max, // 일반적으로 사용하지 않는 값.
 };
 
@@ -24,6 +25,14 @@ enum class PlayerState
 // 설명 :
 class Player : public Actor
 {
+private:
+	static Player* MainPlayer;
+
+public:
+	static Player* GetMainPlayer()
+	{
+		return MainPlayer;
+	}
 public:
 	// constrcuter destructer
 	Player();
@@ -49,6 +58,7 @@ public:
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
+	std::shared_ptr<GameEngineCollision> DetectCollision;
 
 private:
 	
@@ -121,6 +131,9 @@ private:
 
 	void DashStart();
 	void DashUpdate(float _Delta);
+
+	void HitStart();
+	void HitUpdate(float _Delta);
 
 	void InputMoveUpdate(float _Delta);
 	void InputJumpUpdate(float _Delta);

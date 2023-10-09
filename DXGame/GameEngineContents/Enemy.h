@@ -29,9 +29,19 @@ public:
 	Enemy& operator=(const Enemy& _Other) = delete;
 	Enemy& operator=(Enemy&& _Other) noexcept = delete;
 
+	void TakeDamage(class GameEngineCollision* _Player ,int _Damage);
+
 protected:
 	float MotionTime = 0.0f; // 기본적으로 적이 행동하는  시간
 	float MoveSpeed = 400.0f;
+
+	std::shared_ptr<GameEngineCollision> DetectCollision;
+	std::shared_ptr<GameEngineCollision> DetectAttackCollision;
+	void Start() override;
+	void LookPlayer();
+	bool IsDetectPlayer();
+
+	bool  DetectPlayer = false;
 
 private:
 	

@@ -110,11 +110,11 @@ void Actor::Update(float _Delta)
 		Transform.AddLocalPosition(GrivityForce * _Delta);
 	}
 	//중력이 꺼져도 공중인지 체크하고 중력초기화
-	/*else if (GameEngineColor::WHITE == Color)
+	else if (GameEngineColor::WHITE == Color)
 	{
 		AerialCheck = true;
 		GrivityForce = 0.0f;
-	}*/
+	}
 	//지상 
 	else
 	{
@@ -129,7 +129,7 @@ void Actor::Update(float _Delta)
 
 	if (HP <= 0)
 	{
-		Death();
+		//Death();
 	}
 
 }
@@ -197,6 +197,14 @@ GameEngineColor Actor::PixelCollisionCheck(float4 _Pixel, GameEngineColor _Defau
 	float4 WorldPosition = Transform.GetWorldPosition();
 	WorldPosition += _Pixel;
 	GameEngineColor Color = static_cast<Level*>(GetLevel())->GetMap()->GetColor(WorldPosition, GameEngineColor::RED);
+
+	return Color;
+}
+
+GameEngineColor Actor::PosCollisionCheck(float4 _Pos, GameEngineColor _DefaultColor)
+{
+	
+	GameEngineColor Color = static_cast<Level*>(GetLevel())->GetMap()->GetColor(_Pos, GameEngineColor::RED);
 
 	return Color;
 }

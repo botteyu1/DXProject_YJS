@@ -47,9 +47,10 @@ void Player::DashStart()
 {
 	ChangeMainAnimation("LD_Dash");
 	CurDash = 0.0f;
-	//GrivityForce.Y = 0.0f;
 	ForceGrivityOff = true;
 }
+
+
 
 
 void Player::IdleUpdate(float _Delta)
@@ -230,6 +231,8 @@ void Player::DashUpdate(float _Delta)
 	}
 
 }
+
+
 
 
 void Player::InputMoveUpdate(float _Delta)
