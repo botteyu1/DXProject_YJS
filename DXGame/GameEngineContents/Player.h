@@ -140,7 +140,7 @@ private:
 	void InputAttackUpdate(float _Delta);
 	void InputDashUpdate(float _Delta);
 
-	void FlipCheck();
+	
 
 
 	void StateUpdate(float _Delta);

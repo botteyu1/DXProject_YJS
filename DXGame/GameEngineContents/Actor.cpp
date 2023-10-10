@@ -139,6 +139,7 @@ void Actor::ChangeMainAnimation(std::string_view _AnimationName)
 	MainSpriteRenderer->ChangeAnimation(_AnimationName);
 	CurAnimationData = &AnimationDataMap.find(_AnimationName.data())->second;
 	float Pivot = CurAnimationData->PivotX;
+	
 	float4 CollisionScale = CurAnimationData->CollisionScale;
 	float4 CollisionPosition = CurAnimationData->CollisionPosition;
 
@@ -148,15 +149,9 @@ void Actor::ChangeMainAnimation(std::string_view _AnimationName)
 		CollisionPosition.X = -CollisionPosition.X;
 	}
 	MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
-
 	//  공격 콜리전 활성화
-	if (CollisionScale != float4::ZERO)
-	{
-		AttackCollision->On();
-		AttackCollision->Transform.SetLocalScale(CollisionScale);
-		AttackCollision->Transform.SetLocalPosition(CollisionPosition);
-	}
-	else if(AttackCollision != nullptr)
+	
+	if(AttackCollision != nullptr)
 	{
 		AttackCollision->Off();
 		AttackCollision->Transform.SetLocalScale(CollisionScale);
@@ -164,6 +159,32 @@ void Actor::ChangeMainAnimation(std::string_view _AnimationName)
 	}
 
 	CurDash = 0;
+}
+
+void Actor::CheckStartAttackFrame()
+{
+	float4 CollisionScale = CurAnimationData->CollisionScale;
+	float4 CollisionPosition = CurAnimationData->CollisionPosition;
+	float AttackPivotX = CurAnimationData->AttackPivotX;
+
+	if (CollisionScale != float4::ZERO and CurAnimationData->AttackCollisionStartFrame == MainSpriteRenderer->GetCurIndex())
+	{
+		if (Flip == true)
+		{
+			AttackPivotX = 1.0f - AttackPivotX;
+			CollisionPosition.X = -CollisionPosition.X;
+		}
+
+		AttackCollision->On();
+		AttackCollision->Transform.SetLocalScale(CollisionScale);
+		AttackCollision->Transform.SetLocalPosition(CollisionPosition);
+
+		if (CurAnimationData->AttackFx != "")
+		{
+			AttackfxRenderer->SetPivotValue({ AttackPivotX, 1.0f });
+			AttackfxRenderer->ChangeAnimation(CurAnimationData->AttackFx);
+		}
+	}
 }
 
 void Actor::DashProcessUpdate(float _Delta,const float4& _Dir, float _Speed)
@@ -190,6 +211,39 @@ void Actor::DashProcessUpdate(float _Delta,const float4& _Dir, float _Speed)
 		NextPos.X = -NextPos.X;
 	}
 	Transform.AddLocalPosition(NextPos);
+}
+
+void Actor::FlipCheck()
+{
+	float Pivot = CurAnimationData->PivotX;
+
+	if (Flip == true)
+	{
+		Pivot = 1.0f - Pivot;
+		if (Flip != FlipPrev)
+		{
+			Dir = float4::LEFT;
+			MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
+
+			MainSpriteRenderer->LeftFlip();
+			float MovePos = (Pivot - 0.5f) * -2.0f * DefaultScale.X;
+			MainSpriteRenderer->Transform.AddLocalPosition({ MovePos,0.0f });
+		}
+		FlipPrev = Flip;
+	}
+	if (Flip == false)
+	{
+
+		if (Flip != FlipPrev)
+		{
+			Dir = float4::RIGHT;
+			MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
+			MainSpriteRenderer->RightFlip();
+			float MovePos = (Pivot - 0.5f) * -2.0f * DefaultScale.X;
+			MainSpriteRenderer->Transform.AddLocalPosition({ MovePos,0.0f });
+		}
+		FlipPrev = Flip;
+	}
 }
 
 GameEngineColor Actor::PixelCollisionCheck(float4 _Pixel, GameEngineColor _DefaultColor)

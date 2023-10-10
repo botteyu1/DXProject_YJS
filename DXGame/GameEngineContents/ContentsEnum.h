@@ -4,6 +4,7 @@ enum class ContentsRenderType
 {
 	BackGround,
 	Enemy,
+	Enemy_Attack,
 	Player,
 };
 

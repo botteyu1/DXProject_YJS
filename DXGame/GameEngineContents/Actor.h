@@ -9,10 +9,11 @@ public:
 	bool ComboEnd = false; //마지막 콤보인지 여부
 	float4 CollisionScale = float4::ZERO; // 공격 크기
 	float4 CollisionPosition = float4::ZERO; //공긱 콜리전 위치
-
-	//int NextComboFrame;  //콤보가 계속 될떄 애니메이션이 바뀌는 프레임
-	//bool HaveToIdle;
+	int AttackCollisionStartFrame = 0; //공격 콜리전이 시작될 프레임
+	std::string AttackFx = ""; // 공격 효과텍스쳐 이름
+	float AttackPivotX = 0.0f;// 애니메이션마다 적용할 피봇값
 };
+
 
 
 // 설명 : 실제로움직이는 객체들 ex)몬스터 플레이어  
@@ -41,19 +42,23 @@ protected:
 	void Start() override;
 	void Update(float _Delta) override;
 	void ChangeMainAnimation(std::string_view _AnimationName);
+	void CheckStartAttackFrame();
 	void DashProcessUpdate(float _Delta, const float4& _Dir, float _Speed); //공격같은 실행할떄 대쉬업데이트
+	void FlipCheck();
 
 	GameEngineColor PixelCollisionCheck(float4 _Pixel, GameEngineColor _DefaultColor = GameEngineColor::RED);
 	GameEngineColor PosCollisionCheck(float4 _Pos, GameEngineColor _DefaultColor = GameEngineColor::RED);
 
 	std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer; //기본 렌더러
+	std::shared_ptr< GameEngineSpriteRenderer> AttackfxRenderer; //공격 렌더러
+
 	std::shared_ptr<GameEngineCollision> MainCollision;
 	std::shared_ptr<GameEngineCollision> AttackCollision;
 	float4 DefaultScale; // 피봇설정을 위한 기본 크기
 
 	float4 Dir = float4::ZERO; //바라보는 방향/
 	
-	bool FlipPrev = true;
+	bool FlipPrev = false;
 	bool Flip = false;
 
 

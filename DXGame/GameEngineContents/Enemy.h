@@ -37,6 +37,7 @@ protected:
 
 	std::shared_ptr<GameEngineCollision> DetectCollision;
 	std::shared_ptr<GameEngineCollision> DetectAttackCollision;
+
 	void Start() override;
 	void LookPlayer();
 	bool IsDetectPlayer();

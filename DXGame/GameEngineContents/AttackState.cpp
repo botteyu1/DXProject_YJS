@@ -52,6 +52,7 @@ void Player::AerialDownAttackStart()
 
 void Player::ComboMoveUpdate(float _Delta)
 {
+	CheckStartAttackFrame();
 	if (GameEngineInput::IsDown(VK_LBUTTON))
 	{
 		NextCombo = true;
@@ -97,6 +98,8 @@ void Player::ComboMove_RestUpdate(float _Delta)
 
 void Player::ComboAerialUpdate(float _Delta)
 {
+
+	CheckStartAttackFrame();
 	if (GameEngineInput::IsDown(VK_LBUTTON))
 	{
 		NextCombo = true;
@@ -143,6 +146,7 @@ void Player::ComboAerial_RestUpdate(float _Delta)
 
 void Player::JumpingAttackUpdate(float _Delta)
 {
+	CheckStartAttackFrame();
 	if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
 		ForceGrivityOff = false;
@@ -169,6 +173,7 @@ void Player::JumpingAttackUpdate(float _Delta)
 
 void Player::AerialDownAttackUpdate(float _Delta)
 {
+	CheckStartAttackFrame();
 	if (MainSpriteRenderer->IsCurAnimationEnd() and AerialCheck == false)
 	{
  		ChangeState(PlayerState::Idle);

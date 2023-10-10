@@ -27,6 +27,7 @@ void Ghost_Man::Start()
 
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy);
 	MainSpriteRenderer->CreateAnimation("Ghost_Attack", "Ghost_Attack", 0.0666f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Attack", { 0.8f , 30.0f, false, {350.0f, 70.0f}, {130.0f, 50.0f} }));
 	MainSpriteRenderer->CreateAnimation("Ghost_Appear", "Ghost_Appear", 0.0666f, -1, -1, true);
 	MainSpriteRenderer->CreateAnimation("Ghost_idle", "Ghost_idle", 0.0666f, -1, -1, true);
 	MainSpriteRenderer->CreateAnimation("Ghost_Death", "Ghost_Death", 0.0666f, -1, -1, true);
@@ -35,16 +36,17 @@ void Ghost_Man::Start()
 	MainSpriteRenderer->CreateAnimation("Ghost_Surprised", "Ghost_Surprised", 0.0666f, -1, -1, true);
 	MainSpriteRenderer->CreateAnimation("Ghost_Uturn", "Ghost_Uturn", 0.0666f, -1, -1, false);
 	MainSpriteRenderer->CreateAnimation("Ghost_Waiting", "Ghost_Waiting", 0.0666f, -1, -1, true);
+	
 
 	//MainSpriteRenderer->SetSamplerState(SamplerOption::LINEAR);
 	MainSpriteRenderer->AutoSpriteSizeOn();
 	MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
 
-	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
-	Transform.SetLocalPosition({ HalfWindowScale.X + 700.0f, -HalfWindowScale.Y, -500.0f });
-	ChangeState(EnemyState::Idle);
+	/*AttackSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy_Attack);
+	AttackSpriteRenderer->CreateAnimation("Ghost_Attack_FX", "Ghost_Attack_FX", 0.0666f, -1, -1, true);*/
+	
 
-	DefaultScale = MainSpriteRenderer->GetCurSprite().Texture.get()->GetScale();
+	
 
 	MainCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy);
 	MainCollision->Transform.SetLocalScale({ 50.0f, 100.0f });
@@ -61,6 +63,12 @@ void Ghost_Man::Start()
 	DetectAttackCollision->Transform.SetLocalScale({ 300.0f, 100.0f });
 	DetectAttackCollision->Transform.SetLocalPosition({ -80.0f, 80.0f, 1.0f });
 	DetectAttackCollision->SetCollisionType(ColType::AABBBOX2D);
+
+	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
+	Transform.SetLocalPosition({ HalfWindowScale.X + 700.0f, -HalfWindowScale.Y, -500.0f });
+	ChangeState(EnemyState::Idle);
+
+	DefaultScale = MainSpriteRenderer->GetCurSprite().Texture.get()->GetScale();
 
 	Enemy::Start();
 }
@@ -106,6 +114,7 @@ void Ghost_Man::IdleUpdate(float _Delta)
 	if (MotionTime >= 2.0f)
 	{
 		//패턴끝날때까지 못찾으면 false
+		Flip = !Flip;
 		DetectPlayer = false;
 		ChangeState(EnemyState::Uturn);
 	}
@@ -201,7 +210,7 @@ void Ghost_Man::RunUpdate(float _Delta)
 	MotionTime += _Delta;
 	if (MotionTime >= 2.0f)
 	{
-		Flip = !Flip;
+		
 		ChangeState(EnemyState::Idle);
 	}
 }
@@ -213,6 +222,7 @@ void Ghost_Man::SurprisedStart()
 
 void Ghost_Man::SurprisedUpdate(float _Delta)
 {
+
 	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
 	{
 		FlipCheck();
@@ -227,8 +237,10 @@ void Ghost_Man::UturnStart()
 
 void Ghost_Man::UturnUpdate(float _Delta)
 {
+	
 	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
 	{
+		
 		FlipCheck();
 		ChangeState(EnemyState::Run);
 	}

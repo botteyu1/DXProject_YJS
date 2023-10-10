@@ -65,15 +65,18 @@ void Enemy::Start()
 
 void Enemy::FlipCheck()
 {
+	float Pivot = 0.0f;
 	if (Flip == true)
 	{
-		
+		Pivot = 1.0f - Pivot;
 		if (Flip != FlipPrev)
 		{
 			Dir = float4::LEFT;
-			MainSpriteRenderer->SetPivotValue({ 1.0f, 1.0f });
+			MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
+
 			MainSpriteRenderer->LeftFlip();
-			MainSpriteRenderer->Transform.AddLocalPosition({ -DefaultScale.X,0.0f });
+			float MovePos = (Pivot - 0.5f) * -2.0f *DefaultScale.X;
+			MainSpriteRenderer->Transform.AddLocalPosition({ MovePos,0.0f });
 		}
 		FlipPrev = Flip;
 	}
@@ -82,10 +85,11 @@ void Enemy::FlipCheck()
 		
 		if (Flip != FlipPrev)
 		{
-			Dir = float4::RIGHT;
-			MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
+			Dir = float4::RIGHT; 
+			MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
 			MainSpriteRenderer->RightFlip();
-			MainSpriteRenderer->Transform.AddLocalPosition({ DefaultScale.X,0.0f });
+			float MovePos = (Pivot - 0.5f) * -2.0f * DefaultScale.X;
+			MainSpriteRenderer->Transform.AddLocalPosition({ MovePos,0.0f });
 		}
 		FlipPrev = Flip;
 	}

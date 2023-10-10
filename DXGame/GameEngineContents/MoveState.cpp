@@ -294,18 +294,3 @@ void Player::InputDashUpdate(float _Delta)
 	}
 }
 
-void Player::FlipCheck()
-{
-	if (Flip == true)
-	{
-		MainSpriteRenderer->LeftFlip();
-
-		//MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
-		//Flip = true;
-	}
-	else if (Flip == false)
-	{
-		MainSpriteRenderer->RightFlip();
-		//MainSpriteRenderer->SetPivotValue({ 1.0f, 1.0f });
-	}
-}
