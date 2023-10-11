@@ -108,7 +108,6 @@ void Player::RunUturnUpdate(float _Delta)
 
 	if (Dir == float4::ZERO)
 	{
-		Flip = !Flip;
 		ChangeState(PlayerState::Idle);
 	}
 

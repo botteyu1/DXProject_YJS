@@ -162,13 +162,15 @@ void Actor::ChangeMainAnimation(std::string_view _AnimationName)
 	}
 
 	CurDash = 0;
+	FrameCheck = false;
 }
 
 void Actor::CheckStartAttackFrame()
 {
 	float4 CollisionScale = CurAnimationData->CollisionScale;
 	float4 CollisionPosition = CurAnimationData->CollisionPosition;
-	float4 AttackPivot = CurAnimationData->AttackPivot;
+	float4 AttackPivot = CurAnimationData->AttackFxPivot;
+	float4 AttackPosition = CurAnimationData->AttackFxPos;
 
 	int Frame = MainSpriteRenderer->GetCurIndex();
 	if (CollisionScale != float4::ZERO and CurAnimationData->AttackCollisionStartFrame == MainSpriteRenderer->GetCurIndex() and FrameCheck == false)
@@ -178,18 +180,29 @@ void Actor::CheckStartAttackFrame()
 		{
 			CollisionPosition.X = -CollisionPosition.X;
 		}
-		else
-		{
-			AttackPivot.X = 1.0f - AttackPivot.X;
-		}
+		
 		
 		AttackCollision->On();
 		AttackCollision->Transform.SetLocalScale(CollisionScale);
 		AttackCollision->Transform.SetLocalPosition(CollisionPosition);
 
+
+		//공격 이펙트 처리
 		if (CurAnimationData->AttackFx != "")
 		{
 			AttackfxRenderer->On();
+			if (Flip == true)
+			{
+				AttackPosition.X = -AttackPosition.X;
+				AttackfxRenderer->Transform.SetLocalPosition(AttackPosition);
+				AttackfxRenderer->LeftFlip();
+			}
+			else
+			{
+				AttackfxRenderer->RightFlip();
+				AttackfxRenderer->Transform.SetLocalPosition(AttackPosition);
+				AttackPivot.X = 1.0f - AttackPivot.X;
+			}
 			AttackfxRenderer->SetPivotValue( AttackPivot);
 			AttackfxRenderer->ChangeAnimation(CurAnimationData->AttackFx,true);
 		}
@@ -248,6 +261,7 @@ void Actor::FlipCheck()
 			Dir = float4::RIGHT;
 			MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
 			MainSpriteRenderer->RightFlip();
+			
 			float MovePos = (Pivot - PrevPivot.X) * -0.8f * DefaultScale.X;
 			MainSpriteRenderer->Transform.AddLocalPosition({ MovePos,0.0f });
 		}

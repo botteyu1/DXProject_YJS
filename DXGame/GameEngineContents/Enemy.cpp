@@ -60,6 +60,16 @@ bool Enemy::IsDetectPlayer()
 void Enemy::Start()
 {
 	Actor::Start();
+	
+}
+
+void Enemy::Update(float _Delta)
+{
+	Actor::Update(_Delta);
+	if (HP <= 0)
+	{
+		ChangeState(EnemyState::Death);
+	}
 }
 
 

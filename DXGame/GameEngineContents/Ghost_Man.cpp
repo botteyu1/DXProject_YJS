@@ -27,12 +27,13 @@ void Ghost_Man::Start()
 
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy);
 	MainSpriteRenderer->CreateAnimation("Ghost_Attack", "Ghost_Attack", 0.0666f, -1, -1, true);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Attack", { 0.0f , 30.0f, false, {260.0f, 70.0f}, {130.0f, 50.0f},16, "Ghost_Attack_FX",{0.0f,0.5f}}));
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Attack", { 0.0f , 30.0f, false,
+		{260.0f, 70.0f}, {130.0f, 50.0f},16, "Ghost_Attack_FX",{0.0f,0.5f} ,{ 55.0f, 50.0f } }));
 	MainSpriteRenderer->CreateAnimation("Ghost_Appear", "Ghost_Appear", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Appear", {0.0f}));
 	MainSpriteRenderer->CreateAnimation("Ghost_idle", "Ghost_idle", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_idle", {0.0f}));
-	MainSpriteRenderer->CreateAnimation("Ghost_Death", "Ghost_Death", 0.0666f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("Ghost_Death", "Ghost_Death", 0.0666f, -1, -1, false);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Death", {0.0f}));
 	MainSpriteRenderer->CreateAnimation("Ghost_Hit", "Ghost_Hit", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Hit", {0.0f}));
@@ -53,7 +54,7 @@ void Ghost_Man::Start()
 	AttackfxRenderer= CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy_Attack);
 	AttackfxRenderer->CreateAnimation("Ghost_Attack_FX", "Ghost_Attack_FX", 0.0666f, -1, -1, false);
 	AttackfxRenderer->AutoSpriteSizeOn();
-	AttackfxRenderer->Transform.SetLocalPosition({ 50.0f, 50.0f, 1.0f });
+	AttackfxRenderer->Transform.SetLocalPosition({ 50.0f, 50.0f });
 	AttackfxRenderer->Off();
 	
 
@@ -87,7 +88,7 @@ void Ghost_Man::Start()
 
 void Ghost_Man::Update(float _Delta)
 {
-	Actor::Update(_Delta);
+	Enemy::Update(_Delta);
 	StateUpdate(_Delta);
 }
 
@@ -160,10 +161,15 @@ void Ghost_Man::AppearUpdate(float _Delta)
 void Ghost_Man::DeathStart()
 {
 	ChangeMainAnimation("Ghost_Death");
+
 }
 
 void Ghost_Man::DeathUpdate(float _Delta)
 {
+	if (true == MainSpriteRenderer->IsCurAnimationEnd())
+	{
+		Off();
+	}
 }
 
 void Ghost_Man::HitStart()
@@ -232,7 +238,6 @@ void Ghost_Man::SurprisedStart()
 
 void Ghost_Man::SurprisedUpdate(float _Delta)
 {
-
 	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
 	{
 		FlipCheck();
