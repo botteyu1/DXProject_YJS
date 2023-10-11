@@ -132,6 +132,7 @@ void Actor::Update(float _Delta)
 		//Death();
 	}
 
+	
 }
 
 void Actor::ChangeMainAnimation(std::string_view _AnimationName)
@@ -140,18 +141,20 @@ void Actor::ChangeMainAnimation(std::string_view _AnimationName)
 	CurAnimationData = &AnimationDataMap.find(_AnimationName.data())->second;
 	float Pivot = CurAnimationData->PivotX;
 	
+
 	float4 CollisionScale = CurAnimationData->CollisionScale;
 	float4 CollisionPosition = CurAnimationData->CollisionPosition;
-
+	FlipCheck();
 	if (Flip == true)
 	{
-		Pivot = 1.0f - Pivot;
 		CollisionPosition.X = -CollisionPosition.X;
+		Pivot = 1.0f - Pivot;
 	}
+	
 	MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
 	//  공격 콜리전 활성화
 	
-	if(AttackCollision != nullptr)
+	if(AttackCollision != nullptr  )
 	{
 		AttackCollision->Off();
 		AttackCollision->Transform.SetLocalScale(CollisionScale);
@@ -165,24 +168,30 @@ void Actor::CheckStartAttackFrame()
 {
 	float4 CollisionScale = CurAnimationData->CollisionScale;
 	float4 CollisionPosition = CurAnimationData->CollisionPosition;
-	float AttackPivotX = CurAnimationData->AttackPivotX;
+	float4 AttackPivot = CurAnimationData->AttackPivot;
 
-	if (CollisionScale != float4::ZERO and CurAnimationData->AttackCollisionStartFrame == MainSpriteRenderer->GetCurIndex())
+	int Frame = MainSpriteRenderer->GetCurIndex();
+	if (CollisionScale != float4::ZERO and CurAnimationData->AttackCollisionStartFrame == MainSpriteRenderer->GetCurIndex() and FrameCheck == false)
 	{
+		FrameCheck = true;
 		if (Flip == true)
 		{
-			AttackPivotX = 1.0f - AttackPivotX;
 			CollisionPosition.X = -CollisionPosition.X;
 		}
-
+		else
+		{
+			AttackPivot.X = 1.0f - AttackPivot.X;
+		}
+		
 		AttackCollision->On();
 		AttackCollision->Transform.SetLocalScale(CollisionScale);
 		AttackCollision->Transform.SetLocalPosition(CollisionPosition);
 
 		if (CurAnimationData->AttackFx != "")
 		{
-			AttackfxRenderer->SetPivotValue({ AttackPivotX, 1.0f });
-			AttackfxRenderer->ChangeAnimation(CurAnimationData->AttackFx);
+			AttackfxRenderer->On();
+			AttackfxRenderer->SetPivotValue( AttackPivot);
+			AttackfxRenderer->ChangeAnimation(CurAnimationData->AttackFx,true);
 		}
 	}
 }
@@ -216,6 +225,7 @@ void Actor::DashProcessUpdate(float _Delta,const float4& _Dir, float _Speed)
 void Actor::FlipCheck()
 {
 	float Pivot = CurAnimationData->PivotX;
+	float4 PrevPivot = MainSpriteRenderer->GetPivotValue();
 
 	if (Flip == true)
 	{
@@ -226,20 +236,19 @@ void Actor::FlipCheck()
 			MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
 
 			MainSpriteRenderer->LeftFlip();
-			float MovePos = (Pivot - 0.5f) * -2.0f * DefaultScale.X;
+			float MovePos = (Pivot - PrevPivot.X) * -0.8f * DefaultScale.X;
 			MainSpriteRenderer->Transform.AddLocalPosition({ MovePos,0.0f });
 		}
 		FlipPrev = Flip;
 	}
 	if (Flip == false)
 	{
-
 		if (Flip != FlipPrev)
 		{
 			Dir = float4::RIGHT;
 			MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
 			MainSpriteRenderer->RightFlip();
-			float MovePos = (Pivot - 0.5f) * -2.0f * DefaultScale.X;
+			float MovePos = (Pivot - PrevPivot.X) * -0.8f * DefaultScale.X;
 			MainSpriteRenderer->Transform.AddLocalPosition({ MovePos,0.0f });
 		}
 		FlipPrev = Flip;

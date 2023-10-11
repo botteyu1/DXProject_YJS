@@ -11,8 +11,19 @@ public:
 	float4 CollisionPosition = float4::ZERO; //공긱 콜리전 위치
 	int AttackCollisionStartFrame = 0; //공격 콜리전이 시작될 프레임
 	std::string AttackFx = ""; // 공격 효과텍스쳐 이름
-	float AttackPivotX = 0.0f;// 애니메이션마다 적용할 피봇값
+	float4 AttackPivot = { 0.5f, 0.5f };// 애니메이션마다 적용할 피봇값
 };
+
+//class FxAnimationData
+//{
+//public:
+//	float PivotX = 0.5f;// 애니메이션마다 적용할 피봇값
+//	float4 CollisionScale = float4::ZERO; // 공격 크기
+//	float4 CollisionPosition = float4::ZERO; //공긱 콜리전 위치
+//	int AttackCollisionStartFrame = 0; //공격 콜리전이 시작될 프레임
+//	std::string AttackFx = ""; // 공격 효과텍스쳐 이름
+//	float AttackPivotX = 0.0f;// 애니메이션마다 적용할 피봇값
+//};
 
 
 
@@ -60,7 +71,7 @@ protected:
 	
 	bool FlipPrev = false;
 	bool Flip = false;
-
+	float PivotPrev = 0.5f;
 
 	std::map<std::string, AnimationData> AnimationDataMap;
 	AnimationData* CurAnimationData; //현재 애니메이션 Data
@@ -71,6 +82,7 @@ protected:
 
 	float4 GrivityForce = { 0.0f, 0.0f, 0.0f, 1.0f }; //중력힘
 	bool ForceGrivityOff = false; 
+	bool FrameCheck = false;
 	bool AerialCheck = true; // 공중인지 체크 공중이면 트루
 	bool ThroughFloorCheck = false; //특정 바닥(파란색)을 통과할 수 있는 지 체크
 

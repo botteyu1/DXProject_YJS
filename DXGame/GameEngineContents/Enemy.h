@@ -39,7 +39,7 @@ protected:
 	std::shared_ptr<GameEngineCollision> DetectAttackCollision;
 
 	void Start() override;
-	void LookPlayer();
+	bool LookPlayer();
 	bool IsDetectPlayer();
 
 	bool  DetectPlayer = false;
@@ -83,7 +83,6 @@ protected:
 	virtual void WaitingUpdate(float _Delta);
 
 	
-	void FlipCheck();
 
 	void StateUpdate(float _Delta);
 	void ChangeState(EnemyState _State);

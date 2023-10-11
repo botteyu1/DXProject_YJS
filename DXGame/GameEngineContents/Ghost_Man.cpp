@@ -27,48 +27,60 @@ void Ghost_Man::Start()
 
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy);
 	MainSpriteRenderer->CreateAnimation("Ghost_Attack", "Ghost_Attack", 0.0666f, -1, -1, true);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Attack", { 0.8f , 30.0f, false, {350.0f, 70.0f}, {130.0f, 50.0f} }));
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Attack", { 0.0f , 30.0f, false, {260.0f, 70.0f}, {130.0f, 50.0f},16, "Ghost_Attack_FX",{0.0f,0.5f}}));
 	MainSpriteRenderer->CreateAnimation("Ghost_Appear", "Ghost_Appear", 0.0666f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Appear", {0.0f}));
 	MainSpriteRenderer->CreateAnimation("Ghost_idle", "Ghost_idle", 0.0666f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_idle", {0.0f}));
 	MainSpriteRenderer->CreateAnimation("Ghost_Death", "Ghost_Death", 0.0666f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Death", {0.0f}));
 	MainSpriteRenderer->CreateAnimation("Ghost_Hit", "Ghost_Hit", 0.0666f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Hit", {0.0f}));
 	MainSpriteRenderer->CreateAnimation("Ghost_Run", "Ghost_Run", 0.0666f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Run", {0.0f}));
 	MainSpriteRenderer->CreateAnimation("Ghost_Surprised", "Ghost_Surprised", 0.0666f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Surprised", {0.0f}));
 	MainSpriteRenderer->CreateAnimation("Ghost_Uturn", "Ghost_Uturn", 0.0666f, -1, -1, false);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Uturn", {0.0f}));
 	MainSpriteRenderer->CreateAnimation("Ghost_Waiting", "Ghost_Waiting", 0.0666f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Waiting", {0.5f}));
 	
 
 	//MainSpriteRenderer->SetSamplerState(SamplerOption::LINEAR);
 	MainSpriteRenderer->AutoSpriteSizeOn();
 	MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
 
-	/*AttackSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy_Attack);
-	AttackSpriteRenderer->CreateAnimation("Ghost_Attack_FX", "Ghost_Attack_FX", 0.0666f, -1, -1, true);*/
-	
-
+	AttackfxRenderer= CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy_Attack);
+	AttackfxRenderer->CreateAnimation("Ghost_Attack_FX", "Ghost_Attack_FX", 0.0666f, -1, -1, false);
+	AttackfxRenderer->AutoSpriteSizeOn();
+	AttackfxRenderer->Transform.SetLocalPosition({ 50.0f, 50.0f, 1.0f });
+	AttackfxRenderer->Off();
 	
 
 	MainCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy);
 	MainCollision->Transform.SetLocalScale({ 50.0f, 100.0f });
-	MainCollision->Transform.SetLocalPosition({ -80.0f, 80.0f, 1.0f });
+	MainCollision->Transform.SetLocalPosition({ 0.0f, 80.0f, 1.0f });
 
 	AttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Attack);
 
 	DetectCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Detect);
 	DetectCollision->Transform.SetLocalScale({ 1000.0f, 1000.0f });
-	DetectCollision->Transform.SetLocalPosition({ -80.0f, 80.0f, 1.0f });
+	DetectCollision->Transform.SetLocalPosition({ -0.0f, 80.0f, 1.0f });
 	DetectCollision->SetCollisionType(ColType::AABBBOX2D);
+	
 
 	DetectAttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Detect);
 	DetectAttackCollision->Transform.SetLocalScale({ 300.0f, 100.0f });
-	DetectAttackCollision->Transform.SetLocalPosition({ -80.0f, 80.0f, 1.0f });
+	DetectAttackCollision->Transform.SetLocalPosition({ 0.0f, 80.0f, 1.0f });
 	DetectAttackCollision->SetCollisionType(ColType::AABBBOX2D);
+	
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
 	Transform.SetLocalPosition({ HalfWindowScale.X + 700.0f, -HalfWindowScale.Y, -500.0f });
-	ChangeState(EnemyState::Idle);
+	ChangeState(EnemyState::Waiting);
+	std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("Ghost_Idle_0001.png");
 
-	DefaultScale = MainSpriteRenderer->GetCurSprite().Texture.get()->GetScale();
+	DefaultScale = Tex.get()->GetScale();
 
 	Enemy::Start();
 }
@@ -81,7 +93,7 @@ void Ghost_Man::Update(float _Delta)
 
 void Ghost_Man::IdleStart()
 {
-	MainSpriteRenderer->ChangeAnimation("Ghost_idle");
+	ChangeMainAnimation("Ghost_idle");
 	MotionTime = 0.0f;
 }
 
@@ -92,13 +104,10 @@ void Ghost_Man::IdleUpdate(float _Delta)
 	if (IsDetectPlayer())
 	{
 		//발견중이였다면
-		if (DetectPlayer == true)
+		if (LookPlayer() != Flip)
 		{
-			LookPlayer();
-			if (PreFlip != Flip)
-			{
-				ChangeState(EnemyState::Uturn);
-			}
+			ChangeState(EnemyState::Uturn);
+			
 			return;
 		}
 		// 새로 발견하면
@@ -114,7 +123,7 @@ void Ghost_Man::IdleUpdate(float _Delta)
 	if (MotionTime >= 2.0f)
 	{
 		//패턴끝날때까지 못찾으면 false
-		Flip = !Flip;
+		
 		DetectPlayer = false;
 		ChangeState(EnemyState::Uturn);
 	}
@@ -122,11 +131,13 @@ void Ghost_Man::IdleUpdate(float _Delta)
 
 void Ghost_Man::AttackStart()
 {
-	MainSpriteRenderer->ChangeAnimation("Ghost_Attack");
+	ChangeMainAnimation("Ghost_Attack");
 }
 
 void Ghost_Man::AttackUpdate(float _Delta)
 {
+	CheckStartAttackFrame();
+
 	if (true == MainSpriteRenderer->IsCurAnimationEnd())
 	{
 		ChangeState(EnemyState::Run);
@@ -135,7 +146,7 @@ void Ghost_Man::AttackUpdate(float _Delta)
 
 void Ghost_Man::AppearStart()
 {
-	MainSpriteRenderer->ChangeAnimation("Ghost_Attack");
+	ChangeMainAnimation("Ghost_Appear");
 }
 
 void Ghost_Man::AppearUpdate(float _Delta)
@@ -148,7 +159,7 @@ void Ghost_Man::AppearUpdate(float _Delta)
 
 void Ghost_Man::DeathStart()
 {
-	MainSpriteRenderer->ChangeAnimation("Ghost_Death");
+	ChangeMainAnimation("Ghost_Death");
 }
 
 void Ghost_Man::DeathUpdate(float _Delta)
@@ -157,7 +168,7 @@ void Ghost_Man::DeathUpdate(float _Delta)
 
 void Ghost_Man::HitStart()
 {
-	MainSpriteRenderer->ChangeAnimation("Ghost_Hit");
+	ChangeMainAnimation("Ghost_Hit");
 }
 
 void Ghost_Man::HitUpdate(float _Delta)
@@ -170,7 +181,7 @@ void Ghost_Man::HitUpdate(float _Delta)
 
 void Ghost_Man::RunStart()
 {
-	MainSpriteRenderer->ChangeAnimation("Ghost_Run");
+	ChangeMainAnimation("Ghost_Run");
 	MotionTime = 0.0f;
 }
 
@@ -186,8 +197,7 @@ void Ghost_Man::RunUpdate(float _Delta)
 		//발견중이였다면
 		if (DetectPlayer == true)
 		{
-			LookPlayer();
-			if (PreFlip != Flip)
+			if (LookPlayer() != Flip)
 			{
 				ChangeState(EnemyState::Uturn);
 				return;
@@ -217,7 +227,7 @@ void Ghost_Man::RunUpdate(float _Delta)
 
 void Ghost_Man::SurprisedStart()
 {
-	MainSpriteRenderer->ChangeAnimation("Ghost_Surprised");
+	ChangeMainAnimation("Ghost_Surprised");
 }
 
 void Ghost_Man::SurprisedUpdate(float _Delta)
@@ -232,7 +242,7 @@ void Ghost_Man::SurprisedUpdate(float _Delta)
 
 void Ghost_Man::UturnStart()
 {
-	MainSpriteRenderer->ChangeAnimation("Ghost_Uturn");
+	ChangeMainAnimation("Ghost_Uturn");
 }
 
 void Ghost_Man::UturnUpdate(float _Delta)
@@ -240,7 +250,7 @@ void Ghost_Man::UturnUpdate(float _Delta)
 	
 	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
 	{
-		
+		Flip = !Flip;
 		FlipCheck();
 		ChangeState(EnemyState::Run);
 	}
@@ -248,13 +258,17 @@ void Ghost_Man::UturnUpdate(float _Delta)
 
 void Ghost_Man::WaitingStart()
 {
-	MainSpriteRenderer->ChangeAnimation("Ghost_Waiting");
+	ChangeMainAnimation("Ghost_Waiting");
 }
 
 void Ghost_Man::WaitingUpdate(float _Delta)
 {
 	if (IsDetectPlayer())
 	{
+		if (LookPlayer() != Flip)
+		{
+			Flip = !Flip;
+		}
 		DetectPlayer = true;
 		ChangeState(EnemyState::Appear);
 	}

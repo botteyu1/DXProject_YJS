@@ -16,7 +16,6 @@ void Player::Jump_LandingStart()
 {
 	ChangeMainAnimation("LD_Jump_Landing");
 	ThroughFloorCheck = false;
-	
 }
 void Player::Jump_StartStart()
 {
@@ -28,12 +27,13 @@ void Player::Jump_StartStart()
 
 void Player::RunStart()
 {
-	FlipCheck();
+	
 	ChangeMainAnimation("LD_Run");
 }
 
 void Player::RunUturnStart()
 {
+	Flip = !Flip;
 	ChangeMainAnimation("LD_RunUturn");
 }
 
@@ -99,21 +99,20 @@ void Player::RunUpdate(float _Delta)
 
 void Player::RunUturnUpdate(float _Delta)
 {
-	bool PreFlip = Flip;
-	InputMoveUpdate(_Delta);
 	if (true == MainSpriteRenderer->IsCurAnimationEnd())
 	{
-		//FlipCheck();
+		
 		ChangeState(PlayerState::Run);
 	}
 
 
 	if (Dir == float4::ZERO)
 	{
-		FlipCheck();
+		Flip = !Flip;
 		ChangeState(PlayerState::Idle);
 	}
 
+	InputMoveUpdate(_Delta);
 	InputJumpUpdate(_Delta);
 	InputDashUpdate(_Delta);
 	InputAttackUpdate(_Delta);

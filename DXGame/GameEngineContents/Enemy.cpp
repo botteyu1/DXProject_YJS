@@ -20,17 +20,17 @@ void Enemy::TakeDamage(GameEngineCollision* _Player ,int _Damage)
 	FlipCheck();
 }
 
-void Enemy::LookPlayer()
+bool Enemy::LookPlayer()  //왼쪽이면 false 오른쪽이며 트루
 {
 	float4 PlayerPos = Player::GetMainPlayer()->Transform.GetLocalPosition();
 	float4 EnemyPos = Transform.GetLocalPosition();
 	if (PlayerPos.X < EnemyPos.X)
 	{
-		Flip = true;
+		return true;
 	}
 	else
 	{
-		Flip = false;
+		return false;
 	}
 	
 }
@@ -63,37 +63,7 @@ void Enemy::Start()
 }
 
 
-void Enemy::FlipCheck()
-{
-	float Pivot = 0.0f;
-	if (Flip == true)
-	{
-		Pivot = 1.0f - Pivot;
-		if (Flip != FlipPrev)
-		{
-			Dir = float4::LEFT;
-			MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
 
-			MainSpriteRenderer->LeftFlip();
-			float MovePos = (Pivot - 0.5f) * -2.0f *DefaultScale.X;
-			MainSpriteRenderer->Transform.AddLocalPosition({ MovePos,0.0f });
-		}
-		FlipPrev = Flip;
-	}
-	if (Flip == false)
-	{
-		
-		if (Flip != FlipPrev)
-		{
-			Dir = float4::RIGHT; 
-			MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
-			MainSpriteRenderer->RightFlip();
-			float MovePos = (Pivot - 0.5f) * -2.0f * DefaultScale.X;
-			MainSpriteRenderer->Transform.AddLocalPosition({ MovePos,0.0f });
-		}
-		FlipPrev = Flip;
-	}
-}
 
 void Enemy::ChangeState(EnemyState _State)
 {
@@ -129,6 +99,7 @@ void Enemy::ChangeState(EnemyState _State)
 	default:
 		break;
 	}
+	FrameCheck = false;
 	State = _State;
 }
 
