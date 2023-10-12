@@ -168,6 +168,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="AttackState.cpp" />
+    <ClCompile Include="Bullet.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ContentsCore.cpp">
       <SubType>
       </SubType>
@@ -219,6 +223,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
       <SubType>
       </SubType>
     </ClInclude>

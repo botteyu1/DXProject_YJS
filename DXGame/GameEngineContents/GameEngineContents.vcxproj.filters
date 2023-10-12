@@ -9,9 +9,6 @@
     <ClCompile Include="TitleLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
-    <ClCompile Include="PlayMap.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Object\Map</Filter>
     </ClCompile>
@@ -42,6 +39,12 @@
     <ClCompile Include="Ghost_Woman.cpp">
       <Filter>Actor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayMap.cpp">
+      <Filter>Object\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
@@ -51,9 +54,6 @@
     </ClInclude>
     <ClInclude Include="TitleLevel.h">
       <Filter>Level</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayMap.h">
-      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Object\Map</Filter>
@@ -76,6 +76,12 @@
     </ClInclude>
     <ClInclude Include="Ghost_Woman.h">
       <Filter>Actor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayMap.h">
+      <Filter>Object\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

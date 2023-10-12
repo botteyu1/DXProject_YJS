@@ -104,14 +104,18 @@ void Ghost_Man::IdleUpdate(float _Delta)
 	bool PreFlip = Flip;
 	if (IsDetectPlayer())
 	{
-		//발견중이였다면
+		//플레이어 반대방향에있으면
 		if (LookPlayer() != Flip)
 		{
 			ChangeState(EnemyState::Uturn);
 			
 			return;
 		}
-		// 새로 발견하면
+		//발견중이였다면
+		if (DetectPlayer = true)
+		{
+			ChangeState(EnemyState::Run);
+		}
 		else
 		{
 			DetectPlayer = true;

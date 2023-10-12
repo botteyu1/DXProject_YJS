@@ -14,6 +14,7 @@ enum class ContentsObjectType
 	BackGround,
 	Player,
 	Enemy,
+	Bullet,
 };
 
 enum class ContentsCollisionType

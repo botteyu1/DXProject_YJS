@@ -62,9 +62,9 @@ protected:
 	GameEngineColor PosCollisionCheck(float4 _Pos, GameEngineColor _DefaultColor = GameEngineColor::RED);
 
 	std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer; //기본 렌더러
+	std::shared_ptr<GameEngineCollision> MainCollision;
 	std::shared_ptr< GameEngineSpriteRenderer> AttackfxRenderer; //공격 렌더러
 
-	std::shared_ptr<GameEngineCollision> MainCollision;
 	std::shared_ptr<GameEngineCollision> AttackCollision;
 	float4 DefaultScale; // 피봇설정을 위한 기본 크기
 

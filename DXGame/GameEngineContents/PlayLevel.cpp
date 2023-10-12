@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "PlayMap.h"
 #include "Ghost_Man.h"
+#include "Ghost_Woman.h"
 
 
 PlayLevel::PlayLevel() 
@@ -31,8 +32,8 @@ void PlayLevel::Start()
 		SetMap(CreateActor<PlayMap>());
 	}
 
-	CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
-	CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
+	//CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
+	CreateActor<Ghost_Woman>(ContentsObjectType::Enemy);
 }
 
 

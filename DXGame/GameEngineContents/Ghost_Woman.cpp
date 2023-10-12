@@ -1,5 +1,7 @@
 #include "PreCompile.h"
 #include "Ghost_Woman.h"
+#include "Bullet.h"
+#include "Player.h"
 
 Ghost_Woman::Ghost_Woman()
 {
@@ -28,7 +30,7 @@ void Ghost_Woman::Start()
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy);
 	MainSpriteRenderer->CreateAnimation("GhostWoman_Attack", "GhostWoman_Attack", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostWoman_Attack", { 0.0f , 30.0f, false,
-		{260.0f, 70.0f}, {130.0f, 50.0f},16, "GhostWoman_Attack_FX",{0.0f,0.5f} ,{ 55.0f, 50.0f } }));
+		{260.0f, 70.0f}, {130.0f, 50.0f},16 }));
 	MainSpriteRenderer->CreateAnimation("GhostWoman_Appear", "GhostWoman_Appear", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostWoman_Appear", { 0.0f }));
 	MainSpriteRenderer->CreateAnimation("GhostWoman_idle", "GhostWoman_idle", 0.0666f, -1, -1, true);
@@ -47,13 +49,14 @@ void Ghost_Woman::Start()
 
 	//MainSpriteRenderer->SetSamplerState(SamplerOption::LINEAR);
 	MainSpriteRenderer->AutoSpriteSizeOn();
+	MainSpriteRenderer->Transform.AddLocalPosition({ 30.0f });
 	MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
 
-	AttackfxRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy_Attack);
-	AttackfxRenderer->CreateAnimation("GhostWoman_Attack_FX", "GhostWoman_Attack_FX", 0.0666f, -1, -1, false);
-	AttackfxRenderer->AutoSpriteSizeOn();
-	AttackfxRenderer->Transform.SetLocalPosition({ 50.0f, 50.0f });
-	AttackfxRenderer->Off();
+	//AttackfxRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy_Attack);
+	//AttackfxRenderer->CreateAnimation("GhostWoman_Attack_FX", "GhostWoman_Attack_FX", 0.0666f, -1, -1, false);
+	//AttackfxRenderer->AutoSpriteSizeOn();
+	//AttackfxRenderer->Transform.SetLocalPosition({ 50.0f, 50.0f });
+	//AttackfxRenderer->Off();
 
 
 	MainCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy);
@@ -75,9 +78,9 @@ void Ghost_Woman::Start()
 
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
-	Transform.SetLocalPosition({ HalfWindowScale.X + 700.0f, -HalfWindowScale.Y, -500.0f });
-	ChangeState(EnemyState::Waiting);
-	std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("GhostWoman_Idle_0001.png");
+	Transform.SetLocalPosition({ HalfWindowScale.X + 1000.0f, -HalfWindowScale.Y, -500.0f });
+	ChangeState(EnemyState::Idle);
+	std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("Enemy_Ghost_Woman_IDLE_0001.png");
 
 	DefaultScale = Tex.get()->GetScale();
 
@@ -102,14 +105,18 @@ void Ghost_Woman::IdleUpdate(float _Delta)
 	bool PreFlip = Flip;
 	if (IsDetectPlayer())
 	{
-		//발견중이였다면
+		//플레이어 반대방향에있으면
 		if (LookPlayer() != Flip)
 		{
 			ChangeState(EnemyState::Uturn);
 
 			return;
 		}
-		// 새로 발견하면
+		//발견중이였다면
+		if (DetectPlayer = true)
+		{
+			ChangeState(EnemyState::Run);
+		}
 		else
 		{
 			DetectPlayer = true;
@@ -131,6 +138,13 @@ void Ghost_Woman::IdleUpdate(float _Delta)
 void Ghost_Woman::AttackStart()
 {
 	ChangeMainAnimation("GhostWoman_Attack");
+	
+	std::shared_ptr <Bullet> Object = GetLevel()->CreateActor<Bullet>(ContentsObjectType::Bullet);
+
+	float4 Pos = Transform.GetLocalPosition();
+	float4 PlayerDir = Player::GetMainPlayer()->Transform.GetLocalPosition() - Pos;
+
+	Object->Init(BulletType::Fire, Pos, AttackDamage, PlayerDir, 200.f);
 }
 
 void Ghost_Woman::AttackUpdate(float _Delta)
@@ -262,12 +276,12 @@ void Ghost_Woman::UturnUpdate(float _Delta)
 
 void Ghost_Woman::WaitingStart()
 {
-	ChangeMainAnimation("GhostWoman_Waiting");
+	//ChangeMainAnimation("GhostWoman_Waiting");
 }
 
 void Ghost_Woman::WaitingUpdate(float _Delta)
 {
-	if (IsDetectPlayer())
+	/*if (IsDetectPlayer())
 	{
 		if (LookPlayer() != Flip)
 		{
@@ -275,6 +289,6 @@ void Ghost_Woman::WaitingUpdate(float _Delta)
 		}
 		DetectPlayer = true;
 		ChangeState(EnemyState::Appear);
-	}
+	}*/
 }
 
