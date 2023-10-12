@@ -31,9 +31,17 @@ public:
 
 	void TakeDamage(class GameEngineCollision* _Player ,int _Damage);
 
+	void static ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right);
+
+	float inline GetAttackDamage()
+	{
+		return AttackDamage;
+	}
+
 protected:
 	float MotionTime = 0.0f; // 기본적으로 적이 행동하는  시간
 	float MoveSpeed = 400.0f;
+	float AttackDamage = 10.0f;
 
 	std::shared_ptr<GameEngineCollision> DetectCollision;
 	std::shared_ptr<GameEngineCollision> DetectAttackCollision;
@@ -44,6 +52,8 @@ protected:
 	bool IsDetectPlayer();
 
 	bool  DetectPlayer = false;
+
+	void CheckAttackCollision();
 
 private:
 	

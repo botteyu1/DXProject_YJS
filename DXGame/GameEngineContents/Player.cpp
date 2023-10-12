@@ -16,6 +16,12 @@ Player::~Player()
 {
 }
 
+void Player::TakeDamage(float _Damage)
+{
+	HP -= static_cast<int>(_Damage);
+	ChangeState(PlayerState::Hit);
+}
+
 void Player::Start()
 {
 	MainPlayer = this;
@@ -114,11 +120,6 @@ void Player::Start()
 	AttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Player_Attack);
 	AttackCollision->Off();
 
-	//DetectCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Player_Attack);
-	
-
-	//AttackCollision->SetCollisionEventParameter(Parameter);
-
 
 	Actor::Start();
 }
@@ -165,6 +166,7 @@ void Player::Update(float _Delta)
 	{
 		JumpingAttackEnd = false;
 		ThroughFloorCheck = false;
+		AerialComboCount = 0;
 	}
 
 	StateUpdate(_Delta);

@@ -16,11 +16,12 @@ void Player::Jump_LandingStart()
 {
 	ChangeMainAnimation("LD_Jump_Landing");
 	ThroughFloorCheck = false;
+	AerialComboCount = 0;
 }
 void Player::Jump_StartStart()
 {
 	ChangeMainAnimation("LD_Jump_Start");
-	
+
 	GrivityForce.Y += JumpingSpeed;
 	Transform.AddLocalPosition({ 0.0f,1.0f });
 }

@@ -45,6 +45,7 @@ void Player::AerialDownAttackStart()
 {
 	ChangeMainAnimation("LD_AerialDownAttack");
 	GrivityForce.Y -= 3500.f;
+	AerialComboCount = 0;
 }
 
 // 프레임으로 다음콤보 시작 위치 확인
@@ -129,7 +130,7 @@ void Player::ComboAerial_RestUpdate(float _Delta)
 	if (GameEngineInput::IsPress('W') and GameEngineInput::IsDown(VK_LBUTTON))
 	{
 		ChangeState(PlayerState::JumpingAttack);
-		AerialComboCount = 0;
+		
 	}
 	else if (GameEngineInput::IsDown(VK_LBUTTON) and AerialComboCount < 3)
 	{
@@ -138,7 +139,7 @@ void Player::ComboAerial_RestUpdate(float _Delta)
 	else if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
 		ChangeState(PlayerState::Jump_Falling);
-		AerialComboCount = 0;
+		
 	}
 
 	InputDashUpdate(_Delta);

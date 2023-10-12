@@ -56,6 +56,22 @@ bool Enemy::IsDetectPlayer()
 	return false;
 }
 
+void Enemy::CheckAttackCollision()
+{
+	EventParameter Parameter;
+
+	Parameter.Enter = ComboHit;
+
+	AttackCollision->CollisionEvent<ContentsCollisionType>(ContentsCollisionType::Player, { ComboHit,nullptr,nullptr });
+}
+
+void Enemy::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)
+{
+	float Damage = _Left->GetParent<Enemy>()->GetAttackDamage();
+	_Right->GetParent<Player>()->TakeDamage(Damage);
+}
+
+
 
 void Enemy::Start()
 {
@@ -68,7 +84,7 @@ void Enemy::Update(float _Delta)
 	Actor::Update(_Delta);
 	if (HP <= 0)
 	{
-		ChangeState(EnemyState::Death);
+		//ChangeState(EnemyState::Death);
 	}
 }
 

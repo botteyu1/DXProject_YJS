@@ -138,6 +138,7 @@ void Ghost_Man::AttackStart()
 void Ghost_Man::AttackUpdate(float _Delta)
 {
 	CheckStartAttackFrame();
+	CheckAttackCollision();
 
 	if (true == MainSpriteRenderer->IsCurAnimationEnd())
 	{

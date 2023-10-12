@@ -55,6 +55,7 @@ public:
 		return DamageComoboScale;
 	}
 
+	void TakeDamage(float _Damage);
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
