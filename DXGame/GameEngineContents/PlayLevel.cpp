@@ -32,6 +32,7 @@ void PlayLevel::Start()
 	}
 
 	CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
+	CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
 }
 
 
