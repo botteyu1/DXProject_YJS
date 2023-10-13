@@ -15,7 +15,7 @@ void Bullet::Start()
 {
 	GameEngineDirectory Dir;
 	Dir.MoveParentToExistsChild("GameEngineResources");
-	Dir.MoveChild("ContentsResources\\\Sprite\\Bullet");
+	Dir.MoveChild("ContentsResources\\Sprite\\Bullet");
 	std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
 
 	for (size_t i = 0; i < Directorys.size(); i++)
@@ -54,9 +54,11 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 			break;
 	}
 	
+	float4 Normal = _Dir.NormalizeReturn();
 	Transform.SetLocalPosition(_Pos);
 	Damage = _Damage;
-	Vecter = _Dir.NormalizeReturn() * _Power;
+	Vecter = Normal * _Power;
+	Transform.AddLocalRotation({0.0f,0.0f,90.0f});
 }
 
 void Bullet::BulletHit(GameEngineCollision* _Bullet, GameEngineCollision* _Target)

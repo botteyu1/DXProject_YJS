@@ -30,7 +30,7 @@ void Ghost_Woman::Start()
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy);
 	MainSpriteRenderer->CreateAnimation("GhostWoman_Attack", "GhostWoman_Attack", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostWoman_Attack", { 0.0f , 30.0f, false,
-		{260.0f, 70.0f}, {130.0f, 50.0f},16 }));
+		{00.0f, 00.0f}, {130.0f, 50.0f},16 }));
 	MainSpriteRenderer->CreateAnimation("GhostWoman_Appear", "GhostWoman_Appear", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostWoman_Appear", { 0.0f }));
 	MainSpriteRenderer->CreateAnimation("GhostWoman_idle", "GhostWoman_idle", 0.0666f, -1, -1, true);
@@ -72,7 +72,7 @@ void Ghost_Woman::Start()
 
 
 	DetectAttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Detect);
-	DetectAttackCollision->Transform.SetLocalScale({ 300.0f, 100.0f });
+	DetectAttackCollision->Transform.SetLocalScale({ 800.0f, 800.0f });
 	DetectAttackCollision->Transform.SetLocalPosition({ 0.0f, 80.0f, 1.0f });
 	DetectAttackCollision->SetCollisionType(ColType::AABBBOX2D);
 
