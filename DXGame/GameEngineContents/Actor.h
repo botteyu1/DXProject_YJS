@@ -49,12 +49,14 @@ public:
 		HP += _HP;
 	}
 
+	void virtual TakeDamage(GameEngineCollision* _Attacker, float _Damage) {}
+
 protected:
 
 	void Start() override;
 	void Update(float _Delta) override;
 	void ChangeMainAnimation(std::string_view _AnimationName);
-	void CheckStartAttackFrame();
+	bool CheckStartAttackFrame();
 	void DashProcessUpdate(float _Delta, const float4& _Dir, float _Speed); //공격같은 실행할떄 대쉬업데이트
 	void FlipCheck();
 

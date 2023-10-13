@@ -10,9 +10,9 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::TakeDamage(GameEngineCollision* _Player ,int _Damage)
+void Enemy::TakeDamage(GameEngineCollision* _Attacker,float _Damage)
 {
-	HP -= _Damage;
+	HP -= static_cast<int>(_Damage);
 	ChangeState(EnemyState::Hit);
 
 	//맞을 떄 플레이어 쪽을 바라보도록
@@ -67,8 +67,8 @@ void Enemy::CheckAttackCollision()
 
 void Enemy::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)
 {
-	float Damage = _Left->GetParent<Enemy>()->GetAttackDamage();
-	_Right->GetParent<Player>()->TakeDamage(Damage);
+	float Damagef = _Left->GetParent<Enemy>()->GetAttackDamage();
+	_Right->GetParent<Player>()->TakeDamage(_Left , Damagef);
 }
 
 

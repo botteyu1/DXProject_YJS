@@ -16,7 +16,7 @@ Player::~Player()
 {
 }
 
-void Player::TakeDamage(float _Damage)
+void Player::TakeDamage(class GameEngineCollision* _Attacker, float _Damage)
 {
 	HP -= static_cast<int>(_Damage);
 	ChangeState(PlayerState::Hit);

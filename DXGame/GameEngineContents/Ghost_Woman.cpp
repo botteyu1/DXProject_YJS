@@ -30,7 +30,7 @@ void Ghost_Woman::Start()
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy);
 	MainSpriteRenderer->CreateAnimation("GhostWoman_Attack", "GhostWoman_Attack", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostWoman_Attack", { 0.0f , 30.0f, false,
-		{00.0f, 00.0f}, {130.0f, 50.0f},16 }));
+		{00.0f, 00.0f}, {130.0f, 50.0f},8 }));
 	MainSpriteRenderer->CreateAnimation("GhostWoman_Appear", "GhostWoman_Appear", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostWoman_Appear", { 0.0f }));
 	MainSpriteRenderer->CreateAnimation("GhostWoman_idle", "GhostWoman_idle", 0.0666f, -1, -1, true);
@@ -139,18 +139,23 @@ void Ghost_Woman::AttackStart()
 {
 	ChangeMainAnimation("GhostWoman_Attack");
 	
-	std::shared_ptr <Bullet> Object = GetLevel()->CreateActor<Bullet>(ContentsObjectType::Bullet);
-
-	float4 Pos = Transform.GetLocalPosition();
-	float4 PlayerDir = Player::GetMainPlayer()->Transform.GetLocalPosition() - Pos;
-
-	Object->Init(BulletType::Fire, Pos, AttackDamage, PlayerDir, 200.f);
+	
 }
 
 void Ghost_Woman::AttackUpdate(float _Delta)
 {
-	CheckStartAttackFrame();
 	CheckAttackCollision();
+	if (CheckStartAttackFrame() == true)
+	{
+		std::shared_ptr <Bullet> Object = GetLevel()->CreateActor<Bullet>(ContentsObjectType::Bullet);
+
+		float4 Pos2 = Transform.GetLocalPosition();
+		float4 Pos = Transform.GetLocalPosition() + float4{50.0f, 50.0f};
+		float4 PlayerDir = Player::GetMainPlayer()->Transform.GetLocalPosition() - Transform.GetLocalPosition();
+
+		Object->Init(BulletType::Fire, Pos , AttackDamage, PlayerDir, 500.f);
+	}
+
 
 	if (true == MainSpriteRenderer->IsCurAnimationEnd())
 	{

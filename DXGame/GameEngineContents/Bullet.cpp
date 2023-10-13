@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Bullet.h"
+#include "Actor.h"
 
 Bullet::Bullet() 
 {
@@ -45,9 +46,11 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 		{
 			MainSpriteRenderer->CreateAnimation("Fire", "Fire", 0.0666f, -1, -1, true);
 			MainSpriteRenderer->ChangeAnimation("Fire");
-
-			AttackCollision->Transform.SetLocalPosition({0.0f,0.0f});
+			MainSpriteRenderer->SetAutoScaleRatio({ 1.0f,0.5f,0.5f });
+			//AttackCollision->Transform.SetLocalPosition({0.0f,0.0f});
 			AttackCollision->Transform.SetLocalScale({ 100.0f,50.0f });
+
+			TargetCollision = ContentsCollisionType::Player;
 			break;
 		}
 		default:
@@ -55,15 +58,19 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 	}
 	
 	float4 Normal = _Dir.NormalizeReturn();
+
+	float4 Deg = Normal.Angle2DDeg();
+	
 	Transform.SetLocalPosition(_Pos);
 	Damage = _Damage;
 	Vecter = Normal * _Power;
-	Transform.AddLocalRotation({0.0f,0.0f,90.0f});
+	Transform.AddLocalRotation({0.0f,0.0f,Deg.X});
 }
 
 void Bullet::BulletHit(GameEngineCollision* _Bullet, GameEngineCollision* _Target)
 {
-
+	float Damagef = _Bullet->GetParent<Bullet>()->GetDamage();
+	_Target->GetParent<Actor>()->TakeDamage(_Bullet, Damagef);
 }
 
 void Bullet::Update(float _Delta)
@@ -75,6 +82,13 @@ void Bullet::Update(float _Delta)
 
 	Parameter.Enter = BulletHit;
 
-	AttackCollision->CollisionEvent<ContentsCollisionType>(ContentsCollisionType::Enemy, Parameter);
+	AttackCollision->CollisionEvent<ContentsCollisionType>(TargetCollision, Parameter);
+
+	Time += _Delta;
+
+	if (Time >= 5.0f)
+	{
+		Death();
+	}
 }
 

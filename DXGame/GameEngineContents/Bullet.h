@@ -25,6 +25,11 @@ public:
 
 	void static BulletHit(GameEngineCollision* _Bullet, GameEngineCollision* _Target);
 
+	float GetDamage()
+	{
+		return Damage;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
@@ -35,5 +40,8 @@ private:
 
 	float4 Vecter = float4::RIGHT;
 	float Damage = 0.0f;
+	ContentsCollisionType TargetCollision = ContentsCollisionType::Enemy;
+
+	float Time = 0.0f;
 };
 

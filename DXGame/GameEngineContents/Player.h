@@ -55,7 +55,7 @@ public:
 		return DamageComoboScale;
 	}
 
-	void TakeDamage(float _Damage);
+	void TakeDamage( GameEngineCollision* _Attacker, float _Damage) override;
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
