@@ -13,7 +13,6 @@ Enemy::~Enemy()
 void Enemy::TakeDamage(GameEngineCollision* _Attacker,float _Damage)
 {
 	HP -= static_cast<int>(_Damage);
-	MainSpriteRenderer->SetAutoScaleRatio({ 1.0f, 1.0f });
 	ChangeState(EnemyState::Hit);
 
 	//맞을 떄 플레이어 쪽을 바라보도록
@@ -127,6 +126,7 @@ void Enemy::ChangeState(EnemyState _State)
 		break;
 	}
 	FrameCheck = false;
+	DashStartCheck = false;
 	State = _State;
 }
 

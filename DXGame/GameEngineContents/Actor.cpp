@@ -221,6 +221,12 @@ bool Actor::CheckStartAttackFrame()
 
 void Actor::DashProcessUpdate(float _Delta,const float4& _Dir, float _Speed)
 {
+
+	if (DashStartCheck == false)
+	{
+		return;
+	}
+
 	if (CurDash == CurAnimationData->DashDistance)
 	{
 		return;

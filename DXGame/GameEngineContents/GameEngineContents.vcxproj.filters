@@ -48,6 +48,9 @@
     <ClCompile Include="PossessedBook.cpp">
       <Filter>Actor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Ghost_Med.cpp">
+      <Filter>Actor\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
@@ -87,6 +90,9 @@
       <Filter>Object\Map</Filter>
     </ClInclude>
     <ClInclude Include="PossessedBook.h">
+      <Filter>Actor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghost_Med.h">
       <Filter>Actor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

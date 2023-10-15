@@ -43,7 +43,7 @@ public:
 	Player(Player&& _Other) noexcept = delete;
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
-	void static ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right);
+	void static ComboHit(class GameEngineCollision* _Left, GameEngineCollision* _Right);
 
 	int GetDamageComobo()
 	{
@@ -55,7 +55,8 @@ public:
 		return DamageComoboScale;
 	}
 
-	void TakeDamage( GameEngineCollision* _Attacker, float _Damage) override;
+	void TakeDamage(GameEngineCollision* _Attacker, float _Damage) override;
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;

@@ -185,6 +185,8 @@ void Player::Update(float _Delta)
 		
 	AttackCollision->CollisionEvent<ContentsCollisionType>(ContentsCollisionType::Enemy,{ ComboHit,nullptr,nullptr});
 
+	DashStartCheck = true;
+
 }
 
 

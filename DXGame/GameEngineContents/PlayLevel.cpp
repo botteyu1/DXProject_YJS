@@ -5,6 +5,7 @@
 #include "Ghost_Man.h"
 #include "Ghost_Woman.h"
 #include "PossessedBook.h"
+#include "Ghost_Med.h" 
 
 
 PlayLevel::PlayLevel() 
@@ -35,7 +36,8 @@ void PlayLevel::Start()
 
 	//CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
 	//CreateActor<Ghost_Woman>(ContentsObjectType::Enemy);
-	CreateActor<PossessedBook>(ContentsObjectType::Enemy);
+	//CreateActor<PossessedBook>(ContentsObjectType::Enemy);
+	CreateActor<Ghost_Med>(ContentsObjectType::Enemy);
 }
 
 
