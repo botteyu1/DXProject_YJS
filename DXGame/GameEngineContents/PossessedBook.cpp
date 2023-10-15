@@ -29,7 +29,7 @@ void PossessedBook::Start()
 	MainSpriteRenderer->CreateAnimation("PossessedBook_Attack", "PossessedBook_Attack", 0.0333f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("PossessedBook_Attack", { 0.5f , 30.0f, false,
 		{00.0f, 00.0f}, {130.0f, 50.0f},43 }));
-	MainSpriteRenderer->CreateAnimation("PossessedBook_Idle", "PossessedBook_Idle", 0.0333f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("PossessedBook_Idle", "PossessedBook_Idle", 0.02666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("PossessedBook_Idle", {  }));
 	MainSpriteRenderer->CreateAnimation("PossessedBook_Death", "PossessedBook_Death", 0.0333f, -1, -1, false);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("PossessedBook_Death", { }));
@@ -37,7 +37,7 @@ void PossessedBook::Start()
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("PossessedBook_Hit", { }));
 	MainSpriteRenderer->CreateAnimation("PossessedBook_Suprised", "PossessedBook_Hit", 0.0333f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("PossessedBook_Suprised", { }));
-	MainSpriteRenderer->CreateAnimation("PossessedBook_Run", "PossessedBook_Idle", 0.0333f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("PossessedBook_Run", "PossessedBook_Idle", 0.02666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("PossessedBook_Run", {  }));
 	MainSpriteRenderer->CreateAnimation("PossessedBook_Uturn", "PossessedBook_Uturn", 0.0333f, -1, -1, false);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("PossessedBook_Uturn", {  }));
@@ -57,7 +57,7 @@ void PossessedBook::Start()
 
 	MainCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy);
 	MainCollision->Transform.SetLocalScale({ 50.0f, 50.0f });
-	MainCollision->Transform.SetLocalPosition({ 0.0f, 80.0f, 1.0f });
+	MainCollision->Transform.SetLocalPosition({ 0.0f, 40.0f, 1.0f });
 
 	AttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Attack);
 
@@ -82,6 +82,8 @@ void PossessedBook::Start()
 
 	//공중 몬스터
 	ForceGrivityOff = true;
+
+	MoveSpeed = 200.0f;
 
 	Enemy::Start();
 }
@@ -125,7 +127,7 @@ void PossessedBook::IdleUpdate(float _Delta)
 
 
 	MotionTime += _Delta;
-	if (MotionTime >= 2.0f)
+	if (MotionTime >= 2.0f and CheckStartAttackFrame() == true)
 	{
 		//패턴끝날때까지 못찾으면 false
 
@@ -238,7 +240,7 @@ void PossessedBook::RunUpdate(float _Delta)
 	}
 
 	MotionTime += _Delta;
-	if (MotionTime >= 2.0f)
+	if (MotionTime >= 2.0f and CheckStartAttackFrame() == true)
 	{
 
 		ChangeState(EnemyState::Idle);
