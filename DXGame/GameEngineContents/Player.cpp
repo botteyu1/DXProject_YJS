@@ -106,10 +106,9 @@ void Player::Start()
 		ChangeState(PlayerState::Idle);
 
 		DefaultScale = MainSpriteRenderer->GetCurSprite().Texture.get()->GetScale();  
-	}
-
+	} 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
-	Transform.SetLocalPosition({ HalfWindowScale.X, -HalfWindowScale.Y, -500.0f });
+	Transform.SetLocalPosition({ HalfWindowScale.X, -HalfWindowScale.Y});
 
 	// 콜리전 추가
 
@@ -121,6 +120,10 @@ void Player::Start()
 	AttackCollision->Off();
 
 
+
+	//카메라 포커스
+	GetLevel()->GetMainCamera()->CameraTargetSetting(Transform, float4::BACKWARD *1000.0f);
+
 	Actor::Start();
 }
 
@@ -130,29 +133,31 @@ void Player::Update(float _Delta)
 	
 	//플레이어 카메라 포커스
 	//GameEngineColor Color = PlayMap::MainMap->GetColor(Transform.GetWorldPosition(), GameEngineColor::RED);
-	std::shared_ptr<GameEngineCamera> MainCamara = GetLevel()->GetMainCamera();
-	MainCamara->Transform.SetLocalPosition(Transform.GetWorldPosition());
+	/*std::shared_ptr<GameEngineCamera> MainCamara = GetLevel()->GetMainCamera();
+	MainCamara->Transform.SetLocalPosition(Transform.GetWorldPosition());*/
 
-	if (GameEngineInput::IsDown('P'))
+	
+
+	if (GameEngineInput::IsDown('P', this))
 	{
 		Debug = !Debug;
 	}
 	
 	if (Debug == true)
 	{
-		if(GameEngineInput::IsPress('S'))
+		if(GameEngineInput::IsPress('S', this))
 		{
 			Transform.AddLocalPosition({ 0.0f, -500.0f * _Delta });
 		}
-		if(GameEngineInput::IsPress('W'))
+		if(GameEngineInput::IsPress('W', this))
 		{
 			Transform.AddLocalPosition({ 0.0f, 500.0f * _Delta });
 		}
-		if(GameEngineInput::IsPress('A'))
+		if(GameEngineInput::IsPress('A', this))
 		{
 			Transform.AddLocalPosition({ -500.0f * _Delta , 0.0f  });
 		}
-		if(GameEngineInput::IsPress('D'))
+		if(GameEngineInput::IsPress('D', this))
 		{
 			Transform.AddLocalPosition({ 500.0f * _Delta , 0.0f  });
 		}
@@ -186,7 +191,7 @@ void Player::Update(float _Delta)
 
 void Player::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)
 {
-	int Damage = static_cast<int>(_Left->GetParent<Player>()->GetDamageComobo() * _Left->GetParent<Player>()->GetDamageComoboScale());
+	float Damage = _Left->GetParent<Player>()->GetDamageComobo() * _Left->GetParent<Player>()->GetDamageComoboScale();
 	_Right->GetParent<Enemy>()->TakeDamage(_Left, Damage);
 }
 

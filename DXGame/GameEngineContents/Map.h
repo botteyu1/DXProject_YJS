@@ -23,6 +23,8 @@ protected:
 	std::shared_ptr<GameEngineSpriteRenderer> PixelBackGround;
 	std::shared_ptr<GameEngineSpriteRenderer> PixelBackGround2;
 
+
+	void Start() override;
 	void Update(float _Delta) override;
 
 private:

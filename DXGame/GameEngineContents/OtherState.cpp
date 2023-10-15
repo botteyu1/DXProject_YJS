@@ -15,7 +15,7 @@ void Player::HitUpdate(float _Delta)
 		{
 			ChangeState(PlayerState::Jump_Falling);
 		}
-		else if (GameEngineInput::IsPress('A') or GameEngineInput::IsPress('D'))
+		else if (GameEngineInput::IsPress('A', this) or GameEngineInput::IsPress('D', this))
 		{
 			ChangeState(PlayerState::Run);
 		}

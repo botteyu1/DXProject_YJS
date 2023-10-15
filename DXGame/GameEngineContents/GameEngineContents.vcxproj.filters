@@ -45,6 +45,9 @@
     <ClCompile Include="PlayMap.cpp">
       <Filter>Object\Map</Filter>
     </ClCompile>
+    <ClCompile Include="PossessedBook.cpp">
+      <Filter>Actor\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h" />
@@ -82,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="PlayMap.h">
       <Filter>Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="PossessedBook.h">
+      <Filter>Actor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

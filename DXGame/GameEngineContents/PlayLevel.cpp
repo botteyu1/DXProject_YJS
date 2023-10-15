@@ -4,6 +4,7 @@
 #include "PlayMap.h"
 #include "Ghost_Man.h"
 #include "Ghost_Woman.h"
+#include "PossessedBook.h"
 
 
 PlayLevel::PlayLevel() 
@@ -20,8 +21,8 @@ void PlayLevel::Start()
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
 
-	GetMainCamera()->Transform.SetLocalPosition({ HalfWindowScale.X, -HalfWindowScale.Y, -500.0f});
-	GetMainCamera()->SetProjectionType(EPROJECTIONTYPE::Orthographic);
+	GetMainCamera()->Transform.SetLocalPosition({ HalfWindowScale.X, -HalfWindowScale.Y, -5000.0f});
+	GetMainCamera()->SetProjectionType(EPROJECTIONTYPE::Perspective);
 
 
 	{
@@ -33,7 +34,8 @@ void PlayLevel::Start()
 	}
 
 	//CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
-	CreateActor<Ghost_Woman>(ContentsObjectType::Enemy);
+	//CreateActor<Ghost_Woman>(ContentsObjectType::Enemy);
+	CreateActor<PossessedBook>(ContentsObjectType::Enemy);
 }
 
 

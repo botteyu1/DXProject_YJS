@@ -30,16 +30,21 @@ GameEngineColor Map::GetColor(float4 _Pos, GameEngineColor _DefaultColor)
 	return Tex->GetColor(_Pos, _DefaultColor);
 }
 
+void Map::Start()
+{
+	GameEngineInput::AddInputObject(this);
+}
+
 void Map::Update(float _Delta)
 {
-	if (GameEngineInput::IsDown('L'))
+	if (GameEngineInput::IsDown('L',this))
 	{
 		MainBackGround->Off();
 		MainBackGround2->Off();
 		PixelBackGround->On();
 		PixelBackGround2->On();
 	}
-	if (GameEngineInput::IsDown('K'))
+	if (GameEngineInput::IsDown('K', this))
 	{
 		MainBackGround->On();
 		MainBackGround2->On();

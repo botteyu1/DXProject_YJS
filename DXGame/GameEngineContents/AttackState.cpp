@@ -54,7 +54,7 @@ void Player::AerialDownAttackStart()
 void Player::ComboMoveUpdate(float _Delta)
 {
 	CheckStartAttackFrame();
-	if (GameEngineInput::IsDown(VK_LBUTTON))
+	if (GameEngineInput::IsDown(VK_LBUTTON,this))
 	{
 		NextCombo = true;
 	}
@@ -78,12 +78,12 @@ void Player::ComboMoveUpdate(float _Delta)
 
 void Player::ComboMove_RestUpdate(float _Delta)
 {
-	if (GameEngineInput::IsPress('W') and GameEngineInput::IsDown(VK_LBUTTON))
+	if (GameEngineInput::IsPress('W', this) and GameEngineInput::IsDown(VK_LBUTTON, this))
 	{
 		ChangeState(PlayerState::JumpingAttack);
 	}
 
-	else if (GameEngineInput::IsDown(VK_LBUTTON) and ComboCount < 4)
+	else if (GameEngineInput::IsDown(VK_LBUTTON, this) and ComboCount < 4)
 	{
 		ChangeState(PlayerState::ComboMove);
 	}
@@ -101,7 +101,7 @@ void Player::ComboAerialUpdate(float _Delta)
 {
 
 	CheckStartAttackFrame();
-	if (GameEngineInput::IsDown(VK_LBUTTON))
+	if (GameEngineInput::IsDown(VK_LBUTTON, this))
 	{
 		NextCombo = true;
 	}
@@ -127,12 +127,12 @@ void Player::ComboAerialUpdate(float _Delta)
 
 void Player::ComboAerial_RestUpdate(float _Delta)
 {
-	if (GameEngineInput::IsPress('W') and GameEngineInput::IsDown(VK_LBUTTON))
+	if (GameEngineInput::IsPress('W', this) and GameEngineInput::IsDown(VK_LBUTTON, this))
 	{
 		ChangeState(PlayerState::JumpingAttack);
 		
 	}
-	else if (GameEngineInput::IsDown(VK_LBUTTON) and AerialComboCount < 3)
+	else if (GameEngineInput::IsDown(VK_LBUTTON, this) and AerialComboCount < 3)
 	{
 		ChangeState(PlayerState::ComboAerial);
 	}
@@ -155,7 +155,7 @@ void Player::JumpingAttackUpdate(float _Delta)
 		{
 			ChangeState(PlayerState::Jump_Falling);
 		}
-		else if (GameEngineInput::IsPress('A') or GameEngineInput::IsPress('D'))
+		else if (GameEngineInput::IsPress('A', this) or GameEngineInput::IsPress('D', this))
 		{
 			ChangeState(PlayerState::Run);
 		}
@@ -184,15 +184,15 @@ void Player::AerialDownAttackUpdate(float _Delta)
 
 void Player::InputAttackUpdate(float _Delta)
 {
-	if (GameEngineInput::IsDown(VK_LBUTTON))
+	if (GameEngineInput::IsDown(VK_LBUTTON, this))
 	{
 		ComboCount = 0;
 		FlipCheck();
-		if (GameEngineInput::IsPress('W'))
+		if (GameEngineInput::IsPress('W', this))
 		{
 			ChangeState(PlayerState::JumpingAttack);
 		}
-		else if (AerialCheck == true and GameEngineInput::IsPress('S'))
+		else if (AerialCheck == true and GameEngineInput::IsPress('S', this))
 		{
 			ChangeState(PlayerState::AerialDownAttack);
 		}

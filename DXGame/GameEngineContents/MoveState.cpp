@@ -188,7 +188,7 @@ void Player::Jump_StartUpdate(float _Delta)
 	{
 		ChangeState(PlayerState::Jump_Falling);
 	}
-	if (GameEngineInput::IsPress(VK_SPACE))
+	if (GameEngineInput::IsPress(VK_SPACE, this))
 	{
 		GrivityForce.Y += 5000.0f * _Delta;
 	}
@@ -210,7 +210,7 @@ void Player::DashUpdate(float _Delta)
 		{
 			ChangeState(PlayerState::Jump_Falling);
 		}
-		else if (GameEngineInput::IsPress('A') or GameEngineInput::IsPress('D'))
+		else if (GameEngineInput::IsPress('A', this) or GameEngineInput::IsPress('D', this))
 		{
 			ChangeState(PlayerState::Run);
 		}
@@ -238,12 +238,12 @@ void Player::InputMoveUpdate(float _Delta)
 {
 	Dir = float4::ZERO;
 
-	if (GameEngineInput::IsPress('A'))
+	if (GameEngineInput::IsPress('A', this))
 	{
 		Dir += float4::LEFT;
 		Flip = true;
 	}
-	if (GameEngineInput::IsPress('D'))
+	if (GameEngineInput::IsPress('D', this))
 	{
 		Dir += float4::RIGHT;
 		Flip = false;
@@ -270,7 +270,7 @@ void Player::InputMoveUpdate(float _Delta)
 //점프 시작 업데이트
 void Player::InputJumpUpdate(float _Delta)
 {
-	if (GameEngineInput::IsDown(VK_SPACE) and GameEngineInput::IsPress('S') and AerialCheck == false)
+	if (GameEngineInput::IsDown(VK_SPACE, this) and GameEngineInput::IsPress('S', this) and AerialCheck == false)
 	{
 		ChangeState(PlayerState::Jump_Falling);
 		ThroughFloorCheck = true;
@@ -278,7 +278,7 @@ void Player::InputJumpUpdate(float _Delta)
 	}
 		
 
-	if (GameEngineInput::IsDown(VK_SPACE))
+	if (GameEngineInput::IsDown(VK_SPACE, this))
 	{
 		ChangeState(PlayerState::Jump_Start);
 	}
@@ -287,7 +287,7 @@ void Player::InputJumpUpdate(float _Delta)
 
 void Player::InputDashUpdate(float _Delta)
 {
-	if (GameEngineInput::IsDown(VK_LSHIFT))
+	if (GameEngineInput::IsDown(VK_LSHIFT, this))
 	{
 		ChangeState(PlayerState::Dash);
 	}

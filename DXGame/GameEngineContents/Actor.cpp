@@ -16,6 +16,7 @@ void Actor::Start()
 {
 	MainCollision->SetCollisionType(ColType::AABBBOX2D);
 	AttackCollision->SetCollisionType(ColType::AABBBOX2D);
+	GameEngineInput::AddInputObject(this);
 }
 
 

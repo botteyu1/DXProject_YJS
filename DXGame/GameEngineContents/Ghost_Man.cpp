@@ -60,24 +60,24 @@ void Ghost_Man::Start()
 
 	MainCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy);
 	MainCollision->Transform.SetLocalScale({ 50.0f, 100.0f });
-	MainCollision->Transform.SetLocalPosition({ 0.0f, 80.0f, 1.0f });
+	MainCollision->Transform.SetLocalPosition({ 0.0f, 80.0f });
 
 	AttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Attack);
 
 	DetectCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Detect);
 	DetectCollision->Transform.SetLocalScale({ 1000.0f, 1000.0f });
-	DetectCollision->Transform.SetLocalPosition({ -0.0f, 80.0f, 1.0f });
+	DetectCollision->Transform.SetLocalPosition({ -0.0f, 80.0f });
 	DetectCollision->SetCollisionType(ColType::AABBBOX2D);
 	
 
 	DetectAttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Detect);
 	DetectAttackCollision->Transform.SetLocalScale({ 300.0f, 100.0f });
-	DetectAttackCollision->Transform.SetLocalPosition({ 0.0f, 80.0f, 1.0f });
+	DetectAttackCollision->Transform.SetLocalPosition({ 0.0f, 80.0f });
 	DetectAttackCollision->SetCollisionType(ColType::AABBBOX2D);
 	
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
-	Transform.SetLocalPosition({ HalfWindowScale.X + 700.0f, -HalfWindowScale.Y, -500.0f });
+	Transform.SetLocalPosition({ HalfWindowScale.X + 700.0f, -HalfWindowScale.Y });
 	ChangeState(EnemyState::Waiting);
 	std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("Ghost_Idle_0001.png");
 

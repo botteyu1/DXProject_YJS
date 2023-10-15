@@ -1,22 +1,22 @@
 #include "PreCompile.h"
-#include "Ghost_Woman.h"
+#include "PossessedBook.h"
 #include "Bullet.h"
 #include "Player.h"
 
-Ghost_Woman::Ghost_Woman()
+PossessedBook::PossessedBook() 
 {
 }
 
-Ghost_Woman::~Ghost_Woman()
+PossessedBook::~PossessedBook()
 {
 }
 
-void Ghost_Woman::Start()
+void PossessedBook::Start()
 {
 
 	GameEngineDirectory Dir;
 	Dir.MoveParentToExistsChild("GameEngineResources");
-	Dir.MoveChild("ContentsResources\\Sprite\\Enemy\\Ghost_Woman");
+	Dir.MoveChild("ContentsResources\\Sprite\\Enemy\\PossessedBook");
 	std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
 
 	for (size_t i = 0; i < Directorys.size(); i++)
@@ -26,29 +26,27 @@ void Ghost_Woman::Start()
 	}
 
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy);
-	MainSpriteRenderer->CreateAnimation("GhostWoman_Attack", "GhostWoman_Attack", 0.0666f, -1, -1, true);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostWoman_Attack", { 0.0f , 30.0f, false,
-		{00.0f, 00.0f}, {130.0f, 50.0f},8 }));
-	MainSpriteRenderer->CreateAnimation("GhostWoman_Appear", "GhostWoman_Appear", 0.0666f, -1, -1, true);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostWoman_Appear", { 0.0f }));
-	MainSpriteRenderer->CreateAnimation("GhostWoman_idle", "GhostWoman_idle", 0.0666f, -1, -1, true);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostWoman_idle", { 0.0f }));
-	MainSpriteRenderer->CreateAnimation("GhostWoman_Death", "GhostWoman_Death", 0.0666f, -1, -1, false);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostWoman_Death", { 0.0f }));
-	MainSpriteRenderer->CreateAnimation("GhostWoman_Hit", "GhostWoman_Hit", 0.0666f, -1, -1, true);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostWoman_Hit", { 0.0f }));
-	MainSpriteRenderer->CreateAnimation("GhostWoman_Run", "GhostWoman_idle", 0.0366f, -1, -1, true);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostWoman_Run", { 0.0f }));
-	MainSpriteRenderer->CreateAnimation("GhostWoman_Surprised", "GhostWoman_Surprised", 0.0666f, -1, -1, true);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostWoman_Surprised", { 0.0f }));
-	MainSpriteRenderer->CreateAnimation("GhostWoman_Uturn", "GhostWoman_Uturn", 0.0666f, -1, -1, false);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostWoman_Uturn", { 0.0f }));
+	MainSpriteRenderer->CreateAnimation("PossessedBook_Attack", "PossessedBook_Attack", 0.0333f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("PossessedBook_Attack", { 0.5f , 30.0f, false,
+		{00.0f, 00.0f}, {130.0f, 50.0f},43 }));
+	MainSpriteRenderer->CreateAnimation("PossessedBook_Idle", "PossessedBook_Idle", 0.0333f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("PossessedBook_Idle", {  }));
+	MainSpriteRenderer->CreateAnimation("PossessedBook_Death", "PossessedBook_Death", 0.0333f, -1, -1, false);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("PossessedBook_Death", { }));
+	MainSpriteRenderer->CreateAnimation("PossessedBook_Hit", "PossessedBook_Hit", 0.0333f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("PossessedBook_Hit", { }));
+	MainSpriteRenderer->CreateAnimation("PossessedBook_Suprised", "PossessedBook_Hit", 0.0333f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("PossessedBook_Suprised", { }));
+	MainSpriteRenderer->CreateAnimation("PossessedBook_Run", "PossessedBook_Idle", 0.0333f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("PossessedBook_Run", {  }));
+	MainSpriteRenderer->CreateAnimation("PossessedBook_Uturn", "PossessedBook_Uturn", 0.0333f, -1, -1, false);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("PossessedBook_Uturn", {  }));
 
 
 	//MainSpriteRenderer->SetSamplerState(SamplerOption::LINEAR);
 	MainSpriteRenderer->AutoSpriteSizeOn();
-	MainSpriteRenderer->Transform.AddLocalPosition({ 30.0f });
-	MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
+	MainSpriteRenderer->Transform.AddLocalPosition({0.0f });
+	MainSpriteRenderer->SetPivotValue({ 0.5f, 0.0f });
 
 	//AttackfxRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy_Attack);
 	//AttackfxRenderer->CreateAnimation("GhostWoman_Attack_FX", "GhostWoman_Attack_FX", 0.0666f, -1, -1, false);
@@ -58,7 +56,7 @@ void Ghost_Woman::Start()
 
 
 	MainCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy);
-	MainCollision->Transform.SetLocalScale({ 50.0f, 100.0f });
+	MainCollision->Transform.SetLocalScale({ 50.0f, 50.0f });
 	MainCollision->Transform.SetLocalPosition({ 0.0f, 80.0f, 1.0f });
 
 	AttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Attack);
@@ -76,28 +74,31 @@ void Ghost_Woman::Start()
 
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
-	Transform.SetLocalPosition({ HalfWindowScale.X + 700.0f, -HalfWindowScale.Y });
+	Transform.SetLocalPosition({ HalfWindowScale.X + 700.0f, -(HalfWindowScale.Y+ 2000.0f )});
 	ChangeState(EnemyState::Idle);
-	std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("Enemy_Ghost_Woman_IDLE_0001.png");
+	std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("W1_Enemy_PossessedBook_Idle_0001.png");
 
 	DefaultScale = Tex.get()->GetScale();
+
+	//공중 몬스터
+	ForceGrivityOff = true;
 
 	Enemy::Start();
 }
 
-void Ghost_Woman::Update(float _Delta)
+void PossessedBook::Update(float _Delta)
 {
 	Enemy::Update(_Delta);
 	StateUpdate(_Delta);
 }
 
-void Ghost_Woman::IdleStart()
+void PossessedBook::IdleStart()
 {
-	ChangeMainAnimation("GhostWoman_idle");
+	ChangeMainAnimation("PossessedBook_Idle");
 	MotionTime = 0.0f;
 }
 
-void Ghost_Woman::IdleUpdate(float _Delta)
+void PossessedBook::IdleUpdate(float _Delta)
 {
 
 	bool PreFlip = Flip;
@@ -133,54 +134,51 @@ void Ghost_Woman::IdleUpdate(float _Delta)
 	}
 }
 
-void Ghost_Woman::AttackStart()
+void PossessedBook::AttackStart()
 {
-	ChangeMainAnimation("GhostWoman_Attack");
-	
-	
+	ChangeMainAnimation("PossessedBook_Attack");
+	MainSpriteRenderer->SetAutoScaleRatio({ 0.5f, 0.5f,0.5f });
 }
 
-void Ghost_Woman::AttackUpdate(float _Delta)
+void PossessedBook::AttackUpdate(float _Delta)
 {
-	CheckAttackCollision();
+	//CheckAttackCollision();
 	if (CheckStartAttackFrame() == true)
 	{
 		std::shared_ptr <Bullet> Object = GetLevel()->CreateActor<Bullet>(ContentsObjectType::Bullet);
 
 		float4 Pos2 = Transform.GetLocalPosition();
-		float4 Pos = Transform.GetLocalPosition() + float4{50.0f, 50.0f};
-		float4 PlayerDir = Player::GetMainPlayer()->Transform.GetLocalPosition() - Transform.GetLocalPosition();
+		float4 Pos = Transform.GetLocalPosition() + float4{ 50.0f, 50.0f };
+		float4 PlayerDir = Player::GetMainPlayer()->Transform.GetLocalPosition() - Transform.GetLocalPosition() + float4{0.0f, 0.0f, 1.0f};
 
-		Object->Init(BulletType::Fire, Pos , AttackDamage, PlayerDir, 800.f);
+		Object->Init(BulletType::Fire, Pos, AttackDamage, PlayerDir, 500.f);
 	}
 
 
 	if (true == MainSpriteRenderer->IsCurAnimationEnd())
 	{
+		MainSpriteRenderer->SetAutoScaleRatio({ 1.0f, 1.0f ,1.0f});
 		ChangeState(EnemyState::Run);
 	}
 }
 
-void Ghost_Woman::AppearStart()
+void PossessedBook::AppearStart()
 {
-	ChangeMainAnimation("GhostWoman_Appear");
+	
 }
 
-void Ghost_Woman::AppearUpdate(float _Delta)
+void PossessedBook::AppearUpdate(float _Delta)
 {
-	if (true == MainSpriteRenderer->IsCurAnimationEnd())
-	{
-		ChangeState(EnemyState::Run);
-	}
+	
 }
 
-void Ghost_Woman::DeathStart()
+void PossessedBook::DeathStart()
 {
-	ChangeMainAnimation("GhostWoman_Death");
+	ChangeMainAnimation("PossessedBook_Death");
 
 }
 
-void Ghost_Woman::DeathUpdate(float _Delta)
+void PossessedBook::DeathUpdate(float _Delta)
 {
 	if (true == MainSpriteRenderer->IsCurAnimationEnd())
 	{
@@ -188,12 +186,12 @@ void Ghost_Woman::DeathUpdate(float _Delta)
 	}
 }
 
-void Ghost_Woman::HitStart()
+void PossessedBook::HitStart()
 {
-	ChangeMainAnimation("GhostWoman_Hit");
+	ChangeMainAnimation("PossessedBook_Hit");
 }
 
-void Ghost_Woman::HitUpdate(float _Delta)
+void PossessedBook::HitUpdate(float _Delta)
 {
 	if (true == MainSpriteRenderer->IsCurAnimationEnd())
 	{
@@ -201,13 +199,13 @@ void Ghost_Woman::HitUpdate(float _Delta)
 	}
 }
 
-void Ghost_Woman::RunStart()
+void PossessedBook::RunStart()
 {
-	ChangeMainAnimation("GhostWoman_Run");
+	ChangeMainAnimation("PossessedBook_Run");
 	MotionTime = 0.0f;
 }
 
-void Ghost_Woman::RunUpdate(float _Delta)
+void PossessedBook::RunUpdate(float _Delta)
 {
 	Transform.AddLocalPosition(Dir * _Delta * MoveSpeed);
 
@@ -247,12 +245,13 @@ void Ghost_Woman::RunUpdate(float _Delta)
 	}
 }
 
-void Ghost_Woman::SurprisedStart()
+void PossessedBook::SurprisedStart()
 {
-	ChangeMainAnimation("GhostWoman_Surprised");
+	ChangeMainAnimation("PossessedBook_Suprised");
+	
 }
 
-void Ghost_Woman::SurprisedUpdate(float _Delta)
+void PossessedBook::SurprisedUpdate(float _Delta)
 {
 	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
 	{
@@ -261,12 +260,12 @@ void Ghost_Woman::SurprisedUpdate(float _Delta)
 	}
 }
 
-void Ghost_Woman::UturnStart()
+void PossessedBook::UturnStart()
 {
-	ChangeMainAnimation("GhostWoman_Uturn");
+	ChangeMainAnimation("PossessedBook_Uturn");
 }
 
-void Ghost_Woman::UturnUpdate(float _Delta)
+void PossessedBook::UturnUpdate(float _Delta)
 {
 
 	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
@@ -277,12 +276,12 @@ void Ghost_Woman::UturnUpdate(float _Delta)
 	}
 }
 
-void Ghost_Woman::WaitingStart()
+void PossessedBook::WaitingStart()
 {
 	//ChangeMainAnimation("GhostWoman_Waiting");
 }
 
-void Ghost_Woman::WaitingUpdate(float _Delta)
+void PossessedBook::WaitingUpdate(float _Delta)
 {
 	/*if (IsDetectPlayer())
 	{
@@ -294,4 +293,3 @@ void Ghost_Woman::WaitingUpdate(float _Delta)
 		ChangeState(EnemyState::Appear);
 	}*/
 }
-

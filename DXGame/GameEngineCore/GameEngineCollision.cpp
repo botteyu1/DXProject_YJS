@@ -63,9 +63,6 @@ bool GameEngineCollision::CollisionEvent(int _Order, const EventParameter& _Even
 	{
 		return false;
 	}
-
-	
-
 	std::shared_ptr<GameEngineCollisionGroup> OtherGroup = GetLevel()->Collisions[_Order];
 
 	std::set<std::shared_ptr<GameEngineCollision>>::iterator Start = Others.begin();
@@ -107,7 +104,7 @@ void GameEngineCollision::Update(float _Delta)
 		switch (CollisionType)
 		{
 		case ColType::SPHERE2D:
-			GameEngineDebug::DrawBox2D(Transform);
+			GameEngineDebug::DrawSphere2D(Transform);
 			break;
 		case ColType::AABBBOX2D:
 			GameEngineDebug::DrawBox2D(Transform);
@@ -116,7 +113,7 @@ void GameEngineCollision::Update(float _Delta)
 			GameEngineDebug::DrawBox2D(Transform);
 			break;
 		case ColType::SPHERE3D:
-			GameEngineDebug::DrawBox2D(Transform);
+			GameEngineDebug::DrawSphere2D(Transform);
 			break;
 		case ColType::AABBBOX3D:
 			GameEngineDebug::DrawBox2D(Transform);

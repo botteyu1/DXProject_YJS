@@ -34,7 +34,7 @@ void Bullet::Start()
 
 	AttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Attack);
 
-
+	AttackCollision->SetCollisionType(ColType::AABBBOX2D);
 }
 
 void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, float _Power)
@@ -46,7 +46,7 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 		{
 			MainSpriteRenderer->CreateAnimation("Fire", "Fire", 0.0666f, -1, -1, true);
 			MainSpriteRenderer->ChangeAnimation("Fire");
-			MainSpriteRenderer->SetAutoScaleRatio({ 1.0f,0.5f,0.5f });
+			MainSpriteRenderer->SetAutoScaleRatio({ 0.7f,0.35f});
 			//AttackCollision->Transform.SetLocalPosition({0.0f,0.0f});
 			AttackCollision->Transform.SetLocalScale({ 100.0f,50.0f });
 
@@ -58,13 +58,20 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 	}
 	
 	float4 Normal = _Dir.NormalizeReturn();
+	float Deg = Normal.Angle2DDeg();
+	if (Normal.Y <= 0.0f)
+	{
+		Deg = -Deg;
+	}
 
-	float4 Deg = Normal.Angle2DDeg();
+
+	/*float4 Normal2 = float4{ 0.0f,1.0f,0.0f }.NormalizeReturn();
+	float4 Deg2 = Normal2.Angle2DDeg();*/
 	
 	Transform.SetLocalPosition(_Pos);
 	Damage = _Damage;
 	Vecter = Normal * _Power;
-	Transform.AddLocalRotation({0.0f,0.0f,Deg.X});
+	Transform.AddLocalRotation({0.0f,0.0f,Deg});
 }
 
 void Bullet::BulletHit(GameEngineCollision* _Bullet, GameEngineCollision* _Target)
