@@ -97,7 +97,33 @@ void Ghost_Med::Start()
 void Ghost_Med::Update(float _Delta)
 {
 	Enemy::Update(_Delta);
-	StateUpdate(_Delta);
+	//StateUpdate(_Delta);
+
+	/*float4 PrevPos = Transform.GetLocalPosition();
+
+	float4 Pos = GetLevel()->GetMainCamera()->GetWorldMousePos2D();
+	Pos.Z = PrevPos.Z;
+	Transform.SetLocalPosition(Pos);*/
+	float4 Pos = GetLevel()->GetMainCamera()->GetScreenMouseDir();
+	Pos.X = -Pos.X;
+	Transform.AddLocalPosition(Pos);
+
+	if (GameEngineInput::IsPress(VK_NUMPAD6, this))
+	{
+		Transform.AddLocalPosition(float4::RIGHT * 200.0f * _Delta);
+	}
+	if (GameEngineInput::IsPress(VK_NUMPAD4, this))
+	{
+		Transform.AddLocalPosition(float4::LEFT	 * 200.0f * _Delta);
+	}
+	if (GameEngineInput::IsPress(VK_NUMPAD8, this))
+	{
+		Transform.AddLocalPosition(float4::FORWARD * 200.0f * _Delta);
+	}
+	if (GameEngineInput::IsPress(VK_NUMPAD2, this))
+	{
+		Transform.AddLocalPosition(float4::BACKWARD	 * 200.0f * _Delta);
+	}
 }
 
 void Ghost_Med::IdleStart()
@@ -140,7 +166,10 @@ void Ghost_Med::IdleUpdate(float _Delta)
 		DetectPlayer = false;
 		ChangeState(EnemyState::Uturn);
 	}
+
+	
 }
+	
 
 void Ghost_Med::AttackStart()
 {
