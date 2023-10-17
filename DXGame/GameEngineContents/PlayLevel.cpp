@@ -7,6 +7,7 @@
 #include "PossessedBook.h"
 #include "Ghost_Med.h" 
 #include "Elevator.h"
+#include "GUI.h"
 
 
 PlayLevel::PlayLevel() 
@@ -19,7 +20,7 @@ PlayLevel::~PlayLevel()
 
 void PlayLevel::Start()
 {
-
+	GameEngineGUI::CreateGUIWindow<GUI>("PlayGUI");
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
 

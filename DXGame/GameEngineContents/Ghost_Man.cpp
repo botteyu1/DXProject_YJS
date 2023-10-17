@@ -85,6 +85,12 @@ void Ghost_Man::Start()
 	DefaultScale = Tex.get()->GetScale();
 
 	Enemy::Start();
+
+	static int Num = 0;
+	Num++;
+
+	SetName("Ghost_Man_" + std::to_string(Num));
+
 }
 
 void Ghost_Man::Update(float _Delta)

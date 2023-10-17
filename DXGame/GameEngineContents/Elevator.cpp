@@ -45,6 +45,11 @@ void Elevator::Start()
 
 	GameEngineInput::AddInputObject(this);
 	DebugValue = true;
+
+	static int Num = 0;
+	Num++;
+
+	SetName("Elavator_" + std::to_string(Num));
 }
 
 void Elevator::Update(float _Delta)

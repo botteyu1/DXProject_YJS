@@ -64,6 +64,9 @@
     <ClCompile Include="ContentObject.cpp">
       <Filter>.Core</Filter>
     </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>.Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -121,6 +124,9 @@
       <Filter>StageObject</Filter>
     </ClInclude>
     <ClInclude Include="ContentObject.h">
+      <Filter>.Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
       <Filter>.Core</Filter>
     </ClInclude>
   </ItemGroup>

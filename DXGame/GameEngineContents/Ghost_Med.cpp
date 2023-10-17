@@ -92,8 +92,10 @@ void Ghost_Med::Start()
 	DashSpeed = 3000.0f;
 
 	Enemy::Start();
+	static int Num = 0;
+	Num++;
 
-	
+	SetName("Ghost_Med_" + std::to_string(Num));
 }
 
 void Ghost_Med::Update(float _Delta)

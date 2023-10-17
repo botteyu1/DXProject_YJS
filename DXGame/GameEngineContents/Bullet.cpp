@@ -72,6 +72,9 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 	Damage = _Damage;
 	Vecter = Normal * _Power;
 	Transform.AddLocalRotation({0.0f,0.0f,Deg});
+
+
+	SetName("Bullet");
 }
 
 void Bullet::BulletHit(GameEngineCollision* _Bullet, GameEngineCollision* _Target)

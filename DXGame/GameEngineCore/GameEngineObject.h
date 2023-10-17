@@ -56,10 +56,6 @@ public:
 		Name = _Name.data();
 	}
 
-	void SetName(const std::string& _Name)
-	{
-		Name = _Name;
-	}
 
 	std::string GetName()
 	{

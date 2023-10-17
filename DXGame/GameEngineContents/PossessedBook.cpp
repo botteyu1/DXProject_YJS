@@ -84,6 +84,10 @@ void PossessedBook::Start()
 	ForceGrivityOff = true;
 
 	MoveSpeed = 200.0f;
+	static int Num = 0;
+	Num++;
+
+	SetName("PossessedBook_" + std::to_string(Num));
 
 	Enemy::Start();
 }

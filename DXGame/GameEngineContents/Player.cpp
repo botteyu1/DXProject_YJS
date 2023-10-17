@@ -123,6 +123,11 @@ void Player::Start()
 
 	//카메라 포커스
 	GetLevel()->GetMainCamera()->CameraTargetSetting(Transform, float4::BACKWARD *1000.0f);
+	static int Num = 0;
+	Num++;
+
+	SetName("Player_" + std::to_string(Num));
+
 
 	Actor::Start();
 }
