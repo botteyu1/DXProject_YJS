@@ -17,7 +17,7 @@ void StageObject::Update(float _Delta)
 {
 	if (DebugValue == true)
 	{
-		InputDebugUpdate(_Delta, this);
+		InputDebugUpdate(_Delta);
 		return;
 	}
 }

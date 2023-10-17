@@ -26,7 +26,7 @@ void Actor::Update(float _Delta)
     // 디버그모드중이면 업데이트 안함
 	if (DebugValue == true)
 	{
-		InputDebugUpdate(_Delta, this);
+		InputDebugUpdate(_Delta);
 		return;
 	}
 

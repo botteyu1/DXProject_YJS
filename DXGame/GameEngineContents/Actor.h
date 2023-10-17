@@ -1,5 +1,5 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+
 #include "ContentObject.h"
 
 class AnimationData
@@ -30,7 +30,7 @@ public:
 
 
 // 설명 : 실제로움직이는 객체들 ex)몬스터 플레이어  
-class Actor : public GameEngineActor , public ContentObject
+class Actor : public ContentObject
 {
 public:
 	// constrcuter destructer

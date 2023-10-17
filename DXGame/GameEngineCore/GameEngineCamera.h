@@ -84,7 +84,7 @@ private:
 	float4 Pivot = float4::ZERO;
 	GameEngineTransform* Target = nullptr;
 
-	EPROJECTIONTYPE ProjectionType = EPROJECTIONTYPE::Perspective;
+	EPROJECTIONTYPE ProjectionType = EPROJECTIONTYPE::Orthographic;
 	float Far = 10000.0f;
 	float Near = 0.1f;
 	float FOV = 60.0f;
@@ -95,7 +95,7 @@ private:
 	int CameraOrder = 0;
 	std::map<int, std::list<std::shared_ptr<class GameEngineRenderer>>> Renderers;
 
-	EPROJECTIONTYPE PrevProjectionType = EPROJECTIONTYPE::Perspective;
+	EPROJECTIONTYPE PrevProjectionType = EPROJECTIONTYPE::Orthographic;
 
 	float4 ScreenMousePrevPos;
 	float4 ScreenMousePos;

@@ -4,7 +4,7 @@
 //Ό³Έν
 
 
-class StageObject : public GameEngineActor , public ContentObject
+class StageObject : public ContentObject
 {
 public:
 	// constrcuter destructer

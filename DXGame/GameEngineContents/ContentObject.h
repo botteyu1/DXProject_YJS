@@ -1,7 +1,7 @@
 #pragma once
-
+#include <GameEngineCore/GameEngineActor.h>
 // 설명 :  디버그용 콘솔등 화면상에 나타나는 모든 오브젝트에 필요한 기능
-class ContentObject
+class ContentObject : public GameEngineActor
 {
 public:
 	// constrcuter destructer
@@ -14,7 +14,7 @@ public:
 	ContentObject& operator=(const ContentObject& _Other) = delete;
 	ContentObject& operator=(ContentObject&& _Other) noexcept = delete;
 
-	void InputDebugUpdate(float _Delta, class GameEngineObject& _Object);
+	void InputDebugUpdate(float _Delta);
 
 	bool DebugValue = false;
 	
