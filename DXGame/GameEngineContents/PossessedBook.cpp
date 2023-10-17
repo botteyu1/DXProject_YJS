@@ -91,7 +91,6 @@ void PossessedBook::Start()
 void PossessedBook::Update(float _Delta)
 {
 	Enemy::Update(_Delta);
-	StateUpdate(_Delta);
 }
 
 void PossessedBook::IdleStart()

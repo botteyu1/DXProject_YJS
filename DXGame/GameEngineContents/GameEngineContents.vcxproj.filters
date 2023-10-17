@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="PreCompile.cpp" />
-    <ClCompile Include="ContentsCore.cpp" />
     <ClCompile Include="PlayLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
@@ -51,14 +49,24 @@
     <ClCompile Include="Ghost_Med.cpp">
       <Filter>Actor\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Elevator.cpp">
+      <Filter>StageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentsCore.cpp">
+      <Filter>.Core</Filter>
+    </ClCompile>
+    <ClCompile Include="PreCompile.cpp">
+      <Filter>.Core</Filter>
+    </ClCompile>
+    <ClCompile Include="StageObject.cpp">
+      <Filter>StageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentObject.cpp">
+      <Filter>.Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PreCompile.h" />
-    <ClInclude Include="ContentsCore.h" />
     <ClInclude Include="PlayLevel.h">
-      <Filter>Level</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
@@ -70,7 +78,6 @@
     <ClInclude Include="Level.h">
       <Filter>Level</Filter>
     </ClInclude>
-    <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="Enemy.h">
       <Filter>Actor\Enemy</Filter>
     </ClInclude>
@@ -95,6 +102,27 @@
     <ClInclude Include="Ghost_Med.h">
       <Filter>Actor\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Elevator.h">
+      <Filter>StageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsCore.h">
+      <Filter>.Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsEnum.h">
+      <Filter>.Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PreCompile.h">
+      <Filter>.Core</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="StageObject.h">
+      <Filter>StageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentObject.h">
+      <Filter>.Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -117,6 +145,12 @@
     </Filter>
     <Filter Include="Actor\Enemy">
       <UniqueIdentifier>{f4e0cd62-caf0-4eb1-bbe9-4d229147f7a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageObject">
+      <UniqueIdentifier>{96c0209b-788d-443c-807e-2133b7691ffe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".Core">
+      <UniqueIdentifier>{0ab90e93-33c6-408d-bfdf-c1d77260fbb7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

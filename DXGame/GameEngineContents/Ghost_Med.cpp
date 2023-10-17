@@ -92,12 +92,14 @@ void Ghost_Med::Start()
 	DashSpeed = 3000.0f;
 
 	Enemy::Start();
+
+	
 }
 
 void Ghost_Med::Update(float _Delta)
 {
 	Enemy::Update(_Delta);
-	//StateUpdate(_Delta);
+	
 
 	/*float4 PrevPos = Transform.GetLocalPosition();
 

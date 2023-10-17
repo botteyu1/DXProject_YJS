@@ -3,6 +3,7 @@
 enum class ContentsRenderType
 {
 	BackGround,
+	StageObject,
 	Enemy,
 	Enemy_Attack,
 	Player,
@@ -12,6 +13,7 @@ enum class ContentsRenderType
 enum class ContentsObjectType
 {
 	BackGround,
+	StageObject,
 	Player,
 	Enemy,
 	Bullet,
@@ -19,6 +21,7 @@ enum class ContentsObjectType
 
 enum class ContentsCollisionType
 {
+	StageObject,
 	Player,
 	Player_Attack,
 	Enemy,

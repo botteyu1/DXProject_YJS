@@ -78,6 +78,7 @@ void Ghost_Man::Start()
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
 	Transform.SetLocalPosition({ HalfWindowScale.X + 700.0f, -HalfWindowScale.Y });
+
 	ChangeState(EnemyState::Waiting);
 	std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("Ghost_Idle_0001.png");
 
@@ -89,7 +90,7 @@ void Ghost_Man::Start()
 void Ghost_Man::Update(float _Delta)
 {
 	Enemy::Update(_Delta);
-	StateUpdate(_Delta);
+	
 }
 
 void Ghost_Man::IdleStart()

@@ -1,0 +1,27 @@
+#pragma once
+
+// 설명 :  디버그용 콘솔등 화면상에 나타나는 모든 오브젝트에 필요한 기능
+class ContentObject
+{
+public:
+	// constrcuter destructer
+	ContentObject();
+	~ContentObject();
+
+	// delete Function
+	ContentObject(const ContentObject& _Other) = delete;
+	ContentObject(ContentObject&& _Other) noexcept = delete;
+	ContentObject& operator=(const ContentObject& _Other) = delete;
+	ContentObject& operator=(ContentObject&& _Other) noexcept = delete;
+
+	void InputDebugUpdate(float _Delta, class GameEngineObject& _Object);
+
+	bool DebugValue = false;
+	
+protected:
+
+
+private:
+
+};
+

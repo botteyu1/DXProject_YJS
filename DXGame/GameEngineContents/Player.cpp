@@ -135,37 +135,13 @@ void Player::Update(float _Delta)
 	//GameEngineColor Color = PlayMap::MainMap->GetColor(Transform.GetWorldPosition(), GameEngineColor::RED);
 	/*std::shared_ptr<GameEngineCamera> MainCamara = GetLevel()->GetMainCamera();
 	MainCamara->Transform.SetLocalPosition(Transform.GetWorldPosition());*/
+	Actor::Update(_Delta);
 
-	
-
-	if (GameEngineInput::IsDown('P', this))
+	//디버그 모드중 업뎃안함
+	if (DebugValue == true)
 	{
-		Debug = !Debug;
-	}
-	
-	if (Debug == true)
-	{
-		if(GameEngineInput::IsPress('S', this))
-		{
-			Transform.AddLocalPosition({ 0.0f, -500.0f * _Delta });
-		}
-		if(GameEngineInput::IsPress('W', this))
-		{
-			Transform.AddLocalPosition({ 0.0f, 500.0f * _Delta });
-		}
-		if(GameEngineInput::IsPress('A', this))
-		{
-			Transform.AddLocalPosition({ -500.0f * _Delta , 0.0f  });
-		}
-		if(GameEngineInput::IsPress('D', this))
-		{
-			Transform.AddLocalPosition({ 500.0f * _Delta , 0.0f  });
-		}
-
 		return;
 	}
-
-	Actor::Update(_Delta);
 
 	if (AerialCheck == false)
 	{

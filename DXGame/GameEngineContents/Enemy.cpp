@@ -80,8 +80,14 @@ void Enemy::Start()
 }
 
 void Enemy::Update(float _Delta)
-{
+{	
 	Actor::Update(_Delta);
+	if (DebugValue == true)
+	{
+		return;
+	}
+	StateUpdate(_Delta);
+
 	if (HP <= 0)
 	{
 		//ChangeState(EnemyState::Death);

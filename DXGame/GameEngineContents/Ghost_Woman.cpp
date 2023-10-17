@@ -88,7 +88,6 @@ void Ghost_Woman::Start()
 void Ghost_Woman::Update(float _Delta)
 {
 	Enemy::Update(_Delta);
-	StateUpdate(_Delta);
 }
 
 void Ghost_Woman::IdleStart()

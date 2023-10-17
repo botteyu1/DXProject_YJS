@@ -23,6 +23,13 @@ void Actor::Start()
 
 void Actor::Update(float _Delta)
 {
+    // 디버그모드중이면 업데이트 안함
+	if (DebugValue == true)
+	{
+		InputDebugUpdate(_Delta, this);
+		return;
+	}
+
 	GameEngineColor Color = PixelCollisionCheck({ 0.0f,-1.0f });
 	float MovePixel = -1.0f;
 
