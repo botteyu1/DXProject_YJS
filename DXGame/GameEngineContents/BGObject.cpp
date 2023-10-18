@@ -47,7 +47,7 @@ void BGObject::Start()
 
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
-	Transform.SetLocalPosition({ HalfWindowScale.X + 700.0f, -HalfWindowScale.Y });
+	Transform.SetLocalPosition({ HalfWindowScale.X - 700.0f, -HalfWindowScale.Y * 4 });
 }
 
 void BGObject::Update(float _Delta)

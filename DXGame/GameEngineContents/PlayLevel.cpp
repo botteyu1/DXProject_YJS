@@ -44,7 +44,10 @@ void PlayLevel::Start()
 
 	//CreateActor<Elevator>(ContentsObjectType::StageObject);
 	std::shared_ptr<BGObject> Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
-	Object->Init("BackWall_Big01.png");
+	Object->Init("GhostWorkersBox1.png"); 
+
+	Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+	Object->Init("GhostWorkersBox11.png");
 
 }
 

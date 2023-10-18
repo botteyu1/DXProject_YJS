@@ -30,6 +30,11 @@ void Player::ComboAerialStart()
 void Player::ComboAerial_RestStart()
 {
 	ForceGrivityOff = false;
+
+	if (AerialComboCount <= 0)
+	{
+		AerialComboCount = 1;
+	}
 	ChangeMainAnimation("LD_ComboAerial_0" + std::to_string(AerialComboCount) + "_Rest");
 }
 
@@ -112,9 +117,13 @@ void Player::ComboAerialUpdate(float _Delta)
 			ChangeState(PlayerState::ComboAerial);
 
 		}
-		else
+		else if(AerialCheck == true)
 		{
 			ChangeState(PlayerState::ComboAerial_Rest);
+		}
+		else
+		{
+			ChangeState(PlayerState::Idle);
 		}
 	}
 
