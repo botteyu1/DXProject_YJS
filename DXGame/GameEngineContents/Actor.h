@@ -64,7 +64,6 @@ protected:
 	GameEngineColor PixelCollisionCheck(float4 _Pixel, GameEngineColor _DefaultColor = GameEngineColor::RED);
 	GameEngineColor PosCollisionCheck(float4 _Pos, GameEngineColor _DefaultColor = GameEngineColor::RED);
 
-	std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer; //±âº» ·»´õ·¯
 	std::shared_ptr<GameEngineCollision> MainCollision;
 	std::shared_ptr< GameEngineSpriteRenderer> AttackfxRenderer; //°ø°Ý ·»´õ·¯
 

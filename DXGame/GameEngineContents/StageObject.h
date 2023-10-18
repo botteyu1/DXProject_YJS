@@ -1,5 +1,4 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
 #include "ContentObject.h"
 //설명
 
@@ -23,7 +22,7 @@ protected:
 	void Start() override;
 	void Update(float _Delta) override;
 
-	std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer; //기본 렌더러
+	//std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer; //기본 렌더러
 	std::shared_ptr<GameEngineCollision> MainCollision;
 
 

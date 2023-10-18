@@ -67,6 +67,12 @@
     <ClCompile Include="GUI.cpp">
       <Filter>.Core</Filter>
     </ClCompile>
+    <ClCompile Include="ContentsCamera.cpp">
+      <Filter>.Core</Filter>
+    </ClCompile>
+    <ClCompile Include="BGObject.cpp">
+      <Filter>Object\BGObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -129,6 +135,12 @@
     <ClInclude Include="GUI.h">
       <Filter>.Core</Filter>
     </ClInclude>
+    <ClInclude Include="ContentsCamera.h">
+      <Filter>.Core</Filter>
+    </ClInclude>
+    <ClInclude Include="BGObject.h">
+      <Filter>Object\BGObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -157,6 +169,9 @@
     </Filter>
     <Filter Include=".Core">
       <UniqueIdentifier>{0ab90e93-33c6-408d-bfdf-c1d77260fbb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\BGObject">
+      <UniqueIdentifier>{7d67e19c-b88e-4535-a42a-c8d666f94198}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

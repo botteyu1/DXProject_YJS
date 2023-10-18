@@ -32,6 +32,7 @@ void GUI::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	{
 		std::list<std::shared_ptr<GameEngineObject>> ObjectListsEnemy = _Level->GetObjectGroup<ContentsObjectType>(ContentsObjectType::Enemy);
 		std::list<std::shared_ptr<GameEngineObject>> ObjectListsStageObject = _Level->GetObjectGroup<ContentsObjectType>(ContentsObjectType::StageObject);
+		std::list<std::shared_ptr<GameEngineObject>> ObjectListsBackGroundobject = _Level->GetObjectGroup<ContentsObjectType>(ContentsObjectType::BackGroundobject);
 
 		for (int Key : SelectObjects)
 		{
@@ -54,9 +55,10 @@ void GUI::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		{
 			ObjectLoaded.push_back(Ptr);
 		}
-
-		
-		
+		for (std::shared_ptr<GameEngineObject> Ptr : ObjectListsBackGroundobject)
+		{
+			ObjectLoaded.push_back(Ptr);
+		}
 
 		for (std::shared_ptr<GameEngineObject> Ptr : ObjectLoaded)
 		{
@@ -82,14 +84,6 @@ void GUI::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 				static_cast<ContentObject*>(ObjectLoaded[Select].get())->DebugValue = true;
 			}
 		}
-
-		/*if (nullptr != SelectObject)
-		{
-			if (ImGui::Button("Select Object Off"))
-			{
-				SelectObject->Off();
-			}
-		}*/
 	}
 
 
@@ -99,5 +93,8 @@ void GUI::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	for (int Key : SelectObjects)
 	{
 		ImGui::Text(ObjectLoadedNamesString[Key].c_str());
+		SelectList = "Position " + ObjectLoaded[Key]->Transform.GetLocalPosition().ToString() + "\nScale  " + 
+			static_cast<ContentObject*>(ObjectLoaded[Key].get())->GetScaleValue().ToString();
+		ImGui::Text(SelectList.c_str());
 	}
 }

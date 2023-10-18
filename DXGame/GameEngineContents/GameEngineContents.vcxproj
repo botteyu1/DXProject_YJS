@@ -168,11 +168,19 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="AttackState.cpp" />
+    <ClCompile Include="BGObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="ContentObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ContentsCamera.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -250,11 +258,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BGObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Bullet.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ContentsCamera.h">
       <SubType>
       </SubType>
     </ClInclude>

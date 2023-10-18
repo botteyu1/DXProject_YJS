@@ -103,14 +103,7 @@ void Ghost_Med::Update(float _Delta)
 	Enemy::Update(_Delta);
 	
 
-	/*float4 PrevPos = Transform.GetLocalPosition();
 
-	float4 Pos = GetLevel()->GetMainCamera()->GetWorldMousePos2D();
-	Pos.Z = PrevPos.Z;
-	Transform.SetLocalPosition(Pos);*/
-	float4 Pos = GetLevel()->GetMainCamera()->GetScreenMouseDir();
-	Pos.X = -Pos.X;
-	Transform.AddLocalPosition(Pos);
 
 	if (GameEngineInput::IsPress(VK_NUMPAD6, this))
 	{

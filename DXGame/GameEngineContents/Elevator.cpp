@@ -75,6 +75,10 @@ void Elevator::Update(float _Delta)
 
 }
 
+void Elevator::Init()
+{
+}
+
 void Elevator::CollisionUpdate(GameEngineCollision* _Left, GameEngineCollision* _Right)
 {
 

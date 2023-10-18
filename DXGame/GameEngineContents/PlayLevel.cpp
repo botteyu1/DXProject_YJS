@@ -8,6 +8,7 @@
 #include "Ghost_Med.h" 
 #include "Elevator.h"
 #include "GUI.h"
+#include "BGObject.h"
 
 
 PlayLevel::PlayLevel() 
@@ -41,7 +42,9 @@ void PlayLevel::Start()
 	//CreateActor<PossessedBook>(ContentsObjectType::Enemy);
 	//CreateActor<Ghost_Med>(ContentsObjectType::Enemy);
 
-	CreateActor<Elevator>(ContentsObjectType::StageObject);
+	//CreateActor<Elevator>(ContentsObjectType::StageObject);
+	std::shared_ptr<BGObject> Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+	Object->Init("BackWall_Big01.png");
 
 }
 

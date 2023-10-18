@@ -18,8 +18,15 @@ public:
 
 	bool DebugValue = false;
 	
+	float4 GetScaleValue()
+	{
+		return ScaleValue;
+	}
+
 protected:
 
+	std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer; //±âº» ·»´õ·¯
+	float4 ScaleValue = float4::ONE;
 
 private:
 

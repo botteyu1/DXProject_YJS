@@ -28,10 +28,6 @@ void PlayMap::Start()
 			GameEngineTexture::Load(File.GetStringPath());
 
 		}
-
-		
-
-		
 		GameEngineSprite::CreateSingle("Stage1.dds");
 		GameEngineSprite::CreateSingle("Stage2.dds");
 		GameEngineSprite::CreateSingle("StagePixel1.png");
@@ -62,7 +58,5 @@ void PlayMap::Start()
 		PixelBackGround->Transform.SetLocalPosition(HScale);
 		MainBackGround2->Transform.SetLocalPosition(float4{Scale.X, 0.0f} + HScale);
 		PixelBackGround2->Transform.SetLocalPosition(float4{Scale.X, 0.0f} + HScale);
-
-
 	}
 }
