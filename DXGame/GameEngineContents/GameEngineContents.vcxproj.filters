@@ -73,6 +73,9 @@
     <ClCompile Include="BGObject.cpp">
       <Filter>Object\BGObject</Filter>
     </ClCompile>
+    <ClCompile Include="BookOfTheDead.cpp">
+      <Filter>Actor\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -140,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="BGObject.h">
       <Filter>Object\BGObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BookOfTheDead.h">
+      <Filter>Actor\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

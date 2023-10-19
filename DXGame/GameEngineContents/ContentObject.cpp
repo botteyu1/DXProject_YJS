@@ -78,6 +78,13 @@ void ContentObject::InputDebugUpdate(float _Delta)
 			Pos.X = -Pos.X;
 			Transform.AddLocalPosition(Pos);
 		}
+
+		std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetMainCamera();
+		MainSpriteRenderer->GetImageTransform();
+
+		GameEngineDebug::DrawBox2D(MainSpriteRenderer->GetImageTransform().GetLocalScale(),Transform.GetLocalRotationEuler()
+			, Transform.GetLocalPosition(), float4::GREEN, Camera.get());
+
 		
 	}
 }

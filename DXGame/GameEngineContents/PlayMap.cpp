@@ -59,4 +59,6 @@ void PlayMap::Start()
 		MainBackGround2->Transform.SetLocalPosition(float4{Scale.X, 0.0f} + HScale);
 		PixelBackGround2->Transform.SetLocalPosition(float4{Scale.X, 0.0f} + HScale);
 	}
+
+	Map::Start();
 }
