@@ -25,6 +25,8 @@ enum class PlayerState
 // 설명 :
 class Player : public Actor
 {
+	friend class BookOfTheDead;
+
 private:
 	static Player* MainPlayer;
 
@@ -62,6 +64,8 @@ protected:
 	void Update(float _Delta) override;
 	std::shared_ptr<GameEngineCollision> DetectCollision;
 
+	std::shared_ptr<class BookOfTheDead> PlayerBook;
+
 private:
 	
 
@@ -82,7 +86,6 @@ private:
 	bool NextCombo = false; // 다음 콤보 입력했느지 확인 
 	bool AerialComboEnd = false; //공콤 끝났는지 여부;
 	bool JumpingAttackEnd = false; //점핑어택 끝났는지 여부;
-
 
 	
 

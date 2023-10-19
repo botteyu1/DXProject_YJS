@@ -30,7 +30,7 @@ void BGObject::Start()
 
 		GameEngineDirectory Dir2;
 		Dir2.MoveParentToExistsChild("GameEngineResources");
-		Dir2.MoveChild("ContentsResources\\Sprite\\Player");
+		Dir2.MoveChild("ContentsResources\\Sprite\\BGObject");
 		std::vector<GameEngineDirectory> Directorys = Dir2.GetAllDirectory();
 
 		for (size_t i = 0; i < Directorys.size(); i++)

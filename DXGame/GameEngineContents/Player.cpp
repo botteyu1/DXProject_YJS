@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineTexture.h>
 #include "PlayMap.h"
 #include "Enemy.h"
+#include "BookOfTheDead.h"
 
 Player* Player::MainPlayer = nullptr;
 
@@ -119,6 +120,9 @@ void Player::Start()
 	AttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Player_Attack);
 	AttackCollision->Off();
 
+	// BookOfTheDead
+	PlayerBook = GetLevel()->CreateActor<BookOfTheDead>(ContentsObjectType::Player_object);
+	PlayerBook->MainPlayer = this;
 
 
 	//카메라 포커스
@@ -162,8 +166,6 @@ void Player::Update(float _Delta)
 
 	Parameter.Enter = ComboHit;
 
-	
-		
 	AttackCollision->CollisionEvent<ContentsCollisionType>(ContentsCollisionType::Enemy,{ ComboHit,nullptr,nullptr});
 
 	DashStartCheck = true;

@@ -71,7 +71,7 @@ void GUI::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	
 	if (ObjectLoaded.size())
 	{
-		if (ImGui::ListBox("ObjectList", &Select, &ObjectLoadedNames[0], ObjectLoadedNames.size()))
+		if (ImGui::ListBox("ObjectList", &Select, &ObjectLoadedNames[0], static_cast<int>(ObjectLoadedNames.size())))
 		{
 			if (SelectObjects.contains(Select))
 			{
@@ -97,4 +97,6 @@ void GUI::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			static_cast<ContentObject*>(ObjectLoaded[Key].get())->GetScaleValue().ToString();
 		ImGui::Text(SelectList.c_str());
 	}
+
+	ImGui::GetFontSize();
 }

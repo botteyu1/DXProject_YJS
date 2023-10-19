@@ -3,11 +3,11 @@
 enum class ContentsRenderType
 {
 	BackGround,
-
 	BackGroundobject,
 	StageObject,
 	Enemy,
 	Enemy_Attack,
+	Player_object,
 	Player,
 };
 
@@ -18,6 +18,7 @@ enum class ContentsObjectType
 	BackGroundobject,
 	StageObject,
 	Player,
+	Player_object,
 	Enemy,
 	Bullet,
 };
