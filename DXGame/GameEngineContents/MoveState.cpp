@@ -287,9 +287,9 @@ void Player::InputJumpUpdate(float _Delta)
 
 void Player::InputDashUpdate(float _Delta)
 {
-	/*if (GameEngineInput::IsDown(VK_LSHIFT, this))
+	if (GameEngineInput::IsDown(VK_LSHIFT, this))
 	{
 		ChangeState(PlayerState::Dash);
-	}*/
+	}
 }
 

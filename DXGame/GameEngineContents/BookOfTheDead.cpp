@@ -27,7 +27,7 @@ void BookOfTheDead::Start()
 		}
 	}
 
-	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Player);
+	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Player_object);
 	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Attack_Basic", "BookOfTheDead_Attack_Basic", 0.0533f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("BookOfTheDead_Attack_Basic", {}));
 
@@ -50,14 +50,19 @@ void BookOfTheDead::Start()
 	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Transition_To_Menu", "BookOfTheDead_Transition_To_Menu", 0.0533f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("BookOfTheDead_Transition_To_Menu", {}));
 
+	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Uturn", "BookOfTheDead_Uturn", 0.0533f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("BookOfTheDead_Uturn", {}));
+
 	MainSpriteRenderer->AutoSpriteSizeOn();
 	//MainSpriteRenderer->SetAutoScaleRatio({ 0.5f,0.5f,0.5f});
 	//MainSpriteRenderer->SetPivotValue({ 0.5f, 1.0f });
 	
-	ChangeState(BookState::Deliverance);
+	ChangeState(BookState::Idle);
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
 	Transform.SetLocalPosition({ HalfWindowScale.X - 700.0f, -HalfWindowScale.Y * 4 });
+
+	PivotPos = float4{ -120.0f, 100.0f };
 }
 
 void BookOfTheDead::Update(float _Delta)
@@ -68,9 +73,21 @@ void BookOfTheDead::Update(float _Delta)
 
 void BookOfTheDead::TrackingPlayerUpdate(float _Delta)
 {
-	float4 Pos = MainPlayer->Transform.GetLocalPosition() + float4{-300.0f, 200.0f};
+	float4 PlayerPos = MainPlayer->Transform.GetLocalPosition() + PivotPos;
+	if (Flip == true)
+	{
+		PlayerPos.X -= 2.0f * PivotPos.X;
+	}
+	
+	
+	float4 Pos = Transform.GetLocalPosition();
+	//float time = 1.0f;
 
-	Transform.SetLocalPosition(Pos);
+	//float4 Lerp = float4::LerpClamp(Pos, PlayerPos, time);
+	
+	float4 Move = PlayerPos - Pos;
+
+	Transform.AddLocalPosition(Move * _Delta * 6.0f);
 }
 
 void BookOfTheDead::Attack_BasicStart()
@@ -122,6 +139,39 @@ void BookOfTheDead::Transition_To_MenuUpdate(float _Delta)
 {
 }
 
+void BookOfTheDead::UturnStart()
+{
+	ChangeMainAnimation("BookOfTheDead_Uturn");
+	MainSpriteRenderer->SetAutoScaleRatio({ 1.1f,1.1f,0.27f });
+	Flip = !Flip;
+}
+
+void BookOfTheDead::UturnUpdate(float _Delta)
+{
+	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
+	{
+		
+		MainSpriteRenderer->SetAutoScaleRatio(float4::ONE);
+		ChangeState(BookState::Idle);
+		return;
+	}
+}
+
+void BookOfTheDead::IdleStart()
+{
+	ChangeMainAnimation("BookOfTheDead_Idle");
+}
+
+void BookOfTheDead::IdleUpdate(float _Delta)
+{
+	if (MainPlayer->Flip != Flip)
+	{
+		
+		ChangeState(BookState::Uturn);
+		return;
+	}
+}
+
 void BookOfTheDead::ChangeState(BookState _State)
 {
 	switch (_State)
@@ -143,6 +193,12 @@ void BookOfTheDead::ChangeState(BookState _State)
 		break;
 	case BookState::Transition_To_Menu:
 		Transition_To_MenuStart();
+		break;
+	case BookState::Idle:
+		IdleStart();
+		break;
+	case BookState::Uturn:
+		UturnStart();
 		break;
 	case BookState::Max:
 		break;
@@ -175,6 +231,12 @@ void BookOfTheDead::StateUpdate(float _Delta)
 		break;
 	case BookState::Transition_To_Menu:
 		Transition_To_MenuUpdate(_Delta);
+		break;
+	case BookState::Idle:
+		IdleUpdate(_Delta);
+		break;
+	case BookState::Uturn:
+		UturnUpdate(_Delta);
 		break;
 	case BookState::Max:
 		break;

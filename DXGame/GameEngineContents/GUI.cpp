@@ -33,6 +33,7 @@ void GUI::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		std::list<std::shared_ptr<GameEngineObject>> ObjectListsEnemy = _Level->GetObjectGroup<ContentsObjectType>(ContentsObjectType::Enemy);
 		std::list<std::shared_ptr<GameEngineObject>> ObjectListsStageObject = _Level->GetObjectGroup<ContentsObjectType>(ContentsObjectType::StageObject);
 		std::list<std::shared_ptr<GameEngineObject>> ObjectListsBackGroundobject = _Level->GetObjectGroup<ContentsObjectType>(ContentsObjectType::BackGroundobject);
+		std::list<std::shared_ptr<GameEngineObject>> ObjectListsPlayerObject = _Level->GetObjectGroup<ContentsObjectType>(ContentsObjectType::Player_object);
 
 		for (int Key : SelectObjects)
 		{
@@ -56,6 +57,10 @@ void GUI::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			ObjectLoaded.push_back(Ptr);
 		}
 		for (std::shared_ptr<GameEngineObject> Ptr : ObjectListsBackGroundobject)
+		{
+			ObjectLoaded.push_back(Ptr);
+		}
+		for (std::shared_ptr<GameEngineObject> Ptr : ObjectListsPlayerObject)
 		{
 			ObjectLoaded.push_back(Ptr);
 		}

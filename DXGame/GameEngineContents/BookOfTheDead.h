@@ -9,6 +9,8 @@ enum class BookState
 	Deliverance,
 	Open_Idle,
 	Transition_To_Menu,
+	Idle,
+	Uturn,
 	Max, // 일반적으로 사용하지 않는 값.
 };
 
@@ -34,7 +36,7 @@ protected:
 	void Update(float _Delta) override;
 
 private:
-
+	float4 PivotPos = float4::ZERO;
 
 	class Player* MainPlayer = nullptr;
 
@@ -58,10 +60,18 @@ private:
 	void Transition_To_MenuStart();
 	void Transition_To_MenuUpdate(float _Delta);
 
+	void UturnStart();
+	void UturnUpdate(float _Delta);
+
+	void IdleStart();
+	void IdleUpdate(float _Delta);
+
 	void StateUpdate(float _Delta);
 	void ChangeState(BookState _State);
 
 	BookState State = BookState::Max;
+
+
 
 
 };

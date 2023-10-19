@@ -47,7 +47,7 @@ protected:
 	void ChangeMainAnimation(std::string_view _AnimationName);
 	bool CheckStartAttackFrame();
 	void DashProcessUpdate(float _Delta, const float4& _Dir, float _Speed); //공격같은 실행할떄 대쉬업데이트
-	void FlipCheck();
+	void virtual FlipCheck();
 
 	GameEngineColor PixelCollisionCheck(float4 _Pixel, GameEngineColor _DefaultColor = GameEngineColor::RED);
 	GameEngineColor PosCollisionCheck(float4 _Pos, GameEngineColor _DefaultColor = GameEngineColor::RED);
