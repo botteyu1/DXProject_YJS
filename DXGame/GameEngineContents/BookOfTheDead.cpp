@@ -28,27 +28,30 @@ void BookOfTheDead::Start()
 	}
 
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Player);
-	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Attack_Basic", "BookOfTheDead_Attack_Basic", 0.0633f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Attack_Basic", "BookOfTheDead_Attack_Basic", 0.0533f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("BookOfTheDead_Attack_Basic", {}));
 
 
-	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Attack_Down", "BookOfTheDead_Attack_Down", 0.0633f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Attack_Down", "BookOfTheDead_Attack_Down", 0.0533f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("BookOfTheDead_Attack_Down", {}));
 
-	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Attack_Up", "BookOfTheDead_Attack_Up", 0.0633f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Attack_Up", "BookOfTheDead_Attack_Up", 0.0533f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("BookOfTheDead_Attack_Up", {}));
 
-	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Deliverance", "BookOfTheDead_Deliverance", 0.0633f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Deliverance", "BookOfTheDead_Deliverance", 0.0533f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("BookOfTheDead_Deliverance", {}));
 
-	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Open_Idle", "BookOfTheDead_Open_Idle", 0.0633f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Idle", "BookOfTheDead_Idle", 0.0533f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("BookOfTheDead_Idle", {}));
+
+	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Open_Idle", "BookOfTheDead_Open_Idle", 0.0533f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("BookOfTheDead_Open_Idle", {}));
 
-	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Transition_To_Menu", "BookOfTheDead_Transition_To_Menu", 0.0633f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("BookOfTheDead_Transition_To_Menu", "BookOfTheDead_Transition_To_Menu", 0.0533f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("BookOfTheDead_Transition_To_Menu", {}));
 
 	MainSpriteRenderer->AutoSpriteSizeOn();
-	MainSpriteRenderer->SetAutoScaleRatio({ 0.5f,0.5f,0.5f});
+	//MainSpriteRenderer->SetAutoScaleRatio({ 0.5f,0.5f,0.5f});
 	//MainSpriteRenderer->SetPivotValue({ 0.5f, 1.0f });
 	
 	ChangeState(BookState::Deliverance);
@@ -96,7 +99,7 @@ void BookOfTheDead::Attack_UpUpdate(float _Delta)
 
 void BookOfTheDead::DeliveranceStart()
 {
-	ChangeMainAnimation("BookOfTheDead_Deliverance");
+	ChangeMainAnimation("BookOfTheDead_Idle");
 }
 
 void BookOfTheDead::DeliveranceUpdate(float _Delta)
