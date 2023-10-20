@@ -69,6 +69,8 @@ std::shared_ptr<GameEngineSpriteRenderer> FX::AddFXRenderer()
 	Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::FX);
 	Renderer->CreateAnimation("Surprised", "Surprised", 0.333f, -1, -1, true);
 	Renderer->SetEndEvent("Surprised", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
+	Renderer->Off();
+
 
 	MainSpriteRenderers.push_back(Renderer);
 

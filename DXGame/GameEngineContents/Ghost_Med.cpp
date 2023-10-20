@@ -96,7 +96,8 @@ void Ghost_Med::Start()
 	static int Num = 0;
 	Num++;
 
-	SetName("Ghost_Med_" + std::to_string(Num));
+	//SetName("Ghost_Med_" + std::to_string(Num));
+	SetName("Ghost_Me");
 }
 
 void Ghost_Med::Update(float _Delta)

@@ -44,14 +44,11 @@ void GUI::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 
 		ObjectLoaded.clear();
 
-		ObjectLoadedNamesString;
+		ObjectLoadedNamesString.clear();
 
 		ObjectLoadedNames.clear();
 
-		for (std::shared_ptr<GameEngineObject> Ptr : ObjectListsEnemy)
-		{
-			ObjectLoaded.push_back(Ptr);
-		}
+	
 		for (std::shared_ptr<GameEngineObject> Ptr : ObjectListsStageObject)
 		{
 			ObjectLoaded.push_back(Ptr);
@@ -60,16 +57,36 @@ void GUI::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		{
 			ObjectLoaded.push_back(Ptr);
 		}
+		
 		for (std::shared_ptr<GameEngineObject> Ptr : ObjectListsPlayerObject)
+		{
+			ObjectLoaded.push_back(Ptr);
+		}
+		for (std::shared_ptr<GameEngineObject> Ptr : ObjectListsEnemy)
 		{
 			ObjectLoaded.push_back(Ptr);
 		}
 
 		for (std::shared_ptr<GameEngineObject> Ptr : ObjectLoaded)
 		{
-			ObjectLoadedNamesString.push_back(Ptr->GetName());
-			ObjectLoadedNames.push_back(ObjectLoadedNamesString.back().c_str());
+			std::string str = Ptr->GetName();
+			ObjectLoadedNamesString.push_back(str);
 		}
+		for (size_t i = 0; i < ObjectLoadedNamesString.size(); i++)
+		{
+			std::string& str2 = ObjectLoadedNamesString[i];
+			ObjectLoadedNames.push_back(str2.c_str());
+		}
+
+		/*int i = 0;
+		for (std::shared_ptr<GameEngineObject> Ptr : ObjectLoaded)
+		{
+			std::string str = Ptr->GetName();
+			ObjectLoadedNamesString.push_back(str);
+			std::string& str2 = ObjectLoadedNamesString[i];
+			ObjectLoadedNames.push_back(str2.c_str());
+			i++;
+		}*/
 	}
 
 	

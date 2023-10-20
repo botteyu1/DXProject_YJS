@@ -63,6 +63,8 @@ void BookOfTheDead::Start()
 	Transform.SetLocalPosition({ HalfWindowScale.X - 700.0f, -HalfWindowScale.Y * 4 });
 
 	PivotPos = float4{ -120.0f, 100.0f };
+
+	SetName("BookOfDead");
 }
 
 void BookOfTheDead::Update(float _Delta)
