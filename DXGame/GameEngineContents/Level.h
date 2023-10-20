@@ -29,5 +29,6 @@ protected:
 private:
 
 	std::shared_ptr<Map> MapPtr = nullptr;
+
 };
 

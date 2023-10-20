@@ -9,6 +9,7 @@ enum class ContentsRenderType
 	Enemy_Attack,
 	Player_object,
 	Player,
+	FX,
 };
 
 
@@ -21,6 +22,7 @@ enum class ContentsObjectType
 	Player_object,
 	Enemy,
 	Bullet,
+	FX,
 };
 
 enum class ContentsCollisionType

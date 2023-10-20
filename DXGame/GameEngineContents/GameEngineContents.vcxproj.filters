@@ -76,6 +76,9 @@
     <ClCompile Include="BookOfTheDead.cpp">
       <Filter>Actor\Player</Filter>
     </ClCompile>
+    <ClCompile Include="FX.cpp">
+      <Filter>FX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -147,6 +150,9 @@
     <ClInclude Include="BookOfTheDead.h">
       <Filter>Actor\Player</Filter>
     </ClInclude>
+    <ClInclude Include="FX.h">
+      <Filter>FX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -178,6 +184,9 @@
     </Filter>
     <Filter Include="Object\BGObject">
       <UniqueIdentifier>{7d67e19c-b88e-4535-a42a-c8d666f94198}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FX">
+      <UniqueIdentifier>{52bba3b8-eb54-4160-b95c-b9f7f71b2ddf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
