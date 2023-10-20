@@ -40,7 +40,7 @@ void PlayLevel::Start()
 	//CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
 	//CreateActor<Ghost_Woman>(ContentsObjectType::Enemy);
 	//CreateActor<PossessedBook>(ContentsObjectType::Enemy);
-	//CreateActor<Ghost_Med>(ContentsObjectType::Enemy);
+	CreateActor<Ghost_Med>(ContentsObjectType::Enemy);
 
 	//CreateActor<Elevator>(ContentsObjectType::StageObject);
 	std::shared_ptr<BGObject> Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);

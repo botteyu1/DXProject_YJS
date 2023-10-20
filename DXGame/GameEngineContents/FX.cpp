@@ -9,8 +9,10 @@ FX::~FX()
 {
 }
 
-void FX::FXStart(std::string_view _Name, bool _flip, const float4& _Pos, const float4& Scale)
+void FX::FXStart(std::string_view _Name, bool _flip, const float4& _Pos, const float4& _Scale)
 {
+
+	//Transform.SetLocalPosition(_Pos);
 
 	// 돌아가고있지않은 렌더러가 있으면 사용
 	for (size_t i = 0; i < MainSpriteRenderers.size(); i++)
@@ -18,6 +20,8 @@ void FX::FXStart(std::string_view _Name, bool _flip, const float4& _Pos, const f
 		if (MainSpriteRenderers[i]->IsUpdate() == false)
 		{
 			MainSpriteRenderers[i]->ChangeAnimation(_Name, true);
+			MainSpriteRenderers[i]->Transform.SetLocalPosition(_Pos);
+			MainSpriteRenderers[i]->SetAutoScaleRatio(_Scale);
 			MainSpriteRenderers[i]->On();
 			return;
 		}
@@ -38,7 +42,7 @@ void FX::Start()
 	{
 		GameEngineDirectory Dir;
 		Dir.MoveParentToExistsChild("GameEngineResources");
-		Dir.MoveChild("ContentsResources\\Sprite\\Player");
+		Dir.MoveChild("ContentsResources\\Sprite\\FX");
 		std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
 
 		for (size_t i = 0; i < Directorys.size(); i++)
@@ -63,7 +67,7 @@ std::shared_ptr<GameEngineSpriteRenderer> FX::AddFXRenderer()
 {
 	std::shared_ptr< GameEngineSpriteRenderer> Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::FX);
 	Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::FX);
-	Renderer->CreateAnimation("Surprised", "Surprised", 0.0333f, -1, -1, true);
+	Renderer->CreateAnimation("Surprised", "Surprised", 0.333f, -1, -1, true);
 	Renderer->SetEndEvent("Surprised", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
 
 	MainSpriteRenderers.push_back(Renderer);

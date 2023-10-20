@@ -15,7 +15,7 @@ public:
 	FX& operator=(const FX& _Other) = delete;
 	FX& operator=(FX&& _Other) noexcept = delete;
 
-	void FXStart(std::string_view _Name, bool _flip, const float4& _Pos, const float4& Scale);
+	void FXStart(std::string_view _Name, bool _flip, const float4& _Pos, const float4& _Scale = float4::ONE);
 
 protected:
 

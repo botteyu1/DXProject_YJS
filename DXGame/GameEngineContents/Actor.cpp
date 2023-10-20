@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "Map.h"
 #include "PlayLevel.h"
+#include "FX.h"
 #include "PlayMap.h"
 
 Actor::Actor() 
@@ -17,6 +18,8 @@ void Actor::Start()
 	MainCollision->SetCollisionType(ColType::AABBBOX2D);
 	AttackCollision->SetCollisionType(ColType::AABBBOX2D);
 	GameEngineInput::AddInputObject(this);
+
+	FXActor = GetLevel()->CreateActor<FX>(ContentsObjectType::FX);
 }
 
 
