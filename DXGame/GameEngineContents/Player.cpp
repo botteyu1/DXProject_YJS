@@ -5,6 +5,7 @@
 #include "PlayMap.h"
 #include "Enemy.h"
 #include "BookOfTheDead.h"
+#include "FX.h"
 
 Player* Player::MainPlayer = nullptr;
 
@@ -128,10 +129,12 @@ void Player::Start()
 	//카메라 포커스
 	GetLevel()->GetMainCamera()->CameraTargetSetting(Transform, float4::BACKWARD *1000.0f);
 
+	FXJumpActor = GetLevel()->CreateActor<FX>(ContentsObjectType::FX);
+
+	//이름 추가
 	static int Num = 0;
 	Num++;
 	SetName("Player_" + std::to_string(Num));
-
 
 	Actor::Start();
 }

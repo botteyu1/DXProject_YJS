@@ -1,5 +1,11 @@
 #include "PreCompile.h"
 #include "Player.h"
+#include "FX.h"
+
+
+
+
+
 
 void Player::ComboMoveStart()
 {
@@ -9,50 +15,6 @@ void Player::ComboMoveStart()
 
 	NextCombo = false;
 }
-
-void Player::ComboMove_RestStart()
-{
-	std::string AnimationName = "LD_ComboMove_0" + std::to_string(ComboCount) + "_Rest";
-	ChangeMainAnimation(AnimationName);
-}
-
-
-void Player::ComboAerialStart()
-{
-	AerialComboCount++;
-	std::string AnimationName = "LD_ComboAerial_0" + std::to_string(AerialComboCount);
-	ChangeMainAnimation(AnimationName);
-
-	NextCombo = false;
-	ForceGrivityOff = true;
-} 
-
-void Player::ComboAerial_RestStart()
-{
-	ForceGrivityOff = false;
-
-	if (AerialComboCount <= 0)
-	{
-		AerialComboCount = 1;
-	}
-	ChangeMainAnimation("LD_ComboAerial_0" + std::to_string(AerialComboCount) + "_Rest");
-}
-
-void Player::JumpingAttackStart()
-{
-	ChangeMainAnimation("LD_JumpingAttack");
-	CurAnimationData = &AnimationDataMap.find("LD_JumpingAttack")->second;
-	ForceGrivityOff = true;
-	CurDash = 0;
-}
-
-void Player::AerialDownAttackStart()
-{
-	ChangeMainAnimation("LD_AerialDownAttack");
-	GrivityForce.Y -= 3500.f;
-	AerialComboCount = 0;
-}
-
 // 프레임으로 다음콤보 시작 위치 확인
 // 마지막 프레임에서 딜레이 있어야될듯?
 
@@ -79,6 +41,11 @@ void Player::ComboMoveUpdate(float _Delta)
 	
 }
 
+void Player::ComboMove_RestStart()
+{
+	std::string AnimationName = "LD_ComboMove_0" + std::to_string(ComboCount) + "_Rest";
+	ChangeMainAnimation(AnimationName);
+}
 
 
 void Player::ComboMove_RestUpdate(float _Delta)
@@ -101,6 +68,15 @@ void Player::ComboMove_RestUpdate(float _Delta)
 }
 
 
+void Player::ComboAerialStart()
+{
+	AerialComboCount++;
+	std::string AnimationName = "LD_ComboAerial_0" + std::to_string(AerialComboCount);
+	ChangeMainAnimation(AnimationName);
+
+	NextCombo = false;
+	ForceGrivityOff = true;
+}
 
 void Player::ComboAerialUpdate(float _Delta)
 {
@@ -134,6 +110,17 @@ void Player::ComboAerialUpdate(float _Delta)
 	DashProcessUpdate(_Delta, float4::RIGHT, DashSpeed);
 }
 
+void Player::ComboAerial_RestStart()
+{
+	ForceGrivityOff = false;
+
+	if (AerialComboCount <= 0)
+	{
+		AerialComboCount = 1;
+	}
+	ChangeMainAnimation("LD_ComboAerial_0" + std::to_string(AerialComboCount) + "_Rest");
+}
+
 void Player::ComboAerial_RestUpdate(float _Delta)
 {
 	if (GameEngineInput::IsPress('W', this) and GameEngineInput::IsDown(VK_LBUTTON, this))
@@ -152,6 +139,14 @@ void Player::ComboAerial_RestUpdate(float _Delta)
 	}
 
 	InputDashUpdate(_Delta);
+}
+
+void Player::JumpingAttackStart()
+{
+	ChangeMainAnimation("LD_JumpingAttack");
+	CurAnimationData = &AnimationDataMap.find("LD_JumpingAttack")->second;
+	ForceGrivityOff = true;
+	CurDash = 0;
 }
 
 void Player::JumpingAttackUpdate(float _Delta)
@@ -179,17 +174,31 @@ void Player::JumpingAttackUpdate(float _Delta)
 }
 
 
+void Player::AerialDownAttackStart()
+{
+	ChangeMainAnimation("LD_AerialDownAttack");
+	GrivityForce.Y -= 3500.f;
+	AerialComboCount = 0;
 
+	DustLandingValue = false;
+}
 
 void Player::AerialDownAttackUpdate(float _Delta)
 {
 	CheckStartAttackFrame();
+
+	if (AerialCheck == false and  DustLandingValue == false)
+	{
+		DustLandingValue = true;
+		FXJumpActor->FXStart(FXType::GroundDust, Flip, Transform.GetLocalPosition() + float4(0.0f, 40.0f)/*, float4(0.2f, 0.2f, 1.0f)*/);
+	}
+
+
 	if (MainSpriteRenderer->IsCurAnimationEnd() and AerialCheck == false)
 	{
  		ChangeState(PlayerState::Idle);
 	}
 }
-
 
 void Player::InputAttackUpdate(float _Delta)
 {

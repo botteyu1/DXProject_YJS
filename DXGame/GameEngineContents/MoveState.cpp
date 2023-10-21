@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Player.h"
 
+#include "FX.h"
 
 
 void Player::IdleStart()
@@ -24,11 +25,11 @@ void Player::Jump_StartStart()
 
 	GrivityForce.Y += JumpingSpeed;
 	Transform.AddLocalPosition({ 0.0f,1.0f });
+	FXJumpActor->FXStart(FXType::DustLanding, Flip, Transform.GetLocalPosition() + float4(-20.0f,20.0f)/*, float4(0.2f, 0.2f, 1.0f)*/);
 }
 
 void Player::RunStart()
 {
-	
 	ChangeMainAnimation("LD_Run");
 }
 
@@ -49,6 +50,7 @@ void Player::DashStart()
 	ChangeMainAnimation("LD_Dash");
 	CurDash = 0.0f;
 	ForceGrivityOff = true;
+	FXActor->FXStart(FXType::Shockwave, Flip, Transform.GetLocalPosition() + float4(0.0f,50.0f), float4(0.2f, 0.2f, 1.0f));
 }
 
 

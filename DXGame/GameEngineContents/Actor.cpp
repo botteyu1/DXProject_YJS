@@ -20,6 +20,7 @@ void Actor::Start()
 	GameEngineInput::AddInputObject(this);
 
 	FXActor = GetLevel()->CreateActor<FX>(ContentsObjectType::FX);
+	
 }
 
 

@@ -64,7 +64,6 @@ void BGObject::Init(std::string _Name, bool _Animation)
 {
 	if (_Animation == false)
 	{
-
 		MainSpriteRenderer->SetSprite(_Name);
 	}
 	else

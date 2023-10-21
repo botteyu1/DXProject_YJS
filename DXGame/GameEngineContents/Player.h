@@ -66,6 +66,8 @@ protected:
 
 	std::shared_ptr<class BookOfTheDead> PlayerBook;
 
+	std::shared_ptr<class FX> FXJumpActor;
+
 private:
 	
 
@@ -86,7 +88,7 @@ private:
 	bool NextCombo = false; // 다음 콤보 입력했느지 확인 
 	bool AerialComboEnd = false; //공콤 끝났는지 여부;
 	bool JumpingAttackEnd = false; //점핑어택 끝났는지 여부;
-
+	bool DustLandingValue = false; // 점프 다운어택 땅에 도달했는지 확인하는 용
 	
 
 
