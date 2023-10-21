@@ -24,7 +24,13 @@ public:
 		MapPtr = _MapPtr;
 	}
 
+	std::shared_ptr<class FX> GetFXActor()
+	{
+		return FXActor;
+	}
+
 protected:
+	std::shared_ptr<FX> FXActor;
 
 private:
 

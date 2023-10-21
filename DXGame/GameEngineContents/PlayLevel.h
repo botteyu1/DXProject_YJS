@@ -20,6 +20,8 @@ public:
 		return PlayMapPtr;
 	}
 
+	
+
 protected:
 	void Start() override;
 
@@ -31,5 +33,7 @@ protected:
 private:
 
 	std::shared_ptr<PlayMap> PlayMapPtr = nullptr;
+
+	
 };
 

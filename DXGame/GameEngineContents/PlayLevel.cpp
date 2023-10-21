@@ -9,6 +9,7 @@
 #include "Elevator.h"
 #include "GUI.h"
 #include "BGObject.h"
+#include "FX.h"
 
 
 PlayLevel::PlayLevel() 
@@ -36,6 +37,7 @@ void PlayLevel::Start()
 	{
 		SetMap(CreateActor<PlayMap>());
 	}
+	FXActor = CreateActor<FX>(ContentsObjectType::FX);
 
 	//CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
 	//CreateActor<Ghost_Woman>(ContentsObjectType::Enemy);

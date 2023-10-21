@@ -19,7 +19,7 @@ void Actor::Start()
 	AttackCollision->SetCollisionType(ColType::AABBBOX2D);
 	GameEngineInput::AddInputObject(this);
 
-	FXActor = GetLevel()->CreateActor<FX>(ContentsObjectType::FX);
+	//FXActor = GetLevel()->CreateActor<FX>(ContentsObjectType::FX);
 	
 }
 

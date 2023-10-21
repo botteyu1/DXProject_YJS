@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Ghost_Med.h"
 #include "FX.h"
+#include "Level.h"
 
 Ghost_Med::Ghost_Med() 
 {
@@ -325,7 +326,7 @@ void Ghost_Med::SurprisedStart()
 	ChangeMainAnimation("GhostMed_Surprised");
 	float4 Pos = Transform.GetLocalPosition() + float4(0.0f,100.0f,0.0f,0.0f);
 	
-	FXActor->FXStart(FXType::Surprised, Flip, Pos);
+	GetContentsLevel()->GetFXActor()->FXStart(FXType::Surprised, Flip, Pos);
 }
 
 void Ghost_Med::SurprisedUpdate(float _Delta)

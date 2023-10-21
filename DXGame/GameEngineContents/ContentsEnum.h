@@ -34,3 +34,4 @@ enum class ContentsCollisionType
 	Enemy_Attack,
 	Enemy_Detect,
 };
+

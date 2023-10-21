@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Player.h"
 #include "FX.h"
+#include "Level.h"
 
 
 
@@ -190,7 +191,7 @@ void Player::AerialDownAttackUpdate(float _Delta)
 	if (AerialCheck == false and  DustLandingValue == false)
 	{
 		DustLandingValue = true;
-		FXJumpActor->FXStart(FXType::GroundDust, Flip, Transform.GetLocalPosition() + float4(0.0f, 40.0f)/*, float4(0.2f, 0.2f, 1.0f)*/);
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::GroundDust, Flip, Transform.GetLocalPosition() + float4(0.0f, 40.0f)/*, float4(0.2f, 0.2f, 1.0f)*/);
 	}
 
 

@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include "Level.h"
 
 class AnimationData
 {
@@ -36,6 +37,11 @@ public:
 	float4 GetScaleValue()
 	{
 		return ScaleValue;
+	}
+
+	class Level* GetContentsLevel()
+	{
+		return GetParent<Level>();
 	}
 
 protected:

@@ -29,14 +29,12 @@ protected:
 	void Start() override;
 	void Update(float _Delta);
 
-	std::shared_ptr< GameEngineSpriteRenderer> AddFXRenderer();
+	std::shared_ptr< class FxSpriteRenderer> AddFXRenderer();
 
 private:
-	//std::vector<std::shared_ptr<class GameEngineSpriteRenderer>> MainSpriteRenderers;  
-	std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer;  
-	float4 Scale = float4::ONE; //비율스케일
-	FXType Type; 
-
-	bool Flip = false;
+	std::vector<std::shared_ptr<class FxSpriteRenderer>> MainSpriteRenderers;
+	//std::vector<FXType> MainSpriteRenderers;
+	//std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer;  
+	
 };
 

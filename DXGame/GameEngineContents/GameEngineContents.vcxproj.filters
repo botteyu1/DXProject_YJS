@@ -79,6 +79,9 @@
     <ClCompile Include="FX.cpp">
       <Filter>FX</Filter>
     </ClCompile>
+    <ClCompile Include="FxSpriteRenderer.cpp">
+      <Filter>FX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -151,6 +154,9 @@
       <Filter>Actor\Player</Filter>
     </ClInclude>
     <ClInclude Include="FX.h">
+      <Filter>FX</Filter>
+    </ClInclude>
+    <ClInclude Include="FxSpriteRenderer.h">
       <Filter>FX</Filter>
     </ClInclude>
   </ItemGroup>

@@ -66,7 +66,7 @@ protected:
 
 	std::shared_ptr<class BookOfTheDead> PlayerBook;
 
-	std::shared_ptr<class FX> FXJumpActor;
+	//std::shared_ptr<class FX> FXJumpActor;
 
 private:
 	
