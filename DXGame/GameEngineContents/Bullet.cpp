@@ -14,18 +14,35 @@ Bullet::~Bullet()
 
 void Bullet::Start()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToExistsChild("GameEngineResources");
-	Dir.MoveChild("ContentsResources\\Sprite\\Bullet");
-	std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
-
-	for (size_t i = 0; i < Directorys.size(); i++)
+	if (nullptr == GameEngineTexture::Find("Projectile_Fire02_atlas_0.png"))
 	{
-		GameEngineDirectory& Dir = Directorys[i];
+		GameEngineDirectory Dir;
+		Dir.MoveParentToExistsChild("GameEngineResources");
+		Dir.MoveChild("ContentsResources\\Sprite\\Bullet");
+		std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
 
-		GameEngineSprite::CreateFolder(Dir.GetStringPath());
+		for (size_t i = 0; i < Directorys.size(); i++)
+		{
+			GameEngineDirectory& Dir = Directorys[i];
 
+			GameEngineSprite::CreateFolder(Dir.GetStringPath());
+		}
+
+		GameEngineDirectory Dir2;
+		Dir2.MoveParentToExistsChild("GameEngineResources");
+		Dir2.MoveChild("ContentsResources\\Texture\\Bullet");
+		std::vector<GameEngineFile> Files = Dir2.GetAllFile();
+
+		for (size_t i = 0; i < Files.size(); i++)
+		{
+			GameEngineFile& File = Files[i];
+			GameEngineTexture::Load(File.GetStringPath());
+
+			GameEnginePath Path = File;
+			GameEngineSprite::CreateSingle(Path.GetFileName());
+		}
 	}
+
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy_Attack);
 	
 
@@ -48,7 +65,19 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 			MainSpriteRenderer->ChangeAnimation("Fire");
 			MainSpriteRenderer->SetAutoScaleRatio({ 0.7f,0.35f});
 			//AttackCollision->Transform.SetLocalPosition({0.0f,0.0f});
-			AttackCollision->Transform.SetLocalScale({ 100.0f,50.0f });
+			AttackCollision->Transform.SetLocalScale({ 80.0f,50.0f });
+
+			TargetCollision = ContentsCollisionType::Player;
+			break;
+		}
+		case BulletType::Paperplane:
+		{
+
+			MainSpriteRenderer->CreateAnimation("Paperplane", "Paperplane.png", 0.0666f, -1, -1, true);
+			MainSpriteRenderer->ChangeAnimation("Paperplane");
+			MainSpriteRenderer->SetAutoScaleRatio({ 0.35f,0.35f });
+			//AttackCollision->Transform.SetLocalPosition({0.0f,0.0f});
+			AttackCollision->Transform.SetLocalScale({ 80.0f,50.0f });
 
 			TargetCollision = ContentsCollisionType::Player;
 			break;

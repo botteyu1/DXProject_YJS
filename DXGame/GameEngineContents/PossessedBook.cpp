@@ -62,7 +62,7 @@ void PossessedBook::Start()
 	AttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Attack);
 
 	DetectCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Detect);
-	DetectCollision->Transform.SetLocalScale({ 1000.0f, 1000.0f });
+	DetectCollision->Transform.SetLocalScale({ 1500.0f, 1000.0f });
 	DetectCollision->Transform.SetLocalPosition({ -0.0f, 80.0f, 1.0f });
 	DetectCollision->SetCollisionType(ColType::AABBBOX2D);
 
@@ -156,7 +156,7 @@ void PossessedBook::AttackUpdate(float _Delta)
 		float4 Pos = Transform.GetLocalPosition() + float4{ 50.0f, 50.0f };
 		float4 PlayerDir = Player::GetMainPlayer()->Transform.GetLocalPosition() - Transform.GetLocalPosition() + float4{0.0f, 0.0f, 1.0f};
 
-		Object->Init(BulletType::Fire, Pos, AttackDamage, PlayerDir, 500.f);
+		Object->Init(BulletType::Paperplane, Pos, AttackDamage, PlayerDir, 1000.f);
 	}
 
 
@@ -193,7 +193,8 @@ void PossessedBook::DeathUpdate(float _Delta)
 
 void PossessedBook::HitStart()
 {
-	ChangeMainAnimation("PossessedBook_Hit");
+	ChangeMainAnimation("PossessedBook_Hit"); 
+	MainSpriteRenderer->SetAutoScaleRatio({ 1.0f, 1.0f ,1.0f });
 }
 
 void PossessedBook::HitUpdate(float _Delta)

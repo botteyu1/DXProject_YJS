@@ -4,7 +4,7 @@
 enum class BulletType
 {
 	Fire,
-
+	Paperplane,
 };
 
 // Ό³Έν :
