@@ -168,7 +168,7 @@ void Actor::ChangeMainAnimation(std::string_view _AnimationName)
 	
 	if(AttackCollision != nullptr  )
 	{
-		AttackCollision->Off();
+		//AttackCollision->Off();
 		AttackCollision->Transform.SetLocalScale(CollisionScale);
 		AttackCollision->Transform.SetLocalPosition(CollisionPosition);
 	}
