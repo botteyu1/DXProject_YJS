@@ -29,7 +29,7 @@ public:
 	Enemy& operator=(const Enemy& _Other) = delete;
 	Enemy& operator=(Enemy&& _Other) noexcept = delete;
 
-	void TakeDamage(class GameEngineCollision* _Attacker ,float _Damage) override;
+	virtual void TakeDamage(class GameEngineCollision* _Attacker ,float _Damage) override;
 
 	void static ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right);
 

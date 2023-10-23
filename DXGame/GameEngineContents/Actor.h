@@ -58,7 +58,7 @@ protected:
 	std::shared_ptr<GameEngineCollision> AttackCollision;
 	float4 DefaultScale; // 피봇설정을 위한 기본 크기
 
-	float4 Dir = float4::ZERO; //바라보는 방향/
+	float4 Dir = float4::RIGHT; //바라보는 방향/
 	
 	bool FlipPrev = false;
 	bool Flip = false;
@@ -72,7 +72,7 @@ protected:
 
 
 	float4 GrivityForce = { 0.0f, 0.0f, 0.0f, 1.0f }; //중력힘
-	bool ForceGrivityOff = false; 
+	bool ForceGrivityOff = false;  //공중 몬스터같이  날아야하면 트루
 	bool FrameCheck = false;
 	bool AerialCheck = true; // 공중인지 체크 공중이면 트루
 	bool ThroughFloorCheck = false; //특정 바닥(파란색)을 통과할 수 있는 지 체크

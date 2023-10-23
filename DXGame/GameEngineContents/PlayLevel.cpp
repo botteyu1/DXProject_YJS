@@ -10,6 +10,8 @@
 #include "GUI.h"
 #include "BGObject.h"
 #include "FX.h"
+#include "BossGargoyle.h"
+#include "Map.h"
 
 
 PlayLevel::PlayLevel() 
@@ -35,13 +37,16 @@ void PlayLevel::Start()
 	}
 
 	{
-		SetMap(CreateActor<PlayMap>());
+		std::shared_ptr<PlayMap> Object = CreateActor<PlayMap>(ContentsObjectType::BackGround);
+		Object->Init("Stage1.dds", "StagePixel1.png", "Stage2.dds", "StagePixel2.png");
+		SetMap(Object);
 	}
 	FXActor = CreateActor<FX>(ContentsObjectType::FX);
 
 	//CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
 	//CreateActor<Ghost_Woman>(ContentsObjectType::Enemy);
-	CreateActor<PossessedBook>(ContentsObjectType::Enemy);
+	//CreateActor<PossessedBook>(ContentsObjectType::Enemy);
+	CreateActor<BossGargoyle>(ContentsObjectType::Enemy);
 	//CreateActor<Ghost_Med>(ContentsObjectType::Enemy);
 
 	//CreateActor<Elevator>(ContentsObjectType::StageObject);

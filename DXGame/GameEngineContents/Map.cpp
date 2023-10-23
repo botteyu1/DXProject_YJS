@@ -21,7 +21,7 @@ GameEngineColor Map::GetColor(float4 _Pos, GameEngineColor _DefaultColor)
 
 	Scale.Y *= -1.0f;
 
-	if (_Pos.X >= Scale.X)
+	if (_Pos.X >= Scale.X and PixelBackGround2 != nullptr)
 	{
 		Tex = PixelBackGround2->GetCurSprite().Texture;
 		_Pos.X -= Scale.X;
@@ -50,5 +50,39 @@ void Map::Update(float _Delta)
 		MainBackGround2->On();
 		PixelBackGround->Off();
 		PixelBackGround2->Off();
+	}
+}
+
+void Map::Init(std::string_view _Main, std::string_view _MainPixel, std::string_view _Main2, std::string_view _MainPixel2)
+{
+	{
+		MainBackGround = CreateComponent<GameEngineSpriteRenderer>(-99);
+		MainBackGround->SetSprite(_Main);
+		
+
+		PixelBackGround = CreateComponent<GameEngineSpriteRenderer>(-100);
+		PixelBackGround->SetSprite(_MainPixel);
+		PixelBackGround->Off();
+
+		if (_Main2 != "")
+		{
+			MainBackGround2 = CreateComponent<GameEngineSpriteRenderer>(-99);
+			MainBackGround2->SetSprite(_Main2);
+			PixelBackGround2 = CreateComponent<GameEngineSpriteRenderer>(-100);
+			PixelBackGround2->SetSprite(_MainPixel2);
+			PixelBackGround2->Off();
+		}
+		
+
+		std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("Stage1.dds");
+
+		float4 Scale = Tex->GetScale();
+		Scale.Y *= -1.0f;
+		float4 HScale = Scale.Half();
+
+		MainBackGround->Transform.SetLocalPosition(HScale);
+		PixelBackGround->Transform.SetLocalPosition(HScale);
+		MainBackGround2->Transform.SetLocalPosition(float4{ Scale.X, 0.0f } + HScale);
+		PixelBackGround2->Transform.SetLocalPosition(float4{ Scale.X, 0.0f } + HScale);
 	}
 }

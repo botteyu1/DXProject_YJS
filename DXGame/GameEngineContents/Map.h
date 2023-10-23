@@ -16,6 +16,7 @@ public:
 	Map& operator=(Map&& _Other) noexcept = delete;
 
 
+	void Init(std::string_view _Main, std::string_view _MainPixel, std::string_view _Main2 = "", std::string_view _MainPixel2 = "");
 	GameEngineColor GetColor(float4 _Pos, GameEngineColor _DefaultColor = { 255, 255, 255, 255 });
 protected:
 	std::shared_ptr<GameEngineSpriteRenderer> MainBackGround;

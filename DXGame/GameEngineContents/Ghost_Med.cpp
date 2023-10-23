@@ -167,7 +167,6 @@ void Ghost_Med::IdleUpdate(float _Delta)
 		ChangeState(EnemyState::Uturn);
 	}
 
-	
 }
 	
 
@@ -349,7 +348,7 @@ void Ghost_Med::UturnUpdate(float _Delta)
 	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
 	{
 		Flip = !Flip;
-		FlipCheck();
+		//FlipCheck();
 		ChangeState(EnemyState::Run);
 	}
 }
