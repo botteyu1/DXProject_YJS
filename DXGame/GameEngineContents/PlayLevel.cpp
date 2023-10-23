@@ -22,7 +22,7 @@ PlayLevel::~PlayLevel()
 
 void PlayLevel::Start()
 {
-	GameEngineGUI::CreateGUIWindow<GUI>("PlayGUI");
+	
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
 

@@ -4,6 +4,8 @@
 #include "TitleLevel.h"
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineRenderTarget.h>
+#include <GameEngineCore/GameEngineGUI.h>
+#include "GUI.h"
 
 ContentsCore::ContentsCore() 
 {
@@ -15,6 +17,7 @@ ContentsCore::~ContentsCore()
 
 void ContentsCore::Start()
 {
+	GameEngineGUI::CreateGUIWindow<GUI>("GUI");
 
 	GameEngineRenderTarget* BackBuffer = GameEngineCore::GetBackBufferRenderTarget().get();
 	BackBuffer->SetClearColor({ 0.0f,0.0f,0.0f,1.0f });
@@ -23,7 +26,7 @@ void ContentsCore::Start()
 
 	GameEngineCore::CreateLevel<PlayLevel>("PlayLevel");
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
-	GameEngineCore::ChangeLevel("PlayLevel");
+	GameEngineCore::ChangeLevel("TitleLevel");
 
 	// 자기 텍스처 로드해야 한다.
 

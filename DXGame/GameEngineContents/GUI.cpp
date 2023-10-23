@@ -104,6 +104,7 @@ void GUI::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			{
 				SelectObjects.insert(Select);
 				static_cast<ContentObject*>(ObjectLoaded[Select].get())->DebugValue = true;
+
 			}
 		}
 	}
@@ -121,4 +122,7 @@ void GUI::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	}
 
 	ImGui::GetFontSize();
+
+
+
 }

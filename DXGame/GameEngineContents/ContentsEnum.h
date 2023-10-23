@@ -10,6 +10,7 @@ enum class ContentsRenderType
 	Player_object,
 	Player,
 	FX,
+	UI,
 };
 
 
@@ -23,6 +24,7 @@ enum class ContentsObjectType
 	Enemy,
 	Bullet,
 	FX,
+	UI,
 };
 
 enum class ContentsCollisionType
@@ -33,5 +35,6 @@ enum class ContentsCollisionType
 	Enemy,
 	Enemy_Attack,
 	Enemy_Detect,
+	UI,
 };
 

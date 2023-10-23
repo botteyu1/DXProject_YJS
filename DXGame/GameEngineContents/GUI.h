@@ -19,11 +19,13 @@ public:
 public:
 	int Select = 0;
 
+
 	std::vector<std::shared_ptr<GameEngineObject>> ObjectLoaded;
 	std::vector<const char*> ObjectLoadedNames;
 	std::vector<std::string> ObjectLoadedNamesString;
 
-	std::set<int> SelectObjects;
+	std::set<int> SelectObjects; 
+	std::shared_ptr<GameEngineObject> LastSelectObject;
 
 	void Start() override;
 	void OnGUI(GameEngineLevel* _Level, float _DeltaTime) override;  //현재 레벨을 넣어준다.

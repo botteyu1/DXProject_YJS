@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "TitleLevel.h"
+#include "Title.h"
 
 TitleLevel::TitleLevel() 
 {
@@ -11,8 +12,14 @@ TitleLevel::~TitleLevel()
 
 void TitleLevel::Start()
 {
-	GetMainCamera()->Transform.SetLocalPosition({ 0.0f, 0.0f, -500.0f });
-	GetMainCamera()->SetProjectionType(EPROJECTIONTYPE::Perspective);
+
+	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
+
+	GetMainCamera()->Transform.SetLocalPosition({ HalfWindowScale.X, -HalfWindowScale.Y, -5000.0f });
+	GetMainCamera()->SetProjectionType(EPROJECTIONTYPE::Orthographic);
+
+	CreateActor<Title>(ContentsObjectType::BackGroundobject);
+	
 }
 
 
