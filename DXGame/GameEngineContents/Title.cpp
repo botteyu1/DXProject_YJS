@@ -56,8 +56,43 @@ void Title::Start()
 
 	UIArrow = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	UIArrow->AutoSpriteSizeOn();
-	UIArrow->SetSprite("Book UI_Missions_Arrow_Right_On.png");
+	UIArrow->SetSprite("UI_Missions_Arrow_Right_On.png");
 	UIArrow->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f});
+
+	LD_Weapon = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	LD_Weapon->AutoSpriteSizeOn();
+	LD_Weapon->SetSprite("LD_HomeScreen_Weapon.png");
+	LD_Weapon->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f});
+
+	LD_Body = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	LD_Body->AutoSpriteSizeOn();
+	LD_Body->CreateAnimation("LD_HomeScreen_Body", "LD_HomeScreen_Body", 0.0666f, -1, -1, true);
+	LD_Body->ChangeAnimation("LD_HomeScreen_Body");
+	LD_Body->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f });
+
+	LD_Forearm = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	LD_Forearm->AutoSpriteSizeOn();
+	LD_Forearm->CreateAnimation("LD_HomeScreen_Forearm", "LD_HomeScreen_Forearm", 0.0666f, -1, -1, true);
+	LD_Forearm->ChangeAnimation("LD_HomeScreen_Forearm");
+	LD_Forearm->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f });
+
+	LD_Head = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	LD_Head->AutoSpriteSizeOn();
+	LD_Head->CreateAnimation("LD_HomeScreen_Head", "LD_HomeScreen_Head", 0.0666f, -1, -1, true);
+	LD_Head->ChangeAnimation("LD_HomeScreen_Head");
+	LD_Head->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f });
+
+	LD_Smoke = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	LD_Smoke->AutoSpriteSizeOn();
+	LD_Smoke->CreateAnimation("LD_HomeScreen_Smoke", "LD_HomeScreen_Smoke", 0.0666f, -1, -1, true);
+	LD_Smoke->ChangeAnimation("LD_HomeScreen_Smoke");
+	LD_Smoke->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f });
+	
+	LD_Reflect = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	LD_Reflect->AutoSpriteSizeOn();
+	LD_Reflect->CreateAnimation("HomeScreen_Weapon_Reflect", "HomeScreen_Weapon_Reflect", 0.0666f, -1, -1, true);
+	LD_Reflect->ChangeAnimation("HomeScreen_Weapon_Reflect");
+	LD_Reflect->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f });
 
 	GameEngineInput::AddInputObject(this);
 }

@@ -176,6 +176,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BossGargoyle.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <SubType>
       </SubType>
@@ -279,6 +283,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="BookOfTheDead.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="BossGargoyle.h">
       <SubType>
       </SubType>
     </ClInclude>

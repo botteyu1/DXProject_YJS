@@ -85,6 +85,9 @@
     <ClCompile Include="Title.cpp">
       <Filter>Title</Filter>
     </ClCompile>
+    <ClCompile Include="BossGargoyle.cpp">
+      <Filter>Actor\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -164,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="Title.h">
       <Filter>Title</Filter>
+    </ClInclude>
+    <ClInclude Include="BossGargoyle.h">
+      <Filter>Actor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
