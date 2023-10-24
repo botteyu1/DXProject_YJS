@@ -77,7 +77,7 @@ protected:
 	bool AerialCheck = true; // 공중인지 체크 공중이면 트루
 	bool ThroughFloorCheck = false; //특정 바닥(파란색)을 통과할 수 있는 지 체크
 	bool DashStartCheck = true; //대쉬가 시작해도되는지 체크
-
+	float MotionTime = 0.0f; // 기본적으로 적이 행동하는  시간
 	int HP = 50;
 
 private:

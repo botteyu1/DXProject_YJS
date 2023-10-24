@@ -151,19 +151,19 @@ void Actor::ChangeMainAnimation(std::string_view _AnimationName)
 {
 	MainSpriteRenderer->ChangeAnimation(_AnimationName);
 	CurAnimationData = &AnimationDataMap.find(_AnimationName.data())->second;
-	float Pivot = CurAnimationData->PivotX;
+//	float Pivot = CurAnimationData->PivotX;
 	
 
 	float4 CollisionScale = CurAnimationData->CollisionScale;
 	float4 CollisionPosition = CurAnimationData->CollisionPosition;
 	FlipCheck();
-	if (Flip == true)
+	/*if (Flip == true)
 	{
 		CollisionPosition.X = -CollisionPosition.X;
 		Pivot = 1.0f - Pivot;
 	}
 	
-	MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
+	MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });*/
 	//  공격 콜리전 활성화
 	
 	if(AttackCollision != nullptr  )
@@ -272,26 +272,29 @@ void Actor::FlipCheck()
 		Pivot = 1.0f - Pivot;
 		if (Flip != FlipPrev)
 		{
-			Dir = float4::LEFT;
-			MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
-
-			MainSpriteRenderer->LeftFlip();
-			float MovePos = (Pivot - PrevPivot.X) * -0.8f * DefaultScale.X;
-			MainSpriteRenderer->Transform.AddLocalPosition({ MovePos,0.0f });
+			
 		}
+		Dir = float4::LEFT;
+		MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
+
+		MainSpriteRenderer->LeftFlip();
+		float MovePos = (Pivot - PrevPivot.X) * -0.8f * DefaultScale.X;
+		MainSpriteRenderer->Transform.AddLocalPosition({ MovePos,0.0f });
 		FlipPrev = Flip;
 	}
 	if (Flip == false)
 	{
 		if (Flip != FlipPrev)
 		{
-			Dir = float4::RIGHT;
-			MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
-			MainSpriteRenderer->RightFlip();
-			
-			float MovePos = (Pivot - PrevPivot.X) * -0.8f * DefaultScale.X;
-			MainSpriteRenderer->Transform.AddLocalPosition({ MovePos,0.0f });
+		
 		}
+		Dir = float4::RIGHT;
+		MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
+
+		float MovePos = (Pivot - PrevPivot.X) * -0.8f * DefaultScale.X;
+		MainSpriteRenderer->Transform.AddLocalPosition({ MovePos,0.0f });
+		MainSpriteRenderer->RightFlip();
+
 		FlipPrev = Flip;
 	}
 }

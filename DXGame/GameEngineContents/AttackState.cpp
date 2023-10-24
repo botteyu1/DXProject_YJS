@@ -201,7 +201,7 @@ void Player::AerialDownAttackUpdate(float _Delta)
 	}
 }
 
-void Player::InputAttackUpdate(float _Delta)
+bool Player::InputAttackUpdate(float _Delta)
 {
 	if (GameEngineInput::IsDown(VK_LBUTTON, this))
 	{
@@ -210,6 +210,7 @@ void Player::InputAttackUpdate(float _Delta)
 		if (GameEngineInput::IsPress('W', this))
 		{
 			ChangeState(PlayerState::JumpingAttack);
+			return true;
 		}
 		else if (AerialCheck == true and GameEngineInput::IsPress('S', this))
 		{
@@ -223,8 +224,8 @@ void Player::InputAttackUpdate(float _Delta)
 		{
 			ChangeState(PlayerState::ComboMove);
 		}
-		
+		return true;
 	}
 
-	return;
+	return false;
 }

@@ -59,12 +59,17 @@ void BookOfTheDead::Start()
 	
 	ChangeState(BookState::Idle);
 
-	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
-	Transform.SetLocalPosition({ HalfWindowScale.X - 700.0f, -HalfWindowScale.Y * 4 });
+	//float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
+	//Transform.SetLocalPosition({ HalfWindowScale.X - 700.0f, -HalfWindowScale.Y * 4 });
+
+
+	Transform.SetLocalPosition({ 953.0f, -2534.0f, 5.0f });
 
 	PivotPos = float4{ -120.0f, 100.0f };
 
 	SetName("BookOfDead");
+
+	Off();
 }
 
 void BookOfTheDead::Update(float _Delta)
@@ -174,6 +179,14 @@ void BookOfTheDead::IdleUpdate(float _Delta)
 	}
 }
 
+void BookOfTheDead::WaitingStart()
+{
+}
+
+void BookOfTheDead::WaitingUpdate(float _Delta)
+{
+}
+
 void BookOfTheDead::ChangeState(BookState _State)
 {
 	switch (_State)
@@ -201,6 +214,9 @@ void BookOfTheDead::ChangeState(BookState _State)
 		break;
 	case BookState::Uturn:
 		UturnStart();
+		break;
+	case BookState::Waiting:
+		WaitingStart();
 		break;
 	case BookState::Max:
 		break;
@@ -239,6 +255,9 @@ void BookOfTheDead::StateUpdate(float _Delta)
 		break;
 	case BookState::Uturn:
 		UturnUpdate(_Delta);
+		break;
+	case BookState::Waiting:
+		WaitingUpdate(_Delta);
 		break;
 	case BookState::Max:
 		break;

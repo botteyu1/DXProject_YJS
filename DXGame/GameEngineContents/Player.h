@@ -18,6 +18,9 @@ enum class PlayerState
 	AerialDownAttack,
 	Dash,
 	Hit,
+	EnterElavator,
+	ExitElavator,
+
 	Max, // 일반적으로 사용하지 않는 값.
 };
 
@@ -58,6 +61,13 @@ public:
 	}
 
 	void TakeDamage(GameEngineCollision* _Attacker, float _Damage) override;
+	void SetTargetPos(const float4& _Pos)
+	{
+		TargetPos = _Pos;
+	}
+
+
+	void ChangeState(PlayerState _State);
 
 protected:
 	void Start() override;
@@ -141,15 +151,23 @@ private:
 	void HitStart();
 	void HitUpdate(float _Delta);
 
-	void InputMoveUpdate(float _Delta);
-	void InputJumpUpdate(float _Delta);
-	void InputAttackUpdate(float _Delta);
-	void InputDashUpdate(float _Delta);
+	void EnterElavatorStart();
+	void EnterElavatorUpdate(float _Delta);
 
-	
+	void ExitElavatorStart();
+	void ExitElavatorUpdate(float _Delta);
+
+
+	bool InputMoveUpdate(float _Delta);
+	bool InputJumpUpdate(float _Delta);
+	bool InputAttackUpdate(float _Delta);
+	bool InputDashUpdate(float _Delta);
+
+
+	float4 TargetPos = float4::ZERO; // 고정 이동 좌표 저장용
+	float4 TargetPlayerPos = float4::ZERO; // 이동전 플레이어 좌표 저장용
 
 
 	void StateUpdate(float _Delta);
-	void ChangeState(PlayerState _State);
 };
 

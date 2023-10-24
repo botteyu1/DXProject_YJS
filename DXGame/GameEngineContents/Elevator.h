@@ -1,5 +1,13 @@
 #pragma once
 #include "StageObject.h"
+
+enum class ElevatorState
+{
+	Static,
+	Start,
+	End,
+};
+
 // Ό³Έν :
 
 class Elevator : public StageObject
@@ -19,12 +27,14 @@ public:
 
 	void NextStageAnimationStart();
 
+	void Init(ElevatorState _State);
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
 
-	void Init();
+	
 private:
-
+	ElevatorState State = ElevatorState::Static;
 };
 

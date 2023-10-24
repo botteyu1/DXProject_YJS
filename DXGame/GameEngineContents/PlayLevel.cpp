@@ -46,10 +46,14 @@ void PlayLevel::Start()
 	//CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
 	//CreateActor<Ghost_Woman>(ContentsObjectType::Enemy);
 	//CreateActor<PossessedBook>(ContentsObjectType::Enemy);
-	CreateActor<BossGargoyle>(ContentsObjectType::Enemy);
+	//CreateActor<BossGargoyle>(ContentsObjectType::Enemy);
 	//CreateActor<Ghost_Med>(ContentsObjectType::Enemy);
+	{
+		std::shared_ptr<Elevator> Object = CreateActor<Elevator>(ContentsObjectType::StageObject);
+		Object->Init(ElevatorState::Start);
+	}
 
-	//CreateActor<Elevator>(ContentsObjectType::StageObject);
+	
 	std::shared_ptr<BGObject> Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
 	Object->Init("GhostWorkersBox1.png"); 
 

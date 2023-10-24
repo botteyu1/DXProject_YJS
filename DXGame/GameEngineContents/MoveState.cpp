@@ -60,20 +60,23 @@ void Player::IdleUpdate(float _Delta)
 {
 	bool PreFlip = Flip;
 
-	InputMoveUpdate(_Delta);
-	InputJumpUpdate(_Delta);
-	InputAttackUpdate(_Delta);
-	InputDashUpdate(_Delta);
+	if (InputAttackUpdate(_Delta) == true or InputJumpUpdate(_Delta) == true or InputDashUpdate(_Delta) == true)
+	{
+		return;
+	}
 
+	InputMoveUpdate(_Delta);
 	if (Dir != float4::ZERO)
 	{
 		if (Flip == PreFlip)
 		{
 			ChangeState(PlayerState::Run);
+			return;
 		}
 		else
 		{
 			ChangeState(PlayerState::RunUturn);
+			return;
 		}
 	}
 	
@@ -127,6 +130,7 @@ void Player::RunToIdleUpdate(float _Delta)
 	if (true == MainSpriteRenderer->IsCurAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
+		return;
 	}
 
 	if (Dir != float4::ZERO)
@@ -134,10 +138,12 @@ void Player::RunToIdleUpdate(float _Delta)
 		if (Flip == PreFlip)
 		{
 			ChangeState(PlayerState::Run);
+			return;
 		}
 		else
 		{
 			ChangeState(PlayerState::RunUturn);
+			return;
 		}
 	}
 
@@ -236,7 +242,7 @@ void Player::DashUpdate(float _Delta)
 
 
 
-void Player::InputMoveUpdate(float _Delta)
+bool Player::InputMoveUpdate(float _Delta)
 {
 	Dir = float4::ZERO;
 
@@ -267,31 +273,36 @@ void Player::InputMoveUpdate(float _Delta)
 	{
 		Transform.AddLocalPosition(Dir * _Delta * MoveSpeed * 1.0f);
 	}
+	return false;
 }
 
 //점프 시작 업데이트
-void Player::InputJumpUpdate(float _Delta)
+bool Player::InputJumpUpdate(float _Delta)
 {
 	if (GameEngineInput::IsDown(VK_SPACE, this) and GameEngineInput::IsPress('S', this) and AerialCheck == false)
 	{
 		ChangeState(PlayerState::Jump_Falling);
 		ThroughFloorCheck = true;
-		return;
+		return true;
 	}
 		
 
 	if (GameEngineInput::IsDown(VK_SPACE, this))
 	{
 		ChangeState(PlayerState::Jump_Start);
+		return true;
 	}
+	return false;
 }
 
 
-void Player::InputDashUpdate(float _Delta)
+bool Player::InputDashUpdate(float _Delta)
 {
 	if (GameEngineInput::IsDown(VK_LSHIFT, this))
 	{
 		ChangeState(PlayerState::Dash);
+		return true;
 	}
+	return false;
 }
 

@@ -96,6 +96,14 @@ void Player::Start()
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_02_Rest", {}));
 		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_03_Rest", "LD_ComboAerial_03_Rest", 0.0333f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_03_Rest", {}));
+
+		MainSpriteRenderer->CreateAnimation("LD_Elevator_Enter", "LD_Elevator_Enter", 0.0433f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Elevator_Enter", {}));
+		MainSpriteRenderer->CreateAnimation("LD_Elevator_Out", "LD_Elevator_Out", 0.0633f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Elevator_Out", {}));
+		MainSpriteRenderer->CreateAnimation("LD_Elevator_End", "LD_Elevator_End", 0.0433f, -1, -1, true);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Elevator_End", {0.1f}));
+
 		MainSpriteRenderer->CreateAnimation("LD_Dash", "LD_Dash", 0.0333f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Dash", {}));
 
@@ -110,7 +118,7 @@ void Player::Start()
 		DefaultScale = MainSpriteRenderer->GetCurSprite().Texture.get()->GetScale();  
 	} 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
-	Transform.SetLocalPosition({ HalfWindowScale.X, -HalfWindowScale.Y});
+	Transform.SetLocalPosition({ 953.0f, -2534.0f, -5.0f });
 
 	// 콜리전 추가
 
@@ -135,6 +143,7 @@ void Player::Start()
 	static int Num = 0;
 	Num++;
 	SetName("Player_" + std::to_string(Num));
+	Off();
 
 	Actor::Start();
 }
@@ -236,6 +245,12 @@ void Player::ChangeState(PlayerState _State)
 	case PlayerState::Hit:
 		HitStart();
 		break;
+	case PlayerState::EnterElavator:
+		EnterElavatorStart();
+		break;
+	case PlayerState::ExitElavator:
+		ExitElavatorStart();
+		break;
 	default:
 		break;
 	}
@@ -292,6 +307,12 @@ void Player::StateUpdate(float _Delta)
 		break;
 	case PlayerState::Hit:
 		HitUpdate(_Delta);
+		break;
+	case PlayerState::EnterElavator:
+		EnterElavatorUpdate(_Delta);
+		break;
+	case PlayerState::ExitElavator:
+		ExitElavatorUpdate(_Delta);
 		break;
 	default:
 		break;

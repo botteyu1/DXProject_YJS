@@ -11,6 +11,7 @@ enum class BookState
 	Transition_To_Menu,
 	Idle,
 	Uturn,
+	Waiting,
 	Max, // 일반적으로 사용하지 않는 값.
 };
 
@@ -65,6 +66,9 @@ private:
 
 	void IdleStart();
 	void IdleUpdate(float _Delta);
+
+	void WaitingStart();
+	void WaitingUpdate(float _Delta);
 
 	void StateUpdate(float _Delta);
 	void ChangeState(BookState _State);
