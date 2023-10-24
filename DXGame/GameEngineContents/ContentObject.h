@@ -16,7 +16,7 @@ public:
 	float4 AttackFxPos = { 0.0f, 0.0f,0.0f };// 애니메이션마다 적용할 피봇값
 };
 
-// 설명 :  디버그용 콘솔등 화면상에 나타나는 모든 오브젝트에 필요한 기능
+// 설명 :  디버그용 콘솔등 화면상에 나타나는 모든 주요 오브젝트에 필요한 기능
 class ContentObject : public GameEngineActor
 {
 public:
@@ -44,12 +44,22 @@ public:
 		return GetParent<Level>();
 	}
 
+	void SetActorType(ActorType _Type)
+	{
+		ActorTypeValue = _Type;
+	}
+
+	ActorType GetActorType()
+	{
+		return ActorTypeValue;
+	}
+
 protected:
 
 	std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer; //기본 렌더러
 	float4 ScaleValue = float4::ONE;
 
 private:
-
+	ActorType ActorTypeValue = ActorType::Max;
 };
 

@@ -236,7 +236,19 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="LevelChangeTab.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Map.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="MapEditorLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="MapEditorTab.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -265,6 +277,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="StageObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Tab.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -351,7 +367,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="LevelChangeTab.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Map.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="MapEditorLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="MapEditorTab.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -373,6 +401,10 @@
     </ClInclude>
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="StageObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Tab.h">
       <SubType>
       </SubType>
     </ClInclude>

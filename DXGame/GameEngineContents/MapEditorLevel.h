@@ -2,25 +2,25 @@
 #include "Level.h"
 
 // Ό³Έν :
-class PlayLevel : public Level
+class MapEditorLevel : public Level
 {
 public:
 	// constrcuter destructer
-	PlayLevel();
-	~PlayLevel();
+	MapEditorLevel();
+	~MapEditorLevel();
 
 	// delete Function
-	PlayLevel(const PlayLevel& _Other) = delete;
-	PlayLevel(PlayLevel&& _Other) noexcept = delete;
-	PlayLevel& operator=(const PlayLevel& _Other) = delete;
-	PlayLevel& operator=(PlayLevel&& _Other) noexcept = delete;
-	
+	MapEditorLevel(const MapEditorLevel& _Other) = delete;
+	MapEditorLevel(MapEditorLevel&& _Other) noexcept = delete;
+	MapEditorLevel& operator=(const MapEditorLevel& _Other) = delete;
+	MapEditorLevel& operator=(MapEditorLevel&& _Other) noexcept = delete;
+
 	std::shared_ptr<class PlayMap> GetPlayMap()
 	{
 		return PlayMapPtr;
 	}
-	
-	
+
+
 
 protected:
 	void Start() override;
@@ -33,7 +33,5 @@ protected:
 private:
 
 	std::shared_ptr<PlayMap> PlayMapPtr = nullptr;
-
-	
 };
 

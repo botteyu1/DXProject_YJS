@@ -135,7 +135,7 @@ void Player::Start()
 
 
 	//카메라 포커스
-	GetLevel()->GetMainCamera()->CameraTargetSetting(Transform, float4::BACKWARD *1000.0f);
+	//GetLevel()->GetMainCamera()->CameraTargetSetting(Transform, float4::BACKWARD *1000.0f);
 
 	//FXJumpActor = GetLevel()->CreateActor<FX>(ContentsObjectType::FX);
 
@@ -143,7 +143,7 @@ void Player::Start()
 	static int Num = 0;
 	Num++;
 	SetName("Player_" + std::to_string(Num));
-	Off();
+	//Off();
 
 	Actor::Start();
 }

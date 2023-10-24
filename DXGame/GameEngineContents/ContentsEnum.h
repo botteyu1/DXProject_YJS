@@ -38,3 +38,23 @@ enum class ContentsCollisionType
 	UI,
 };
 
+enum class ActorType
+{
+	Player,
+	Ghost_Man1,
+	Ghost_Man2,
+	Ghost_Man3,
+	Ghost_Woman1,
+	Ghost_Woman2,
+	Ghost_Woman3,
+	Ghost_Med1,
+	Ghost_Med2,
+	Ghost_Med3,
+	PossessedBook1,
+	PossessedBook2,
+	PossessedBook3,
+	ElevatorStart,
+	ElevatorStatic,
+	ElevatorEnd,
+	Max,
+};

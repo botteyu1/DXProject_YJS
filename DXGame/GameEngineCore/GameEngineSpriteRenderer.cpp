@@ -103,6 +103,9 @@ void GameEngineSpriteRenderer::Update(float _Delta)
 		Scale.W = 0.0f;
 		SetImageScale(Scale * AutoScaleRatio);
 	}
+
+	RenderBaseInfoValue.RenderScreenScale = CurSprite.GetScale();
+	// 
 }
 
 void GameEngineSpriteRenderer::SetImageScale(const float4& _Scale)
@@ -367,14 +370,33 @@ void GameEngineSpriteRenderer::SetMaterialEvent(std::string_view _Name, int _Ind
 	GetShaderResHelper().SetConstantBufferLink("TransformData", Data);
 	GetShaderResHelper().SetConstantBufferLink("SpriteData", CurSprite.SpritePivot);
 	GetShaderResHelper().SetConstantBufferLink("SpriteRendererInfo", SpriteRendererInfoValue);
+	GetShaderResHelper().SetConstantBufferLink("ColorData", ColorDataValue);
 	SetSprite("NSet.png");
 }
 
 
-void GameEngineSpriteRenderer::SetMaskTexture(std::string_view _Texture)
+void GameEngineSpriteRenderer::SetMaskTexture(std::string_view _Texture, MaskMode _Mask)
 {
-	// 이녀석한테 있는
-	GameEngineRenderer::SetMaterial("2DTextureMask");
+	//std::shared_ptr<GameEngineFrameAnimation> TempCurFrameAnimation = CurFrameAnimations;
+	//std::shared_ptr<GameEngineSprite> TempSprite = Sprite;
+	//SpriteData TempCurSprite = CurSprite;
 
+	//GameEngineRenderer::SetMaterial("2DTextureMask");
+
+	//if (CurFrameAnimations != TempCurFrameAnimation)
+	//{
+	//	CurFrameAnimations = TempCurFrameAnimation;
+	//}
+
+	//if (Sprite != TempSprite)
+	//{
+	//	Sprite = TempSprite;
+	//	CurSprite = TempCurSprite;
+	//}
+
+	RenderBaseInfoValue.IsMask = 1;
+	RenderBaseInfoValue.MaskMode = static_cast<int>(_Mask);
 	GetShaderResHelper().SetTexture("MaskTex", _Texture);
+	std::shared_ptr<GameEngineTexture> Ptr = GameEngineTexture::Find(_Texture);
+	RenderBaseInfoValue.MaskScreeneScale = Ptr->GetScale();
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GameEngineCore/GameEngineGUI.h>
+#include "Tab.h"
 
 // 설명 :
 class GUI : public GameEngineGUIWindow
@@ -17,15 +18,15 @@ public:
 	GUI& operator=(GUI&& _Other) noexcept = delete;
 
 public:
+
+	std::shared_ptr<class Tab> CurTab = nullptr;
+	std::vector<std::shared_ptr<class Tab>> Tabs;
+
+
 	int Select = 0;
 
 
-	std::vector<std::shared_ptr<GameEngineObject>> ObjectLoaded;
-	std::vector<const char*> ObjectLoadedNames;
-	std::vector<std::string> ObjectLoadedNamesString;
 
-	std::set<int> SelectObjects; 
-	std::shared_ptr<GameEngineObject> LastSelectObject;
 
 	void Start() override;
 	void OnGUI(GameEngineLevel* _Level, float _DeltaTime) override;  //현재 레벨을 넣어준다.

@@ -39,6 +39,7 @@ void GameEngineCore::Update()
 		if (nullptr != CurLevel)
 		{
 			CurLevel->AllLevelEnd(NextLevel.get());
+			CurLevel->AllReleaseCheck();
 		}
 
 		// NextLevel->OverCheck(CurLevel);
@@ -114,7 +115,8 @@ void GameEngineCore::EngineProcess(HINSTANCE _Inst, const std::string& _WindowNa
 	GameEngineWindow::MessageLoop(_Inst, Start, Update, Release);
 }
 
-void GameEngineCore::LevelInit(std::shared_ptr<GameEngineLevel> _Level)
+void GameEngineCore::LevelInit(std::shared_ptr<GameEngineLevel> _Level, std::string_view _Name)
 {
+	_Level->SetName(_Name);
 	_Level->Start();
 }

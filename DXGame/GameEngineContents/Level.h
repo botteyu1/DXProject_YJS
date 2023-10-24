@@ -1,6 +1,9 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
 
+
+
+
 // Ό³Έν :
 class Level : public GameEngineLevel
 {
@@ -28,6 +31,13 @@ public:
 	{
 		return FXActor;
 	}
+
+	std::shared_ptr<class ContentObject> AddActor(ActorType _Type, float4 _Pos, bool _Debug);
+
+	void Serializer(GameEngineSerializer& _Data) ;
+	void DeSerializer(GameEngineSerializer& _Data, bool _Debug);
+
+	void ClearContentsObject();
 
 protected:
 	std::shared_ptr<FX> FXActor;

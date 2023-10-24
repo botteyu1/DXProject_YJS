@@ -64,9 +64,6 @@
     <ClCompile Include="ContentObject.cpp">
       <Filter>.Core</Filter>
     </ClCompile>
-    <ClCompile Include="GUI.cpp">
-      <Filter>.Core</Filter>
-    </ClCompile>
     <ClCompile Include="ContentsCamera.cpp">
       <Filter>.Core</Filter>
     </ClCompile>
@@ -89,6 +86,21 @@
       <Filter>Actor\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="BossLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEditorTab.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Tab.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelChangeTab.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEditorLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
   </ItemGroup>
@@ -150,9 +162,6 @@
     <ClInclude Include="ContentObject.h">
       <Filter>.Core</Filter>
     </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>.Core</Filter>
-    </ClInclude>
     <ClInclude Include="ContentsCamera.h">
       <Filter>.Core</Filter>
     </ClInclude>
@@ -175,6 +184,21 @@
       <Filter>Actor\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="BossLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEditorTab.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Tab.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelChangeTab.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEditorLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
   </ItemGroup>
@@ -214,6 +238,9 @@
     </Filter>
     <Filter Include="Title">
       <UniqueIdentifier>{32016b60-c9f1-4fb1-b3f7-acb44c43c1d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{4659bf53-f768-4b58-bf9f-5d7ea0cc2e6e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

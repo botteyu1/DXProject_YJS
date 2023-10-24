@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineRenderTarget.h>
 #include <GameEngineCore/GameEngineGUI.h>
 #include "GUI.h"
+#include "MapEditorLevel.h"
 
 ContentsCore::ContentsCore() 
 {
@@ -26,6 +27,7 @@ void ContentsCore::Start()
 
 	GameEngineCore::CreateLevel<PlayLevel>("PlayLevel");
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
+	GameEngineCore::CreateLevel<MapEditorLevel>("MapEditorLevel");
 	GameEngineCore::ChangeLevel("PlayLevel");
 
 	// 자기 텍스처 로드해야 한다.
