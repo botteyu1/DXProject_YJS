@@ -81,9 +81,243 @@ std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, boo
 		Object = CreateActor<Elevator>(ContentsObjectType::StageObject);
 		static_cast<Elevator*>(Object.get())->Init(ElevatorState::End);
 		break;
+	case ActorType::BackWall_Big:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("BackWall_Big.png");
+		break;
+	case ActorType::BackWall_Down:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("BackWall_Down.png");
+		break;
+	case ActorType::BackWall_LeftT:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("BackWall_LeftT.png");
+		break;
+	case ActorType::BackWall_LeftT_A:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("BackWall_LeftT_A.png");
+		break;
+	case ActorType::BackWall_Middle:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("BackWall_Middle.png");
+		break;
+	case ActorType::BackWall_Window:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("BackWall_Window.png");
+		break;
+	case ActorType::BackWall_Window05:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("BackWall_Window05.png");
+		break;
+	case ActorType::BossDesk:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("BossDesk.png");
+		break;
+	case ActorType::coloneComplete:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("coloneComplete.png");
+		break;
+	case ActorType::Colonnade02:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Colonnade02.png");
+		break;
+	case ActorType::Column01B:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Column01B.png");
+		break;
+	case ActorType::Column04:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Column04.png");
+		break;
+	case ActorType::Column05:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Column05.png");
+		break;
+	case ActorType::ColumnDown01:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("ColumnDown01.png");
+		break;
+	case ActorType::Desk:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Desk.png");
+		break;
+	case ActorType::Desk01:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Desk01.png");
+		break;
+	case ActorType::Desk1:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Desk1.png");
+		break;
+	case ActorType::Desk2:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Desk2.png");
+		break;
+	case ActorType::Desk2_NoScreen:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Desk2_NoScreen.png");
+		break;
+	case ActorType::Desk3:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Desk3.png");
+		break;
+	case ActorType::Desk3_NoScreen:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Desk3_NoScreen.png");
+		break;
+	case ActorType::Escalator_02:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Escalator_02.png");
+		break;
+	case ActorType::Escalator_09:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Escalator_09.png");
+		break;
+	case ActorType::Escalator_Frieze:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Escalator_Frieze.png");
+		break;
+	case ActorType::GhostWorkersBox1:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("GhostWorkersBox1.png");
+		break;
+	case ActorType::GhostWorkersBox2:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("GhostWorkersBox2.png");
+		break;
+	case ActorType::GhostWorkersBox3:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("GhostWorkersBox3.png");
+		break;
+	case ActorType::GhostWorkersBox11:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("GhostWorkersBox11.png");
+		break;
+	case ActorType::GhostWorkersBox22:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("GhostWorkersBox22.png");
+		break;
+	case ActorType::GPE_DifficultyMode_Wall:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("GPE_DifficultyMode_Wall.png");
+		break;
+	case ActorType::GPE_Paper_Piles_Line:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("GPE_Paper_Piles_Line.png");
+		break;
+	case ActorType::lamp2:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("lamp2.png");
+		break;
+	case ActorType::lamp3:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("lamp3.png");
+		break;
+	case ActorType::lamp4:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("lamp4.png");
+		break;
+	case ActorType::OfficeCabinet2:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("OfficeCabinet2.png");
+		break;
+	case ActorType::OfficeCabinet3:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("OfficeCabinet3.png");
+		break;
+	case ActorType::OfficeCabinet4:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("OfficeCabinet4.png");
+		break;
+	case ActorType::PipeFrieze2:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("PipeFrieze2.png");
+		break;
+	case ActorType::Rock_01:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Rock_01.png");
+		break;
+	case ActorType::Rock_03:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Rock_03.png");
+		break;
+	case ActorType::Rock_04:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Rock_04.png");
+		break;
+	case ActorType::Rock01:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Rock01.png");
+		break;
+	case ActorType::Rock02:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Rock02.png");
+		break;
+	case ActorType::Rock2:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Rock2.png");
+		break;
+	case ActorType::Rock03:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Rock03.png");
+		break;
+	case ActorType::Rock3:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Rock3.png");
+		break;
+	case ActorType::Rock04:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Rock04.png");
+		break;
+	case ActorType::RockBG01:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("RockBG01.png");
+		break;
+	case ActorType::RockBG02:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("RockBG02.png");
+		break;
+	case ActorType::RockBG03:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("RockBG03.png");
+		break;
+	case ActorType::RockBG04:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("RockBG04.png");
+		break;
+	case ActorType::RockBG05:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("RockBG05.png");
+		break;
+	case ActorType::RockBG05_bis:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("RockBG05_bis.png");
+		break;
+	case ActorType::RockIntegrationElements:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("RockIntegrationElements.png");
+		break;
+	case ActorType::RockIntegrationElements02:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("RockIntegrationElements02.png");
+		break;
+	case ActorType::RockIntegrationElements03t:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("RockIntegrationElements03t.png");
+		break;
+	case ActorType::VerticalDeskCube:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("VerticalDeskCube.png");
+		break;
+	case ActorType::VerticalDeskCubeBack:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("VerticalDeskCubeBack.png");
+		break;
 	default:
 		break;
 	}
+
+
 	Object->Transform.SetLocalPosition(_Pos);
 	Object->SetActorType(_Type);
 

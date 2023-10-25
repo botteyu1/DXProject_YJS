@@ -33,6 +33,68 @@ void MapEditorTab::Start()
 		ObjectCreateNames.push_back("ElevatorStart");
 		ObjectCreateNames.push_back("ElevatorStatic");
 		ObjectCreateNames.push_back("ElevatorEnd");
+
+
+		//배경오브젝트 
+
+		ObjectCreateNames.push_back("BackWall_Big");
+		ObjectCreateNames.push_back("BackWall_Down");
+		ObjectCreateNames.push_back("BackWall_LeftT");
+		ObjectCreateNames.push_back("BackWall_LeftT_A");
+		ObjectCreateNames.push_back("BackWall_Middle");
+		ObjectCreateNames.push_back("BackWall_Window");
+		ObjectCreateNames.push_back("BackWall_Window05");
+		ObjectCreateNames.push_back("BossDesk");
+		ObjectCreateNames.push_back("coloneComplete");
+		ObjectCreateNames.push_back("Colonnade02");
+		ObjectCreateNames.push_back("Column01B");
+		ObjectCreateNames.push_back("Column04");
+		ObjectCreateNames.push_back("Column05");
+		ObjectCreateNames.push_back("ColumnDown01");
+		ObjectCreateNames.push_back("Desk");
+		ObjectCreateNames.push_back("Desk01");
+		ObjectCreateNames.push_back("Desk1");
+		ObjectCreateNames.push_back("Desk2");
+		ObjectCreateNames.push_back("Desk2_NoScreen");
+		ObjectCreateNames.push_back("Desk3");
+		ObjectCreateNames.push_back("Desk3_NoScreen");
+		ObjectCreateNames.push_back("Escalator_02");
+		ObjectCreateNames.push_back("Escalator_09");
+		ObjectCreateNames.push_back("Escalator_Frieze");
+		ObjectCreateNames.push_back("GhostWorkersBox1");
+		ObjectCreateNames.push_back("GhostWorkersBox2");
+		ObjectCreateNames.push_back("GhostWorkersBox3");
+		ObjectCreateNames.push_back("GhostWorkersBox11");
+		ObjectCreateNames.push_back("GhostWorkersBox22");
+		ObjectCreateNames.push_back("GPE_DifficultyMode_Wall");
+		ObjectCreateNames.push_back("GPE_Paper_Piles_Line");
+		ObjectCreateNames.push_back("lamp2");
+		ObjectCreateNames.push_back("lamp3");
+		ObjectCreateNames.push_back("lamp4");
+		ObjectCreateNames.push_back("OfficeCabinet2");
+		ObjectCreateNames.push_back("OfficeCabinet3");
+		ObjectCreateNames.push_back("OfficeCabinet4");
+		ObjectCreateNames.push_back("PipeFrieze2");
+		ObjectCreateNames.push_back("Rock_01");
+		ObjectCreateNames.push_back("Rock_03");
+		ObjectCreateNames.push_back("Rock_04");
+		ObjectCreateNames.push_back("Rock01");
+		ObjectCreateNames.push_back("Rock02");
+		ObjectCreateNames.push_back("Rock2");
+		ObjectCreateNames.push_back("Rock03");
+		ObjectCreateNames.push_back("Rock3");
+		ObjectCreateNames.push_back("Rock04");
+		ObjectCreateNames.push_back("RockBG01");
+		ObjectCreateNames.push_back("RockBG02");
+		ObjectCreateNames.push_back("RockBG03");
+		ObjectCreateNames.push_back("RockBG04");
+		ObjectCreateNames.push_back("RockBG05");
+		ObjectCreateNames.push_back("RockBG05_bis");
+		ObjectCreateNames.push_back("RockIntegrationElements");
+		ObjectCreateNames.push_back("RockIntegrationElements02");
+		ObjectCreateNames.push_back("RockIntegrationElements03t");
+		ObjectCreateNames.push_back("VerticalDeskCube");
+		ObjectCreateNames.push_back("VerticalDeskCubeBack");
 	}
 
 	Tabs.clear();

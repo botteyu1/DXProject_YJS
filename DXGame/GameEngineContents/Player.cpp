@@ -102,7 +102,7 @@ void Player::Start()
 		MainSpriteRenderer->CreateAnimation("LD_Elevator_Out", "LD_Elevator_Out", 0.0633f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Elevator_Out", {}));
 		MainSpriteRenderer->CreateAnimation("LD_Elevator_End", "LD_Elevator_End", 0.0433f, -1, -1, true);
-		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Elevator_End", {0.1f}));
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Elevator_End", { 0.1f }));
 
 		MainSpriteRenderer->CreateAnimation("LD_Dash", "LD_Dash", 0.0333f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Dash", {}));
@@ -110,6 +110,7 @@ void Player::Start()
 		MainSpriteRenderer->CreateAnimation("LD_Hit", "LD_Hit", 0.0333f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Hit", {}));
 		//MainSpriteRenderer->SetEndEvent("LD_RunUturn", std::bind(&Player::EndUturnEvent, this, MainSpriteRenderer.get()));
+		//AnimationData Data = AnimationData{ .PivotX = 0.5f, .CollisionPosition  = float4::ZERO};
 
 		MainSpriteRenderer->AutoSpriteSizeOn();
 		MainSpriteRenderer->SetPivotValue({ 0.5f, 1.0f });
