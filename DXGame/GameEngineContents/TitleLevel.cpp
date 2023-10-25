@@ -20,6 +20,8 @@ void TitleLevel::Start()
 
 	CreateActor<Title>(ContentsObjectType::BackGroundobject);
 	
+
+	Level::Start();
 }
 
 

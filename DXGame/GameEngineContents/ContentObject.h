@@ -19,6 +19,8 @@ public:
 // 설명 :  디버그용 콘솔등 화면상에 나타나는 모든 주요 오브젝트에 필요한 기능
 class ContentObject : public GameEngineActor
 {
+	friend class Level;
+
 public:
 	// constrcuter destructer
 	ContentObject();
@@ -60,10 +62,23 @@ public:
 		return ActorTypeValue;
 	}
 
+	void LeftFlip()
+	{
+		Flip = true;
+		MainSpriteRenderer->LeftFlip();
+	}
+	void RightFlip()
+	{
+		Flip = false;
+		MainSpriteRenderer->RightFlip();
+	}
+
 protected:
 
 	std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer; //기본 렌더러
 	float4 ScaleValue = float4::ONE;
+
+	bool Flip = false;
 
 private:
 	ActorType ActorTypeValue = ActorType::Max;

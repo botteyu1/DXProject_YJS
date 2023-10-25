@@ -32,15 +32,21 @@ public:
 		return FXActor;
 	}
 
-	std::shared_ptr<class ContentObject> AddActor(ActorType _Type, float4 _Pos, bool _Debug);
+	std::shared_ptr<class ContentObject> AddActor(ActorType _Type, float4 _Pos,float4 _Rotation, bool _Flip, bool _Debug);
 
 	void Serializer(GameEngineSerializer& _Data) ;
 	void DeSerializer(GameEngineSerializer& _Data, bool _Debug);
 
+	void SerializerObject(GameEngineSerializer& _Data, std::vector<std::shared_ptr<ContentObject>> _vector);
+
 	void ClearContentsObject();
+
+	bool OtherWindow = false;
 
 protected:
 	std::shared_ptr<FX> FXActor;
+
+	void Start()  override;
 
 private:
 

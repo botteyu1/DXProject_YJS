@@ -21,7 +21,7 @@ Level::~Level()
 {
 }
 
-std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, bool _Debug)
+std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, float4 _Rotation,bool _Flip, bool _Debug)
 {
 	std::shared_ptr<ContentObject> Object;
 	switch (_Type)
@@ -319,7 +319,12 @@ std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, boo
 
 
 	Object->Transform.SetLocalPosition(_Pos);
+	Object->Transform.SetLocalRotation(_Rotation);
 	Object->SetActorType(_Type);
+	if (_Flip == true)
+	{
+		Object->LeftFlip();
+	}
 
 	if (_Debug == true)
 	{
@@ -338,72 +343,59 @@ void Level::Serializer(GameEngineSerializer& _Data)
 	std::vector<std::shared_ptr<ContentObject>> ObjectTypeBackGroundobject = GetObjectGroupConvert<ContentObject>(ContentsObjectType::BackGroundobject);
 	_Data << static_cast<unsigned int>(ObjectTypePlayer.size() + ObjectTypeStageObject.size() + ObjectTypeEnemy.size() + ObjectTypeBackGroundobject.size());
 
-	for (size_t i = 0; i < ObjectTypePlayer.size(); i++)
+	SerializerObject(_Data, ObjectTypePlayer);
+	SerializerObject(_Data, ObjectTypeStageObject);
+	SerializerObject(_Data, ObjectTypeEnemy);
+	SerializerObject(_Data, ObjectTypeBackGroundobject);
+}
+
+void Level::SerializerObject(GameEngineSerializer& _Data, std::vector<std::shared_ptr<ContentObject>> _vector)
+{
+	for (size_t i = 0; i < _vector.size(); i++)
 	{
-		int Type = static_cast<int>(ObjectTypePlayer[i]->GetActorType());
+		int Type = static_cast<int>(_vector[i]->GetActorType());
 		_Data << Type;
-		
-		float4 Data = ObjectTypePlayer[i]->Transform.GetLocalPosition();
+
+		float4 Data = _vector[i]->Transform.GetLocalPosition();
 		_Data << Data;
 
-		float4 Scale = ObjectTypePlayer[i]->GetScaleValue();
-		_Data << Scale;
-	}
-	for (size_t i = 0; i < ObjectTypeStageObject.size(); i++)
-	{
-		int Type = static_cast<int>(ObjectTypeStageObject[i]->GetActorType());
-		_Data << Type;
-		
-		float4 Data = ObjectTypeStageObject[i]->Transform.GetLocalPosition();
-		_Data << Data;
+		float4 Rotation = _vector[i]->Transform.GetLocalRotationEuler();
+		_Data << Rotation;
 
-		float4 Scale = ObjectTypeStageObject[i]->GetScaleValue();
+		float4 Scale = _vector[i]->GetScaleValue();
 		_Data << Scale;
-	}
-	for (size_t i = 0; i < ObjectTypeEnemy.size(); i++)
-	{
-		int Type = static_cast<int>(ObjectTypeEnemy[i]->GetActorType());
-		_Data << Type;
-		
-		float4 Data = ObjectTypeEnemy[i]->Transform.GetLocalPosition();
-		_Data << Data;
 
-		float4 Scale = ObjectTypeEnemy[i]->GetScaleValue();
-		_Data << Scale;
-	}
-	for (size_t i = 0; i < ObjectTypeBackGroundobject.size(); i++)
-	{
-		int Type = static_cast<int>(ObjectTypeBackGroundobject[i]->GetActorType());
-		_Data << Type;
-		
-		float4 Data = ObjectTypeBackGroundobject[i]->Transform.GetLocalPosition();
-		_Data << Data;
+		bool Flip = _vector[i]->Flip;
+		_Data << Flip;
 
-
-		float4 Scale = ObjectTypeBackGroundobject[i]->GetScaleValue();
-		_Data << Scale;
 	}
 }
 
 void Level::DeSerializer(GameEngineSerializer& _Data, bool _Debug)
 {
 	float4 Data;
+	float4 Rotation;
 	float4 Scale;
 	unsigned int Count = 0;
 	int Type = 0;
+	bool Flip = false;
 	_Data >> Count;
 	for (size_t i = 0; i < Count; i++)
 	{
 		_Data >> Type;
 		_Data >> Data;
+		_Data >> Rotation;
 		_Data >> Scale;
+		_Data >> Flip;
 
-		std::shared_ptr<ContentObject> Object = AddActor(static_cast<ActorType>(Type), Data, _Debug);
+		std::shared_ptr<ContentObject> Object = AddActor(static_cast<ActorType>(Type), Data, Rotation, Flip,  _Debug);
 		Object->SetScaleValue(Scale);
 		//std::shared_ptr<Monster> Object = _Level->CreateActor<Monster>(ContentsObjectType::Monster);
 		//Object->DeSerializer(BinSer);
 	}
 }
+
+
 
 void Level::ClearContentsObject()
 {
@@ -431,5 +423,10 @@ void Level::ClearContentsObject()
 		}
 
 
+}
+
+void Level::Start()
+{
+	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::BackGroundobject);
 }
 

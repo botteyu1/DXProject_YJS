@@ -61,7 +61,6 @@ protected:
 	float4 Dir = float4::RIGHT; //바라보는 방향/
 	
 	bool FlipPrev = false;
-	bool Flip = false;
 	float PivotPrev = 0.5f;
 
 	std::map<std::string, AnimationData> AnimationDataMap;

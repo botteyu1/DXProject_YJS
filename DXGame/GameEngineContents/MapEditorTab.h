@@ -22,7 +22,14 @@ public:
 
 	void CreateTapUpdate(class MapEditorLevel* _Level);
 	void SelectTabUpdate(MapEditorLevel* _Level);
-	void ObjectReload();
+
+	void SelectSetZPos(float _Pos);
+
+	void SelectAddZPos(float _Pos);
+
+	void SelectObjectClear(MapEditorLevel* _Level);
+	void ObjectReload(MapEditorLevel* _Level);
+	void ObjectNameReload();
 
 	std::vector<const char*> ObjectCreateNames;
 
@@ -45,5 +52,6 @@ protected:
 
 
 private:
+	bool ReloadValue = false; //삭제완료후 리로드하기위한 밸류값
 
 };

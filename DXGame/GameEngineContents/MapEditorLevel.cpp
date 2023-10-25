@@ -36,6 +36,7 @@ void MapEditorLevel::Start()
 	//Map::Start();
 	GameEngineInput::AddInputObject(this);
 
+	Level::Start();
 }
 
 
@@ -44,6 +45,11 @@ void MapEditorLevel::Update(float _Delta)
 
 
 	float MoveSpeed = 500;
+
+	if (GameEngineInput::IsPress(VK_SHIFT, this))
+	{
+		MoveSpeed = 1000;
+	}
 
 	if (GameEngineInput::IsPress('A', this))
 	{

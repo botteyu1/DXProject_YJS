@@ -150,11 +150,55 @@ void MapEditorTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		ImGui::Text(SelectList.c_str());
 	}
 
-	ImGui::GetFontSize();
+	if (ImGui::Button("30Z"))
+	{
+		SelectSetZPos(30.0f);
+	}
+	ImGui::SameLine();
+	
+	if (ImGui::Button("50Z"))
+	{
+		SelectSetZPos(50.0f);
+	}
+	ImGui::SameLine();
+
+	if (ImGui::Button("70Z"))
+	{
+		SelectSetZPos(70.0f);
+	}
+	
+	
+
+	if (ImGui::Button("Z--"))
+	{
+		SelectAddZPos(-1.0f);
+	}
+
+	ImGui::SameLine();
+
+	if (ImGui::Button("Z++"))
+	{
+		SelectAddZPos(1.0f);
+	}
+
+
+	if (ImGui::Button("SelectDelete"))
+	{
+		SelectObjectClear(MapLevel);
+	}
+
+	//ImGui::GetFontSize();
+
+
+	
+	MapLevel->OtherWindow = false;
+
 
 	//save
 	if (ImGui::Button("Save"))
 	{
+
+		MapLevel->OtherWindow = true;
 		GameEngineDirectory Dir;
 		Dir.MoveParentToExistsChild("ContentsResources");
 		Dir.MoveChild("ContentsResources");
@@ -202,6 +246,8 @@ void MapEditorTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	////load
 	if (ImGui::Button("Load"))
 	{
+		MapLevel->OtherWindow = true;
+
 		GameEngineDirectory Dir;
 		Dir.MoveParentToExistsChild("ContentsResources");
 		Dir.MoveChild("ContentsResources");
@@ -228,6 +274,7 @@ void MapEditorTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			LoadPath = OFN.lpstrFile;
 		}
 
+		if(LoadPath != "")
 		{
 			GameEngineSerializer BinSer;
 
@@ -238,25 +285,7 @@ void MapEditorTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			MapLevel->ClearContentsObject();
 
 			MapLevel->DeSerializer(BinSer, true);
-
-			//std::vector<std::shared_ptr<Monster>> ObjectType = _Level->GetObjectGroupConvert<Monster>(ContentsObjectType::Monster);
-			//for (size_t i = 0; i < ObjectType.size(); i++)
-			//{
-			//	// 다 죽인다.
-			//	ObjectType[i]->Death();
-			//}
-
-
-			//std::string BackFileName;
-			//BinSer >> BackFileName;
-			//unsigned int MonsterCount = 0;
-			//BinSer >> MonsterCount;
-
-			//for (size_t i = 0; i < MonsterCount; i++)
-			//{
-			//	std::shared_ptr<Monster> Object = _Level->CreateActor<Monster>(ContentsObjectType::Monster);
-			//	Object->DeSerializer(BinSer);
-			//}
+			ReloadValue = true;
 		}
 	}
 
@@ -274,10 +303,18 @@ void MapEditorTab::CreateTapUpdate(MapEditorLevel* _Level)
 
 		Pos.Z = 0.0f;
 
-		std::shared_ptr<ContentObject> Object = _Level->AddActor(static_cast<ActorType>(Select), Pos, true);
+		std::shared_ptr<ContentObject> Object = _Level->AddActor(static_cast<ActorType>(Select), Pos, float4::ZERONULL, false,  true);
+
+		for (int Key : SelectObjects)
+		{
+			std::shared_ptr<ContentObject> Object = ObjectLoaded[Key];
+			Object->DebugValue = false;
+		}
+
+		SelectObjects.clear();
 
 		ObjectLoaded.push_back(Object);
-		ObjectReload();
+		ObjectNameReload();
 
 		Select = static_cast<int>(ObjectLoaded.size()) - 1;
 		SelectObjects.insert(Select);
@@ -285,7 +322,52 @@ void MapEditorTab::CreateTapUpdate(MapEditorLevel* _Level)
 	}
 }
 
-void MapEditorTab::ObjectReload()
+void MapEditorTab::ObjectReload(MapEditorLevel* _Level)
+{
+	ReloadValue = false;
+
+	std::vector<std::shared_ptr<ContentObject>> ObjectTypePlayer = _Level->GetObjectGroupConvert<ContentObject>(ContentsObjectType::Player);
+	std::vector<std::shared_ptr<ContentObject>> ObjectTypeStageObject = _Level->GetObjectGroupConvert<ContentObject>(ContentsObjectType::StageObject);
+	std::vector<std::shared_ptr<ContentObject>> ObjectTypeEnemy = _Level->GetObjectGroupConvert<ContentObject>(ContentsObjectType::Enemy);
+	std::vector<std::shared_ptr<ContentObject>> ObjectTypeBackGroundobject = _Level->GetObjectGroupConvert<ContentObject>(ContentsObjectType::BackGroundobject);
+
+	//리로드 할 때 선택되어있던 오브젝트 디버그 모드 해제
+	for (int Key : SelectObjects)
+	{
+		std::shared_ptr<ContentObject> Object = ObjectLoaded[Key];
+		Object->DebugValue = false;
+	}
+
+	SelectObjects.clear();
+
+	ObjectLoaded.clear();
+
+
+	for (size_t i = 0; i < ObjectTypePlayer.size(); i++)
+	{
+		ObjectLoaded.push_back(ObjectTypePlayer[i]);
+	}
+
+	for (size_t i = 0; i < ObjectTypeStageObject.size(); i++)
+	{
+		ObjectLoaded.push_back(ObjectTypeStageObject[i]);
+	}
+
+	for (size_t i = 0; i < ObjectTypeEnemy.size(); i++)
+	{
+		ObjectLoaded.push_back(ObjectTypeEnemy[i]);
+	}
+
+	for (size_t i = 0; i < ObjectTypeBackGroundobject.size(); i++)
+	{
+		ObjectLoaded.push_back(ObjectTypeBackGroundobject[i]);
+	}
+
+	ObjectNameReload();
+	
+}
+
+void MapEditorTab::ObjectNameReload()
 {
 	ObjectLoadedNamesString.clear();
 
@@ -304,49 +386,68 @@ void MapEditorTab::ObjectReload()
 	}
 }
 
+void MapEditorTab::SelectObjectClear(MapEditorLevel* _Level)
+{
+	for (int Key : SelectObjects)
+	{
+		ObjectLoaded[Key]->Death();
+	}
+	
+	ReloadValue = true;
+
+	//std::vector<std::shared_ptr<ContentObject>> ObjectTypePlayer = _Level->GetObjectGroupConvert<ContentObject>(ContentsObjectType::Player);
+	//std::vector<std::shared_ptr<ContentObject>> ObjectTypeStageObject = _Level->GetObjectGroupConvert<ContentObject>(ContentsObjectType::StageObject);
+	//std::vector<std::shared_ptr<ContentObject>> ObjectTypeEnemy = _Level->GetObjectGroupConvert<ContentObject>(ContentsObjectType::Enemy);
+	//std::vector<std::shared_ptr<ContentObject>> ObjectTypeBackGroundobject = _Level->GetObjectGroupConvert<ContentObject>(ContentsObjectType::BackGroundobject);
+
+	////리로드 할 때 선택되어있던 오브젝트 디버그 모드 해제
+
+	//SelectObjects.clear();
+
+	//ObjectLoaded.clear();
+
+
+	//for (size_t i = 0; i < ObjectTypePlayer.size(); i++)
+	//{
+	//	ObjectLoaded.push_back(ObjectTypePlayer[i]);
+	//}
+
+	//for (size_t i = 0; i < ObjectTypeStageObject.size(); i++)
+	//{
+	//	ObjectLoaded.push_back(ObjectTypeStageObject[i]);
+	//}
+
+	//for (size_t i = 0; i < ObjectTypeEnemy.size(); i++)
+	//{
+	//	ObjectLoaded.push_back(ObjectTypeEnemy[i]);
+	//}
+
+	//for (size_t i = 0; i < ObjectTypeBackGroundobject.size(); i++)
+	//{
+	//	ObjectLoaded.push_back(ObjectTypeBackGroundobject[i]);
+	//}
+
+	//ObjectReload();
+}
+
 void MapEditorTab::SelectTabUpdate(MapEditorLevel* _Level)
 {
-	if (ImGui::Button("Object Reload"))
+	if (ImGui::Button("Object Reload") or ReloadValue == true)
 	{
-		std::vector<std::shared_ptr<ContentObject>> ObjectTypePlayer = _Level->GetObjectGroupConvert<ContentObject>(ContentsObjectType::Player);
-		std::vector<std::shared_ptr<ContentObject>> ObjectTypeStageObject = _Level->GetObjectGroupConvert<ContentObject>(ContentsObjectType::StageObject);
-		std::vector<std::shared_ptr<ContentObject>> ObjectTypeEnemy = _Level->GetObjectGroupConvert<ContentObject>(ContentsObjectType::Enemy);
-		std::vector<std::shared_ptr<ContentObject>> ObjectTypeBackGroundobject = _Level->GetObjectGroupConvert<ContentObject>(ContentsObjectType::BackGroundobject);
-
-		//리로드 할 때 선택되어있던 오브젝트 디버그 모드 해제
-		for (int Key : SelectObjects)
-		{
-			std::shared_ptr<ContentObject> Object = ObjectLoaded[Key];
-			Object->DebugValue = false;
-		}
-
-		SelectObjects.clear();
-
-		ObjectLoaded.clear();
-
-
-		for (size_t i = 0; i < ObjectTypePlayer.size(); i++)
-		{
-			ObjectLoaded.push_back(ObjectTypePlayer[i]);
-		}
-
-		for (size_t i = 0; i < ObjectTypeStageObject.size(); i++)
-		{
-			ObjectLoaded.push_back(ObjectTypeStageObject[i]);
-		}
-
-		for (size_t i = 0; i < ObjectTypeEnemy.size(); i++)
-		{
-			ObjectLoaded.push_back(ObjectTypeEnemy[i]);
-		}
-
-		for (size_t i = 0; i < ObjectTypeBackGroundobject.size(); i++)
-		{
-			ObjectLoaded.push_back(ObjectTypeBackGroundobject[i]);
-		}
-
-		ObjectReload();
+		ObjectReload(_Level);
 	}
+	ImGui::SameLine();
+
+	if (ImGui::Button("All Select"))
+	{
+		for (int i = 0; i < ObjectLoaded.size(); i++)
+		{
+			SelectObjects.insert(i);
+			static_cast<ContentObject*>(ObjectLoaded[i].get())->DebugValue = true;
+		}
+	}
+
+
 
 	if (ObjectLoaded.size())
 	{
@@ -363,5 +464,33 @@ void MapEditorTab::SelectTabUpdate(MapEditorLevel* _Level)
 				static_cast<ContentObject*>(ObjectLoaded[Select].get())->DebugValue = true;
 			}
 		}
+
+
 	}
 }
+
+void MapEditorTab::SelectSetZPos(float _Pos)
+{
+	for (int Key : SelectObjects)
+	{
+
+		float4 Pos = ObjectLoaded[Key]->Transform.GetLocalPosition();
+		Pos.Z = _Pos;
+		ObjectLoaded[Key]->Transform.SetLocalPosition(Pos);
+		
+	}
+}
+
+void MapEditorTab::SelectAddZPos(float _Pos)
+{
+	for (int Key : SelectObjects)
+	{
+
+		ObjectLoaded[Key]->Transform.AddLocalPosition({0.0f,0.0f,_Pos});
+		
+	}
+}
+
+
+
+

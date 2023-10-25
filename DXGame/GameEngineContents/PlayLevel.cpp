@@ -60,6 +60,7 @@ void PlayLevel::Start()
 	Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
 	Object->Init("GhostWorkersBox11.png");
 
+	Level::Start();
 }
 
 
