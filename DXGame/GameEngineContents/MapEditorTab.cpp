@@ -95,6 +95,10 @@ void MapEditorTab::Start()
 		ObjectCreateNames.push_back("RockIntegrationElements03t");
 		ObjectCreateNames.push_back("VerticalDeskCube");
 		ObjectCreateNames.push_back("VerticalDeskCubeBack");
+		ObjectCreateNames.push_back("Bibli_Raw_Kit");
+		ObjectCreateNames.push_back("Bibli_WIP_02");
+		ObjectCreateNames.push_back("GraphicStats01");
+		ObjectCreateNames.push_back("GPE_WeaponX_Choice");
 	}
 
 	Tabs.clear();
@@ -139,7 +143,7 @@ void MapEditorTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 
 	// 선택된 오브젝트 리스트
 
-	ImGui::Text("\n\n\n -SelectList-");
+	ImGui::Text("\n\n -SelectList-");
 
 	std::string SelectList;
 	for (int Key : SelectObjects)
@@ -148,6 +152,24 @@ void MapEditorTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		SelectList = "Position " + ObjectLoaded[Key]->Transform.GetLocalPosition().ToString() + "Scale  " +
 			static_cast<ContentObject*>(ObjectLoaded[Key].get())->GetScaleValue().ToString()+ "\n";
 		ImGui::Text(SelectList.c_str());
+	}
+
+	ImGui::Text("\n\n -Control-");
+
+	if (ImGui::Button("Copy"))
+	{
+		for (int Key : SelectObjects)
+		{
+			std::shared_ptr<ContentObject> Object = MapLevel->CopyObject(ObjectLoaded[Key]);
+
+			/*ObjectLoaded.push_back(Object);
+			ObjectNameReload();
+
+			Select = static_cast<int>(ObjectLoaded.size()) - 1;
+			SelectObjects.insert(Select);
+			static_cast<ContentObject*>(ObjectLoaded[Select].get())->DebugValue = true;*/
+		}
+		
 	}
 
 	if (ImGui::Button("30Z"))
@@ -168,7 +190,6 @@ void MapEditorTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	}
 	
 	
-
 	if (ImGui::Button("Z--"))
 	{
 		SelectAddZPos(-1.0f);
@@ -181,6 +202,24 @@ void MapEditorTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		SelectAddZPos(1.0f);
 	}
 
+	if (ImGui::Button("RightFlip"))
+	{
+		for (int Key : SelectObjects)
+		{
+			ObjectLoaded[Key]->RightFlip();
+
+		}
+	}
+	ImGui::SameLine();
+	if(ImGui::Button("LeftFlip"))
+	{
+		for (int Key : SelectObjects)
+		{
+			ObjectLoaded[Key]->LeftFlip();
+		}
+	}
+
+	
 
 	if (ImGui::Button("SelectDelete"))
 	{
@@ -193,6 +232,8 @@ void MapEditorTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	
 	MapLevel->OtherWindow = false;
 
+
+	ImGui::Text("\n\n -Input/Output-");
 
 	//save
 	if (ImGui::Button("Save"))
@@ -297,6 +338,8 @@ void MapEditorTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 
 void MapEditorTab::CreateTapUpdate(MapEditorLevel* _Level)
 {
+
+	ImGui::Text("\n\n -CreateTab-");
 	if (ImGui::ListBox("ObjectList", &Select, &ObjectCreateNames[0], static_cast<int>(ObjectCreateNames.size())))
 	{
 		float4 Pos = _Level->GetMainCamera()->Transform.GetLocalPosition();
@@ -432,6 +475,9 @@ void MapEditorTab::SelectObjectClear(MapEditorLevel* _Level)
 
 void MapEditorTab::SelectTabUpdate(MapEditorLevel* _Level)
 {
+
+	ImGui::Text("\n\n -SelectTab-");
+
 	if (ImGui::Button("Object Reload") or ReloadValue == true)
 	{
 		ObjectReload(_Level);

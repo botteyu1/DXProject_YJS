@@ -38,6 +38,8 @@ public:
 	void DeSerializer(GameEngineSerializer& _Data, bool _Debug);
 
 	void SerializerObject(GameEngineSerializer& _Data, std::vector<std::shared_ptr<ContentObject>> _vector);
+	std::shared_ptr<ContentObject> CopyObject(std::shared_ptr<ContentObject> _Object);
+
 
 	void ClearContentsObject();
 

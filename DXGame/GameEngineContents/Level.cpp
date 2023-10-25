@@ -109,6 +109,14 @@ std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, flo
 		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
 		static_cast<BGObject*>(Object.get())->Init("BackWall_Window05.png");
 		break;
+	case ActorType::Bibli_Raw_Kit:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Bibli_Raw_Kit.png");
+		break;
+	case ActorType::Bibli_WIP_02:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Bibli_WIP_02.png");
+		break;
 	case ActorType::BossDesk:
 		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
 		static_cast<BGObject*>(Object.get())->Init("BossDesk.png");
@@ -313,6 +321,14 @@ std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, flo
 		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
 		static_cast<BGObject*>(Object.get())->Init("VerticalDeskCubeBack.png");
 		break;
+	case ActorType::GraphicStats01:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("GraphicStats01.png");
+		break;
+	case ActorType::GPE_WeaponX_Choice:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("GPE_WeaponX_Choice.png");
+		break;
 	default:
 		break;
 	}
@@ -367,8 +383,25 @@ void Level::SerializerObject(GameEngineSerializer& _Data, std::vector<std::share
 
 		bool Flip = _vector[i]->Flip;
 		_Data << Flip;
-
 	}
+}
+
+std::shared_ptr<ContentObject> Level::CopyObject(std::shared_ptr<ContentObject> _Object)
+{
+
+	int Type = static_cast<int>(_Object->GetActorType());
+
+	float4 Data = _Object->Transform.GetLocalPosition();
+
+	float4 Rotation = _Object->Transform.GetLocalRotationEuler();
+
+	float4 Scale = _Object->GetScaleValue();
+
+	bool Flip = _Object->Flip;
+
+	std::shared_ptr<ContentObject> Object = AddActor(static_cast<ActorType>(Type), Data, Rotation, Flip, true);
+	Object->SetScaleValue(Scale);
+	return Object;
 }
 
 void Level::DeSerializer(GameEngineSerializer& _Data, bool _Debug)

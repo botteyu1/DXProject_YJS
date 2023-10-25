@@ -67,6 +67,7 @@ enum class ActorType
 	BackWall_Middle,
 	BackWall_Window,
 	BackWall_Window05,
+	
 	BossDesk,
 	coloneComplete,
 	Colonnade02,
@@ -118,6 +119,11 @@ enum class ActorType
 	RockIntegrationElements03t,
 	VerticalDeskCube,
 	VerticalDeskCubeBack,
+	Bibli_Raw_Kit,
+	Bibli_WIP_02,
+	GraphicStats01,
+	GPE_WeaponX_Choice,
+
 
 
 
