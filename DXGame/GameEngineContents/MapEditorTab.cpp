@@ -217,7 +217,7 @@ void MapEditorTab::CreateTapUpdate(MapEditorLevel* _Level)
 		ObjectLoaded.push_back(Object);
 		ObjectReload();
 
-		Select = ObjectLoaded.size() - 1;
+		Select = static_cast<int>(ObjectLoaded.size()) - 1;
 		SelectObjects.insert(Select);
 		static_cast<ContentObject*>(ObjectLoaded[Select].get())->DebugValue = true;
 	}

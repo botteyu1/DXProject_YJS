@@ -33,10 +33,16 @@ public:
 	void InputDebugUpdate(float _Delta);
 
 	bool DebugValue = false;
-	
+
 	float4 GetScaleValue()
 	{
 		return ScaleValue;
+	}
+
+	void SetScaleValue(const float4& _Scale)
+	{
+		ScaleValue = _Scale;
+		MainSpriteRenderer->SetAutoScaleRatio(ScaleValue);
 	}
 
 	class Level* GetContentsLevel()

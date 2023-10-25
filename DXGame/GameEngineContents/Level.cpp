@@ -102,7 +102,7 @@ void Level::Serializer(GameEngineSerializer& _Data)
 	std::vector<std::shared_ptr<ContentObject>> ObjectTypeStageObject = GetObjectGroupConvert<ContentObject>(ContentsObjectType::StageObject);
 	std::vector<std::shared_ptr<ContentObject>> ObjectTypeEnemy = GetObjectGroupConvert<ContentObject>(ContentsObjectType::Enemy);
 	std::vector<std::shared_ptr<ContentObject>> ObjectTypeBackGroundobject = GetObjectGroupConvert<ContentObject>(ContentsObjectType::BackGroundobject);
-	_Data << static_cast<unsigned int>(ObjectTypePlayer.size() + ObjectTypeStageObject.size() + ObjectTypeEnemy.size());
+	_Data << static_cast<unsigned int>(ObjectTypePlayer.size() + ObjectTypeStageObject.size() + ObjectTypeEnemy.size() + ObjectTypeBackGroundobject.size());
 
 	for (size_t i = 0; i < ObjectTypePlayer.size(); i++)
 	{
@@ -111,6 +111,9 @@ void Level::Serializer(GameEngineSerializer& _Data)
 		
 		float4 Data = ObjectTypePlayer[i]->Transform.GetLocalPosition();
 		_Data << Data;
+
+		float4 Scale = ObjectTypePlayer[i]->GetScaleValue();
+		_Data << Scale;
 	}
 	for (size_t i = 0; i < ObjectTypeStageObject.size(); i++)
 	{
@@ -119,6 +122,9 @@ void Level::Serializer(GameEngineSerializer& _Data)
 		
 		float4 Data = ObjectTypeStageObject[i]->Transform.GetLocalPosition();
 		_Data << Data;
+
+		float4 Scale = ObjectTypeStageObject[i]->GetScaleValue();
+		_Data << Scale;
 	}
 	for (size_t i = 0; i < ObjectTypeEnemy.size(); i++)
 	{
@@ -127,6 +133,9 @@ void Level::Serializer(GameEngineSerializer& _Data)
 		
 		float4 Data = ObjectTypeEnemy[i]->Transform.GetLocalPosition();
 		_Data << Data;
+
+		float4 Scale = ObjectTypeEnemy[i]->GetScaleValue();
+		_Data << Scale;
 	}
 	for (size_t i = 0; i < ObjectTypeBackGroundobject.size(); i++)
 	{
@@ -135,12 +144,17 @@ void Level::Serializer(GameEngineSerializer& _Data)
 		
 		float4 Data = ObjectTypeBackGroundobject[i]->Transform.GetLocalPosition();
 		_Data << Data;
+
+
+		float4 Scale = ObjectTypeBackGroundobject[i]->GetScaleValue();
+		_Data << Scale;
 	}
 }
 
 void Level::DeSerializer(GameEngineSerializer& _Data, bool _Debug)
 {
 	float4 Data;
+	float4 Scale;
 	unsigned int Count = 0;
 	int Type = 0;
 	_Data >> Count;
@@ -148,8 +162,10 @@ void Level::DeSerializer(GameEngineSerializer& _Data, bool _Debug)
 	{
 		_Data >> Type;
 		_Data >> Data;
+		_Data >> Scale;
 
-		AddActor(static_cast<ActorType>(Type), Data, _Debug);
+		std::shared_ptr<ContentObject> Object = AddActor(static_cast<ActorType>(Type), Data, _Debug);
+		Object->SetScaleValue(Scale);
 		//std::shared_ptr<Monster> Object = _Level->CreateActor<Monster>(ContentsObjectType::Monster);
 		//Object->DeSerializer(BinSer);
 	}
@@ -179,5 +195,7 @@ void Level::ClearContentsObject()
 		{
 			ObjectTypeBackGroundobject[i]->Death();
 		}
+
+
 }
 
