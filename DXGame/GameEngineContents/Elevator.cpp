@@ -108,7 +108,7 @@ void Elevator::Init(ElevatorState _State)
 		MainSpriteRenderer->ChangeAnimation("Elevator");
 		float4 TargetPos = Transform.GetLocalPosition() + float4(30.f, 50.f);
 		//Player::GetMainPlayer()->Transform.SetLocalPosition(TargetPos);
-		Player::GetMainPlayer()->SetTargetPos(TargetPos);
+		//Player::GetMainPlayer()->SetTargetPos(TargetPos);
 		break;
 	}
 	case ElevatorState::End:
