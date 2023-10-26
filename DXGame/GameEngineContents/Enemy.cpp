@@ -92,7 +92,7 @@ void Enemy::Update(float _Delta)
 
 	if (HP <= 0)
 	{
-		//ChangeState(EnemyState::Death);
+		ChangeState(EnemyState::Death);
 	}
 }
 

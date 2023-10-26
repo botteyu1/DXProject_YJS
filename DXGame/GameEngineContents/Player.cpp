@@ -20,11 +20,11 @@ Player::~Player()
 
 void Player::TakeDamage(class GameEngineCollision* _Attacker, float _Damage)
 {
-	
-		
+	if (State == PlayerState::Dash)
+		return;
 	HP -= static_cast<int>(_Damage);
 	ChangeState(PlayerState::Hit);
-	
+	ForceGrivityOff = false;
 }
 
 void Player::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)

@@ -2,7 +2,7 @@
 
 enum class ContentsRenderType
 {
-	StageObject,
+	//StageObject,
 	BackGround,
 	BackGroundobject,
 	Enemy,

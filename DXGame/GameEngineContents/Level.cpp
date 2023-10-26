@@ -461,5 +461,6 @@ void Level::ClearContentsObject()
 void Level::Start()
 {
 	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::BackGroundobject);
+	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::Enemy);
 }
 

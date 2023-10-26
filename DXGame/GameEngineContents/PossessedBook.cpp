@@ -62,13 +62,13 @@ void PossessedBook::Start()
 	AttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Attack);
 
 	DetectCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Detect);
-	DetectCollision->Transform.SetLocalScale({ 1500.0f, 1000.0f });
+	DetectCollision->Transform.SetLocalScale({ 1700.0f, 1500.0f });
 	DetectCollision->Transform.SetLocalPosition({ -0.0f, 80.0f, 1.0f });
 	DetectCollision->SetCollisionType(ColType::AABBBOX2D);
 
 
 	DetectAttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Detect);
-	DetectAttackCollision->Transform.SetLocalScale({ 800.0f, 800.0f });
+	DetectAttackCollision->Transform.SetLocalScale({ 1200.0f, 1200.0f });
 	DetectAttackCollision->Transform.SetLocalPosition({ 0.0f, 80.0f, 1.0f });
 	DetectAttackCollision->SetCollisionType(ColType::AABBBOX2D);
 

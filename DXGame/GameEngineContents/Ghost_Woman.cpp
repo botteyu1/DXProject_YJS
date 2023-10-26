@@ -64,13 +64,13 @@ void Ghost_Woman::Start()
 	AttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Attack);
 
 	DetectCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Detect);
-	DetectCollision->Transform.SetLocalScale({ 1000.0f, 1000.0f });
+	DetectCollision->Transform.SetLocalScale({ 1300.0f, 1300.0f });
 	DetectCollision->Transform.SetLocalPosition({ -0.0f, 80.0f, 1.0f });
 	DetectCollision->SetCollisionType(ColType::AABBBOX2D);
 
 
 	DetectAttackCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy_Detect);
-	DetectAttackCollision->Transform.SetLocalScale({ 800.0f, 800.0f });
+	DetectAttackCollision->Transform.SetLocalScale({ 1000.0f, 1000.0f });
 	DetectAttackCollision->Transform.SetLocalPosition({ 0.0f, 80.0f, 1.0f });
 	DetectAttackCollision->SetCollisionType(ColType::AABBBOX2D);
 

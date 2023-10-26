@@ -27,7 +27,7 @@ void Elevator::Start()
 		GameEngineSprite::CreateFolder(Dir.GetStringPath());
 	}*/
 
-	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::StageObject);
+	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::BackGroundobject);
 
 	MainSpriteRenderer->CreateAnimation("Elevator", "Elevator", 0.0333f, -1, -1, false);
 	MainSpriteRenderer->AutoSpriteSizeOn();
