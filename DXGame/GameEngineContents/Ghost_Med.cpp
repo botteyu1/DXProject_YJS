@@ -63,9 +63,7 @@ void Ghost_Med::Start()
 	MainSpriteRenderer->AutoSpriteSizeOn();
 	MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
 
-	AttackfxRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy_Attack);
-	AttackfxRenderer->Off();
-
+	
 
 	MainCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy);
 	MainCollision->Transform.SetLocalScale({ 100.0f, 250.0f });
@@ -107,23 +105,6 @@ void Ghost_Med::Update(float _Delta)
 	
 
 
-
-	if (GameEngineInput::IsPress(VK_NUMPAD6, this))
-	{
-		Transform.AddLocalPosition(float4::RIGHT * 200.0f * _Delta);
-	}
-	if (GameEngineInput::IsPress(VK_NUMPAD4, this))
-	{
-		Transform.AddLocalPosition(float4::LEFT	 * 200.0f * _Delta);
-	}
-	if (GameEngineInput::IsPress(VK_NUMPAD8, this))
-	{
-		Transform.AddLocalPosition(float4::FORWARD * 200.0f * _Delta);
-	}
-	if (GameEngineInput::IsPress(VK_NUMPAD2, this))
-	{
-		Transform.AddLocalPosition(float4::BACKWARD	 * 200.0f * _Delta);
-	}
 }
 
 void Ghost_Med::IdleStart()

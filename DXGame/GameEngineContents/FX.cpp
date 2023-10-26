@@ -9,7 +9,7 @@ FX::~FX()
 {
 }
 
-void FX::FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Scale)
+void FX::FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Scale, const float4& _Pivot)
 {
 
 	std::shared_ptr<class FxSpriteRenderer> Renderer = nullptr;
@@ -39,6 +39,9 @@ void FX::FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Sc
 	Renderer->Type = _Name;
 	Renderer->Scale = _Scale;
 
+	float4 Pivot = _Pivot;
+	//Renderer->SetPivotValue(_Pivot);
+
 	switch (_Name)
 	{
 	case FXType::Surprised:
@@ -54,6 +57,19 @@ void FX::FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Sc
 	case FXType::GroundDust:
 		Renderer->ChangeAnimation("GroundDust", true);
 		break;
+	case FXType::Ghost_Attack_FX:
+	{
+		Renderer->ChangeAnimation("Ghost_Attack_FX", true);
+		if (_flip == true)
+		{
+			Renderer->Transform.AddLocalPosition({ -55.0f, 50.0f });
+		}
+		else
+		{
+			Renderer->Transform.AddLocalPosition({ 55.0f, 50.0f });
+		}
+		break;
+	}
 	default:
 		break;
 	}
@@ -66,9 +82,32 @@ void FX::FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Sc
 	else
 	{
 		Renderer->LeftFlip();
+		Pivot.X = 1.0f - Pivot.X;
 	}
+	Renderer->SetPivotValue(Pivot);
 
 	Renderer->Flip = _flip;
+
+	//, "Ghost_Attack_FX", { 0.0f,0.5f }, { 55.0f, 50.0f }
+	////공격 이펙트 처리
+		//if (CurAnimationData->AttackFx != "")
+		//{
+		//	AttackfxRenderer->On();
+		//	if (Flip == true)
+		//	{
+		//		AttackPosition.X = -AttackPosition.X;
+		//		AttackfxRenderer->Transform.SetLocalPosition(AttackPosition);
+		//		AttackfxRenderer->LeftFlip();
+		//	}
+		//	else
+		//	{
+		//		AttackfxRenderer->RightFlip();
+		//		AttackfxRenderer->Transform.SetLocalPosition(AttackPosition);
+		//		AttackPivot.X = 1.0f - AttackPivot.X;
+		//	}
+		//	AttackfxRenderer->SetPivotValue( AttackPivot);
+		//	AttackfxRenderer->ChangeAnimation(CurAnimationData->AttackFx,true);
+		//}
 
 }
 
@@ -130,6 +169,10 @@ void FX::Update(float _Delta)
 std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 {
 	std::shared_ptr<FxSpriteRenderer> Renderer = CreateComponent<FxSpriteRenderer>(ContentsRenderType::FX);
+
+
+	Renderer->CreateAnimation("Ghost_Attack_FX", "Ghost_Attack_FX", 0.0666f, -1, -1, false);
+	
 
 
 	Renderer->CreateAnimation("Shockwave", "Shockwave.png", 0.0333f, -1, -1, true);

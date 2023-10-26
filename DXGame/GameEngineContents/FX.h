@@ -6,6 +6,7 @@ enum class FXType
 	Shockwave,
 	DustLanding,
 	GroundDust,
+	Ghost_Attack_FX,
 
 };
 // Ό³Έν :
@@ -22,7 +23,7 @@ public:
 	FX& operator=(const FX& _Other) = delete;
 	FX& operator=(FX&& _Other) noexcept = delete;
 
-	void FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Scale = float4::ONE);
+	void FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Scale = float4::ONE, const float4& _Pivot = float4(0.5f,0.5f));
 
 protected:
 

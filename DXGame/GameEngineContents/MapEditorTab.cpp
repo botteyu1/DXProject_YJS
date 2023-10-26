@@ -351,7 +351,7 @@ void MapEditorTab::CreateTapUpdate(MapEditorLevel* _Level)
 		for (int Key : SelectObjects)
 		{
 			std::shared_ptr<ContentObject> Object = ObjectLoaded[Key];
-			Object->DebugValue = false;
+			Object->SelectValue = false;
 		}
 
 		SelectObjects.clear();
@@ -361,7 +361,7 @@ void MapEditorTab::CreateTapUpdate(MapEditorLevel* _Level)
 
 		Select = static_cast<int>(ObjectLoaded.size()) - 1;
 		SelectObjects.insert(Select);
-		static_cast<ContentObject*>(ObjectLoaded[Select].get())->DebugValue = true;
+		static_cast<ContentObject*>(ObjectLoaded[Select].get())->SelectValue = true;
 	}
 }
 
@@ -378,7 +378,7 @@ void MapEditorTab::ObjectReload(MapEditorLevel* _Level)
 	for (int Key : SelectObjects)
 	{
 		std::shared_ptr<ContentObject> Object = ObjectLoaded[Key];
-		Object->DebugValue = false;
+		Object->SelectValue = false;
 	}
 
 	SelectObjects.clear();
@@ -489,7 +489,7 @@ void MapEditorTab::SelectTabUpdate(MapEditorLevel* _Level)
 		for (int i = 0; i < ObjectLoaded.size(); i++)
 		{
 			SelectObjects.insert(i);
-			static_cast<ContentObject*>(ObjectLoaded[i].get())->DebugValue = true;
+			static_cast<ContentObject*>(ObjectLoaded[i].get())->SelectValue = true;
 		}
 	}
 
@@ -502,12 +502,12 @@ void MapEditorTab::SelectTabUpdate(MapEditorLevel* _Level)
 			if (SelectObjects.contains(Select))
 			{
 				SelectObjects.erase(Select);
-				static_cast<ContentObject*>(ObjectLoaded[Select].get())->DebugValue = false;
+				static_cast<ContentObject*>(ObjectLoaded[Select].get())->SelectValue = false;
 			}
 			else
 			{
 				SelectObjects.insert(Select);
-				static_cast<ContentObject*>(ObjectLoaded[Select].get())->DebugValue = true;
+				static_cast<ContentObject*>(ObjectLoaded[Select].get())->SelectValue = true;
 			}
 		}
 

@@ -135,8 +135,7 @@ void Player::Start()
 	PlayerBook->MainPlayer = this;
 
 
-	//카메라 포커스
-	GetLevel()->GetMainCamera()->CameraTargetSetting(Transform, float4::BACKWARD *1000.0f);
+	
 
 	//FXJumpActor = GetLevel()->CreateActor<FX>(ContentsObjectType::FX);
 
@@ -145,6 +144,9 @@ void Player::Start()
 	Num++;
 	SetName("Player_" + std::to_string(Num));
 	Off();
+
+	//카메라 포커스
+	GetLevel()->GetMainCamera()->CameraTargetSetting(Transform, float4::BACKWARD * 1000.0f);
 
 	Actor::Start();
 }

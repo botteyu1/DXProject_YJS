@@ -11,7 +11,7 @@ ContentObject::~ContentObject()
 
 void ContentObject::InputDebugUpdate(float _Delta)
 {
-	if (DebugValue == true)
+	if (DebugValue == true and SelectValue == true)
 	{
 		GameEngineInput::AddInputObject(this);
 

@@ -1,5 +1,8 @@
 #include "PreCompile.h"
 #include "Ghost_Man.h"
+#include "Level.h"
+#include "FX.h"
+
 Ghost_Man::Ghost_Man() 
 {
 }
@@ -28,7 +31,7 @@ void Ghost_Man::Start()
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy);
 	MainSpriteRenderer->CreateAnimation("Ghost_Attack", "Ghost_Attack", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Attack", { 0.0f , 30.0f, false,
-		{260.0f, 70.0f}, {130.0f, 50.0f},16, "Ghost_Attack_FX",{0.0f,0.5f} ,{ 55.0f, 50.0f } }));
+		{260.0f, 70.0f}, {130.0f, 50.0f},16 }));
 	MainSpriteRenderer->CreateAnimation("Ghost_Appear", "Ghost_Appear", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Ghost_Appear", {0.0f}));
 	MainSpriteRenderer->CreateAnimation("Ghost_idle", "Ghost_idle", 0.0666f, -1, -1, true);
@@ -51,11 +54,7 @@ void Ghost_Man::Start()
 	MainSpriteRenderer->AutoSpriteSizeOn();
 	MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
 
-	AttackfxRenderer= CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy_Attack);
-	AttackfxRenderer->CreateAnimation("Ghost_Attack_FX", "Ghost_Attack_FX", 0.0666f, -1, -1, false);
-	AttackfxRenderer->AutoSpriteSizeOn();
-	AttackfxRenderer->Transform.SetLocalPosition({ 50.0f, 50.0f });
-	AttackfxRenderer->Off();
+	
 	
 
 	MainCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy);
@@ -148,8 +147,17 @@ void Ghost_Man::AttackStart()
 
 void Ghost_Man::AttackUpdate(float _Delta)
 {
-	CheckStartAttackFrame();
+	
 	CheckAttackCollision();
+
+	if (CheckStartAttackFrame() == true)
+	{
+		//DustLandingValue = true;
+		//AttackfxRenderer->Transform.SetLocalPosition();
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::Ghost_Attack_FX, Flip, Transform.GetLocalPosition(),float4::ONE,{1.0f,0.5f});
+	}
+
+	
 
 	if (true == MainSpriteRenderer->IsCurAnimationEnd())
 	{

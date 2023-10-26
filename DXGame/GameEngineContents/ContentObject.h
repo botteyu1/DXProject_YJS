@@ -11,9 +11,9 @@ public:
 	float4 CollisionScale = float4::ZERO; // 공격 크기
 	float4 CollisionPosition = float4::ZERO; //공긱 콜리전 위치
 	int AttackCollisionStartFrame = 0; //공격 콜리전이 시작될 프레임
-	std::string AttackFx = ""; // 공격 효과텍스쳐 이름
-	float4 AttackFxPivot = { 0.5f, 0.5f };// 애니메이션마다 적용할 피봇값
-	float4 AttackFxPos = { 0.0f, 0.0f,0.0f };// 애니메이션마다 적용할 피봇값
+	//std::string AttackFx = ""; // 공격 효과텍스쳐 이름
+	//float4 AttackFxPivot = { 0.5f, 0.5f };// 애니메이션마다 적용할 피봇값
+	//float4 AttackFxPos = { 0.0f, 0.0f,0.0f };// 애니메이션마다 적용할 피봇값
 };
 
 // 설명 :  디버그용 콘솔등 화면상에 나타나는 모든 주요 오브젝트에 필요한 기능
@@ -35,6 +35,7 @@ public:
 	void InputDebugUpdate(float _Delta);
 
 	bool DebugValue = false;
+	bool SelectValue = false; 
 
 	float4 GetScaleValue()
 	{

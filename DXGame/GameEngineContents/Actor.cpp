@@ -181,8 +181,8 @@ bool Actor::CheckStartAttackFrame()
 {
 	float4 CollisionScale = CurAnimationData->CollisionScale;
 	float4 CollisionPosition = CurAnimationData->CollisionPosition;
-	float4 AttackPivot = CurAnimationData->AttackFxPivot;
-	float4 AttackPosition = CurAnimationData->AttackFxPos;
+	//float4 AttackPivot = CurAnimationData->AttackFxPivot;
+	//float4 AttackPosition = CurAnimationData->AttackFxPos;
 
 	int Frame = MainSpriteRenderer->GetCurIndex();
 
@@ -205,25 +205,25 @@ bool Actor::CheckStartAttackFrame()
 			AttackCollision->Transform.SetLocalPosition(CollisionPosition);
 		}
 		
-		//공격 이펙트 처리
-		if (CurAnimationData->AttackFx != "")
-		{
-			AttackfxRenderer->On();
-			if (Flip == true)
-			{
-				AttackPosition.X = -AttackPosition.X;
-				AttackfxRenderer->Transform.SetLocalPosition(AttackPosition);
-				AttackfxRenderer->LeftFlip();
-			}
-			else
-			{
-				AttackfxRenderer->RightFlip();
-				AttackfxRenderer->Transform.SetLocalPosition(AttackPosition);
-				AttackPivot.X = 1.0f - AttackPivot.X;
-			}
-			AttackfxRenderer->SetPivotValue( AttackPivot);
-			AttackfxRenderer->ChangeAnimation(CurAnimationData->AttackFx,true);
-		}
+		////공격 이펙트 처리
+		//if (CurAnimationData->AttackFx != "")
+		//{
+		//	AttackfxRenderer->On();
+		//	if (Flip == true)
+		//	{
+		//		AttackPosition.X = -AttackPosition.X;
+		//		AttackfxRenderer->Transform.SetLocalPosition(AttackPosition);
+		//		AttackfxRenderer->LeftFlip();
+		//	}
+		//	else
+		//	{
+		//		AttackfxRenderer->RightFlip();
+		//		AttackfxRenderer->Transform.SetLocalPosition(AttackPosition);
+		//		AttackPivot.X = 1.0f - AttackPivot.X;
+		//	}
+		//	AttackfxRenderer->SetPivotValue( AttackPivot);
+		//	AttackfxRenderer->ChangeAnimation(CurAnimationData->AttackFx,true);
+		//}
 
 		return true;
 	}

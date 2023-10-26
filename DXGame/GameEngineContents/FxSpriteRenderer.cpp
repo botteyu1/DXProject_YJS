@@ -38,6 +38,7 @@ void FxSpriteRenderer::Update(float _Delta)
 	default:
 		break;
 	}
+
 	GameEngineSpriteRenderer::Update(_Delta);
 }
 

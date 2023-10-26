@@ -130,7 +130,7 @@ void PossessedBook::IdleUpdate(float _Delta)
 
 
 	MotionTime += _Delta;
-	if (MotionTime >= 2.0f and CheckStartAttackFrame() == true)
+	if (MotionTime >= 2.0f/* and CheckStartAttackFrame() == true*/)
 	{
 		//패턴끝날때까지 못찾으면 false
 
