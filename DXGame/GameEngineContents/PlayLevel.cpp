@@ -48,17 +48,33 @@ void PlayLevel::Start()
 	//CreateActor<PossessedBook>(ContentsObjectType::Enemy);
 	//CreateActor<BossGargoyle>(ContentsObjectType::Enemy);
 	//CreateActor<Ghost_Med>(ContentsObjectType::Enemy);
-	{
-		std::shared_ptr<Elevator> Object = CreateActor<Elevator>(ContentsObjectType::StageObject);
-		Object->Init(ElevatorState::Start);
-	}
+	//{
+	//	std::shared_ptr<Elevator> Object = CreateActor<Elevator>(ContentsObjectType::StageObject);
+	//	Object->Init(ElevatorState::Start);
+	//}
 
+	//
+	//std::shared_ptr<BGObject> Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+	//Object->Init("GhostWorkersBox1.png"); 
+
+	//Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+	//Object->Init("GhostWorkersBox11.png");
+
+
+	GameEngineDirectory Dir;
+	Dir.MoveParentToExistsChild("GameEngineResources");
+	Dir.MoveChild("ContentsResources\\Data\\Stage1.GameData");
+
+	GameEngineSerializer BinSer;
+
+	GameEngineFile File = Dir.GetStringPath();
+	File.Open(FileOpenType::Read, FileDataType::Binary);
+	File.DataAllRead(BinSer);
+
+		//MapLevel->ClearContentsObject();
+
+	DeSerializer(BinSer, false);
 	
-	std::shared_ptr<BGObject> Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
-	Object->Init("GhostWorkersBox1.png"); 
-
-	Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
-	Object->Init("GhostWorkersBox11.png");
 
 	Level::Start();
 }

@@ -136,7 +136,7 @@ void Player::Start()
 
 
 	//카메라 포커스
-	//GetLevel()->GetMainCamera()->CameraTargetSetting(Transform, float4::BACKWARD *1000.0f);
+	GetLevel()->GetMainCamera()->CameraTargetSetting(Transform, float4::BACKWARD *1000.0f);
 
 	//FXJumpActor = GetLevel()->CreateActor<FX>(ContentsObjectType::FX);
 
