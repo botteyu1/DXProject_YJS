@@ -118,8 +118,8 @@ void Player::Start()
 
 		DefaultScale = MainSpriteRenderer->GetCurSprite().Texture.get()->GetScale();  
 	} 
-	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
-	Transform.SetLocalPosition({ 953.0f, -2534.0f, -5.0f });
+	//float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
+	Transform.SetLocalPosition({ 432.0f, -2475.0f, -5.0f });
 
 	// 콜리전 추가
 
@@ -144,7 +144,7 @@ void Player::Start()
 	static int Num = 0;
 	Num++;
 	SetName("Player_" + std::to_string(Num));
-	//Off();
+	Off();
 
 	Actor::Start();
 }

@@ -81,10 +81,7 @@ void Elevator::Update(float _Delta)
 		{
 			if (GameEngineInput::IsDown('F', this))
 			{
-				float4 TargetPos = Transform.GetLocalPosition() + float4(30.f, 50.f);
-
-
-				Player::GetMainPlayer()->SetTargetPos(TargetPos);
+				
 				Player::GetMainPlayer()->ChangeState(PlayerState::EnterElavator);
 			}
 		}
@@ -101,6 +98,27 @@ void Elevator::Update(float _Delta)
 void Elevator::Init(ElevatorState _State)
 {
 	State = _State;
+	switch (_State)
+	{
+	case ElevatorState::Static:
+		MainSpriteRenderer->ChangeAnimation("Elevator");
+		break;
+	case ElevatorState::Start:
+	{
+		MainSpriteRenderer->ChangeAnimation("Elevator");
+		float4 TargetPos = Transform.GetLocalPosition() + float4(30.f, 50.f);
+		//Player::GetMainPlayer()->Transform.SetLocalPosition(TargetPos);
+		Player::GetMainPlayer()->SetTargetPos(TargetPos);
+		break;
+	}
+	case ElevatorState::End:
+		MainSpriteRenderer->ChangeAnimation("Elevator");
+		break;
+	default:
+		break;
+	}
+
+	
 }
 
 void Elevator::CollisionUpdate(GameEngineCollision* _Left, GameEngineCollision* _Right)
