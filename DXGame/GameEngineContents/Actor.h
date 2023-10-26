@@ -51,6 +51,8 @@ protected:
 
 	GameEngineColor PixelCollisionCheck(float4 _Pixel, GameEngineColor _DefaultColor = GameEngineColor::RED);
 	GameEngineColor PosCollisionCheck(float4 _Pos, GameEngineColor _DefaultColor = GameEngineColor::RED);
+	//void CheckAttackCollision();
+	//void static ComboHit(class GameEngineCollision* _Left, GameEngineCollision* _Right) {};
 
 	std::shared_ptr<GameEngineCollision> MainCollision;
 	//std::shared_ptr< GameEngineSpriteRenderer> AttackfxRenderer; //공격 렌더러
@@ -78,6 +80,7 @@ protected:
 	bool DashStartCheck = true; //대쉬가 시작해도되는지 체크
 	float MotionTime = 0.0f; // 기본적으로 적이 행동하는  시간
 	int HP = 50;
+	//class EventParameter CollisionParameter;
 
 private:
 

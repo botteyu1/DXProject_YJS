@@ -104,7 +104,7 @@ bool GameEngineCollision::CollisionEvent(int _Order, const EventParameter& _Even
 		std::shared_ptr<GameEngineCollision> OtherCol = *Start;
 
 		// 여기서 터질것이다.
-		if (false == OtherCol->IsDeath())
+		if (false == OtherCol->IsDeath() and OtherCol->IsUpdate())
 		{
 			++Start;
 			continue;

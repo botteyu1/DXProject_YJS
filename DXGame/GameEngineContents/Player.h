@@ -49,6 +49,7 @@ public:
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
 	void static ComboHit(class GameEngineCollision* _Left, GameEngineCollision* _Right);
+	void CheckAttackCollision();
 
 	int GetDamageComobo()
 	{
@@ -85,6 +86,9 @@ private:
 	float JumpingSpeed = 1500.0f;
 	float JumpingAttackSpeed = 1500.0f;
 
+	float DamagedDelayTimer = 0.0f; // 피격후 무적시간 타이머
+	float DamagedDelay = 0.5f; // 피격후 무적시간
+
 	PlayerState State = PlayerState::Max;
 
 	int ComboCount = 0;
@@ -92,13 +96,14 @@ private:
 
 	int DamageComobo = 10; // 기본공격 데미지
 	float DamageComoboScale = 1.0f; // 기본 공격 스케일
-
+	float DamagedTickTime = 0.5f; // 피격후 무적시간
 	
 
 	bool NextCombo = false; // 다음 콤보 입력했느지 확인 
 	bool AerialComboEnd = false; //공콤 끝났는지 여부;
 	bool JumpingAttackEnd = false; //점핑어택 끝났는지 여부;
 	bool DustLandingValue = false; // 점프 다운어택 땅에 도달했는지 확인하는 용
+	bool AttackCollisionValue = false; //한 공격이 이미 적중했는지 확인하는 용
 	
 
 

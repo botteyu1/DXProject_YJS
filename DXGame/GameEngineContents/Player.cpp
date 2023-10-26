@@ -20,9 +20,28 @@ Player::~Player()
 
 void Player::TakeDamage(class GameEngineCollision* _Attacker, float _Damage)
 {
+	
+		
 	HP -= static_cast<int>(_Damage);
 	ChangeState(PlayerState::Hit);
+	
 }
+
+void Player::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)
+{
+	float Damage = _Left->GetParent<Player>()->GetDamageComobo() * _Left->GetParent<Player>()->GetDamageComoboScale();
+	_Right->GetParent<Enemy>()->TakeDamage(_Left, Damage);
+}
+
+void Player::CheckAttackCollision()
+{
+	EventParameter Parameter;
+
+	Parameter.Enter = ComboHit;
+
+	AttackCollision->CollisionEvent<ContentsCollisionType>(ContentsCollisionType::Enemy, Parameter);
+}
+
 
 void Player::Start()
 {
@@ -177,11 +196,11 @@ void Player::Update(float _Delta)
 	StateUpdate(_Delta);
 
 
-	EventParameter Parameter;
+	/*EventParameter Parameter;
 
 	Parameter.Enter = ComboHit;
 
-	AttackCollision->CollisionEvent<ContentsCollisionType>(ContentsCollisionType::Enemy,{ ComboHit,nullptr,nullptr});
+	AttackCollision->CollisionEvent<ContentsCollisionType>(ContentsCollisionType::Enemy,{ ComboHit,nullptr,nullptr});*/
 
 	DashStartCheck = true;
 
@@ -189,11 +208,6 @@ void Player::Update(float _Delta)
 
 
 
-void Player::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)
-{
-	float Damage = _Left->GetParent<Player>()->GetDamageComobo() * _Left->GetParent<Player>()->GetDamageComoboScale();
-	_Right->GetParent<Enemy>()->TakeDamage(_Left, Damage);
-}
 
 
 
@@ -259,6 +273,7 @@ void Player::ChangeState(PlayerState _State)
 	}
 	
 	State = _State;
+	AttackCollisionValue = false;
 }
 
 

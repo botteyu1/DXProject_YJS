@@ -152,8 +152,6 @@ void Ghost_Man::AttackUpdate(float _Delta)
 
 	if (CheckStartAttackFrame() == true)
 	{
-		//DustLandingValue = true;
-		//AttackfxRenderer->Transform.SetLocalPosition();
 		GetContentsLevel()->GetFXActor()->FXStart(FXType::Ghost_Attack_FX, Flip, Transform.GetLocalPosition(),float4::ONE,{1.0f,0.5f});
 	}
 

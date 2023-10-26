@@ -20,6 +20,23 @@ void Enemy::TakeDamage(GameEngineCollision* _Attacker,float _Damage)
 	FlipCheck();
 }
 
+void Enemy::CheckAttackCollision()
+{
+	EventParameter Parameter;
+
+	Parameter.Enter = ComboHit;
+
+	AttackCollision->CollisionEvent<ContentsCollisionType>(ContentsCollisionType::Player, { ComboHit,nullptr,nullptr });
+}
+
+void Enemy::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)
+{
+	float Damagef = _Left->GetParent<Enemy>()->GetAttackDamage();
+	_Right->GetParent<Player>()->TakeDamage(_Left, Damagef);
+}
+
+
+
 bool Enemy::LookPlayer()  //왼쪽이면 false 오른쪽이며 트루
 {
 	float4 PlayerPos = Player::GetMainPlayer()->Transform.GetLocalPosition();
@@ -54,21 +71,6 @@ bool Enemy::IsDetectPlayer()
 		return true;
 	}
 	return false;
-}
-
-void Enemy::CheckAttackCollision()
-{
-	EventParameter Parameter;
-
-	Parameter.Enter = ComboHit;
-
-	AttackCollision->CollisionEvent<ContentsCollisionType>(ContentsCollisionType::Player, { ComboHit,nullptr,nullptr });
-}
-
-void Enemy::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)
-{
-	float Damagef = _Left->GetParent<Enemy>()->GetAttackDamage();
-	_Right->GetParent<Player>()->TakeDamage(_Left , Damagef);
 }
 
 

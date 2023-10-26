@@ -154,23 +154,16 @@ void Actor::ChangeMainAnimation(std::string_view _AnimationName)
 //	float Pivot = CurAnimationData->PivotX;
 	
 
-	float4 CollisionScale = CurAnimationData->CollisionScale;
-	float4 CollisionPosition = CurAnimationData->CollisionPosition;
-	FlipCheck();
-	/*if (Flip == true)
-	{
-		CollisionPosition.X = -CollisionPosition.X;
-		Pivot = 1.0f - Pivot;
-	}
 	
-	MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });*/
-	//  공격 콜리전 활성화
+	FlipCheck();
+	
+	//  공격 콜리전 비활성화
 	
 	if(AttackCollision != nullptr  )
 	{
-		//AttackCollision->Off();
-		AttackCollision->Transform.SetLocalScale(CollisionScale);
-		AttackCollision->Transform.SetLocalPosition(CollisionPosition);
+		///AttackCollision->Off();
+		AttackCollision->Transform.SetLocalScale({ 0.0f,0.0f,0.0f });
+		AttackCollision->Transform.SetLocalPosition({ 0.0f,0.0f,0.0f });
 	}
 
 	CurDash = 0;
@@ -181,8 +174,6 @@ bool Actor::CheckStartAttackFrame()
 {
 	float4 CollisionScale = CurAnimationData->CollisionScale;
 	float4 CollisionPosition = CurAnimationData->CollisionPosition;
-	//float4 AttackPivot = CurAnimationData->AttackFxPivot;
-	//float4 AttackPosition = CurAnimationData->AttackFxPos;
 
 	int Frame = MainSpriteRenderer->GetCurIndex();
 
@@ -205,25 +196,6 @@ bool Actor::CheckStartAttackFrame()
 			AttackCollision->Transform.SetLocalPosition(CollisionPosition);
 		}
 		
-		////공격 이펙트 처리
-		//if (CurAnimationData->AttackFx != "")
-		//{
-		//	AttackfxRenderer->On();
-		//	if (Flip == true)
-		//	{
-		//		AttackPosition.X = -AttackPosition.X;
-		//		AttackfxRenderer->Transform.SetLocalPosition(AttackPosition);
-		//		AttackfxRenderer->LeftFlip();
-		//	}
-		//	else
-		//	{
-		//		AttackfxRenderer->RightFlip();
-		//		AttackfxRenderer->Transform.SetLocalPosition(AttackPosition);
-		//		AttackPivot.X = 1.0f - AttackPivot.X;
-		//	}
-		//	AttackfxRenderer->SetPivotValue( AttackPivot);
-		//	AttackfxRenderer->ChangeAnimation(CurAnimationData->AttackFx,true);
-		//}
 
 		return true;
 	}
@@ -315,4 +287,12 @@ GameEngineColor Actor::PosCollisionCheck(float4 _Pos, GameEngineColor _DefaultCo
 
 	return Color;
 }
-
+//
+//void Actor::CheckAttackCollision()
+//{
+//	EventParameter Parameter;
+//
+//	Parameter.Enter = ComboHit;
+//	Parameter.Exit =[](){}
+//	AttackCollision->CollisionEvent<ContentsCollisionType>(ContentsCollisionType::Player, { ComboHit,nullptr,nullptr });
+//}

@@ -43,6 +43,9 @@ protected:
 	float MoveSpeed = 400.0f;
 	float AttackDamage = 10.0f;
 
+	float DamagedDelayTimer = 0.0f; // 피격후 무적시간 타이머
+	float DamagedDelay = 0.5f; // 피격후 무적시간
+
 	std::shared_ptr<GameEngineCollision> DetectCollision;
 	std::shared_ptr<GameEngineCollision> DetectAttackCollision;
 

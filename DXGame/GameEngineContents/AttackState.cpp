@@ -39,7 +39,8 @@ void Player::ComboMoveUpdate(float _Delta)
 	}
 	InputDashUpdate(_Delta);
 	DashProcessUpdate(_Delta, float4::RIGHT, DashSpeed);
-	
+
+	CheckAttackCollision();
 }
 
 void Player::ComboMove_RestStart()
@@ -109,6 +110,7 @@ void Player::ComboAerialUpdate(float _Delta)
 	InputDashUpdate(_Delta);
 
 	DashProcessUpdate(_Delta, float4::RIGHT, DashSpeed);
+	CheckAttackCollision();
 }
 
 void Player::ComboAerial_RestStart()
@@ -120,6 +122,8 @@ void Player::ComboAerial_RestStart()
 		AerialComboCount = 1;
 	}
 	ChangeMainAnimation("LD_ComboAerial_0" + std::to_string(AerialComboCount) + "_Rest");
+	
+	CheckAttackCollision();
 }
 
 void Player::ComboAerial_RestUpdate(float _Delta)
@@ -171,7 +175,8 @@ void Player::JumpingAttackUpdate(float _Delta)
 	}
 
 	DashProcessUpdate(_Delta, float4::UP, 2000.0f);
-	
+
+	CheckAttackCollision();
 }
 
 
@@ -199,6 +204,7 @@ void Player::AerialDownAttackUpdate(float _Delta)
 	{
  		ChangeState(PlayerState::Idle);
 	}
+	CheckAttackCollision();
 }
 
 bool Player::InputAttackUpdate(float _Delta)
