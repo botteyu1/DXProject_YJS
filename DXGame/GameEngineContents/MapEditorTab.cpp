@@ -99,6 +99,11 @@ void MapEditorTab::Start()
 		ObjectCreateNames.push_back("Bibli_WIP_02");
 		ObjectCreateNames.push_back("GraphicStats01");
 		ObjectCreateNames.push_back("GPE_WeaponX_Choice");
+		ObjectCreateNames.push_back("Column02");
+		ObjectCreateNames.push_back("Column03");
+		ObjectCreateNames.push_back("Column06");
+		ObjectCreateNames.push_back("Cutton");
+		ObjectCreateNames.push_back("Church");
 	}
 
 	Tabs.clear();

@@ -42,6 +42,8 @@ protected:
 	
 	float MoveSpeed = 400.0f;
 	float AttackDamage = 10.0f;
+	float AttackCoolTime = 3.0f;
+	float AttackCoolTimeCheck = 0.0f;
 
 	float DamagedDelayTimer = 0.0f; // 피격후 무적시간 타이머
 	float DamagedDelay = 0.5f; // 피격후 무적시간

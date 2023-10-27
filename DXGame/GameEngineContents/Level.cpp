@@ -329,6 +329,26 @@ std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, flo
 		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
 		static_cast<BGObject*>(Object.get())->Init("GPE_WeaponX_Choice.png");
 		break;
+	case ActorType::Column02:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Column02.png");
+		break;
+	case ActorType::Column03:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Column03.png");
+		break;
+	case ActorType::Column06:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Column06.png");
+		break;
+	case ActorType::Cutton:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Cutton.png");
+		break;
+	case ActorType::Church:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("Church.png");
+		break;
 	default:
 		break;
 	}

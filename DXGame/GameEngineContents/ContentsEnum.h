@@ -123,6 +123,11 @@ enum class ActorType
 	Bibli_WIP_02,
 	GraphicStats01,
 	GPE_WeaponX_Choice,
+	Column02,
+	Column03,
+	Column06,
+	Cutton,
+	Church,
 
 
 

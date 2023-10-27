@@ -150,8 +150,18 @@ void Ghost_Woman::AttackUpdate(float _Delta)
 	{
 		std::shared_ptr <Bullet> Object = GetLevel()->CreateActor<Bullet>(ContentsObjectType::Bullet);
 
-		float4 Pos2 = Transform.GetLocalPosition();
-		float4 Pos = Transform.GetLocalPosition() + float4{50.0f, 50.0f};
+		//float4 Pos2 = Transform.GetLocalPosition();
+		float4 Pos;
+		if (Flip == true)
+		{
+			Pos = Transform.GetLocalPosition() + float4{ -50.0f, 50.0f };
+		}
+		else
+		{
+			Pos = Transform.GetLocalPosition() + float4{ 50.0f, 50.0f };
+		}
+		
+
 		float4 PlayerDir = Player::GetMainPlayer()->Transform.GetLocalPosition() - Transform.GetLocalPosition();
 
 		Object->Init(BulletType::Fire, Pos , AttackDamage, PlayerDir, 800.f);

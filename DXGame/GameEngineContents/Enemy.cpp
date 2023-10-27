@@ -90,10 +90,19 @@ void Enemy::Update(float _Delta)
 	}
 	StateUpdate(_Delta);
 
+	
+
 	if (HP <= 0)
 	{
 		ChangeState(EnemyState::Death);
 	}
+
+	//if (AttackCoolTimeCheck <= AttackCoolTime)
+	//{
+	//	return;
+	//}
+
+	//AttackCoolTimeCheck += _Delta;
 }
 
 
@@ -107,6 +116,8 @@ void Enemy::ChangeState(EnemyState _State)
 		IdleStart();
 		break;
 	case EnemyState::Attack:
+		
+		AttackCoolTimeCheck = 0.0f;
 		AttackStart();
 		break;
 	case EnemyState::Appear:

@@ -172,7 +172,7 @@ std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 
 
 	Renderer->CreateAnimation("Ghost_Attack_FX", "Ghost_Attack_FX", 0.0666f, -1, -1, false);
-	
+	Renderer->SetEndEvent("Ghost_Attack_FX", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
 
 
 	Renderer->CreateAnimation("Shockwave", "Shockwave.png", 0.0333f, -1, -1, true);
