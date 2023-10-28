@@ -104,6 +104,42 @@ void MapEditorTab::Start()
 		ObjectCreateNames.push_back("Column06");
 		ObjectCreateNames.push_back("Cutton");
 		ObjectCreateNames.push_back("Church");
+		ObjectCreateNames.push_back("Pillar01");
+		ObjectCreateNames.push_back("Pillar02");
+		ObjectCreateNames.push_back("Pillar04");
+		ObjectCreateNames.push_back("Pillar05");
+		ObjectCreateNames.push_back("woker1");
+		ObjectCreateNames.push_back("woker2");
+		ObjectCreateNames.push_back("woker3");
+		ObjectCreateNames.push_back("woker4");
+		ObjectCreateNames.push_back("woker5");
+		ObjectCreateNames.push_back("woker6");
+		ObjectCreateNames.push_back("woker7");
+		ObjectCreateNames.push_back("woker8");
+		ObjectCreateNames.push_back("woker9");
+		ObjectCreateNames.push_back("Scythe1");
+		ObjectCreateNames.push_back("Scythe2");
+		ObjectCreateNames.push_back("Scythe3");
+		ObjectCreateNames.push_back("Scythe4");
+		ObjectCreateNames.push_back("ColumnDown02");
+
+		ObjectCreateNames.push_back("Bathc_Of_Graves_01");
+		ObjectCreateNames.push_back("Bathc_Of_Graves_02");
+		ObjectCreateNames.push_back("Bench01");
+		ObjectCreateNames.push_back("Bench02");
+		ObjectCreateNames.push_back("Bench03");
+		ObjectCreateNames.push_back("BonesPile1");
+		ObjectCreateNames.push_back("BonesPile4");
+		ObjectCreateNames.push_back("W1_Boss");
+		ObjectCreateNames.push_back("W1_Door_01");
+		ObjectCreateNames.push_back("W1_Door_02");
+		ObjectCreateNames.push_back("W1_Door_03");
+		ObjectCreateNames.push_back("W1_Door_04");
+		ObjectCreateNames.push_back("W1_Door_05");
+		ObjectCreateNames.push_back("W1_Door_06");
+		ObjectCreateNames.push_back("W1_Entre");
+		ObjectCreateNames.push_back("W1_Kit_");
+		ObjectCreateNames.push_back("W1_Miniboss");
 	}
 
 	Tabs.clear();

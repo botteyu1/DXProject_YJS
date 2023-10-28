@@ -22,7 +22,7 @@ void BossLevel::Start()
 
 	{
 		std::shared_ptr<PlayMap> Object = CreateActor<PlayMap>(ContentsObjectType::BackGround);
-		Object->Init("W1_Boss_Background.png", "StagePixel1.png");
+		Object->Init("StageBoss.dds", "StagePixelBoss.png");
 		SetMap(Object);
 	}
 
