@@ -1,5 +1,15 @@
 #pragma once
 #include "Level.h"
+#include <GameEngineCore/GameEngineState.h>
+
+enum class BossLevelState
+{
+	Normal,
+	IntroCamera,
+	Intro,
+	Boss,
+	End,
+};
 
 // 설명 :
 class BossLevel : public Level
@@ -24,6 +34,10 @@ protected:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 private:
+	bool BossIntroOver = false; // 보스 등장씬이 시작했는 지 여부
 
+	std::shared_ptr<class Player> PlayerPtr = nullptr;
+	std::shared_ptr<class BossGargoyle> BossPtr = nullptr;
+	GameEngineState State;
 };
 

@@ -68,8 +68,6 @@ void BossGargoyle::Start()
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Idle", "Gargoyle_Idle", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Idle", { 1.0f }));
 
-	MainSpriteRenderer->CreateAnimation("Gargoyle_Intro", "Gargoyle_Intro", 0.0666f, -1, -1, true);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Intro", { 1.0f }));
 
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Posing1", "Gargoyle_Posing1", 0.366f, -1, -1, false);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Posing1", {1.0f }));
@@ -110,6 +108,18 @@ void BossGargoyle::Start()
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Uturn", "Gargoyle_Uturn", 0.0333f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Uturn", { 1.0f }));
 
+	MainSpriteRenderer->CreateAnimation("Gargoyle_Intro", "Gargoyle_Intro", 0.0333f, -1, -1, false);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Intro", { 0.5f }));
+
+	MainSpriteRenderer->CreateAnimation("Gargoyle_Intro_Idle", "Gargoyle_Intro_Idle", 0.0333f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Intro_Idle", { 0.5f }));
+
+	MainSpriteRenderer->CreateAnimation("Gargoyle_End", "Gargoyle_End_1", 0.0333f, -1, -1, false);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_End", { 1.0f }));
+
+	MainSpriteRenderer->CreateAnimation("Gargoyle_Outro", "Gargoyle_End_2", 0.0333f, -1, -1, false);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Outro", { 1.0f }));
+
 	MainSpriteRenderer->AutoSpriteSizeOn();
 	MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
 
@@ -133,8 +143,8 @@ void BossGargoyle::Start()
 	DetectAttackCollision->SetCollisionType(ColType::AABBBOX2D);
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
-	Transform.SetLocalPosition({ HalfWindowScale.X + 700.0f, -HalfWindowScale.Y });
-	ChangeState(EnemyState::Idle);
+	Transform.SetLocalPosition({ 4900.0f, -3000.0f , -1.0f});
+	ChangeState(EnemyState::IntroIdle);
 	std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("Boss_Gargoyle_Idle_0001.png");
 
 	DefaultScale = Tex.get()->GetScale();
@@ -435,6 +445,50 @@ void BossGargoyle::WaitingStart()
 }
 
 void BossGargoyle::WaitingUpdate(float _Delta)
+{
+}
+
+void BossGargoyle::IntroStart()
+{
+	Flip = true;
+	ChangeMainAnimation("Gargoyle_Intro");
+}
+
+void BossGargoyle::IntroUpdate(float _Delta)
+{
+	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
+	{
+
+	}
+}
+
+void BossGargoyle::IntroIdleStart()
+{
+	Flip = true;
+	ChangeMainAnimation("Gargoyle_Intro_Idle");
+}
+
+void BossGargoyle::IntroIdleUpdate(float _Delta)
+{
+	
+}
+
+void BossGargoyle::EndStart()
+{
+	ChangeMainAnimation("Gargoyle_End");
+}
+
+
+void BossGargoyle::EndUpdate(float _Delta)
+{
+}
+
+void BossGargoyle::OutroStart()
+{
+	ChangeMainAnimation("Gargoyle_Outro");
+}
+
+void BossGargoyle::OutroUpdate(float _Delta)
 {
 }
 

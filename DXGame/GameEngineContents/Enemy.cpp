@@ -141,6 +141,18 @@ void Enemy::ChangeState(EnemyState _State)
 	case EnemyState::Waiting:
 		WaitingStart();
 		break;
+	case EnemyState::Intro:
+		IntroStart();
+		break;
+	case EnemyState::IntroIdle:
+		IntroIdleStart();
+		break;
+	case EnemyState::End:
+		EndStart();
+		break;
+	case EnemyState::Outro:
+		OutroStart();
+		break;
 	default:
 		break;
 	}
@@ -180,6 +192,18 @@ void Enemy::StateUpdate(float _Delta)
 		break;
 	case EnemyState::Waiting:
 		WaitingUpdate(_Delta);
+		break;
+	case EnemyState::Intro:
+		IntroUpdate(_Delta);
+		break;
+	case EnemyState::IntroIdle:
+		IntroIdleUpdate(_Delta);
+		break;
+	case EnemyState::End:
+		EndUpdate(_Delta);
+		break;
+	case EnemyState::Outro:
+		OutroUpdate(_Delta);
 		break;
 	default:
 		break;
@@ -256,5 +280,37 @@ void Enemy::WaitingStart()
 }
 
 void Enemy::WaitingUpdate(float _Delta)
+{
+}
+
+void Enemy::IntroStart()
+{
+}
+
+void Enemy::IntroIdleStart()
+{
+}
+
+void Enemy::EndStart()
+{
+}
+
+void Enemy::OutroStart()
+{
+}
+
+void Enemy::IntroUpdate(float _Delta)
+{
+}
+
+void Enemy::IntroIdleUpdate(float _Delta)
+{
+}
+
+void Enemy::EndUpdate(float _Delta)
+{
+}
+
+void Enemy::OutroUpdate(float _Delta)
 {
 }

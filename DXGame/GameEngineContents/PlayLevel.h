@@ -33,7 +33,7 @@ protected:
 private:
 
 	std::shared_ptr<PlayMap> PlayMapPtr = nullptr;
-
+	std::shared_ptr<class Player> PlayerPtr = nullptr;
 	
 };
 

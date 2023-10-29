@@ -40,16 +40,23 @@ void Map::Update(float _Delta)
 	if (GameEngineInput::IsDown('L',this))
 	{
 		MainBackGround->Off();
-		MainBackGround2->Off();
 		PixelBackGround->On();
-		PixelBackGround2->On();
+		if (MainBackGround2 != nullptr)
+		{
+			MainBackGround2->Off();
+			PixelBackGround2->On();
+		}
+		
 	}
 	if (GameEngineInput::IsDown('K', this))
 	{
 		MainBackGround->On();
-		MainBackGround2->On();
 		PixelBackGround->Off();
-		PixelBackGround2->Off();
+		if (MainBackGround2 != nullptr)
+		{
+			MainBackGround2->On();
+			PixelBackGround2->Off();
+		}
 	}
 }
 

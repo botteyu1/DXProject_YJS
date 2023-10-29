@@ -12,6 +12,10 @@ enum class EnemyState
 	Surprised,
 	Uturn,
 	Waiting,
+	Intro,
+	IntroIdle,
+	End,
+	Outro,
 	Max, // 일반적으로 사용하지 않는 값.
 };
 
@@ -38,6 +42,7 @@ public:
 		return AttackDamage;
 	}
 
+	void ChangeState(EnemyState _State);
 protected:
 	
 	float MoveSpeed = 400.0f;
@@ -97,10 +102,21 @@ protected:
 
 	virtual void WaitingStart();
 	virtual void WaitingUpdate(float _Delta);
+	
+	virtual void IntroStart();
+	virtual void IntroUpdate(float _Delta);
+
+	virtual void IntroIdleStart();
+	virtual void IntroIdleUpdate(float _Delta);
+
+	virtual void EndStart();
+	virtual void EndUpdate(float _Delta);
+
+	virtual void OutroStart();
+	virtual void OutroUpdate(float _Delta);
 
 	
 
 	void StateUpdate(float _Delta);
-	void ChangeState(EnemyState _State);
 };
 

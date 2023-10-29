@@ -7,6 +7,7 @@
 #include <GameEngineCore/GameEngineGUI.h>
 #include "GUI.h"
 #include "MapEditorLevel.h"
+#include "BossLevel.h"
 
 ContentsCore::ContentsCore() 
 {
@@ -26,9 +27,10 @@ void ContentsCore::Start()
 	//GameEngineSpriteRenderer::SetDefaultSampler("POINT");
 
 	GameEngineCore::CreateLevel<PlayLevel>("PlayLevel");
+	GameEngineCore::CreateLevel<BossLevel>("BossLevel");
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
 	GameEngineCore::CreateLevel<MapEditorLevel>("MapEditorLevel");
-	GameEngineCore::ChangeLevel("PlayLevel");
+	GameEngineCore::ChangeLevel("BossLevel");
 
 	// 자기 텍스처 로드해야 한다.
 

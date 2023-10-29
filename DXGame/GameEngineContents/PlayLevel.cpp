@@ -33,7 +33,7 @@ void PlayLevel::Start()
 
 
 	{
-		std::shared_ptr<Player> Object = CreateActor<Player>(ContentsObjectType::Player);
+		std::shared_ptr<Player> PlayerPtr = CreateActor<Player>(ContentsObjectType::Player);
 	}
 
 	{
@@ -82,7 +82,13 @@ void PlayLevel::Start()
 
 void PlayLevel::Update(float _Delta)
 {
-	
+	//카메라 포커스
+	std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
+	float4 PlayePos = PlayerPtr->Transform.GetWorldPosition();
+	//float4 Pos = PlayePos
+
+	MainCamara->Transform.SetLocalPosition(PlayePos + float4{ 0.0f,0.0f,-1000.0f });
+
 }
 
 void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)

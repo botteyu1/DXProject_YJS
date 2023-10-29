@@ -165,7 +165,7 @@ void Player::Start()
 	Off();
 
 	//카메라 포커스
-	GetLevel()->GetMainCamera()->CameraTargetSetting(Transform, float4::BACKWARD * 1000.0f);
+	//GetLevel()->GetMainCamera()->CameraTargetSetting(Transform, float4::BACKWARD * 1000.0f);
 
 	Actor::Start();
 }
@@ -173,11 +173,10 @@ void Player::Start()
 
 void Player::Update(float _Delta)
 {
-	
+
 	//플레이어 카메라 포커스
 	//GameEngineColor Color = PlayMap::MainMap->GetColor(Transform.GetWorldPosition(), GameEngineColor::RED);
-	/*std::shared_ptr<GameEngineCamera> MainCamara = GetLevel()->GetMainCamera();
-	MainCamara->Transform.SetLocalPosition(Transform.GetWorldPosition());*/
+
 	Actor::Update(_Delta);
 
 	//디버그 모드중 업뎃안함
@@ -204,6 +203,9 @@ void Player::Update(float _Delta)
 
 	DashStartCheck = true;
 
+
+
+	
 }
 
 
