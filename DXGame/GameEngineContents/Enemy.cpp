@@ -120,6 +120,12 @@ void Enemy::ChangeState(EnemyState _State)
 		AttackCoolTimeCheck = 0.0f;
 		AttackStart();
 		break;
+	case EnemyState::Attack_Init:
+		Attack_InitStart();
+		break;
+	case EnemyState::Attack_End:
+		Attack_EndStart();
+		break;
 	case EnemyState::Appear:
 		AppearStart();
 		break;
@@ -171,6 +177,12 @@ void Enemy::StateUpdate(float _Delta)
 		break;
 	case EnemyState::Attack:
 		AttackUpdate(_Delta);
+		break;
+	case EnemyState::Attack_Init:
+		Attack_InitUpdate(_Delta);
+		break;
+	case EnemyState::Attack_End:
+		Attack_EndUpdate(_Delta);
 		break;
 	case EnemyState::Appear:
 		AppearUpdate(_Delta);
@@ -224,6 +236,22 @@ void Enemy::AttackStart()
 }
 
 void Enemy::AttackUpdate(float _Delta)
+{
+}
+
+void Enemy::Attack_InitStart()
+{
+}
+
+void Enemy::Attack_InitUpdate(float _Delta)
+{
+}
+
+void Enemy::Attack_EndStart()
+{
+}
+
+void Enemy::Attack_EndUpdate(float _Delta)
 {
 }
 

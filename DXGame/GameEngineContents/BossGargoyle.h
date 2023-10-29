@@ -6,6 +6,7 @@ enum class GargoyleAttackPatern
 	Combo,
 	Posing,
 	Dive,
+	Dive_Anti,
 	Spin,
 	Max,
 
@@ -36,6 +37,12 @@ protected:
 
 	void AttackStart();
 	void AttackUpdate(float _Delta);
+
+	void Attack_InitStart() override;
+	void Attack_InitUpdate(float _Delta) override;
+
+	void Attack_EndStart();
+	void Attack_EndUpdate(float _Delta);
 
 	void AppearStart();
 	void AppearUpdate(float _Delta);
@@ -74,9 +81,10 @@ private:
 	bool ComboStart = false;
 	int ComboCount = 0;
 	int PosingCount = 0;
-	GargoyleAttackPatern AttackPatern = GargoyleAttackPatern::Posing;
+	GargoyleAttackPatern AttackPatern = GargoyleAttackPatern::Dive;
 	float4 TargetPlayerPos = float4::ZERO;
 	float4 TargetPos = float4::ZERO; //공격용 좌표 저장
+	float4 MoveVec = float4::ZERO;
 
 	std::shared_ptr<class GameEngineSpriteRenderer> DeskSpriteRenderer; 
 

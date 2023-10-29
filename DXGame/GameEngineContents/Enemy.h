@@ -5,6 +5,8 @@ enum class EnemyState
 {
 	Idle,
 	Attack,
+	Attack_Init,
+	Attack_End,
 	Appear,
 	Death,
 	Hit,
@@ -81,6 +83,12 @@ protected:
 	
 	virtual void AttackStart();
 	virtual void AttackUpdate(float _Delta);
+
+	virtual void Attack_InitStart();
+	virtual void Attack_InitUpdate(float _Delta);
+
+	virtual void Attack_EndStart();
+	virtual void Attack_EndUpdate(float _Delta);
 
 	virtual void AppearStart();
 	virtual void AppearUpdate(float _Delta);

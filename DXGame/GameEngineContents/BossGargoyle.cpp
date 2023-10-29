@@ -41,13 +41,17 @@ void BossGargoyle::Start()
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Combo3", "Gargoyle_Combo3", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Combo3", { 1.0f }));
 
-	MainSpriteRenderer->CreateAnimation("Gargoyle_Dive_Attack_End", "Gargoyle_Dive_Attack_End", 0.0666f, -1, -1, true);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Dive_Attack_End", { 1.0f }));
+	MainSpriteRenderer->CreateAnimation("Gargoyle_Dive_Attack_End", "Gargoyle_Dive_Attack_End", 0.0666f, -1, -1, false);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Dive_Attack_End", { 0.8f }));
+
+	MainSpriteRenderer->CreateAnimation("Gargoyle_Dive_Attack_Turn", "Gargoyle_Dive_Attack_Turn", 0.0666f, -1, -1, false);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Dive_Attack_Turn", { 0.8f }));
 
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Dive_Attack_Loop", "Gargoyle_Dive_Attack_Loop", 0.0666f, -1, -1, true);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Dive_Attack_Loop", { 1.0f }));
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Dive_Attack_Loop", { 0.8f, 0.0f, false,
+		{200.0f, 150.0f}, {0.0f, 80.0f},0 }));
 
-	MainSpriteRenderer->CreateAnimation("Gargoyle_DiveAttack_Anticipation", "Gargoyle_DiveAttack_Anticipation", 0.0666f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("Gargoyle_DiveAttack_Anticipation", "Gargoyle_DiveAttack_Anticipation", 0.0666f, -1, -1, false);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_DiveAttack_Anticipation", { 1.0f }));
 
 	MainSpriteRenderer->CreateAnimation("Gargoyle_End_1", "Gargoyle_End_1", 0.0666f, -1, -1, true);
@@ -70,25 +74,34 @@ void BossGargoyle::Start()
 
 
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Posing1", "Gargoyle_Posing1", 0.366f, -1, -1, false);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Posing1", {1.0f }));
+	
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Posing1", { 0.8f , 0.0f, false,
+		{200.0f, 150.0f}, {0.0f, 100.0f},0 }));
 
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Posing2", "Gargoyle_Posing2", 0.366f, -1, -1, false);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Posing2", {1.0f }));
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Posing2", { 0.8f , 0.0f, false,
+		{200.0f, 150.0f}, {0.0f, 100.0f},0 }));
+
 
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Posing3", "Gargoyle_Posing3", 0.366f, -1, -1, false);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Posing3", {1.0f }));
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Posing3", { 0.8f , 0.0f, false,
+		{200.0f, 150.0f}, {0.0f, 100.0f},0 }));
 
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Posing4", "Gargoyle_Posing4", 0.366f, -1, -1, false);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Posing4", {1.0f }));
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Posing4", { 0.8f , 0.0f, false,
+		{200.0f, 150.0f}, {0.0f, 100.0f},0 }));
 
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Posing5", "Gargoyle_Posing5", 0.666f, -1, -1, false);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Posing5", {1.0f }));
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Posing5", { 0.8f , 0.0f, false,
+		{200.0f, 150.0f}, {0.0f, 100.0f},0 }));
 
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Posing6", "Gargoyle_Posing6", 0.666f, -1, -1, false);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Posing6", {1.0f }));
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Posing6", { 0.8f , 0.0f, false,
+		{200.0f, 150.0f}, {0.0f, 100.0f},0 }));
 
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Posing7", "Gargoyle_Posing7", 0.666f, -1, -1, false);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Posing7", {1.0f }));
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Posing7", { 0.8f , 0.0f, false,
+		{200.0f, 150.0f}, {0.0f, 100.0f},0 }));
 
 	MainSpriteRenderer->CreateAnimation("Gargoyle_SpinAir", "Gargoyle_SpinAir", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_SpinAir", { 1.0f }));
@@ -105,14 +118,14 @@ void BossGargoyle::Start()
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Stun_Start", "Gargoyle_Stun_Start", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Stun_Start", { 1.0f }));
 
-	MainSpriteRenderer->CreateAnimation("Gargoyle_Uturn", "Gargoyle_Uturn", 0.0333f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("Gargoyle_Uturn", "Gargoyle_Uturn", 0.03666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Uturn", { 1.0f }));
 
-	MainSpriteRenderer->CreateAnimation("Gargoyle_Intro", "Gargoyle_Intro", 0.0333f, -1, -1, false);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Intro", { 0.5f }));
+	MainSpriteRenderer->CreateAnimation("Gargoyle_Intro", "Gargoyle_Intro", 0.04666f, -1, -1, false);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Intro", { 0.8f }));
 
-	MainSpriteRenderer->CreateAnimation("Gargoyle_Intro_Idle", "Gargoyle_Intro_Idle", 0.0333f, -1, -1, true);
-	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Intro_Idle", { 0.5f }));
+	MainSpriteRenderer->CreateAnimation("Gargoyle_Intro_Idle", "Gargoyle_Intro_Idle", 0.0466f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Intro_Idle", { 0.8f }));
 
 	MainSpriteRenderer->CreateAnimation("Gargoyle_End", "Gargoyle_End_1", 0.0333f, -1, -1, false);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_End", { 1.0f }));
@@ -143,11 +156,11 @@ void BossGargoyle::Start()
 	DetectAttackCollision->SetCollisionType(ColType::AABBBOX2D);
 
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
-	Transform.SetLocalPosition({ 4900.0f, -3000.0f , -1.0f});
+	Transform.SetLocalPosition({ 5000.0f, -3000.0f , -1.0f});
 	ChangeState(EnemyState::IntroIdle);
 	std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("Boss_Gargoyle_Idle_0001.png");
 
-	DefaultScale = Tex.get()->GetScale();
+	DefaultScale = Tex.get()->GetScale() + float4 { 50.0f, 0.0f };
 	DashSpeed = 3000.0f;
 
 	Enemy::Start();
@@ -210,6 +223,7 @@ void BossGargoyle::AttackStart()
 	{
 		PosingCount++;
 		AnimationName = "Gargoyle_Posing" + std::to_string(PosingCount);
+		//AnimationName = "Gargoyle_Posing1" ;
 		if (PosingCount >= 7)
 		{
 			PosingCount = 0;
@@ -217,7 +231,44 @@ void BossGargoyle::AttackStart()
 		break;
 	}
 	case GargoyleAttackPatern::Dive:
+	{
+		
+		ForceGrivityOff = true;
+		float4 TargetPos;
+		if (Flip == true)
+		{
+			TargetPos = { 3385.0f, -3500.0f, -1.0f };
+		}
+		else
+		{
+			TargetPos = { 5000.0f, -3500.0f, -1.0f };
+		}
+		AnimationName = "Gargoyle_Dive_Attack_Loop";
+		float4 StartPos = Transform.GetLocalPosition();
+		float4 Nor = (TargetPos - StartPos).NormalizeReturn();
+		MoveVec = Nor * 1500.0f;
+		
+	}
 		break;
+
+	case GargoyleAttackPatern::Dive_Anti:
+	{
+		ForceGrivityOff = true;
+		float4 TargetPos;
+		if (Flip == true)
+		{
+			TargetPos = { 3385.0f, -3500.0f, -1.0f };
+		}
+		else
+		{
+			TargetPos = { 5000.0f, -3500.0f, -1.0f };
+		}
+		AnimationName = "Gargoyle_Dive_Attack_Loop";
+		float4 StartPos = Transform.GetLocalPosition();
+		float4 Nor = (TargetPos - StartPos).NormalizeReturn();
+		MoveVec = Nor * 1500.0f;
+		break;
+	}
 	case GargoyleAttackPatern::Spin:
 		break;
 	case GargoyleAttackPatern::Max:
@@ -227,23 +278,6 @@ void BossGargoyle::AttackStart()
 	}
 
 	ChangeMainAnimation(AnimationName);
-
-	
-	////ChangeMainAnimation("GhostMed_Attack");
-	//switch (AttackPatern)
-	//{
-	//case MedAttackPatern::Combo:
-	//	ComboCount++;
-	//	break;
-	//case MedAttackPatern::Power:
-	//	ComboCount = 4;
-	//	break;
-	//default:
-	//	break;
-	//}
-
-	//AnimationName = "GhostMed_Attack" + std::to_string(ComboCount);
-	
 }
 
 void BossGargoyle::AttackUpdate(float _Delta)
@@ -291,7 +325,59 @@ void BossGargoyle::AttackUpdate(float _Delta)
 	}
 		break;
 	case GargoyleAttackPatern::Dive:
+	{
+		float4 NextPos = Transform.GetLocalPosition() + (MoveVec * _Delta);
+
+		if (Flip == true)
+		{
+			if (NextPos.X <= 3385.0f)
+			{
+				NextPos = { 3385.0f, -3500.0f, -1.0f };
+				AttackPatern = GargoyleAttackPatern::Dive_Anti;
+				ChangeState(EnemyState::Attack_Init);
+			}
+		}
+		else
+		{
+			if (NextPos.X >= 5000.0f)
+			{
+				NextPos = { 5000.0f, -3500.0f, -1.0f };
+				AttackPatern = GargoyleAttackPatern::Dive_Anti;
+				ChangeState(EnemyState::Attack_Init);
+			}
+
+		}
+		Transform.SetLocalPosition(NextPos);
+		
 		break;
+	}
+	case GargoyleAttackPatern::Dive_Anti:
+	{
+		float4 NextPos = Transform.GetLocalPosition() + (MoveVec * _Delta);
+
+		if (Flip == true)
+		{
+			if (NextPos.X <= 3385.0f)
+			{
+				NextPos = { 3385.0f, -3500.0f, -1.0f };
+				//AttackPatern = GargoyleAttackPatern::Dive_Anti;
+				ChangeState(EnemyState::Attack_End);
+			}
+		}
+		else
+		{
+			if (NextPos.X >= 5000.0f)
+			{
+				NextPos = { 5000.0f, -3500.0f, -1.0f };
+				//AttackPatern = GargoyleAttackPatern::Dive_Anti;
+				ChangeState(EnemyState::Attack_End);
+			}
+
+		}
+		Transform.SetLocalPosition(NextPos);
+		
+		break;
+	}
 	case GargoyleAttackPatern::Spin:
 		break;
 	case GargoyleAttackPatern::Max:
@@ -302,6 +388,75 @@ void BossGargoyle::AttackUpdate(float _Delta)
 
 
 	
+}
+
+void BossGargoyle::Attack_InitStart()
+{
+	switch (AttackPatern)
+	{
+	case GargoyleAttackPatern::Combo:
+		break;
+	case GargoyleAttackPatern::Posing:
+		break;
+	case GargoyleAttackPatern::Dive:
+		Flip = !Flip;
+		ChangeMainAnimation("Gargoyle_DiveAttack_Anticipation");
+		break;
+	case GargoyleAttackPatern::Dive_Anti:
+		Flip = !Flip;
+		ChangeMainAnimation("Gargoyle_Dive_Attack_Turn");
+		break;
+	case GargoyleAttackPatern::Spin:
+		break;
+	case GargoyleAttackPatern::Max:
+		break;
+	default:
+		break;
+	}
+}
+
+void BossGargoyle::Attack_InitUpdate(float _Delta)
+{
+	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
+	{
+		ChangeState(EnemyState::Attack);
+	}
+}
+
+void BossGargoyle::Attack_EndStart()
+{
+	switch (AttackPatern)
+	{
+	case GargoyleAttackPatern::Combo:
+		break;
+	case GargoyleAttackPatern::Posing:
+		break;
+	case GargoyleAttackPatern::Dive:
+		Flip = !Flip;
+		ChangeMainAnimation("Gargoyle_Dive_Attack_End");
+		break;
+	case GargoyleAttackPatern::Dive_Anti:
+		Flip = !Flip;
+		ChangeMainAnimation("Gargoyle_Dive_Attack_End");
+
+		break;
+	case GargoyleAttackPatern::Spin:
+		break;
+	case GargoyleAttackPatern::Max:
+		break;
+	default:
+		break;
+	}
+}
+
+void BossGargoyle::Attack_EndUpdate(float _Delta)
+{
+	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
+	{
+		ForceGrivityOff = false;
+		AttackPatern = GargoyleAttackPatern::Dive;
+		ChangeState(EnemyState::Idle);
+	}
 }
 
 void BossGargoyle::AppearStart()
@@ -346,18 +501,40 @@ void BossGargoyle::RunStart()
 	}
 	case GargoyleAttackPatern::Posing:
 	{
+		ForceGrivityOff = true;
 		TargetPlayerPos = Player::GetMainPlayer()->Transform.GetLocalPosition() + float4{ 0.0f,400.0f,0.0f };
 		TargetPos = Transform.GetLocalPosition() + float4{ 0.0f, 50.0f };
-		ForceGrivityOff = true;
 		ChangeMainAnimation("Gargoyle_SpinAir");
 		break;
 	}
 	case GargoyleAttackPatern::Dive:
 	{
+		ForceGrivityOff = true;
+		float4 TargetPos;
+		if (Flip == true)
+		{
+			TargetPos = { 3385.0f, -2900.0f, -1.0f };
+		}
+		else
+		{
+			TargetPos = { 5000.0f, -2900.0f, -1.0f };
+		}
+		ChangeMainAnimation("Gargoyle_Idle");
+		float4 StartPos = Transform.GetLocalPosition();
+		float4 Nor = (TargetPos - StartPos).NormalizeReturn();
+		MoveVec = Nor * 600.0f;
+		break;
+	}
+	case GargoyleAttackPatern::Dive_Anti:
+	{
 
 	}
 	case GargoyleAttackPatern::Spin:
+	{
+		Flip = !Flip;
 		break;
+	}
+		
 	case GargoyleAttackPatern::Max:
 		break;
 	default:
@@ -402,7 +579,31 @@ void BossGargoyle::RunUpdate(float _Delta)
 		break;
 	}
 	case GargoyleAttackPatern::Dive:
+	{
+		float4 NextPos = Transform.GetLocalPosition() + (MoveVec * _Delta);
+
+		if (Flip == true)
+		{
+			if (NextPos.X <= 3385.0f)
+			{
+				NextPos = { 3385.0f, -2900.0f, -1.0f };
+				//AttackPatern = GargoyleAttackPatern::Dive_Anti;
+				ChangeState(EnemyState::Attack_Init);
+			}
+		}
+		else
+		{
+			if (NextPos.X >= 5000.0f)
+			{
+				NextPos = { 5000.0f, -2900.0f, -1.0f };
+				
+				ChangeState(EnemyState::Attack_Init);
+			}
+			
+		}
+		Transform.SetLocalPosition(NextPos);
 		break;
+	}
 	case GargoyleAttackPatern::Spin:
 		break;
 	case GargoyleAttackPatern::Max:
@@ -456,9 +657,14 @@ void BossGargoyle::IntroStart()
 
 void BossGargoyle::IntroUpdate(float _Delta)
 {
+	if (MainSpriteRenderer->GetCurIndex() >= 54)
+	{
+		Transform.AddLocalPosition(-1000.0f * _Delta);
+	}
+
 	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
 	{
-
+		ChangeState(EnemyState::Idle);
 	}
 }
 
