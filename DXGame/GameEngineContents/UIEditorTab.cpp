@@ -16,7 +16,18 @@ void UIEditorTab::Start()
 
 void UIEditorTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 {
-	
+	SelectTabUpdate(_Level);
+	GameEngineInput::AddInputObject(this);
+
+	ImGui::Text("\n\n -SelectList-");
+
+	std::string SelectList;
+	for (int Key : SelectObjects)
+	{
+		ImGui::Text(ObjectLoadedNamesString[Key].c_str());
+		SelectList = "Position " + ObjectLoaded[Key]->Transform.GetLocalPosition().ToString() + "Scale  " + "\n";
+		ImGui::Text(SelectList.c_str());
+	}
 }
 
 void UIEditorTab::SelectTabUpdate(GameEngineLevel* _Level)
@@ -32,7 +43,7 @@ void UIEditorTab::SelectTabUpdate(GameEngineLevel* _Level)
 		for (size_t i = 0; i < ObjectUI.size(); i++)
 		{
 
-			std::vector<std::shared_ptr<GameEngineSpriteRenderer>> RenderertUI = ObjectLoaded[i]->GetObjectGroupConvert<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+			std::vector<std::shared_ptr<GameEngineSpriteRenderer>> RenderertUI = ObjectUI[i]->GetObjectGroupConvert<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 
 			for (size_t i = 0; i < RenderertUI.size(); i++)
 			{
@@ -75,8 +86,17 @@ void UIEditorTab::SelectTabUpdate(GameEngineLevel* _Level)
 				//static_cast<GameEngineSpriteRenderer*>(ObjectLoaded[Select].get())->SelectValue = true;
 			}
 		}
+	}
 
-
+	for (int Key : SelectObjects)
+	{
+		if (GameEngineInput::IsPress(VK_LBUTTON, this) and static_cast<Level*>(_Level)->OtherWindow == false)
+		{
+			float4 Pos = _Level->GetMainCamera()->GetScreenMouseDir();
+			//float4 PrevPos = Transform.GetLocalPosition();
+			Pos.X = -Pos.X;
+			ObjectLoaded[Key]->Transform.AddLocalPosition(Pos);
+		}
 	}
 }
 

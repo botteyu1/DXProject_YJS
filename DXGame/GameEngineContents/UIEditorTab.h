@@ -8,14 +8,20 @@ public:
 	UIEditorTab();
 	~UIEditorTab();
 
-	// delete Function
-	UIEditorTab(const UIEditorTab& _Other) = delete;
-	UIEditorTab(UIEditorTab&& _Other) noexcept = delete;
-	UIEditorTab& operator=(const UIEditorTab& _Other) = delete;
-	UIEditorTab& operator=(UIEditorTab&& _Other) noexcept = delete;
+	//// delete Function
+	//UIEditorTab(const UIEditorTab& _Other) = delete;
+	//UIEditorTab(UIEditorTab&& _Other) noexcept = delete;
+	//UIEditorTab& operator=(const UIEditorTab& _Other) = delete;
+	//UIEditorTab& operator=(UIEditorTab&& _Other) noexcept = delete;
 
 	void Start();
+
 	void OnGUI(GameEngineLevel* _Level, float _DeltaTime);
+	UIEditorTab(std::string_view _Name)
+		: Tab(_Name)
+	{
+
+	}
 
 protected:
 
@@ -29,7 +35,7 @@ private:
 	std::vector<const char*> ObjectLoadedNames;
 
 	std::set<int> SelectObjects;
-	std::shared_ptr<GameEngineObject> LastSelectObject;
+	std::shared_ptr<GameEngineSpriteRenderer> LastSelectObject;
 
 };
 

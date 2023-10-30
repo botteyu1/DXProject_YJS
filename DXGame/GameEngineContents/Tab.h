@@ -19,6 +19,8 @@ public:
 		Name = _Name;
 	}
 
+
+
 protected:
 
 private:

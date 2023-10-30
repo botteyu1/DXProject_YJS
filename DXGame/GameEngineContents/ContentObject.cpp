@@ -105,8 +105,6 @@ void ContentObject::InputDebugUpdate(float _Delta)
 
 		if (GameEngineInput::IsPress(VK_LBUTTON, this) and static_cast<Level*>(GetLevel())->OtherWindow == false)
 		{
-
-			
 			float4 Pos = GetLevel()->GetMainCamera()->GetScreenMouseDir();
 			//float4 PrevPos = Transform.GetLocalPosition();
 			Pos.X = -Pos.X;

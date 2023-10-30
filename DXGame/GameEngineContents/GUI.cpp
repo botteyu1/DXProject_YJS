@@ -4,6 +4,7 @@
 #include "LevelChangeTab.h"
 #include "MapEditorTab.h"
 #include "Tab.h"
+#include "UIEditorTab.h"
 
 GUI::GUI() 
 {
@@ -22,7 +23,7 @@ void GUI::Start()
 	CurTab = Tabs[0];
 	CurTab->Start();
 	Tabs.push_back(std::make_shared<MapEditorTab>("MapEditor"));
-	Tabs.push_back(std::make_shared<MapEditorTab>("UIEditor"));
+	Tabs.push_back(std::make_shared<UIEditorTab>("UIEditor"));
 }
 
 void GUI::OnGUI(GameEngineLevel* _Level, float _DeltaTime)

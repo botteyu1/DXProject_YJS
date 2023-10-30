@@ -18,7 +18,7 @@ void TitleLevel::Start()
 	GetMainCamera()->Transform.SetLocalPosition({ HalfWindowScale.X, -HalfWindowScale.Y, -5000.0f });
 	GetMainCamera()->SetProjectionType(EPROJECTIONTYPE::Orthographic);
 
-	CreateActor<Title>(ContentsObjectType::BackGroundobject);
+	CreateActor<Title>(ContentsObjectType::UI);
 	
 
 	Level::Start();

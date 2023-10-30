@@ -31,7 +31,9 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> TitleBG;
 
 	int ArrowLocate = 1;
-
+	float MoveDist = -50.0f;
+	float MoveDistCheck = 0.0f;
+	float4 Dir = float4::DOWN;
 
 };
 
