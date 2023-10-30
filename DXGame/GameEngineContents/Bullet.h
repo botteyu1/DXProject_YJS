@@ -5,6 +5,7 @@ enum class BulletType
 {
 	Fire,
 	Paperplane,
+	Rock,
 };
 
 // 설명 :
@@ -35,6 +36,9 @@ protected:
 	void Update(float _Delta) override;
 
 private:
+	GameEngineColor PixelCollisionCheck(float4 _Pixel, GameEngineColor _DefaultColor = GameEngineColor::RED);
+	GameEngineColor PosCollisionCheck(float4 _Pos, GameEngineColor _DefaultColor = GameEngineColor::RED);
+
 	std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer; //기본 렌더러
 	std::shared_ptr<GameEngineCollision> AttackCollision;
 
@@ -43,5 +47,10 @@ private:
 	ContentsCollisionType TargetCollision = ContentsCollisionType::Enemy;
 
 	float Time = 0.0f;
+
+	float4 GrivityForce = { 0.0f, 0.0f, 0.0f, 1.0f }; //중력힘
+
+	bool ForceGrivityOff = true; //중력을 받는지 체크 트루면 받지 않는다.
+	bool AerialCheck = false;
 };
 

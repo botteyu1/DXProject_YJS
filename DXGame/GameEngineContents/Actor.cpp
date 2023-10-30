@@ -34,6 +34,7 @@ void Actor::Update(float _Delta)
 		return;
 	}
 
+	//픽셀로 밀어내기
 	GameEngineColor Color = PixelCollisionCheck({ 0.0f,-1.0f });
 	float MovePixel = -1.0f;
 
@@ -210,7 +211,7 @@ void Actor::DashProcessUpdate(float _Delta,const float4& _Dir, float _Speed)
 		return;
 	}
 
-	if (CurDash == CurAnimationData->DashDistance)
+	if (CurDash == CurAnimationData->DashDistance and MainSpriteRenderer->GetCurIndex() < CurAnimationData->AttackCollisionStartFrame)
 	{
 		return;
 	}

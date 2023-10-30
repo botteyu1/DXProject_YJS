@@ -24,6 +24,7 @@ void BossLevel::Start()
 
 	{
 		 PlayerPtr = CreateActor<Player>(ContentsObjectType::Player);
+		 PlayerPtr->Transform.SetLocalPosition({ 1076.0f, -3574.0f, 5.0f });
 	}
 
 	{
@@ -72,7 +73,7 @@ void BossLevel::Start()
 				float4 MainCamaraPos = MainCamara->Transform.GetWorldPosition();
 				float4 Pos = { PlayePos.X, -3150.0f,-1000.0f };
 
-				if (Pos.X >= 3250.0f and BossIntroOver == false)
+				if (Pos.X >= 3450.0f and BossIntroOver == false)
 				{
 					_Parent->ChangeState(BossLevelState::IntroCamera);
 				}
@@ -96,6 +97,8 @@ void BossLevel::Start()
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
 				BossIntroOver = true;
+
+				PlayerPtr->ChangeState(PlayerState::ForceWait);
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
@@ -142,7 +145,11 @@ void BossLevel::Start()
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
-				
+				if (BossPtr->GetState() == EnemyState::Idle)
+				{
+					_Parent->ChangeState(BossLevelState::Boss);
+					PlayerPtr->ChangeState(PlayerState::Idle);
+				}
 				
 			};
 

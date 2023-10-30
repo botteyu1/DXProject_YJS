@@ -81,10 +81,12 @@ private:
 	bool ComboStart = false;
 	int ComboCount = 0;
 	int PosingCount = 0;
-	GargoyleAttackPatern AttackPatern = GargoyleAttackPatern::Dive;
+	GargoyleAttackPatern AttackPatern = GargoyleAttackPatern::Combo;
 	float4 TargetPlayerPos = float4::ZERO;
 	float4 TargetPos = float4::ZERO; //공격용 좌표 저장
 	float4 MoveVec = float4::ZERO;
+	float BulletDelay = 0.3f;
+	float BulletDelayCheck = 0.0f;
 
 	std::shared_ptr<class GameEngineSpriteRenderer> DeskSpriteRenderer; 
 

@@ -31,6 +31,8 @@ public:
 	ContentsCore& operator=(const ContentsCore& _Other) = delete;
 	ContentsCore& operator=(ContentsCore&& _Other) noexcept = delete;
 
+	static std::shared_ptr<class GameEngineRandom> MainRandom; 
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;

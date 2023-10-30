@@ -20,6 +20,7 @@ enum class PlayerState
 	Hit,
 	EnterElavator,
 	ExitElavator,
+	ForceWait, //씬이나 UI상태일때 조작금지상태
 
 	Max, // 일반적으로 사용하지 않는 값.
 };
@@ -161,6 +162,9 @@ private:
 
 	void ExitElavatorStart();
 	void ExitElavatorUpdate(float _Delta);
+
+	void ForceWaitStart();
+	void ForceWaitUpdate(float _Delta);
 
 
 	bool InputMoveUpdate(float _Delta);

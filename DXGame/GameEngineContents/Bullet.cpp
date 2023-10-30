@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "Bullet.h"
 #include "Actor.h"
+#include "Map.h"
+#include "Level.h"
 
 Bullet::Bullet() 
 {
@@ -82,6 +84,20 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 			TargetCollision = ContentsCollisionType::Player;
 			break;
 		}
+		case BulletType::Rock:
+		{
+
+			MainSpriteRenderer->CreateAnimation("Rock", "Rock", 0.0666f, -1, -1, true);
+			MainSpriteRenderer->ChangeAnimation("Rock");
+			//MainSpriteRenderer->SetAutoScaleRatio({ 0.5f,0.5f });
+			AttackCollision->Transform.SetLocalPosition({-50.0f,-50.0f});
+			AttackCollision->Transform.SetLocalScale({ 100.0f,100.0f });
+			ForceGrivityOff = false;
+			GrivityForce.Y = 1500.0f;
+
+			TargetCollision = ContentsCollisionType::Player;
+			break;
+		}
 		default:
 			break;
 	}
@@ -129,5 +145,47 @@ void Bullet::Update(float _Delta)
 	{
 		Death();
 	}
+
+
+	//공중인지 체크
+	GameEngineColor Color = PixelCollisionCheck({ 0.0f,-1.0f });
+
+	//공중
+	if ((GameEngineColor::WHITE == Color) and ForceGrivityOff == false)
+	{
+		AerialCheck = true;
+		GrivityForce.Y -= _Delta * 5000.f;
+		Transform.AddLocalPosition(GrivityForce * _Delta);
+	}
+	//중력이 꺼져도 공중인지 체크하고 중력초기화
+	else if (GameEngineColor::WHITE == Color)
+	{
+		AerialCheck = true;
+		GrivityForce = 0.0f;
+	}
+	//지상 
+	else
+	{
+		GrivityForce = 0.0f;
+		AerialCheck = false;
+		Death();
+		/*if (AerialCheck == true and ForceGrivityOff == false)*/
+	}
 }
 
+GameEngineColor Bullet::PixelCollisionCheck(float4 _Pixel, GameEngineColor _DefaultColor)
+{
+	float4 WorldPosition = Transform.GetWorldPosition();
+	WorldPosition += _Pixel;
+	GameEngineColor Color = static_cast<Level*>(GetLevel())->GetMap()->GetColor(WorldPosition, GameEngineColor::RED);
+
+	return Color;
+}
+
+GameEngineColor Bullet::PosCollisionCheck(float4 _Pos, GameEngineColor _DefaultColor)
+{
+
+	GameEngineColor Color = static_cast<Level*>(GetLevel())->GetMap()->GetColor(_Pos, GameEngineColor::RED);
+
+	return Color;
+}

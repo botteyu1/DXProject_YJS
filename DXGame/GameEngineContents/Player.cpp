@@ -138,7 +138,7 @@ void Player::Start()
 		DefaultScale = MainSpriteRenderer->GetCurSprite().Texture.get()->GetScale();  
 	} 
 	//float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
-	Transform.SetLocalPosition({ 432.0f, -2475.0f, 5.0f });
+	
 
 	// 콜리전 추가
 
@@ -270,6 +270,9 @@ void Player::ChangeState(PlayerState _State)
 	case PlayerState::ExitElavator:
 		ExitElavatorStart();
 		break;
+	case PlayerState::ForceWait:
+		ForceWaitStart();
+		break;
 	default:
 		break;
 	}
@@ -333,6 +336,9 @@ void Player::StateUpdate(float _Delta)
 		break;
 	case PlayerState::ExitElavator:
 		ExitElavatorUpdate(_Delta);
+		break;
+	case PlayerState::ForceWait:
+		ForceWaitUpdate(_Delta);
 		break;
 	default:
 		break;

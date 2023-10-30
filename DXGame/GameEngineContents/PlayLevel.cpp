@@ -34,6 +34,7 @@ void PlayLevel::Start()
 
 	{
 		std::shared_ptr<Player> PlayerPtr = CreateActor<Player>(ContentsObjectType::Player);
+		PlayerPtr->Transform.SetLocalPosition({ 432.0f, -2475.0f, 5.0f });
 	}
 
 	{

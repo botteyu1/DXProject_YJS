@@ -78,3 +78,13 @@ void Player::ExitElavatorUpdate(float _Delta)
 		ChangeState(PlayerState::Idle);
 	}
 }
+
+void Player::ForceWaitStart()
+{
+	ForceGrivityOff = true;
+	ChangeMainAnimation("LD_Idle");
+}
+
+void Player::ForceWaitUpdate(float _Delta)
+{
+}
