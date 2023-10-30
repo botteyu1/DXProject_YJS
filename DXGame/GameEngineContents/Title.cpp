@@ -59,16 +59,19 @@ void Title::Start()
 	UIArrow->SetSprite("UI_Missions_Arrow_Right_On.png");
 	UIArrow->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f});
 
-	LD_Weapon = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
-	LD_Weapon->AutoSpriteSizeOn();
-	LD_Weapon->SetSprite("LD_HomeScreen_Weapon.png");
-	LD_Weapon->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f});
+	//LD_Weapon = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	//LD_Weapon->AutoSpriteSizeOn();
+	//LD_Weapon->SetSprite("LD_HomeScreen_Weapon.png");
+	//LD_Weapon->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f});
 
 	LD_Body = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	LD_Body->AutoSpriteSizeOn();
-	LD_Body->CreateAnimation("LD_HomeScreen_Body", "LD_HomeScreen_Body", 0.0666f, -1, -1, true);
+	LD_Body->SetAutoScaleRatio({ 2.0f,2.0f,1.0f});
+	LD_Body->SetPivotValue({ 1.0f, 0.0f });
+	LD_Body->CreateAnimation("LD_HomeScreen_Body", "LD_HomeScreen_Body", 0.0433f, -1, -1, true);
 	LD_Body->ChangeAnimation("LD_HomeScreen_Body");
-	LD_Body->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f });
+	LD_Body->Transform.SetLocalPosition({ 1100.0f,-550.0f, -1.0f });
+	LD_Body->LeftFlip();
 
 	LD_Forearm = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	LD_Forearm->AutoSpriteSizeOn();
@@ -82,17 +85,17 @@ void Title::Start()
 	LD_Head->ChangeAnimation("LD_HomeScreen_Head");
 	LD_Head->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f });
 
-	LD_Smoke = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
-	LD_Smoke->AutoSpriteSizeOn();
-	LD_Smoke->CreateAnimation("LD_HomeScreen_Smoke", "LD_HomeScreen_Smoke", 0.0666f, -1, -1, true);
-	LD_Smoke->ChangeAnimation("LD_HomeScreen_Smoke");
-	LD_Smoke->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f });
+	//LD_Smoke = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	//LD_Smoke->AutoSpriteSizeOn();
+	//LD_Smoke->CreateAnimation("LD_HomeScreen_Smoke", "LD_HomeScreen_Smoke", 0.0666f, -1, -1, true);
+	//LD_Smoke->ChangeAnimation("LD_HomeScreen_Smoke");
+	//LD_Smoke->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f });
 	
-	LD_Reflect = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	/*LD_Reflect = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	LD_Reflect->AutoSpriteSizeOn();
 	LD_Reflect->CreateAnimation("HomeScreen_Weapon_Reflect", "HomeScreen_Weapon_Reflect", 0.0666f, -1, -1, true);
 	LD_Reflect->ChangeAnimation("HomeScreen_Weapon_Reflect");
-	LD_Reflect->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f });
+	LD_Reflect->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f });*/
 
 	GameEngineInput::AddInputObject(this);
 }
