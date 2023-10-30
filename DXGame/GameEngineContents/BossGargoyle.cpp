@@ -550,7 +550,7 @@ void BossGargoyle::AppearUpdate(float _Delta)
 
 void BossGargoyle::DeathStart()
 {
-	ForceGrivityOff == true;
+	ForceGrivityOff = true;
 	Flip = true;
 	ChangeMainAnimation("Gargoyle_End");
 }

@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Title.h"
+#include "ContentObject.h"
 
 Title::Title() 
 {
@@ -75,15 +76,21 @@ void Title::Start()
 
 	LD_Forearm = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	LD_Forearm->AutoSpriteSizeOn();
-	LD_Forearm->CreateAnimation("LD_HomeScreen_Forearm", "LD_HomeScreen_Forearm", 0.0666f, -1, -1, true);
+	LD_Forearm->SetAutoScaleRatio({ 2.0f,2.0f,1.0f });
+	LD_Forearm->SetPivotValue({ 1.0f, 0.0f });
+	LD_Forearm->CreateAnimation("LD_HomeScreen_Forearm", "LD_HomeScreen_Forearm", 0.0433f, -1, -1, true);
 	LD_Forearm->ChangeAnimation("LD_HomeScreen_Forearm");
-	LD_Forearm->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f });
+	LD_Forearm->Transform.SetLocalPosition({ 1100.0f,-690.0f, -2.0f });
+	LD_Forearm->LeftFlip();
 
 	LD_Head = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	LD_Head->AutoSpriteSizeOn();
-	LD_Head->CreateAnimation("LD_HomeScreen_Head", "LD_HomeScreen_Head", 0.0666f, -1, -1, true);
+	LD_Head->SetAutoScaleRatio({ 1.5f,1.5f,1.0f });
+	LD_Head->SetPivotValue({ 1.0f, 0.0f });
+	LD_Head->CreateAnimation("LD_HomeScreen_Head", "LD_HomeScreen_Head", 0.0433f, -1, -1, true);
 	LD_Head->ChangeAnimation("LD_HomeScreen_Head");
-	LD_Head->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f });
+	LD_Head->Transform.SetLocalPosition({ 1200.0f,-290.0f, -2.0f });
+	LD_Head->LeftFlip();
 
 	//LD_Smoke = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	//LD_Smoke->AutoSpriteSizeOn();

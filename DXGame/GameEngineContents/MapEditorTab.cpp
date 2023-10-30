@@ -2,6 +2,7 @@
 #include "MapEditorTab.h"
 #include "MapEditorLevel.h"
 #include "ContentObject.h"
+#include "UIEditorTab.h"
 
 MapEditorTab::MapEditorTab() 
 {

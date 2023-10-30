@@ -1,9 +1,9 @@
 #pragma once
 
-#include "ContentObject.h"
+#include "UI.h"
 
 // Ό³Έν :
-class Title : public ContentObject
+class Title : public UI
 {
 public:
 	// constrcuter destructer

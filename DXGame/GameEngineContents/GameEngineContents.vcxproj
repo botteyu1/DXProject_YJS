@@ -292,6 +292,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="UIEditorTab.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h">
@@ -413,6 +421,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="TitleLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="UIEditorTab.h">
       <SubType>
       </SubType>
     </ClInclude>
