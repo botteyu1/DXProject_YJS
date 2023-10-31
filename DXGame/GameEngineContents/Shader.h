@@ -14,7 +14,12 @@ public:
 	Shader(Shader&& _Other) noexcept = delete;
 	Shader& operator=(const Shader& _Other) = delete;
 	Shader& operator=(Shader&& _Other) noexcept = delete;
-
+	
+	
+	std::shared_ptr<GameEngineSpriteRenderer> GetShader_Renderer()
+	{
+		return Shader_Renderer;
+	}
 protected:
 	void Start() override;
 	void Update(float _Delta)override;

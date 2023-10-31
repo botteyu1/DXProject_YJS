@@ -50,6 +50,7 @@ public:
 	{
 		return State;
 	}
+
 protected:
 	
 	float MoveSpeed = 400.0f;
@@ -73,6 +74,8 @@ protected:
 	bool  DetectPlayer = false;
 
 	void CheckAttackCollision();
+
+	virtual void DeathCheck();
 
 private:
 	

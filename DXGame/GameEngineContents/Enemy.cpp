@@ -29,6 +29,14 @@ void Enemy::CheckAttackCollision()
 	AttackCollision->CollisionEvent<ContentsCollisionType>(ContentsCollisionType::Player, { ComboHit,nullptr,nullptr });
 }
 
+void Enemy::DeathCheck()
+{
+	if (HP <= 0 )
+	{
+		ChangeState(EnemyState::Death);
+	}
+}
+
 void Enemy::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)
 {
 	float Damagef = _Left->GetParent<Enemy>()->GetAttackDamage();
@@ -90,13 +98,9 @@ void Enemy::Update(float _Delta)
 	}
 	StateUpdate(_Delta);
 
-	
+	DeathCheck();
 
-	if (HP <= 0 and DeathValue == false)
-	{ 
-		DeathValue = true;
-		ChangeState(EnemyState::Death);
-	}
+	
 
 	//if (AttackCoolTimeCheck <= AttackCoolTime)
 	//{

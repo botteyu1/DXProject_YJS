@@ -45,7 +45,7 @@ void Player::CheckAttackCollision()
 
 void Player::Start()
 {
-	MainPlayer = this;
+	
 	{
 		GameEngineDirectory Dir;
 		Dir.MoveParentToExistsChild("GameEngineResources");
@@ -162,7 +162,7 @@ void Player::Start()
 	static int Num = 0;
 	Num++;
 	SetName("Player_" + std::to_string(Num));
-	Off();
+	//On();
 
 	//카메라 포커스
 	//GetLevel()->GetMainCamera()->CameraTargetSetting(Transform, float4::BACKWARD * 1000.0f);
@@ -279,6 +279,16 @@ void Player::ChangeState(PlayerState _State)
 	
 	State = _State;
 	AttackCollisionValue = false;
+}
+
+void Player::LevelStart(GameEngineLevel* _NextLevel)
+{
+	MainPlayer = this;
+	Off();
+}
+
+void Player::LevelEnd(GameEngineLevel* _NextLevel)
+{
 }
 
 

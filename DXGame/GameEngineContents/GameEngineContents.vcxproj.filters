@@ -115,6 +115,9 @@
     <ClCompile Include="Shader.cpp">
       <Filter>.Core</Filter>
     </ClCompile>
+    <ClCompile Include="ContentsRenderer.cpp">
+      <Filter>.Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -223,6 +226,9 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
+      <Filter>.Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsRenderer.h">
       <Filter>.Core</Filter>
     </ClInclude>
   </ItemGroup>

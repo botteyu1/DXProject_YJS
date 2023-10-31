@@ -70,7 +70,9 @@ public:
 
 
 	void ChangeState(PlayerState _State);
+	void LevelStart(class GameEngineLevel* _NextLevel) override;
 
+	void LevelEnd(class GameEngineLevel* _NextLevel) override;
 protected:
 	void Start() override;
 	void Update(float _Delta) override;

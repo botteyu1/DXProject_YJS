@@ -33,7 +33,7 @@ void PlayLevel::Start()
 
 
 	{
-		std::shared_ptr<Player> PlayerPtr = CreateActor<Player>(ContentsObjectType::Player);
+		PlayerPtr = CreateActor<Player>(ContentsObjectType::Player);
 		PlayerPtr->Transform.SetLocalPosition({ 432.0f, -2475.0f, 5.0f });
 	}
 
@@ -89,7 +89,6 @@ void PlayLevel::Update(float _Delta)
 	//float4 Pos = PlayePos
 
 	MainCamara->Transform.SetLocalPosition(PlayePos + float4{ 0.0f,0.0f,-1000.0f });
-
 }
 
 void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)

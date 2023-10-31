@@ -29,13 +29,14 @@ void Shader::Start()
 		}
 	}
 	
+	SetName("Shader");
 	float4 WindowScale = ContentsCore::GetStartWindowSize();
 
 	Shader_Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Shader);
 	Shader_Renderer->SetCameraOrder(ECAMERAORDER::UI);
 	Shader_Renderer->SetSprite("ShaderWhite.Png");
 	Shader_Renderer->GetImageTransform().SetLocalScale(WindowScale);
-	Shader_Renderer->GetColorData().MulColor = float4{ 0.5f,1.0f,0.5f,0.5f };
+	Shader_Renderer->GetColorData().MulColor = float4{ 0.07f,0.11f,0.0f,0.2f };
 }
 
 void Shader::Update(float _Delta)

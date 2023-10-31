@@ -16,6 +16,18 @@ void ShaderTab::Start()
 
 void ShaderTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 {
+	SelectTabUpdate(_Level);
+	GameEngineInput::AddInputObject(this);
+
+	//ImGui::Text("\n\n -SelectList-");
+
+	/*std::string SelectList;
+	for (int Key : SelectObjects)
+	{
+		ImGui::Text(ObjectLoadedNamesString[Key].c_str());
+		SelectList = "Position " + ObjectLoaded[Key]->Transform.GetLocalPosition().ToString() + "Scale  " + "\n";
+		ImGui::Text(SelectList.c_str());
+	}*/
 }
 
 void ShaderTab::SelectTabUpdate(GameEngineLevel* _Level)
@@ -24,22 +36,18 @@ void ShaderTab::SelectTabUpdate(GameEngineLevel* _Level)
 
 	if (ImGui::Button("Object Reload"))
 	{
-		std::vector<std::shared_ptr<Shader>> ObjectUI = _Level->GetObjectGroupConvert<Shader>(ContentsObjectType::UI);
+		std::vector<std::shared_ptr<Shader>> ObjectUI = _Level->GetObjectGroupConvert<Shader>(ContentsObjectType::Shader);
 
 		ObjectLoaded.clear();
 
 		for (size_t i = 0; i < ObjectUI.size(); i++)
 		{
 
-			std::vector<std::shared_ptr<GameEngineSpriteRenderer>> RenderertUI = ObjectUI[i]->GetObjectGroupConvert<GameEngineSpriteRenderer>(ContentsRenderType::UI);
-
-			for (size_t i = 0; i < RenderertUI.size(); i++)
+			if (ObjectUI[i]->GetName() != "")
 			{
-				if (RenderertUI[i]->GetName() != "")
-				{
-					ObjectLoaded.push_back(RenderertUI[i]);
-				}
+				ObjectLoaded.push_back(ObjectUI[i]);
 			}
+			
 		}
 
 		ObjectLoadedNamesString.clear();
@@ -69,7 +77,10 @@ void ShaderTab::SelectTabUpdate(GameEngineLevel* _Level)
 
 	if (LastSelectObject != nullptr)
 	{
-		//float4ÄÃ·¯°ª
+		if (ImGui::SliderFloat4("Global Shader", &LastSelectObject->GetShader_Renderer()->GetColorData().MulColor.R, 0.0f, 1.0f, "%.2f"))
+		{
+			//SkyLerp::SkyManager->SetSkyColor();
+		}
 	}
 }
 

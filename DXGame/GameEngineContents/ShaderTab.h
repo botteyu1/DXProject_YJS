@@ -29,12 +29,12 @@ private:
 
 	void SelectTabUpdate(class GameEngineLevel* _Level);
 
-	std::vector<std::shared_ptr<class GameEngineSpriteRenderer>> ObjectLoaded;
+	std::vector<std::shared_ptr<class Shader>> ObjectLoaded;
 	std::vector<std::string> ObjectLoadedNamesString;
 	std::vector<const char*> ObjectLoadedNames;
 
 	//std::set<int> SelectObjects;
-	std::shared_ptr<GameEngineSpriteRenderer> LastSelectObject;
+	std::shared_ptr<Shader> LastSelectObject;
 
 };
 

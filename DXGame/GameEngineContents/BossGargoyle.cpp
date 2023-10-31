@@ -178,6 +178,15 @@ void BossGargoyle::Update(float _Delta)
 	Enemy::Update(_Delta);
 }
 
+void BossGargoyle::DeathCheck()
+{
+	if (HP <= 0 and DeathValue == false)
+	{
+		DeathValue = true;
+		ChangeState(EnemyState::Death);
+	}
+}
+
 void BossGargoyle::IdleStart()
 {
 	ChangeMainAnimation("Gargoyle_Idle");

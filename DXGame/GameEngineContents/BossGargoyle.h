@@ -32,6 +32,9 @@ protected:
 	void Start() override;
 	void Update(float _Delta) override;
 
+	void DeathCheck() override;
+
+
 	void IdleStart();
 	void IdleUpdate(float _Delta);
 
