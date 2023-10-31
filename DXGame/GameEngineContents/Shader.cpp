@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Shader.h"
+#include "ContentsCore.h"
 
 Shader::Shader() 
 {
@@ -27,8 +28,14 @@ void Shader::Start()
 			GameEngineSprite::CreateSingle(Path.GetFileName());
 		}
 	}
-	//Shader_Renderer
+	
+	float4 WindowScale = ContentsCore::GetStartWindowSize();
 
+	Shader_Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Shader);
+	Shader_Renderer->SetCameraOrder(ECAMERAORDER::UI);
+	Shader_Renderer->SetSprite("ShaderWhite.Png");
+	Shader_Renderer->GetImageTransform().SetLocalScale(WindowScale);
+	Shader_Renderer->GetColorData().MulColor = float4{ 0.5f,1.0f,0.5f,0.5f };
 }
 
 void Shader::Update(float _Delta)

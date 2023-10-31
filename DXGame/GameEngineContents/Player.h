@@ -78,6 +78,8 @@ protected:
 
 	std::shared_ptr<class BookOfTheDead> PlayerBook;
 
+	//void LevelStart() override;
+
 	//std::shared_ptr<class FX> FXJumpActor;
 
 private:

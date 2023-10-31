@@ -52,7 +52,7 @@ void Title::Start()
 	TitleBG->SetAutoScaleRatio({ 1.0f,1.0f,0.5f });
 	TitleBG->SetSprite("Lobby_2_bg_01.png");
 	TitleBG->Transform.SetLocalPosition({ 950.0f,-550.0f,100.0f });
-	TitleBG->GetColorData().MulColor = float4(0.5f, 0.1f, 0.1f, 1.0f);
+	//TitleBG->GetColorData().MulColor = float4(0.6f, 0.9f, 0.6f, 1.0f);
 
 	SetName("Tilte");
 

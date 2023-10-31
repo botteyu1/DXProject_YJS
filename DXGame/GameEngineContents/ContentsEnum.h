@@ -11,6 +11,8 @@ enum class ContentsRenderType
 	Player,
 	FX,
 	UI,
+
+	Shader,
 };
 
 
