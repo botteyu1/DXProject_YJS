@@ -32,6 +32,11 @@ public:
 		return FXActor;
 	}
 
+	std::shared_ptr<class Shader> GetShaderActor()
+	{
+		return ShaderActor;
+	}
+
 	std::shared_ptr<class ContentObject> AddActor(ActorType _Type, float4 _Pos,float4 _Rotation, bool _Flip, bool _Debug);
 
 	void Serializer(GameEngineSerializer& _Data) ;
@@ -47,12 +52,12 @@ public:
 
 protected:
 	std::shared_ptr<FX> FXActor;
+	std::shared_ptr<class Shader> ShaderActor = nullptr;
 
 	void Start()  override;
 
 private:
 
 	std::shared_ptr<Map> MapPtr = nullptr;
-
 };
 

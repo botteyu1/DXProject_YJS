@@ -25,6 +25,8 @@ enum class ContentsObjectType
 	Bullet,
 	FX,
 	UI,
+	Shader,
+
 };
 
 enum class ContentsCollisionType

@@ -276,6 +276,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ShaderTab.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="StageObject.cpp">
       <SubType>
       </SubType>
@@ -408,6 +416,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="PreCompile.h" />
+    <ClInclude Include="Shader.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ShaderTab.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="StageObject.h">
       <SubType>
       </SubType>

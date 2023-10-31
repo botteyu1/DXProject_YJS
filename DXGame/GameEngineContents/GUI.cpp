@@ -19,7 +19,7 @@ GUI::~GUI()
 
 void GUI::Start()
 {
-	Tabs.push_back(std::make_shared<LevelChangeTab>("ControlTab"));
+	Tabs.push_back(std::make_shared<LevelChangeTab>("DebugTab"));
 	CurTab = Tabs[0];
 	CurTab->Start();
 	Tabs.push_back(std::make_shared<MapEditorTab>("MapEditor"));

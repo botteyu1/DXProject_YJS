@@ -109,6 +109,12 @@
     <ClCompile Include="UI.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="ShaderTab.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>.Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -212,6 +218,12 @@
     </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderTab.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>.Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

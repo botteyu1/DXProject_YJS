@@ -12,6 +12,7 @@
 #include "FX.h"
 #include "BossGargoyle.h"
 #include "Map.h"
+#include "Shader.h"
 
 Level::Level() 
 {
@@ -627,5 +628,6 @@ void Level::Start()
 {
 	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::BackGroundobject);
 	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::Enemy);
+	ShaderActor = CreateActor<Shader>(ContentsObjectType::Shader);
 }
 

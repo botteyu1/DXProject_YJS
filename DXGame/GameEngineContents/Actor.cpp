@@ -211,7 +211,7 @@ void Actor::DashProcessUpdate(float _Delta,const float4& _Dir, float _Speed)
 		return;
 	}
 
-	if (CurDash == CurAnimationData->DashDistance and MainSpriteRenderer->GetCurIndex() < CurAnimationData->AttackCollisionStartFrame)
+	if (CurDash == CurAnimationData->DashDistance and MainSpriteRenderer->GetCurIndex() < static_cast<unsigned int>(CurAnimationData->AttackCollisionStartFrame))
 	{
 		return;
 	}
