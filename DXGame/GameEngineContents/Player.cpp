@@ -61,7 +61,7 @@ void Player::Start()
 
 		}
 
-
+		// 이동
 		MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Player);
 		MainSpriteRenderer->CreateAnimation("LD_Idle", "LD_Idle", 0.0333f, -1, -1, true);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Idle", {}));
@@ -80,6 +80,7 @@ void Player::Start()
 		MainSpriteRenderer->CreateAnimation("LD_Jump_Falling", "LD_Jump_Falling", 0.3333f, -1, -1, true);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Jump_Falling", {}));
 
+		// 기본 공격
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_01", "LD_ComboMove_01", 0.0233f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_01", { 0.8f , 30.0f, false, {350.0f, 70.0f}, {130.0f, 50.0f} }));
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_02", "LD_ComboMove_02", 0.0333f, -1, -1, false);
@@ -101,6 +102,25 @@ void Player::Start()
 		MainSpriteRenderer->CreateAnimation("LD_AerialDownAttack", "LD_AerialDownAttack", 0.0333f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_AerialDownAttack", { 0.5f, 0.0f , true , {280.0f, 280.0f}, {0.0f, 150.0f} }));
 
+		//망토
+		MainSpriteRenderer->CreateAnimation("LD_ComboKatana", "LD_ComboKatana", 0.0433f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatana", { 0.8f, 300.0f, false, {700.0f, 70.0f}, {300.0f, 50.0f} }));
+		
+		MainSpriteRenderer->CreateAnimation("LD_ComboEvilHands", "LD_ComboEvilHands", 0.0483f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboEvilHands", { 0.8f, 0.0f, false, {700.0f, 70.0f}, {300.0f, 50.0f} }));
+		
+		MainSpriteRenderer->CreateAnimation("LD_ComboEvilHands_Up", "LD_ComboEvilHands_Up", 0.0433f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboEvilHands_Up", { 0.5f, 0.0f, false, {700.0f, 70.0f}, {300.0f, 50.0f} }));
+		
+		MainSpriteRenderer->CreateAnimation("LD_EvilBirds", "LD_EvilBirds", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_EvilBirds", { 0.5f, 0.0f, false, {700.0f, 70.0f}, {300.0f, 50.0f}, 0 , 0.9f }));
+		
+		/*MainSpriteRenderer->CreateAnimation("LD_EvilBirds_Up", "LD_EvilBirds_Up", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_EvilBirds_Up", { 0.7f, 0.0f, false, {700.0f, 70.0f}, {300.0f, 50.0f}, 0 , 1.0f }));*/
+
+
+
+		//마무리 행동
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_01_Rest", "LD_ComboMove_01_Rest", 0.0333f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboMove_01_Rest", {}));
 		MainSpriteRenderer->CreateAnimation("LD_ComboMove_02_Rest", "LD_ComboMove_02_Rest", 0.0333f, -1, -1, false);
@@ -117,6 +137,7 @@ void Player::Start()
 		MainSpriteRenderer->CreateAnimation("LD_ComboAerial_03_Rest", "LD_ComboAerial_03_Rest", 0.0333f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboAerial_03_Rest", {}));
 
+		//상호작용
 		MainSpriteRenderer->CreateAnimation("LD_Elevator_Enter", "LD_Elevator_Enter", 0.0433f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Elevator_Enter", {}));
 		MainSpriteRenderer->CreateAnimation("LD_Elevator_Out", "LD_Elevator_Out", 0.0633f, -1, -1, false);
@@ -124,11 +145,15 @@ void Player::Start()
 		MainSpriteRenderer->CreateAnimation("LD_Elevator_End", "LD_Elevator_End", 0.0433f, -1, -1, true);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Elevator_End", { 0.1f }));
 
+		// 그외 
 		MainSpriteRenderer->CreateAnimation("LD_Dash", "LD_Dash", 0.0333f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Dash", {}));
 
 		MainSpriteRenderer->CreateAnimation("LD_Hit", "LD_Hit", 0.0333f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Hit", {}));
+
+	
+
 		//MainSpriteRenderer->SetEndEvent("LD_RunUturn", std::bind(&Player::EndUturnEvent, this, MainSpriteRenderer.get()));
 		//AnimationData Data = AnimationData{ .PivotX = 0.5f, .CollisionPosition  = float4::ZERO};
 
@@ -144,7 +169,6 @@ void Player::Start()
 
 		DefaultScale = MainSpriteRenderer->GetCurSprite().Texture.get()->GetScale();  
 	} 
-	//float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
 	
 
 	// 콜리전 추가
@@ -160,16 +184,13 @@ void Player::Start()
 	PlayerBook = GetLevel()->CreateActor<BookOfTheDead>(ContentsObjectType::Player_object);
 	PlayerBook->MainPlayer = this;
 
-
+	CapeStart();
 	
-
-	//FXJumpActor = GetLevel()->CreateActor<FX>(ContentsObjectType::FX);
 
 	//이름 추가
 	static int Num = 0;
 	Num++;
 	SetName("Player_" + std::to_string(Num));
-	//On();
 
 	//카메라 포커스
 	//GetLevel()->GetMainCamera()->CameraTargetSetting(Transform, float4::BACKWARD * 1000.0f);
@@ -200,6 +221,7 @@ void Player::Update(float _Delta)
 	}
 
 	StateUpdate(_Delta);
+	CapeState.Update(_Delta);
 
 
 	/*EventParameter Parameter;
@@ -223,7 +245,57 @@ void Player::Update(float _Delta)
 
 void Player::ChangeState(PlayerState _State)
 {
-	
+
+	// 스테이지 전환전 엔드 돌리기
+	switch (State)
+	{
+	case PlayerState::Idle:
+		break;
+	case PlayerState::Jump_Falling:
+		break;
+	case PlayerState::Jump_Start:
+		break;
+	case PlayerState::Jump_Landing:
+		break;
+	case PlayerState::Run:
+		break;
+	case PlayerState::RunUturn:
+		break;
+	case PlayerState::RunToIdle:
+		break;
+	case PlayerState::ComboMove:
+		break;
+	case PlayerState::ComboMove_Rest:
+		break;
+	case PlayerState::ComboAerial:
+		break;
+	case PlayerState::ComboAerial_Rest:
+		break;
+	case PlayerState::JumpingAttack:
+		break;
+	case PlayerState::AerialDownAttack:
+		break;
+	case PlayerState::CapeAttack:
+		CapeAttackEnd();
+		break;
+	case PlayerState::Dash:
+		break;
+	case PlayerState::Hit:
+		break;
+	case PlayerState::EnterElavator:
+		break;
+	case PlayerState::ExitElavator:
+		break;
+	case PlayerState::ForceWait:
+		break;
+	case PlayerState::Max:
+		break;
+	default:
+		break;
+	}
+
+	State = _State;
+
 	switch (_State)
 	{
 	case PlayerState::Idle:	
@@ -265,6 +337,9 @@ void Player::ChangeState(PlayerState _State)
 	case PlayerState::AerialDownAttack:
 		AerialDownAttackStart();
 		break;
+	case PlayerState::CapeAttack:
+		CapeAttackStart();
+		break;
 	case PlayerState::Dash:
 		DashStart();
 		break;
@@ -284,7 +359,7 @@ void Player::ChangeState(PlayerState _State)
 		break;
 	}
 	
-	State = _State;
+	
 	AttackCollisionValue = false;
 }
 
@@ -341,6 +416,9 @@ void Player::StateUpdate(float _Delta)
 		break;
 	case PlayerState::AerialDownAttack:
 		AerialDownAttackUpdate(_Delta);
+		break;
+	case PlayerState::CapeAttack:
+		CapeAttackUpdate(_Delta);
 		break;
 	case PlayerState::Dash:
 		DashUpdate(_Delta);

@@ -98,6 +98,19 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 			TargetCollision = ContentsCollisionType::Player;
 			break;
 		}
+		case BulletType::Tornado:
+		{
+
+			MainSpriteRenderer->CreateAnimation("Tornado", "Tornado", 0.0333f, -1, -1, true);
+			MainSpriteRenderer->ChangeAnimation("Tornado");
+			MainSpriteRenderer->SetPivotValue({ 0.5f,1.0f });
+			//MainSpriteRenderer->SetAutoScaleRatio({ 0.5f,0.5f });
+			AttackCollision->Transform.SetLocalPosition({-50.0f,-50.0f});
+			AttackCollision->Transform.SetLocalScale({ 100.0f,100.0f });
+
+			TargetCollision = ContentsCollisionType::Enemy;
+			break;
+		}
 		default:
 			break;
 	}
@@ -164,12 +177,11 @@ void Bullet::Update(float _Delta)
 		GrivityForce = 0.0f;
 	}
 	//Áö»ó 
-	else
+	else if(ForceGrivityOff == false)
 	{
 		GrivityForce = 0.0f;
 		AerialCheck = false;
 		Death();
-		/*if (AerialCheck == true and ForceGrivityOff == false)*/
 	}
 }
 

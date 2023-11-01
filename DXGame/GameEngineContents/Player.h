@@ -1,5 +1,18 @@
 #pragma once
 #include "Actor.h"
+#include <GameEngineCore/GameEngineState.h>
+
+enum class CapeType
+{
+	Katana,
+	EvilHands,
+	Hammer,
+	EvilBirds,
+	Tornado,
+	Fire,
+	Meteor,
+	None,
+};
 
 enum class PlayerState
 {
@@ -16,10 +29,12 @@ enum class PlayerState
 	ComboAerial_Rest,
 	JumpingAttack,
 	AerialDownAttack,
+	CapeAttack,
 	Dash,
 	Hit,
 	EnterElavator,
 	ExitElavator,
+	
 	ForceWait, //씬이나 UI상태일때 조작금지상태
 
 	Max, // 일반적으로 사용하지 않는 값.
@@ -111,6 +126,14 @@ private:
 	bool JumpingAttackEnd = false; //점핑어택 끝났는지 여부;
 	bool DustLandingValue = false; // 점프 다운어택 땅에 도달했는지 확인하는 용
 	bool AttackCollisionValue = false; //한 공격이 이미 적중했는지 확인하는 용
+
+	void CapeStart();
+	void CapeUpdate(float _Delta);
+
+
+	GameEngineState CapeState;
+	CapeType CurCapeType = CapeType::Tornado; // 현재 착용중인 망토 타입
+	CapeType CurCapeType2 = CapeType::Tornado; // 현재 착용중인 서브 망토 타입
 	
 
 
@@ -171,6 +194,10 @@ private:
 
 	void ForceWaitStart();
 	void ForceWaitUpdate(float _Delta);
+
+	void CapeAttackStart();
+	void CapeAttackUpdate(float _Delta);
+	void CapeAttackEnd();
 
 
 	bool InputMoveUpdate(float _Delta);

@@ -11,6 +11,7 @@ public:
 	float4 CollisionScale = float4::ZERO; // 공격 크기
 	float4 CollisionPosition = float4::ZERO; //공긱 콜리전 위치
 	int AttackCollisionStartFrame = 0; //공격 콜리전이 시작될 프레임
+	float PivotY = 1.0f;
 	
 	//std::string AttackFx = ""; // 공격 효과텍스쳐 이름
 	//float4 AttackFxPivot = { 0.5f, 0.5f };// 애니메이션마다 적용할 피봇값

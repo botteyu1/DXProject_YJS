@@ -188,6 +188,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Cape.cpp" />
     <ClCompile Include="ContentObject.cpp">
       <SubType>
       </SubType>

@@ -155,7 +155,6 @@ void Actor::ChangeMainAnimation(std::string_view _AnimationName)
 {
 	MainSpriteRenderer->ChangeAnimation(_AnimationName);
 	CurAnimationData = &AnimationDataMap.find(_AnimationName.data())->second;
-//	float Pivot = CurAnimationData->PivotX;
 	
 
 	
@@ -174,17 +173,23 @@ void Actor::ChangeMainAnimation(std::string_view _AnimationName)
 	FrameCheck = false;
 }
 
-bool Actor::CheckStartAttackFrame()
+bool Actor::CheckStartAttackFrame(int _Index)
 {
-	float4 CollisionScale = CurAnimationData->CollisionScale;
-	float4 CollisionPosition = CurAnimationData->CollisionPosition;
+	//예전방식
+	int AttackCollisionStartFrame = CurAnimationData->AttackCollisionStartFrame;
 
-	int Frame = MainSpriteRenderer->GetCurIndex();
-
-	
-
-	if (CurAnimationData->AttackCollisionStartFrame == MainSpriteRenderer->GetCurIndex() and FrameCheck == false)
+	//최신
+	if (_Index != -1)
 	{
+		AttackCollisionStartFrame = _Index;
+	}
+
+
+	if (AttackCollisionStartFrame == MainSpriteRenderer->GetCurIndex() and FrameCheck == false)
+	{
+	
+		float4 CollisionScale = CurAnimationData->CollisionScale;
+		float4 CollisionPosition = CurAnimationData->CollisionPosition;
 
 		FrameCheck = true;
 		if (Flip == true)
@@ -199,10 +204,27 @@ bool Actor::CheckStartAttackFrame()
 			AttackCollision->Transform.SetLocalScale(CollisionScale);
 			AttackCollision->Transform.SetLocalPosition(CollisionPosition);
 		}
-		
+	
+		return true;
+	}
+	return false;
+}
+
+bool Actor::CheckEndAttackFrame(int _Index)
+{
+	int AttackCollisionEndFrame = _Index;
+
+	if (AttackCollisionEndFrame == MainSpriteRenderer->GetCurIndex() and FrameCheck == true)
+	{
+		FrameCheck = false;
+
+		AttackCollision->Transform.SetLocalScale({ 0.0f,0.0f,0.0f });
+		AttackCollision->Transform.SetLocalPosition({ 0.0f,0.0f,0.0f });
 
 		return true;
 	}
+
+
 	return false;
 }
 
@@ -241,6 +263,7 @@ void Actor::DashProcessUpdate(float _Delta,const float4& _Dir, float _Speed)
 void Actor::FlipCheck()
 {
 	float Pivot = CurAnimationData->PivotX;
+	float PivotY = CurAnimationData->PivotY;
 	float4 PrevPivot = MainSpriteRenderer->GetPivotValue();
 
 	if (Flip == true)
@@ -251,7 +274,7 @@ void Actor::FlipCheck()
 			
 		}
 		Dir = float4::LEFT;
-		MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
+		MainSpriteRenderer->SetPivotValue({ Pivot, PivotY });
 
 		MainSpriteRenderer->LeftFlip();
 		float MovePos = (Pivot - PrevPivot.X) * -0.8f * DefaultScale.X;
@@ -265,7 +288,7 @@ void Actor::FlipCheck()
 		
 		}
 		Dir = float4::RIGHT;
-		MainSpriteRenderer->SetPivotValue({ Pivot, 1.0f });
+		MainSpriteRenderer->SetPivotValue({ Pivot, PivotY });
 
 		float MovePos = (Pivot - PrevPivot.X) * -0.8f * DefaultScale.X;
 		MainSpriteRenderer->Transform.AddLocalPosition({ MovePos,0.0f });

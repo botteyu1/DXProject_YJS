@@ -4,6 +4,8 @@
 #include "FX.h"
 
 
+
+
 void Player::IdleStart()
 {
 	ChangeMainAnimation("LD_Idle");

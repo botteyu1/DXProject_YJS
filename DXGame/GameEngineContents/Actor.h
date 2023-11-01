@@ -45,7 +45,8 @@ protected:
 	void Start() override;
 	void Update(float _Delta) override;
 	void ChangeMainAnimation(std::string_view _AnimationName);
-	bool CheckStartAttackFrame();
+	bool CheckStartAttackFrame(int _Index = -1); 
+	bool CheckEndAttackFrame(int _Index = -1);
 	void DashProcessUpdate(float _Delta, const float4& _Dir, float _Speed); //공격같은 실행할떄 대쉬업데이트
 	void virtual FlipCheck();
 
@@ -75,7 +76,7 @@ protected:
 
 	float4 GrivityForce = { 0.0f, 0.0f, 0.0f, 1.0f }; //중력힘
 	bool ForceGrivityOff = false;  //공중 몬스터같이  날아야하면 트루
-	bool FrameCheck = false;
+	bool FrameCheck = false; // 공격하고있는 상태면 트루
 	bool AerialCheck = true; // 공중인지 체크 공중이면 트루
 	bool ThroughFloorCheck = false; //특정 바닥(파란색)을 통과할 수 있는 지 체크
 	bool DashStartCheck = true; //대쉬가 시작해도되는지 체크

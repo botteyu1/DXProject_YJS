@@ -5,6 +5,7 @@ enum class BulletType
 {
 	Fire,
 	Paperplane,
+	Tornado,
 	Rock,
 };
 
