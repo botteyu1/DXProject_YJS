@@ -58,6 +58,7 @@ protected:
 	//std::shared_ptr< GameEngineSpriteRenderer> AttackfxRenderer; //공격 렌더러
 
 	std::shared_ptr<GameEngineCollision> AttackCollision;
+	std::shared_ptr<class SecondaryRenderer> LightRenderer;
 	float4 DefaultScale; // 피봇설정을 위한 기본 크기
 
 	float4 Dir = float4::RIGHT; //바라보는 방향/

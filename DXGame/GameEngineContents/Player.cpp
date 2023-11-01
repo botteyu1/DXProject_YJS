@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "BookOfTheDead.h"
 #include "FX.h"
+#include "SecondaryRenderer.h"
 
 Player* Player::MainPlayer = nullptr;
 
@@ -134,6 +135,12 @@ void Player::Start()
 		MainSpriteRenderer->AutoSpriteSizeOn();
 		MainSpriteRenderer->SetPivotValue({ 0.5f, 1.0f });
 		ChangeState(PlayerState::Idle);
+
+		
+
+		/*ShadowRenderer = CreateComponent<SecondaryRenderer>(ContentsRenderType::Shader);
+		ShadowRenderer->Init(SecondaryRendererType::Shadow, { 0.0f,0.0f, -1.0f }, { 133.0f,63.0f,1.0f });*/
+
 
 		DefaultScale = MainSpriteRenderer->GetCurSprite().Texture.get()->GetScale();  
 	} 

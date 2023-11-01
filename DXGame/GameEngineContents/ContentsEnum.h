@@ -3,15 +3,15 @@
 enum class ContentsRenderType
 {
 	//StageObject,
-	BackGround,
 	BackGroundobject,
+	SecondaryRenderer,
 	Enemy,
 	Enemy_Attack,
 	Player_object,
 	Player,
+	BackGround,
 	FX,
 	UI,
-
 	Shader,
 };
 

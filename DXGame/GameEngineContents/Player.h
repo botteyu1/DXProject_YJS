@@ -77,8 +77,10 @@ protected:
 	void Start() override;
 	void Update(float _Delta) override;
 	std::shared_ptr<GameEngineCollision> DetectCollision;
-
 	std::shared_ptr<class BookOfTheDead> PlayerBook;
+	
+	//std::shared_ptr<class SecondaryRenderer> ShadowRenderer;
+
 
 	//void LevelStart() override;
 

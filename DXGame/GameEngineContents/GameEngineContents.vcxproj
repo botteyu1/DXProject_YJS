@@ -200,7 +200,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="ContentsRenderer.cpp">
+    <ClCompile Include="SecondaryRenderer.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -280,6 +280,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SecondaryRendererTab.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Shader.cpp">
       <SubType>
       </SubType>
@@ -351,7 +355,7 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
-    <ClInclude Include="ContentsRenderer.h">
+    <ClInclude Include="SecondaryRenderer.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -424,6 +428,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="PreCompile.h" />
+    <ClInclude Include="SecondaryRendererTab.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Shader.h">
       <SubType>
       </SubType>

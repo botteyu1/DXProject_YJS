@@ -63,11 +63,11 @@ void Map::Update(float _Delta)
 void Map::Init(std::string_view _Main, std::string_view _MainPixel, std::string_view _Main2, std::string_view _MainPixel2)
 {
 	{
-		MainBackGround = CreateComponent<GameEngineSpriteRenderer>(-99);
+		MainBackGround = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::BackGroundobject);
 		MainBackGround->SetSprite(_Main);
 		
 
-		PixelBackGround = CreateComponent<GameEngineSpriteRenderer>(-100);
+		PixelBackGround = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::BackGroundobject);
 		PixelBackGround->SetSprite(_MainPixel);
 		PixelBackGround->Off();
 
@@ -79,9 +79,9 @@ void Map::Init(std::string_view _Main, std::string_view _MainPixel, std::string_
 
 		if (_Main2 != "")
 		{
-			MainBackGround2 = CreateComponent<GameEngineSpriteRenderer>(-99);
+			MainBackGround2 = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::BackGround);
 			MainBackGround2->SetSprite(_Main2);
-			PixelBackGround2 = CreateComponent<GameEngineSpriteRenderer>(-100);
+			PixelBackGround2 = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::BackGround);
 			PixelBackGround2->SetSprite(_MainPixel2);
 			PixelBackGround2->Off();
 			MainBackGround2->Transform.SetLocalPosition(float4{ Scale.X, 0.0f } + HScale);

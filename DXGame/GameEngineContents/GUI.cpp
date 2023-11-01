@@ -6,6 +6,7 @@
 #include "Tab.h"
 #include "UIEditorTab.h"
 #include "ShaderTab.h"
+#include "SecondaryRendererTab.h"
 
 GUI::GUI() 
 {
@@ -24,8 +25,9 @@ void GUI::Start()
 	CurTab = Tabs[0];
 	CurTab->Start();
 	Tabs.push_back(std::make_shared<MapEditorTab>("MapEditor"));
-	Tabs.push_back(std::make_shared<UIEditorTab>("UIEditor"));
+	Tabs.push_back(std::make_shared<UIEditorTab>("UITab"));
 	Tabs.push_back(std::make_shared<ShaderTab>("ShaderTab"));
+	Tabs.push_back(std::make_shared<SecondaryRendererTab>("SecondaryRendererTab"));
 }
 
 void GUI::OnGUI(GameEngineLevel* _Level, float _DeltaTime)

@@ -4,6 +4,7 @@
 #include "PlayLevel.h"
 #include "FX.h"
 #include "PlayMap.h"
+#include "SecondaryRenderer.h"
 
 Actor::Actor() 
 {
@@ -18,6 +19,8 @@ void Actor::Start()
 	MainCollision->SetCollisionType(ColType::AABBBOX2D);
 	AttackCollision->SetCollisionType(ColType::AABBBOX2D);
 	GameEngineInput::AddInputObject(this);
+	LightRenderer = CreateComponent<SecondaryRenderer>(ContentsRenderType::SecondaryRenderer);
+	LightRenderer->Init(SecondaryRendererType::Light, { 0.0f,100.0f, 3.0f }, { 500.0f,500.0f,1.0f });
 
 	//FXActor = GetLevel()->CreateActor<FX>(ContentsObjectType::FX);
 	

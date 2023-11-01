@@ -16,16 +16,17 @@ public:
 	Shader& operator=(Shader&& _Other) noexcept = delete;
 	
 	
-	std::shared_ptr<GameEngineSpriteRenderer> GetShader_Renderer()
+	std::shared_ptr<GameEngineSpriteRenderer> GetGlobalShader()
 	{
-		return Shader_Renderer;
+		return GlobalShader;
 	}
 protected:
 	void Start() override;
 	void Update(float _Delta)override;
 
 private:
-	std::shared_ptr<GameEngineSpriteRenderer> Shader_Renderer = nullptr;
+	std::shared_ptr<GameEngineSpriteRenderer> GlobalShader= nullptr;	
+	std::shared_ptr<GameEngineSpriteRenderer> Cloud= nullptr;
 
 };
 

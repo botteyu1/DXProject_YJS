@@ -2,6 +2,7 @@
 #include "ShaderTab.h"
 #include "Shader.h"
 
+
 ShaderTab::ShaderTab() 
 {
 }
@@ -18,16 +19,6 @@ void ShaderTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 {
 	SelectTabUpdate(_Level);
 	GameEngineInput::AddInputObject(this);
-
-	//ImGui::Text("\n\n -SelectList-");
-
-	/*std::string SelectList;
-	for (int Key : SelectObjects)
-	{
-		ImGui::Text(ObjectLoadedNamesString[Key].c_str());
-		SelectList = "Position " + ObjectLoaded[Key]->Transform.GetLocalPosition().ToString() + "Scale  " + "\n";
-		ImGui::Text(SelectList.c_str());
-	}*/
 }
 
 void ShaderTab::SelectTabUpdate(GameEngineLevel* _Level)
@@ -75,12 +66,12 @@ void ShaderTab::SelectTabUpdate(GameEngineLevel* _Level)
 		}
 	}
 
-	if (LastSelectObject != nullptr)
-	{
-		if (ImGui::SliderFloat4("Global Shader", &LastSelectObject->GetShader_Renderer()->GetColorData().MulColor.R, 0.0f, 1.0f, "%.2f"))
-		{
-			//SkyLerp::SkyManager->SetSkyColor();
-		}
-	}
+	//if (LastSelectObject != nullptr)
+	//{
+	//	if (ImGui::SliderFloat4("Global Shader", &LastSelectObject->GetShader_Renderer()->GetColorData().MulColor.R, 0.0f, 1.0f, "%.2f"))
+	//	{
+	//		//SkyLerp::SkyManager->SetSkyColor();
+	//	}
+	//}
 }
 

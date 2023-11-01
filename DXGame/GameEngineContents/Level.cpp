@@ -628,6 +628,7 @@ void Level::Start()
 {
 	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::BackGroundobject);
 	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::Enemy);
+	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::SecondaryRenderer);
 	ShaderActor = CreateActor<Shader>(ContentsObjectType::Shader);
 }
 
