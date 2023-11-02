@@ -27,9 +27,20 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Cape_BG;
 	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Cape2;
 	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Cape2_BG;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_Ult;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_Ult_BG;
+
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_LifeBar;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_LifeBar_On;
+
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_ManaBar;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_ManaBar_On;
+
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Anima;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Anima2;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Anima3;
+
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_Soulary;
 
 };
 
