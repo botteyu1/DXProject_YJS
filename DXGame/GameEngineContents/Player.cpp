@@ -118,6 +118,13 @@ void Player::Start()
 		/*MainSpriteRenderer->CreateAnimation("LD_EvilBirds_Up", "LD_EvilBirds_Up", 0.0333f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_EvilBirds_Up", { 0.7f, 0.0f, false, {700.0f, 70.0f}, {300.0f, 50.0f}, 0 , 1.0f }));*/
 
+		MainSpriteRenderer->CreateAnimation("LD_BookAttack_01", "LD_BookAttack_01", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_BookAttack_01", {}));
+		MainSpriteRenderer->CreateAnimation("LD_BookAttack_02", "LD_BookAttack_02", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_BookAttack_02", {}));
+		MainSpriteRenderer->CreateAnimation("LD_BookAttack_03", "LD_BookAttack_03", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_BookAttack_03", {}));
+		
 
 
 		//마무리 행동

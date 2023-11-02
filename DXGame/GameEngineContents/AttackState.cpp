@@ -233,13 +233,13 @@ bool Player::InputAttackUpdate(float _Delta)
 		return true;
 	}
 
-	if (GameEngineInput::IsDown(VK_RBUTTON, this))
+	if (GameEngineInput::IsDown(VK_RBUTTON, this) or GameEngineInput::IsDown(VK_MBUTTON, this) or GameEngineInput::IsDown('1', this) or GameEngineInput::IsDown('2', this))
 	{
 		FlipCheck();
 		ChangeState(PlayerState::CapeAttack);
 		return true;
-
 	}
+	
 
 	return false;
 }

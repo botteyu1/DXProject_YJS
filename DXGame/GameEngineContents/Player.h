@@ -132,8 +132,10 @@ private:
 
 
 	GameEngineState CapeState;
-	CapeType CurCapeType = CapeType::Tornado; // 현재 착용중인 망토 타입
+	CapeType CurCapeType = CapeType::EvilBirds; // 현재 착용중인 망토 타입
 	CapeType CurCapeType2 = CapeType::Tornado; // 현재 착용중인 서브 망토 타입
+	CapeType CurCapeType3 = CapeType::Katana; // 디버그용 서브 망토 타입
+	CapeType CurCapeType4 = CapeType::EvilHands; // 디버그용 서브 망토 타입
 	
 
 

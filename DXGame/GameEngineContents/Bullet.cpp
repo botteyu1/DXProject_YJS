@@ -56,9 +56,10 @@ void Bullet::Start()
 	AttackCollision->SetCollisionType(ColType::AABBBOX2D);
 }
 
-void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, float _Power)
+void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, float _Power , bool _Flip)
 {
-	
+	Flip = _Flip;
+	float4 Pos = _Pos;
 	switch (_Type)
 	{
 		case BulletType::Fire:
@@ -86,7 +87,6 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 		}
 		case BulletType::Rock:
 		{
-
 			MainSpriteRenderer->CreateAnimation("Rock", "Rock", 0.0666f, -1, -1, true);
 			MainSpriteRenderer->ChangeAnimation("Rock");
 			//MainSpriteRenderer->SetAutoScaleRatio({ 0.5f,0.5f });
@@ -100,14 +100,32 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 		}
 		case BulletType::Tornado:
 		{
+			if (Flip == true)
+			{
+				Pos += float4{ -170.0f, 0.0f };
+				MainSpriteRenderer->LeftFlip();
+			}
+			else
+			{
+				Pos += float4{ 170.0f, 0.0f };
+			}
 
 			MainSpriteRenderer->CreateAnimation("Tornado", "Tornado", 0.0333f, -1, -1, true);
+			MainSpriteRenderer->SetFrameEvent("Tornado", 10, [&](GameEngineSpriteRenderer* Renderer) {
+				if (BulletCount < 3)
+				{
+					std::shared_ptr <Bullet> Object = GetLevel()->CreateActor<Bullet>(ContentsObjectType::Bullet);
+					float4 Dir = float4::RIGHT;
+					Object->Init(BulletType::Tornado, Transform.GetLocalPosition(), Damage, Dir, 0.0f,Flip);
+					Object->BulletCount = BulletCount + 1;
+				}
+				});
 			MainSpriteRenderer->ChangeAnimation("Tornado");
 			MainSpriteRenderer->SetPivotValue({ 0.5f,1.0f });
-			//MainSpriteRenderer->SetAutoScaleRatio({ 0.5f,0.5f });
-			AttackCollision->Transform.SetLocalPosition({-50.0f,-50.0f});
-			AttackCollision->Transform.SetLocalScale({ 100.0f,100.0f });
+			MainSpriteRenderer->SetAutoScaleRatio({ 1.3f,1.3f,1.0f });
 
+			AttackCollision->Transform.SetLocalPosition({0.0f,0.0f});
+			AttackCollision->Transform.SetLocalScale({ 100.0f,100.0f });
 			TargetCollision = ContentsCollisionType::Enemy;
 			break;
 		}
@@ -117,7 +135,7 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 	
 	float4 Normal = _Dir.NormalizeReturn();
 	float Deg = Normal.Angle2DDeg();
-	if (Normal.Y <= 0.0f)
+	if (Normal.Y < 0.0f)
 	{
 		Deg = -Deg;
 	}
@@ -126,11 +144,11 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 	/*float4 Normal2 = float4{ 0.0f,1.0f,0.0f }.NormalizeReturn();
 	float4 Deg2 = Normal2.Angle2DDeg();*/
 	
-	Transform.SetLocalPosition(_Pos);
+	Transform.SetLocalPosition(Pos);
 	Damage = _Damage;
 	Vecter = Normal * _Power;
 	Transform.AddLocalRotation({0.0f,0.0f,Deg});
-
+	Type = _Type;
 
 	SetName("Bullet");
 }
@@ -148,41 +166,68 @@ void Bullet::Update(float _Delta)
 
 	EventParameter Parameter;
 
-	Parameter.Enter = BulletHit;
-
-	AttackCollision->CollisionEvent<ContentsCollisionType>(TargetCollision, Parameter);
-
 	Time += _Delta;
-
-	if (Time >= 5.0f)
+	
+	switch (Type)
 	{
-		Death();
+	case BulletType::Fire:
+	case BulletType::Paperplane:
+		Parameter.Enter = BulletHit;
+		AttackCollision->CollisionEvent<ContentsCollisionType>(TargetCollision, Parameter);
+
+		if (Time >= 5.0f)
+		{
+			Death();
+		}
+		break;
+		break;
+	case BulletType::Tornado:
+		
+		if (MainSpriteRenderer->IsCurAnimationEnd() == true)
+		{
+			Death();
+		}
+		break;
+
+	case BulletType::Rock:
+	{
+		Parameter.Enter = BulletHit;
+		AttackCollision->CollisionEvent<ContentsCollisionType>(TargetCollision, Parameter);
+		//공중인지 체크
+		GameEngineColor Color = PixelCollisionCheck({ 0.0f,-1.0f });
+
+		//공중
+		if ((GameEngineColor::WHITE == Color) and ForceGrivityOff == false)
+		{
+			AerialCheck = true;
+			GrivityForce.Y -= _Delta * 5000.f;
+			Transform.AddLocalPosition(GrivityForce * _Delta);
+		}
+		//중력이 꺼져도 공중인지 체크하고 중력초기화
+		else if (GameEngineColor::WHITE == Color)
+		{
+			AerialCheck = true;
+			GrivityForce = 0.0f;
+		}
+		//지상 
+		else if (ForceGrivityOff == false)
+		{
+			GrivityForce = 0.0f;
+			AerialCheck = false;
+			Death();
+		}
+	}
+		break;
+	case BulletType::Max:
+		break;
+	default:
+		break;
 	}
 
+	
 
-	//공중인지 체크
-	GameEngineColor Color = PixelCollisionCheck({ 0.0f,-1.0f });
 
-	//공중
-	if ((GameEngineColor::WHITE == Color) and ForceGrivityOff == false)
-	{
-		AerialCheck = true;
-		GrivityForce.Y -= _Delta * 5000.f;
-		Transform.AddLocalPosition(GrivityForce * _Delta);
-	}
-	//중력이 꺼져도 공중인지 체크하고 중력초기화
-	else if (GameEngineColor::WHITE == Color)
-	{
-		AerialCheck = true;
-		GrivityForce = 0.0f;
-	}
-	//지상 
-	else if(ForceGrivityOff == false)
-	{
-		GrivityForce = 0.0f;
-		AerialCheck = false;
-		Death();
-	}
+
 }
 
 GameEngineColor Bullet::PixelCollisionCheck(float4 _Pixel, GameEngineColor _DefaultColor)

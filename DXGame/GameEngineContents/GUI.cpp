@@ -26,8 +26,8 @@ void GUI::Start()
 	CurTab->Start();
 	Tabs.push_back(std::make_shared<MapEditorTab>("MapEditor"));
 	Tabs.push_back(std::make_shared<UIEditorTab>("UITab"));
-	Tabs.push_back(std::make_shared<ShaderTab>("ShaderTab"));
-	Tabs.push_back(std::make_shared<SecondaryRendererTab>("SecondaryRendererTab"));
+	//Tabs.push_back(std::make_shared<ShaderTab>("ShaderTab"));
+	Tabs.push_back(std::make_shared<SecondaryRendererTab>("ShaderTab"));
 }
 
 void GUI::OnGUI(GameEngineLevel* _Level, float _DeltaTime)

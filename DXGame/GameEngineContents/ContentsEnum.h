@@ -6,7 +6,7 @@ enum class ContentsRenderType
 	BackGroundobject,
 	SecondaryRenderer,
 	Enemy,
-	Enemy_Attack,
+	Enemy_Attack,  //ºÒ¸´
 	Player_object,
 	Player,
 	BackGround,
