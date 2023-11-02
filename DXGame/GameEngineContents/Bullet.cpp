@@ -182,7 +182,11 @@ void Bullet::Update(float _Delta)
 		break;
 		break;
 	case BulletType::Tornado:
-
+		if (MainSpriteRenderer->GetCurIndex() >= 21)
+		{
+			Parameter.Enter = BulletHit;
+			AttackCollision->CollisionEvent<ContentsCollisionType>(TargetCollision, Parameter);
+		}
 		
 		if (MainSpriteRenderer->IsCurAnimationEnd() == true)
 		{
