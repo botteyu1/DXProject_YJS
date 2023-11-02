@@ -124,8 +124,8 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 			MainSpriteRenderer->SetPivotValue({ 0.5f,1.0f });
 			MainSpriteRenderer->SetAutoScaleRatio({ 1.3f,1.3f,1.0f });
 
-			AttackCollision->Transform.SetLocalPosition({0.0f,0.0f});
-			AttackCollision->Transform.SetLocalScale({ 100.0f,100.0f });
+			AttackCollision->Transform.SetLocalPosition({0.0f,300.0f});
+			AttackCollision->Transform.SetLocalScale({ 150.0f,600.0f });
 			TargetCollision = ContentsCollisionType::Enemy;
 			break;
 		}
@@ -182,6 +182,7 @@ void Bullet::Update(float _Delta)
 		break;
 		break;
 	case BulletType::Tornado:
+
 		
 		if (MainSpriteRenderer->IsCurAnimationEnd() == true)
 		{

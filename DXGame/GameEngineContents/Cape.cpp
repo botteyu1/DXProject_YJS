@@ -94,8 +94,8 @@ void Player::CapeStart()
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
-				CheckStartAttackFrame(0);
-				CheckEndAttackFrame(2);
+				CheckStartAttackFrame(5);
+				CheckEndAttackFrame(13);
 				/*CheckStartAttackFrame(4);
 				CheckEndAttackFrame(8);*/
 				DashProcessUpdate(_DeltaTime, float4::LEFT, 2000.0f);
@@ -151,8 +151,8 @@ void Player::CapeStart()
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
-				CheckStartAttackFrame(0);
-				CheckEndAttackFrame(2);
+				CheckStartAttackFrame(3);
+				CheckEndAttackFrame(19);
 				/*CheckStartAttackFrame(4);
 				CheckEndAttackFrame(8);*/
 				DashProcessUpdate(_DeltaTime, float4::LEFT, 2000.0f);

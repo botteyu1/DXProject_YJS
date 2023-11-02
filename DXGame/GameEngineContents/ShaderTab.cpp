@@ -66,12 +66,6 @@ void ShaderTab::SelectTabUpdate(GameEngineLevel* _Level)
 		}
 	}
 
-	//if (LastSelectObject != nullptr)
-	//{
-	//	if (ImGui::SliderFloat4("Global Shader", &LastSelectObject->GetShader_Renderer()->GetColorData().MulColor.R, 0.0f, 1.0f, "%.2f"))
-	//	{
-	//		//SkyLerp::SkyManager->SetSkyColor();
-	//	}
-	//}
+
 }
 
