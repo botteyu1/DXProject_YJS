@@ -43,7 +43,7 @@ void Player::CapeStart()
 				CheckEndAttackFrame(2);
 				CheckStartAttackFrame(4);
 				CheckEndAttackFrame(8);
-				DashProcessUpdate(_DeltaTime, float4::LEFT, 2000.0f);
+				DashProcessUpdate(_DeltaTime, float4::LEFT, 3000.0f);
 				CheckAttackCollision();
 
 				if (MainSpriteRenderer->IsCurAnimationEnd())

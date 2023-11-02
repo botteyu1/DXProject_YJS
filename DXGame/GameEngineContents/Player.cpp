@@ -107,7 +107,7 @@ void Player::Start()
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatana", { 0.8f, 300.0f, false, {700.0f, 70.0f}, {300.0f, 50.0f} }));
 		
 		MainSpriteRenderer->CreateAnimation("LD_ComboEvilHands", "LD_ComboEvilHands", 0.0483f, -1, -1, false);
-		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboEvilHands", { 0.8f, 0.0f, false, {700.0f, 70.0f}, {300.0f, 50.0f} }));
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboEvilHands", { 0.75f, 0.0f, false, {700.0f, 70.0f}, {300.0f, 50.0f} }));
 		
 		MainSpriteRenderer->CreateAnimation("LD_ComboEvilHands_Up", "LD_ComboEvilHands_Up", 0.0433f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboEvilHands_Up", { 0.5f, 0.0f, false, {700.0f, 70.0f}, {300.0f, 50.0f} }));
