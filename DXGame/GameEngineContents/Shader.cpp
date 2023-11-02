@@ -42,12 +42,12 @@ void Shader::Start()
 	//Cloud->GetColorData().MulColor = float4{ 0.07f,0.11f,0.0f,0.2f };
 
 	GlobalShader = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Shader);
+	GlobalShader->SetMaterial("2DTextureAlwaysDepth");
 	GlobalShader->SetCameraOrder(ECAMERAORDER::UI);
 	GlobalShader->SetSprite("ShaderWhite.Png");
-	GlobalShader->GetImageTransform().SetLocalScale(WindowScale);
+	GlobalShader->GetImageTransform().SetLocalScale(WindowScale + float4{0.0f,0.0f,1.0f});
 	GlobalShader->GetColorData().MulColor = float4{ 0.07f,0.11f,0.0f,0.2f };
 	GlobalShader->SetName("GlobalShader");
-
 
 
 }

@@ -9,6 +9,7 @@
 #include "MapEditorLevel.h"
 #include "BossLevel.h"
 
+
 std::shared_ptr<class GameEngineRandom> ContentsCore::MainRandom;
 
 ContentsCore::ContentsCore() 
@@ -21,6 +22,9 @@ ContentsCore::~ContentsCore()
 
 void ContentsCore::Start()
 {
+	GameEngineFont::Load("궁서");
+	GameEngineFont::Load("메이플스토리");
+
 	GameEngineGUI::CreateGUIWindow<GUI>("GUI");
 
 	GameEngineRenderTarget* BackBuffer = GameEngineCore::GetBackBufferRenderTarget().get();
@@ -35,6 +39,7 @@ void ContentsCore::Start()
 	GameEngineCore::CreateLevel<MapEditorLevel>("MapEditorLevel");
 	GameEngineCore::ChangeLevel("PlayLevel");
 
+	
 
 	// 자기 텍스처 로드해야 한다.
 

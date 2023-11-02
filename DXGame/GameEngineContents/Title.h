@@ -30,6 +30,12 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> UIArrow;
 	std::shared_ptr<class GameEngineSpriteRenderer> TitleBG;
 
+
+	std::shared_ptr<class GameEngineSpriteRenderer> TitlePlay;
+	std::shared_ptr<class GameEngineSpriteRenderer> TitleOption;
+	std::shared_ptr<class GameEngineSpriteRenderer> TitleCredit;
+	std::shared_ptr<class GameEngineSpriteRenderer> TitleExit;
+
 	int ArrowLocate = 1;
 	float MoveDist = -50.0f;
 	float MoveDistCheck = 0.0f;

@@ -12,6 +12,7 @@
 #include "FX.h"
 #include "BossGargoyle.h"
 #include "Map.h"
+#include "PlayUI.h"
 
 
 PlayLevel::PlayLevel() 
@@ -43,24 +44,7 @@ void PlayLevel::Start()
 		SetMap(Object);
 	}
 	FXActor = CreateActor<FX>(ContentsObjectType::FX);
-
-	//CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
-	//CreateActor<Ghost_Woman>(ContentsObjectType::Enemy);
-	//CreateActor<PossessedBook>(ContentsObjectType::Enemy);
-	//CreateActor<BossGargoyle>(ContentsObjectType::Enemy);
-	//CreateActor<Ghost_Med>(ContentsObjectType::Enemy);
-	//{
-	//	std::shared_ptr<Elevator> Object = CreateActor<Elevator>(ContentsObjectType::StageObject);
-	//	Object->Init(ElevatorState::Start);
-	//}
-
-	//
-	//std::shared_ptr<BGObject> Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
-	//Object->Init("GhostWorkersBox1.png"); 
-
-	//Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
-	//Object->Init("GhostWorkersBox11.png");
-
+	PlayUIPtr = CreateActor<PlayUI>(ContentsObjectType::UI);
 
 	GameEngineDirectory Dir;
 	Dir.MoveParentToExistsChild("GameEngineResources");

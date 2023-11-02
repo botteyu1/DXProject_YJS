@@ -124,6 +124,9 @@
     <ClCompile Include="Cape.cpp">
       <Filter>Actor\Player\Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="PlayUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -198,9 +201,6 @@
     <ClInclude Include="FxSpriteRenderer.h">
       <Filter>FX</Filter>
     </ClInclude>
-    <ClInclude Include="Title.h">
-      <Filter>UI\Title</Filter>
-    </ClInclude>
     <ClInclude Include="BossGargoyle.h">
       <Filter>Actor\Enemy</Filter>
     </ClInclude>
@@ -239,6 +239,12 @@
     </ClInclude>
     <ClInclude Include="SecondaryRendererTab.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>UI\Title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

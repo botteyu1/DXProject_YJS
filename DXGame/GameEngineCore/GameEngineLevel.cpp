@@ -5,8 +5,9 @@
 #include "GameEngineCamera.h"
 #include "GameEngineCollision.h"
 #include "GameEngineCollisionGroup.h"
+#include "GAMEENGINERENDERTARGET.H"
 
-bool GameEngineLevel::IsDebug = false;
+bool GameEngineLevel::IsDebug = true;
 
 GameEngineLevel::GameEngineLevel() 
 {
@@ -75,6 +76,8 @@ void GameEngineLevel::Render(float _Delta)
 
 	if (true == IsDebug)
 	{
+		GameEngineCore::GetBackBufferRenderTarget()->Setting();
+
 		GameEngineDebug::GameEngineDebugCore::DebugRender();
 		// 몬가를 한다.
 	}

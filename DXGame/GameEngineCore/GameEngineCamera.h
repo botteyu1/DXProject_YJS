@@ -9,6 +9,8 @@
 // Ό³Έν :
 class GameEngineCamera : public GameEngineActor
 {
+	static std::shared_ptr<class GameEngineRenderTarget> AllRenderTarget;
+
 	friend class GameEngineRenderer;
 	friend class GameEngineActor;
 	friend class GameEngineLevel;
@@ -81,6 +83,18 @@ public:
 		ZSortMap.insert(_SortOrder);
 	}
 
+	template<typename EnumType>
+	void SetYSort(EnumType _SortOrder)
+	{
+		YSortMap.insert(static_cast<int>(_SortOrder));
+	}
+
+	void SetYSort(int _SortOrder)
+	{
+		YSortMap.insert(_SortOrder);
+	}
+
+
 protected:
 	void Start() override;
 
@@ -91,7 +105,7 @@ protected:
 	void AllReleaseCheck() override;
 
 	
-
+	
 
 private:
 	float4 Pivot = float4::ZERO;
@@ -117,6 +131,9 @@ private:
 	TransformData OriginData;
 
 	std::set<int> ZSortMap;
+	std::set<int> YSortMap;
+
+	std::shared_ptr<class GameEngineRenderTarget> CameraTarget;
 
 	void CameraUpdate(float _DeltaTime);
 };

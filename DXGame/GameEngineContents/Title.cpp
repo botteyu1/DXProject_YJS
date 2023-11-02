@@ -61,6 +61,25 @@ void Title::Start()
 	UIArrow->SetSprite("UI_Missions_Arrow_Right_On.png");
 	UIArrow->Transform.SetLocalPosition({ 100.0f,-650.0f, -1.0f});
 
+
+	
+
+	TitlePlay = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	TitlePlay->SetText("메이플스토리", "플레이",60.0f,{1.0f,1.f,1.f});
+	TitlePlay->Transform.SetLocalPosition({ 180.0f,-620.0f, -1.0f});
+
+	TitleOption = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	TitleOption->SetText("메이플스토리", "옵션",60.0f,{1.0f,1.f,1.f});
+	TitleOption->Transform.SetLocalPosition({ 180.0f,-710.0f, -1.0f});
+
+	TitleCredit = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	TitleCredit->SetText("메이플스토리", "크레딧",60.0f,{1.0f,1.f,1.f});
+	TitleCredit->Transform.SetLocalPosition({ 180.0f,-800.0f, -1.0f});
+
+	TitleExit = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	TitleExit->SetText("메이플스토리", "나가기",60.0f,{1.0f,1.f,1.f});
+	TitleExit->Transform.SetLocalPosition({ 180.0f,-890.0f, -1.0f});
+
 	LD_Weapon = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	LD_Weapon->AutoSpriteSizeOn();
 	LD_Weapon->SetAutoScaleRatio({ 1.8f,1.8f,1.0f });
@@ -132,12 +151,12 @@ void Title::Update(float _Delta)
 	if (GameEngineInput::IsDown('W', this) and ArrowLocate > 1)
 	{
 		ArrowLocate--;
-		UIArrow->Transform.AddLocalPosition({ 0.0f,100.0f });
+		UIArrow->Transform.AddLocalPosition({ 0.0f,90.0f });
 	}
 	if (GameEngineInput::IsDown('S', this) and ArrowLocate < 4)
 	{
 		ArrowLocate++;
-		UIArrow->Transform.AddLocalPosition({ 0.0f, -100.0f });
+		UIArrow->Transform.AddLocalPosition({ 0.0f, -90.0f });
 	}
 
 	if (GameEngineInput::IsDown(VK_RETURN, this) and ArrowLocate == 1)
