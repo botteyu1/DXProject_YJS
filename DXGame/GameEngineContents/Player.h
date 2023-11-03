@@ -45,6 +45,7 @@ enum class PlayerState
 class Player : public Actor
 {
 	friend class BookOfTheDead;
+	friend class PlayUI;
 
 private:
 	static Player* MainPlayer;
@@ -112,6 +113,14 @@ private:
 	float DamagedDelay = 0.5f; // 피격후 무적시간
 
 	PlayerState State = PlayerState::Max;
+
+	int MP = 30;
+	int MaxMP = 50;
+
+
+	int MaxHP = 80;
+
+	int Soulary = 0;
 
 	int ComboCount = 0;
 	int AerialComboCount = 0;

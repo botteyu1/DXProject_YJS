@@ -38,6 +38,11 @@ public:
 		HP += _HP;
 	}
 
+	int GetHP()
+	{
+		return HP ;
+	}
+
 	void virtual TakeDamage(GameEngineCollision* _Attacker, float _Damage) {}
 
 protected:

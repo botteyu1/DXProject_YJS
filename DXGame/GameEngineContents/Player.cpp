@@ -203,6 +203,8 @@ void Player::Start()
 	//GetLevel()->GetMainCamera()->CameraTargetSetting(Transform, float4::BACKWARD * 1000.0f);
 
 	Actor::Start();
+
+	HP = 70.0f;
 }
 
 

@@ -32,15 +32,19 @@ private:
 
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_LifeBar;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_LifeBar_On;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_LifeBar_Text;
+
 
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_ManaBar;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_ManaBar_On;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_ManaBar_Text;
 
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Anima;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Anima2;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Anima3;
 
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Soulary;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_Soulary_Text;
 
 };
 
