@@ -121,11 +121,14 @@
     <ClCompile Include="SecondaryRendererTab.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Cape.cpp">
+    <ClCompile Include="CapeState.cpp">
       <Filter>Actor\Player\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="PlayUI.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Cape.cpp">
+      <Filter>Actor\Player\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +248,9 @@
     </ClInclude>
     <ClInclude Include="Title.h">
       <Filter>UI\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Cape.h">
+      <Filter>Actor\Player\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

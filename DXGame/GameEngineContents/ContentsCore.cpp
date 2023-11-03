@@ -8,9 +8,10 @@
 #include "GUI.h"
 #include "MapEditorLevel.h"
 #include "BossLevel.h"
+#include "Cape.h"
 
 
-std::shared_ptr<class GameEngineRandom> ContentsCore::MainRandom;
+std::shared_ptr< GameEngineRandom> ContentsCore::MainRandom;
 
 ContentsCore::ContentsCore() 
 {
@@ -24,6 +25,8 @@ void ContentsCore::Start()
 {
 	GameEngineFont::Load("궁서");
 	GameEngineFont::Load("메이플스토리");
+
+
 
 	GameEngineGUI::CreateGUIWindow<GUI>("GUI");
 

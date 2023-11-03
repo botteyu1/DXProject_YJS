@@ -48,6 +48,15 @@ void PlayUI::Start()
 	HUD_Scythe_Outline->Transform.SetLocalPosition({-910.0f,430.0f,0.0f });
 	HUD_Scythe_Outline->SetName("HUD_Main_BG");
 
+	HUD_Scythe = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Scythe->SetMaterial("2DTextureAlwaysDepth");
+	HUD_Scythe->AutoSpriteSizeOn();
+	HUD_Scythe->SetAutoScaleRatio({ 0.35f,0.35f,0.4f });
+	HUD_Scythe->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Scythe->SetSprite("PLACEHOLDER_Scythe_Basic.png");
+	HUD_Scythe->Transform.SetLocalPosition({-910.0f,430.0f,0.0f });
+	HUD_Scythe->SetName("HUD_Scythe");
+
 
 	HUD_Cape_BG = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Cape_BG->AutoSpriteSizeOn();
@@ -67,6 +76,14 @@ void PlayUI::Start()
 	HUD_Cape_Outline->SetName("HUD_Cape");
 
 
+	HUD_Cape = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Cape->SetMaterial("2DTextureAlwaysDepth");
+	HUD_Cape->AutoSpriteSizeOn();
+	HUD_Cape->SetAutoScaleRatio({ 0.35f,0.35f,0.4f });
+	HUD_Cape->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Cape->SetSprite("PLACEHOLDER_Big_Hands.png");
+	HUD_Cape->Transform.SetLocalPosition({ -865.0f,475.0f,0.0f });
+	HUD_Cape->SetName("HUD_Cape");
 
 	HUD_Cape2_BG = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Cape2_BG->AutoSpriteSizeOn();
@@ -84,6 +101,15 @@ void PlayUI::Start()
 	HUD_Cape2_Outline->SetSprite("HUD_Main_Jauge.png");
 	HUD_Cape2_Outline->Transform.SetLocalPosition({ -820.0f,430.0f,0.0f });
 	HUD_Cape2_Outline->SetName("HUD_Cape2");
+
+	HUD_Cape2 = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Cape2->SetMaterial("2DTextureAlwaysDepth");
+	HUD_Cape2->AutoSpriteSizeOn();
+	HUD_Cape2->SetAutoScaleRatio({ 0.35f,0.35f,0.4f });
+	HUD_Cape2->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Cape2->SetSprite("PLACEHOLDER_Wind.png");
+	HUD_Cape2->Transform.SetLocalPosition({ -865.0f,475.0f,0.0f });
+	HUD_Cape2->SetName("HUD_Cape2");
 
 	HUD_Ult_BG = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Ult_BG->AutoSpriteSizeOn();
@@ -191,8 +217,6 @@ void PlayUI::Start()
 	HUD_Soulary_Text->SetName("HUD_ManaBar_Text");
 
 
-	//HUD_Anima2 = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
-	//HUD_Anima3 = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 }
 
 void PlayUI::Update(float _Delta)
@@ -222,6 +246,10 @@ void PlayUI::Update(float _Delta)
 	float MaxMPBar = (static_cast<float>(PlayerPtr->MaxMP) / 50.f) * 330.f;
 	HUD_ManaBar->SetImageScale({ MaxMPBar,15.0f,1.0f });
 
+
+	
+
+	//HUD_Scythe->
 
 }
 

@@ -7,6 +7,7 @@
 #include "BookOfTheDead.h"
 #include "FX.h"
 #include "SecondaryRenderer.h"
+#include "ContentsCore.h"
 
 Player* Player::MainPlayer = nullptr;
 
@@ -103,6 +104,8 @@ void Player::Start()
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_AerialDownAttack", { 0.5f, 0.0f , true , {280.0f, 280.0f}, {0.0f, 150.0f} }));
 
 		//¸ÁÅä
+		Cape::CapeDataManager->Data;
+		 
 		MainSpriteRenderer->CreateAnimation("LD_ComboKatana", "LD_ComboKatana", 0.0433f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatana", { 0.8f, 300.0f, false, {700.0f, 70.0f}, {300.0f, 50.0f} }));
 		
@@ -161,8 +164,6 @@ void Player::Start()
 
 	
 
-		//MainSpriteRenderer->SetEndEvent("LD_RunUturn", std::bind(&Player::EndUturnEvent, this, MainSpriteRenderer.get()));
-		//AnimationData Data = AnimationData{ .PivotX = 0.5f, .CollisionPosition  = float4::ZERO};
 
 		MainSpriteRenderer->AutoSpriteSizeOn();
 		MainSpriteRenderer->SetPivotValue({ 0.5f, 1.0f });
@@ -204,7 +205,7 @@ void Player::Start()
 
 	Actor::Start();
 
-	HP = 70.0f;
+	HP = 70;
 }
 
 

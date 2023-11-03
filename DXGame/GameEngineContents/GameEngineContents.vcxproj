@@ -188,7 +188,11 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Cape.cpp" />
+    <ClCompile Include="Cape.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="CapeState.cpp" />
     <ClCompile Include="ContentObject.cpp">
       <SubType>
       </SubType>
@@ -344,6 +348,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Bullet.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Cape.h">
       <SubType>
       </SubType>
     </ClInclude>

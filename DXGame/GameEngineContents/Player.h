@@ -1,18 +1,8 @@
 #pragma once
 #include "Actor.h"
 #include <GameEngineCore/GameEngineState.h>
+#include "Cape.h"
 
-enum class CapeType
-{
-	Katana,
-	EvilHands,
-	Hammer,
-	EvilBirds,
-	Tornado,
-	Fire,
-	Meteor,
-	None,
-};
 
 enum class PlayerState
 {
@@ -139,6 +129,8 @@ private:
 	void CapeStart();
 	void CapeUpdate(float _Delta);
 
+
+	//Cape CapeData;
 
 	GameEngineState CapeState;
 	CapeType CurCapeType = CapeType::EvilBirds; // 현재 착용중인 망토 타입
