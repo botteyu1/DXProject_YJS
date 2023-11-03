@@ -29,24 +29,24 @@ void PlayUI::Start()
 		}
 	}
 	
-	HUD_Main_BG = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
-	HUD_Main_BG->SetMaterial("2DTextureAlwaysDepth");
-	HUD_Main_BG->AutoSpriteSizeOn();
-	HUD_Main_BG->SetCameraOrder(ECAMERAORDER::UI);
-	HUD_Main_BG->SetAutoScaleRatio({ 0.9f,0.9f,0.9f });
-	HUD_Main_BG->GetColorData().MulColor = float4(0.15f, 0.15f, 0.15f, 1.0f);
-	HUD_Main_BG->SetSprite("HUD_Main_Black.png");
-	HUD_Main_BG->Transform.SetLocalPosition({ -910.0f,430.0f,1.0f });
-	HUD_Main_BG->SetName("HUD_Main");
+	HUD_Scythe_BG = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Scythe_BG->SetMaterial("2DTextureAlwaysDepth");
+	HUD_Scythe_BG->AutoSpriteSizeOn();
+	HUD_Scythe_BG->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Scythe_BG->SetAutoScaleRatio({ 0.9f,0.9f,0.9f });
+	HUD_Scythe_BG->GetColorData().MulColor = float4(0.15f, 0.15f, 0.15f, 1.0f);
+	HUD_Scythe_BG->SetSprite("HUD_Main_Black.png");
+	HUD_Scythe_BG->Transform.SetLocalPosition({ -910.0f,430.0f,1.0f });
+	HUD_Scythe_BG->SetName("HUD_Main");
 
-	HUD_Main = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
-	HUD_Main->SetMaterial("2DTextureAlwaysDepth");
-	HUD_Main->AutoSpriteSizeOn();
-	HUD_Main->SetAutoScaleRatio({ 1.2f,1.2f,1.2f });
-	HUD_Main->SetCameraOrder(ECAMERAORDER::UI);
-	HUD_Main->SetSprite("HUD_Main_Jauge.png");
-	HUD_Main->Transform.SetLocalPosition({-910.0f,430.0f,0.0f });
-	HUD_Main->SetName("HUD_Main_BG");
+	HUD_Scythe_Outline = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Scythe_Outline->SetMaterial("2DTextureAlwaysDepth");
+	HUD_Scythe_Outline->AutoSpriteSizeOn();
+	HUD_Scythe_Outline->SetAutoScaleRatio({ 1.2f,1.2f,1.2f });
+	HUD_Scythe_Outline->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Scythe_Outline->SetSprite("HUD_Main_Jauge.png");
+	HUD_Scythe_Outline->Transform.SetLocalPosition({-910.0f,430.0f,0.0f });
+	HUD_Scythe_Outline->SetName("HUD_Main_BG");
 
 
 	HUD_Cape_BG = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
@@ -58,13 +58,13 @@ void PlayUI::Start()
 	HUD_Cape_BG->Transform.SetLocalPosition({-865.0f,475.0f,1.0f });
 	HUD_Cape_BG->SetName("HUD_Cape_BG");
 
-	HUD_Cape = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
-	HUD_Cape->AutoSpriteSizeOn();
-	HUD_Cape->SetAutoScaleRatio({ 1.2f,1.2f,1.2f });
-	HUD_Cape->SetCameraOrder(ECAMERAORDER::UI);
-	HUD_Cape->SetSprite("HUD_Main_Jauge.png");
-	HUD_Cape->Transform.SetLocalPosition({-865.0f,475.0f,0.0f });
-	HUD_Cape->SetName("HUD_Cape");
+	HUD_Cape_Outline = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Cape_Outline->AutoSpriteSizeOn();
+	HUD_Cape_Outline->SetAutoScaleRatio({ 1.2f,1.2f,1.2f });
+	HUD_Cape_Outline->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Cape_Outline->SetSprite("HUD_Main_Jauge.png");
+	HUD_Cape_Outline->Transform.SetLocalPosition({-865.0f,475.0f,0.0f });
+	HUD_Cape_Outline->SetName("HUD_Cape");
 
 
 
@@ -77,13 +77,13 @@ void PlayUI::Start()
 	HUD_Cape2_BG->Transform.SetLocalPosition({-820.0f,430.0f,1.0f });
 	HUD_Cape2_BG->SetName("HUD_Cape2_BG");
 
-	HUD_Cape2 = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
-	HUD_Cape2->SetAutoScaleRatio({ 1.2f,1.2f,1.2f });
-	HUD_Cape2->AutoSpriteSizeOn();
-	HUD_Cape2->SetCameraOrder(ECAMERAORDER::UI);
-	HUD_Cape2->SetSprite("HUD_Main_Jauge.png");
-	HUD_Cape2->Transform.SetLocalPosition({ -820.0f,430.0f,0.0f });
-	HUD_Cape2->SetName("HUD_Cape2");
+	HUD_Cape2_Outline = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Cape2_Outline->SetAutoScaleRatio({ 1.2f,1.2f,1.2f });
+	HUD_Cape2_Outline->AutoSpriteSizeOn();
+	HUD_Cape2_Outline->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Cape2_Outline->SetSprite("HUD_Main_Jauge.png");
+	HUD_Cape2_Outline->Transform.SetLocalPosition({ -820.0f,430.0f,0.0f });
+	HUD_Cape2_Outline->SetName("HUD_Cape2");
 
 	HUD_Ult_BG = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Ult_BG->AutoSpriteSizeOn();

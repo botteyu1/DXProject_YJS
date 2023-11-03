@@ -21,11 +21,11 @@ protected:
 	void Update(float _Delta) override;
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Main;
-	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Main_BG;
-	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Cape;
+	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Scythe_Outline;
+	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Scythe_BG;
+	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Cape_Outline;
 	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Cape_BG;
-	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Cape2;
+	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Cape2_Outline;
 	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Cape2_BG;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Ult;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Ult_BG;
@@ -45,6 +45,12 @@ private:
 
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Soulary;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Soulary_Text;
+
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_Scythe;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_Cape;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_Cape2;
+
+
 
 };
 
