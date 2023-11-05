@@ -15,9 +15,7 @@ void WeaponDrop::CollisionUpdate(GameEngineCollision* _Left, GameEngineCollision
 {
 }
 
-void WeaponDrop::NextStageAnimationStart()
-{
-}
+
 
 void WeaponDrop::Start()
 {
@@ -69,7 +67,6 @@ void WeaponDrop::Start()
 	BGSpriteRenderer_Smoke->Transform.SetLocalPosition({ 0.0f, 150.0f, 0.5f });
 
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::BackGroundobject);
-
 	MainSpriteRenderer->SetSprite("Rune_Stroke_New.png");
 	MainSpriteRenderer->GetColorData().MulColor = float4{ 0.2f,0.6f,0.05f,1.0f };
 	MainSpriteRenderer->AutoSpriteSizeOn();
@@ -116,6 +113,11 @@ void WeaponDrop::Start()
 void WeaponDrop::Update(float _Delta)
 {
 	StageObject::Update(_Delta);
+
+	if (DebugValue == true)
+	{
+		return;
+	}
 
 	MainSpriteRenderer->Transform.AddLocalRotation(float4::FORWARD * 20.0f * _Delta);
 	BGSpriteRenderer->Transform.AddLocalRotation(float4::FORWARD * -20.0f * _Delta);

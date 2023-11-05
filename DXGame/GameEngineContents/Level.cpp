@@ -14,6 +14,7 @@
 #include "Map.h"
 #include "Shader.h"
 #include "WeaponDrop.h"
+#include "PaperWall.h"
 
 Level::Level() 
 {
@@ -505,6 +506,10 @@ std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, flo
 		break;
 	case ActorType::WeaponDrop3:
 		Object = CreateActor<WeaponDrop>(ContentsObjectType::BackGroundobject);
+		//static_cast<WeaponDrop*>(Object.get())->Init("W1_Miniboss.png");
+		break;
+	case ActorType::PaperWall:
+		Object = CreateActor<PaperWall>(ContentsObjectType::BackGroundobject);
 		//static_cast<WeaponDrop*>(Object.get())->Init("W1_Miniboss.png");
 		break;
 			

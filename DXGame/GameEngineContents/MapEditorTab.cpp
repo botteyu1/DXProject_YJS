@@ -145,6 +145,7 @@ void MapEditorTab::Start()
 		ObjectCreateNames.push_back("WeaponDrop1");
 		ObjectCreateNames.push_back("WeaponDrop2");
 		ObjectCreateNames.push_back("WeaponDrop3");
+		ObjectCreateNames.push_back("PaperWall");
 
 
 
@@ -315,7 +316,7 @@ void MapEditorTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			SavePath = OFN.lpstrFile;
 		}
 
-		
+		if ("" != SavePath)
 		{
 			GameEngineSerializer BinSer;
 

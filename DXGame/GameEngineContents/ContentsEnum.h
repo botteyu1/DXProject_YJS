@@ -173,6 +173,9 @@ enum class ActorType
 	WeaponDrop1,
 	WeaponDrop2,
 	WeaponDrop3,
+
+	PaperWall,
+
 		
 
 

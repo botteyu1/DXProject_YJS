@@ -17,6 +17,7 @@ public:
 	StageObject& operator=(StageObject&& _Other) noexcept = delete;
 
 
+	
 
 protected:
 	void Start() override;

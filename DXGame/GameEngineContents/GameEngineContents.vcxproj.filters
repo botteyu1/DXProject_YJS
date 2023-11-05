@@ -133,6 +133,9 @@
     <ClCompile Include="WeaponDrop.cpp">
       <Filter>StageObject</Filter>
     </ClCompile>
+    <ClCompile Include="PaperWall.cpp">
+      <Filter>StageObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -254,6 +257,9 @@
     </ClInclude>
     <ClInclude Include="Cape.h">
       <Filter>Actor\Player\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="PaperWall.h">
+      <Filter>StageObject</Filter>
     </ClInclude>
     <ClInclude Include="WeaponDrop.h">
       <Filter>StageObject</Filter>

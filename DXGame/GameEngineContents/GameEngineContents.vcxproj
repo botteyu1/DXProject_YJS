@@ -205,6 +205,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PaperWall.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PlayUI.cpp">
       <SubType>
       </SubType>
@@ -372,6 +376,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="PaperWall.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PlayUI.h">
       <SubType>
       </SubType>
