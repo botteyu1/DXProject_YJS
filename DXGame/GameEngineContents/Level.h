@@ -53,6 +53,9 @@ public:
 protected:
 	std::shared_ptr<FX> FXActor;
 	std::shared_ptr<class Shader> ShaderActor = nullptr;
+	std::vector< std::shared_ptr<class PaperWall>> PaperWallvec;
+	std::vector<std::shared_ptr<class Enemy>> GimicEnemyvec;
+	std::vector< std::shared_ptr<class Enemy>> Gimic2Enemyvec;
 
 	void Start()  override;
 

@@ -12,6 +12,18 @@ Ghost_Man::~Ghost_Man()
 }
 
 
+void Ghost_Man::Init(int _Type)
+{
+	if (_Type == 1)
+	{
+		ChangeState(EnemyState::Waiting);
+	}
+	else if (_Type == 2)
+	{
+		ChangeState(EnemyState::Run);
+	}
+}
+
 void Ghost_Man::Start()
 {
 
@@ -85,10 +97,7 @@ void Ghost_Man::Start()
 
 	Enemy::Start();
 
-	static int Num = 0;
-	Num++;
-
-	SetName("Ghost_Man_" + std::to_string(Num));
+	
 
 }
 

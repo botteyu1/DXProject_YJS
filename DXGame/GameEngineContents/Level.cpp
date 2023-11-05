@@ -37,40 +37,123 @@ std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, flo
 	case ActorType::Ghost_Man1:
 	{
 		Object = CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
+		static int Num = 0;
+		Num++;
+		static_cast<Ghost_Man*>(Object.get())->Init(1);
+		Object->SetName("Ghost_Man1_" + std::to_string(Num));
 		break;
 	}
 	case ActorType::Ghost_Man2:
-		Object = CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
+	{ 
+		std::shared_ptr<Ghost_Man> EnemyObject = CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
+		Object = EnemyObject;
+		static int Num = 0;
+		Num++;
+		EnemyObject->Init(2);
+		Object->SetName("Ghost_Man2_" + std::to_string(Num));
+		GimicEnemyvec.push_back(EnemyObject);
+		break;
+	}
 		break;
 	case ActorType::Ghost_Man3:
-		Object = CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
+	{
+		std::shared_ptr<Ghost_Man> EnemyObject = CreateActor<Ghost_Man>(ContentsObjectType::Enemy);
+		Object = EnemyObject;
+		static int Num = 0;
+		Num++;
+		static_cast<Ghost_Man*>(Object.get())->Init(2);
+		Object->SetName("Ghost_Man3_" + std::to_string(Num));
+		Gimic2Enemyvec.push_back(EnemyObject);
+		break;
+	}
 		break;
 	case ActorType::Ghost_Woman1:
-		Object = CreateActor<Ghost_Woman>(ContentsObjectType::Enemy);
+	{
+		std::shared_ptr<Ghost_Woman> EnemyObject = CreateActor<Ghost_Woman>(ContentsObjectType::Enemy);
+		Object = EnemyObject;
+		static int Num = 0;
+		Num++;
+		Object->SetName("Ghost_Woman1_" + std::to_string(Num));
+		
+	}
 		break;
 	case ActorType::Ghost_Woman2:
-		Object = CreateActor<Ghost_Woman>(ContentsObjectType::Enemy);
+	{	
+		std::shared_ptr<Ghost_Woman> EnemyObject = CreateActor<Ghost_Woman>(ContentsObjectType::Enemy);
+		Object = EnemyObject;
+		static int Num = 0;
+		Num++;
+		Object->SetName("Ghost_Woman2_" + std::to_string(Num));
+		GimicEnemyvec.push_back(EnemyObject);
+	}
 		break;
 	case ActorType::Ghost_Woman3:
-		Object = CreateActor<Ghost_Woman>(ContentsObjectType::Enemy);
+	{
+		std::shared_ptr<Ghost_Woman> EnemyObject = CreateActor<Ghost_Woman>(ContentsObjectType::Enemy);
+		Object = EnemyObject;
+		static int Num = 0;
+		Num++;
+		Object->SetName("Ghost_Woman3_" + std::to_string(Num));
+		Gimic2Enemyvec.push_back(EnemyObject);
+	}
 		break;
 	case ActorType::Ghost_Med1:
+	{
 		Object = CreateActor<Ghost_Med>(ContentsObjectType::Enemy);
+		static int Num = 0;
+		Num++;
+		Object->SetName("Ghost_Med1_" + std::to_string(Num));
+	}
 		break;
-	case ActorType::Ghost_Med2:
-		Object = CreateActor<Ghost_Med>(ContentsObjectType::Enemy);
+	case ActorType::Ghost_Med2: 
+	{
+		std::shared_ptr<Ghost_Med> EnemyObject = CreateActor<Ghost_Med>(ContentsObjectType::Enemy);
+		Object = EnemyObject;
+		static int Num = 0;
+		Num++;
+		Object->SetName("Ghost_Med2_" + std::to_string(Num));
+		GimicEnemyvec.push_back(EnemyObject);
+	}
 		break;
-	case ActorType::Ghost_Med3:
-		Object = CreateActor<Ghost_Med>(ContentsObjectType::Enemy);
+	case ActorType::Ghost_Med3: 
+	{
+		std::shared_ptr<Ghost_Med> EnemyObject = CreateActor<Ghost_Med>(ContentsObjectType::Enemy);
+		Object = EnemyObject;
+		static int Num = 0;
+		Num++;
+		Object->SetName("Ghost_Med3_" + std::to_string(Num));
+		Gimic2Enemyvec.push_back(EnemyObject);
+	}
 		break;
 	case ActorType::PossessedBook1:
-		Object = CreateActor<PossessedBook>(ContentsObjectType::Enemy);
+	{
+		std::shared_ptr<PossessedBook> EnemyObject = CreateActor<PossessedBook>(ContentsObjectType::Enemy);
+		Object = EnemyObject;
+		static int Num = 0;
+		Num++;
+		Object->SetName("PossessedBook1_" + std::to_string(Num));
+		
+	}
 		break;
 	case ActorType::PossessedBook2:
-		Object = CreateActor<PossessedBook>(ContentsObjectType::Enemy);
+	{
+		std::shared_ptr<PossessedBook> EnemyObject = CreateActor<PossessedBook>(ContentsObjectType::Enemy);
+		Object = EnemyObject;
+		static int Num = 0;
+		Num++;
+		Object->SetName("PossessedBook2_" + std::to_string(Num));
+		GimicEnemyvec.push_back(EnemyObject);
+	}
 		break;
 	case ActorType::PossessedBook3:
-		Object = CreateActor<PossessedBook>(ContentsObjectType::Enemy);
+	{
+		std::shared_ptr<PossessedBook> EnemyObject = CreateActor<PossessedBook>(ContentsObjectType::Enemy);
+		Object = EnemyObject;
+		static int Num = 0;
+		Num++;
+		Object->SetName("PossessedBook3_" + std::to_string(Num));
+		Gimic2Enemyvec.push_back(EnemyObject);
+	}
 		break;
 	case ActorType::ElevatorStart:
 		Object = CreateActor<Elevator>(ContentsObjectType::StageObject);
@@ -509,10 +592,13 @@ std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, flo
 		//static_cast<WeaponDrop*>(Object.get())->Init("W1_Miniboss.png");
 		break;
 	case ActorType::PaperWall:
-		Object = CreateActor<PaperWall>(ContentsObjectType::BackGroundobject);
-		//static_cast<WeaponDrop*>(Object.get())->Init("W1_Miniboss.png");
+	{
+		std::shared_ptr<class PaperWall> PaperWallObject = CreateActor<PaperWall>(ContentsObjectType::BackGroundobject);
+		Object = PaperWallObject;
+		PaperWallvec.push_back(PaperWallObject);
 		break;
-			
+	}
+
 	default:
 		break;
 	}
@@ -638,8 +724,6 @@ void Level::ClearContentsObject()
 		{
 			ObjectTypeBackGroundobject[i]->Death();
 		}
-
-
 }
 
 void Level::Start()

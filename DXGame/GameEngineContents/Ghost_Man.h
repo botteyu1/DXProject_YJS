@@ -16,7 +16,7 @@ public:
 	Ghost_Man& operator=(Ghost_Man&& _Other) noexcept = delete;
 
 	
-
+	void Init(int _Type);
 
 protected:
 	void Start() override;

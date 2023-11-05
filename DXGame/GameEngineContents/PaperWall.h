@@ -26,6 +26,8 @@ public:
 
 	//void Init(ElevatorState _State);
 
+	void GimmckStart();
+	void GimmckEnd();
 
 protected:
 	void Start() override;

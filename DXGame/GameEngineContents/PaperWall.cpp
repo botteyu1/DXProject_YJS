@@ -13,6 +13,16 @@ void PaperWall::CollisionUpdate(GameEngineCollision* _Left, GameEngineCollision*
 {
 }
 
+void PaperWall::GimmckStart()
+{
+	State.ChangeState(PaperWallState::Start);
+}
+
+void PaperWall::GimmckEnd()
+{
+	State.ChangeState(PaperWallState::End);
+}
+
 void PaperWall::Start()
 {
 	if (nullptr == GameEngineTexture::Find("Rune_Stroke_New.png"))
@@ -53,10 +63,10 @@ void PaperWall::Start()
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
-				if (State.GetStateTime() >= 2.0f)
+				/*if (State.GetStateTime() >= 2.0f)
 				{
 					State.ChangeState(PaperWallState::Start);
-				}
+				}*/
 			};
 		State.CreateState(PaperWallState::StaticOff, NewPara);
 	}
@@ -73,10 +83,10 @@ void PaperWall::Start()
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
-				if (State.GetStateTime() >= 2.0f)
+				/*if (State.GetStateTime() >= 2.0f)
 				{
 					State.ChangeState(PaperWallState::End);
-				}
+				}*/
 			};
 		State.CreateState(PaperWallState::StaticOn, NewPara);
 	}

@@ -1,5 +1,15 @@
 #pragma once
 #include "Level.h"
+#include <GameEngineCore/GameEngineState.h>
+
+enum class PlayLevelState
+{
+	Normal,
+	GimmickIntro,
+	Gimmick,
+	GimmickEnd,
+};
+
 
 // 설명 :
 class PlayLevel : public Level
@@ -31,10 +41,17 @@ protected:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 private:
+	bool CheckGimmickOver();
+
 
 	std::shared_ptr<PlayMap> PlayMapPtr = nullptr;
 	std::shared_ptr<class Player> PlayerPtr = nullptr;
 	std::shared_ptr<class PlayUI> PlayUIPtr = nullptr;
+
+	bool GimmickValue = false; //기믹이 실행되고 나면면 트루
+	bool Gimmick2Value = false;
+
+	GameEngineState State;
 	
 };
 
