@@ -90,3 +90,16 @@ void Player::ForceWaitUpdate(float _Delta)
 }
 
 
+void Player::AcquisitionStart()
+{
+	ChangeMainAnimation("LD_Acquisition");
+}
+
+void Player::AcquisitionUpdate(float _Delta)
+{
+	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
+	{
+		
+		ChangeState(PlayerState::Idle);
+	}
+}

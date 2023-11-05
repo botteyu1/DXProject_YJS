@@ -279,3 +279,4 @@ void Player::CapeAttackEnd()
 {
 	CapeState.ChangeState(CapeType::None);
 }
+

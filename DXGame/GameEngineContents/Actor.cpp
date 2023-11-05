@@ -107,8 +107,6 @@ void Actor::Update(float _Delta)
 			Transform.AddLocalPosition({ -MovePixel, -MovePixel });
 			break;
 		}
-		
-		
 	}
 
 	//공중인지 체크

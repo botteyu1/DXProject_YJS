@@ -141,6 +141,13 @@ void MapEditorTab::Start()
 		ObjectCreateNames.push_back("W1_Entre");
 		ObjectCreateNames.push_back("W1_Kit_");
 		ObjectCreateNames.push_back("W1_Miniboss");
+
+		ObjectCreateNames.push_back("WeaponDrop1");
+		ObjectCreateNames.push_back("WeaponDrop2");
+		ObjectCreateNames.push_back("WeaponDrop3");
+
+
+
 	}
 
 	Tabs.clear();

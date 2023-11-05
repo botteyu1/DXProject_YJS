@@ -13,6 +13,7 @@
 #include "BossGargoyle.h"
 #include "Map.h"
 #include "Shader.h"
+#include "WeaponDrop.h"
 
 Level::Level() 
 {
@@ -493,6 +494,18 @@ std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, flo
 	case ActorType::W1_Miniboss:
 		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
 		static_cast<BGObject*>(Object.get())->Init("W1_Miniboss.png");
+		break;
+	case ActorType::WeaponDrop1:
+		Object = CreateActor<WeaponDrop>(ContentsObjectType::BackGroundobject);
+		//static_cast<WeaponDrop*>(Object.get())->Init("W1_Miniboss.png");
+		break;
+	case ActorType::WeaponDrop2:
+		Object = CreateActor<WeaponDrop>(ContentsObjectType::BackGroundobject);
+		//static_cast<WeaponDrop*>(Object.get())->Init("W1_Miniboss.png");
+		break;
+	case ActorType::WeaponDrop3:
+		Object = CreateActor<WeaponDrop>(ContentsObjectType::BackGroundobject);
+		//static_cast<WeaponDrop*>(Object.get())->Init("W1_Miniboss.png");
 		break;
 			
 	default:

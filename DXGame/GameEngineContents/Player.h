@@ -24,6 +24,7 @@ enum class PlayerState
 	Hit,
 	EnterElavator,
 	ExitElavator,
+	Acquisition,
 	
 	ForceWait, //씬이나 UI상태일때 조작금지상태
 
@@ -66,6 +67,24 @@ public:
 	float GetDamageComoboScale()
 	{
 		return DamageComoboScale;
+	}
+
+	CapeType GetCurCapeType()
+	{
+		return CurCapeType;
+	}
+	CapeType GetCurCapeType2()
+	{
+		return CurCapeType2;
+	}
+	void SetCurCapeType(CapeType _Type)
+	{
+		CurCapeType = _Type;
+	}
+
+	void SetCurCapeType2(CapeType _Type)
+	{
+		CurCapeType2 = _Type;
 	}
 
 	void TakeDamage(GameEngineCollision* _Attacker, float _Damage) override;
@@ -202,6 +221,8 @@ private:
 	void CapeAttackUpdate(float _Delta);
 	void CapeAttackEnd();
 
+	void AcquisitionStart();
+	void AcquisitionUpdate(float _Delta);
 
 	bool InputMoveUpdate(float _Delta);
 	bool InputJumpUpdate(float _Delta);

@@ -25,9 +25,9 @@ public:
 
 	void static CollisionUpdate(class GameEngineCollision* _Left, GameEngineCollision* _Right);
 
-	void NextStageAnimationStart();
-
 	void Init(ElevatorState _State);
+
+	void NextStageAnimationStart();
 
 protected:
 	void Start() override;

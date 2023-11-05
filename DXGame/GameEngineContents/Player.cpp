@@ -104,13 +104,15 @@ void Player::Start()
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_AerialDownAttack", { 0.5f, 0.0f , true , {280.0f, 280.0f}, {0.0f, 150.0f} }));
 
 		//¸ÁÅä
-		Cape::CapeDataManager->Data;
-		 
+
+
 		MainSpriteRenderer->CreateAnimation("LD_ComboKatana", "LD_ComboKatana", 0.0433f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatana", { 0.8f, 300.0f, false, {700.0f, 70.0f}, {300.0f, 50.0f} }));
 		
+
 		MainSpriteRenderer->CreateAnimation("LD_ComboEvilHands", "LD_ComboEvilHands", 0.0483f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboEvilHands", { 0.75f, 0.0f, false, {500.0f, 150.0f}, {150.0f, 70.0f} }));
+		
 		
 		MainSpriteRenderer->CreateAnimation("LD_ComboEvilHands_Up", "LD_ComboEvilHands_Up", 0.0433f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboEvilHands_Up", { 0.5f, 0.0f, false, {250.0f, 300.0f}, {100.0f, 150.0f} }));
@@ -154,6 +156,11 @@ void Player::Start()
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Elevator_Out", {}));
 		MainSpriteRenderer->CreateAnimation("LD_Elevator_End", "LD_Elevator_End", 0.0433f, -1, -1, true);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Elevator_End", { 0.1f }));
+
+		MainSpriteRenderer->CreateAnimation("LD_Acquisition", "LD_Acquisition", 0.0633f, -1, -1, true);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Acquisition", { }));
+
+
 
 		// ±×¿Ü 
 		MainSpriteRenderer->CreateAnimation("LD_Dash", "LD_Dash", 0.0333f, -1, -1, false);
@@ -362,6 +369,9 @@ void Player::ChangeState(PlayerState _State)
 	case PlayerState::ExitElavator:
 		ExitElavatorStart();
 		break;
+	case PlayerState::Acquisition:
+		AcquisitionStart();
+		break;
 	case PlayerState::ForceWait:
 		ForceWaitStart();
 		break;
@@ -441,6 +451,9 @@ void Player::StateUpdate(float _Delta)
 		break;
 	case PlayerState::ExitElavator:
 		ExitElavatorUpdate(_Delta);
+		break;
+	case PlayerState::Acquisition:
+		AcquisitionUpdate(_Delta);
 		break;
 	case PlayerState::ForceWait:
 		ForceWaitUpdate(_Delta);

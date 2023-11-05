@@ -51,7 +51,7 @@ void PlayUI::Start()
 	HUD_Scythe = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Scythe->SetMaterial("2DTextureAlwaysDepth");
 	HUD_Scythe->AutoSpriteSizeOn();
-	HUD_Scythe->SetAutoScaleRatio({ 0.35f,0.35f,0.4f });
+	HUD_Scythe->SetAutoScaleRatio({ 0.33f,0.33f,0.4f });
 	HUD_Scythe->SetCameraOrder(ECAMERAORDER::UI);
 	HUD_Scythe->SetSprite("PLACEHOLDER_Scythe_Basic.png");
 	HUD_Scythe->Transform.SetLocalPosition({-910.0f,430.0f,0.0f });
@@ -79,7 +79,7 @@ void PlayUI::Start()
 	HUD_Cape = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Cape->SetMaterial("2DTextureAlwaysDepth");
 	HUD_Cape->AutoSpriteSizeOn();
-	HUD_Cape->SetAutoScaleRatio({ 0.35f,0.35f,0.4f });
+	HUD_Cape->SetAutoScaleRatio({ 0.33f,0.33f,0.4f });
 	HUD_Cape->SetCameraOrder(ECAMERAORDER::UI);
 	HUD_Cape->SetSprite("PLACEHOLDER_Big_Hands.png");
 	HUD_Cape->Transform.SetLocalPosition({ -865.0f,475.0f,0.0f });
@@ -105,10 +105,10 @@ void PlayUI::Start()
 	HUD_Cape2 = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Cape2->SetMaterial("2DTextureAlwaysDepth");
 	HUD_Cape2->AutoSpriteSizeOn();
-	HUD_Cape2->SetAutoScaleRatio({ 0.35f,0.35f,0.4f });
+	HUD_Cape2->SetAutoScaleRatio({ 0.33f,0.33f,0.4f });
 	HUD_Cape2->SetCameraOrder(ECAMERAORDER::UI);
 	HUD_Cape2->SetSprite("PLACEHOLDER_Wind.png");
-	HUD_Cape2->Transform.SetLocalPosition({ -865.0f,475.0f,0.0f });
+	HUD_Cape2->Transform.SetLocalPosition({ -820.0f,430.0f,0.0f });
 	HUD_Cape2->SetName("HUD_Cape2");
 
 	HUD_Ult_BG = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
@@ -249,7 +249,9 @@ void PlayUI::Update(float _Delta)
 
 	
 
-	//HUD_Scythe->
+	//HUD_Scythe->SetSprite(Cape::CapeDataManager->GetImgName());
+	HUD_Cape->SetSprite(Cape::CapeDataManager->GetImgName(PlayerPtr->CurCapeType));
+	HUD_Cape2->SetSprite(Cape::CapeDataManager->GetImgName(PlayerPtr->CurCapeType2));
 
 }
 

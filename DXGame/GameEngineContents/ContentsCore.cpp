@@ -23,9 +23,13 @@ ContentsCore::~ContentsCore()
 
 void ContentsCore::Start()
 {
+
 	GameEngineFont::Load("궁서");
 	GameEngineFont::Load("메이플스토리");
 
+
+	Cape::CapeDataManager = std::make_shared<Cape>();
+	Cape::CapeDataManager->Start();
 
 
 	GameEngineGUI::CreateGUIWindow<GUI>("GUI");

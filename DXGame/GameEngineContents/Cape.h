@@ -10,7 +10,6 @@ enum class CapeType
 	Fire,
 	Meteor,
 	None,
-	Max,
 };
 
 
@@ -25,6 +24,8 @@ class Cape
 {
 	friend class Player;
 public:
+	static std::shared_ptr<class Cape> CapeDataManager;
+
 	// constrcuter destructer
 	Cape();
 	~Cape();
@@ -35,12 +36,21 @@ public:
 	Cape& operator=(const Cape& _Other) = delete;
 	Cape& operator=(Cape&& _Other) noexcept = delete;
 
+
+
 	std::string_view GetImgName(CapeType _Type)
 	{
 		return Data[static_cast<int> (_Type)];
 	}
 
-	static std::shared_ptr<class Cape> CapeDataManager;
+	void SetImgName(CapeType _Type, std::string_view _Name)
+	{
+		Data[static_cast<int> (_Type)] = _Name;;
+	}
+
+	
+
+	void Start();
 
 protected:
 

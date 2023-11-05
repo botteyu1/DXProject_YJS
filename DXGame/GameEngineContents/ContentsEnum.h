@@ -169,5 +169,12 @@ enum class ActorType
 	W1_Miniboss,
 
 
+	// 무기드롭
+	WeaponDrop1,
+	WeaponDrop2,
+	WeaponDrop3,
+		
+
+
 	Max,
 };
