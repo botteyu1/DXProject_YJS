@@ -30,7 +30,7 @@ void Actor::Start()
 
 void Actor::Update(float _Delta)
 {
-    // 디버그모드중이면 업데이트 안함
+	// 디버그모드중이면 업데이트 안함
 	if (DebugValue == true)
 	{
 		InputDebugUpdate(_Delta);
@@ -41,7 +41,9 @@ void Actor::Update(float _Delta)
 	GameEngineColor Color = PixelCollisionCheck({ 0.0f,-1.0f });
 	float MovePixel = -1.0f;
 
-	while (GameEngineColor::WHITE != Color)
+	bool PaperWallValue = GetContentsLevel()->PaperWallValue;
+
+	while (GameEngineColor::WHITE != Color or (GameEngineColor::GREEN == Color and PaperWallValue == true)) //벽일떄만
 	{
 		MovePixel += 1.0f;
 
@@ -51,7 +53,7 @@ void Actor::Update(float _Delta)
 		{
 			continue;
 		}
-		if (GameEngineColor::WHITE == Color)
+		if (GameEngineColor::WHITE == Color or (GameEngineColor::GREEN == Color and PaperWallValue == false))
 		{
 			Transform.AddLocalPosition({ 0.0f, MovePixel });
 			break;
@@ -59,50 +61,50 @@ void Actor::Update(float _Delta)
 
 		// 우측 픽셀
 		Color = PixelCollisionCheck({ MovePixel, 0.0f });
-		if (GameEngineColor::RED != Color)
+		if (GameEngineColor::RED != Color and (GameEngineColor::GREEN != Color or PaperWallValue == false))
 		{
 			Transform.AddLocalPosition({ MovePixel, 0.0f });
 			break;
 		}
 		// 좌측 픽셀
 		Color = PixelCollisionCheck({ -MovePixel, 0.0f });
-		if (GameEngineColor::RED != Color)
+		if (GameEngineColor::RED != Color and (GameEngineColor::GREEN != Color or PaperWallValue == false))
 		{
 
 			Transform.AddLocalPosition({ -MovePixel, 0.0f });
 			break;
 		}
-		
+
 		// 위쪽 픽셀
 		Color = PixelCollisionCheck({ 0.0f, -MovePixel });
-		if (GameEngineColor::RED != Color)
+		if (GameEngineColor::RED != Color and (GameEngineColor::GREEN != Color or PaperWallValue == false))
 		{
 
- 			Transform.AddLocalPosition({ 0.0f , -MovePixel });
+			Transform.AddLocalPosition({ 0.0f , -MovePixel });
 			break;
 		}
-		
+
 		//대각선 픽셀 확인
 		Color = PixelCollisionCheck({ MovePixel, MovePixel });
-		if (GameEngineColor::RED != Color)
+		if (GameEngineColor::RED != Color and (GameEngineColor::GREEN != Color or PaperWallValue == false))
 		{
 			Transform.AddLocalPosition({ MovePixel, MovePixel });
 			break;
 		}
 		Color = PixelCollisionCheck({ -MovePixel, MovePixel });
-		if (GameEngineColor::RED != Color)
+		if (GameEngineColor::RED != Color and (GameEngineColor::GREEN != Color or PaperWallValue == false))
 		{
 			Transform.AddLocalPosition({ -MovePixel, MovePixel });
 			break;
 		}
 		Color = PixelCollisionCheck({ MovePixel, -MovePixel });
-		if (GameEngineColor::RED != Color)
+		if (GameEngineColor::RED != Color and (GameEngineColor::GREEN != Color or PaperWallValue == false))
 		{
 			Transform.AddLocalPosition({ MovePixel, -MovePixel });
 			break;
 		}
 		Color = PixelCollisionCheck({ -MovePixel, -MovePixel });
-		if (GameEngineColor::RED != Color)
+		if (GameEngineColor::RED != Color and (GameEngineColor::GREEN != Color or PaperWallValue == false))
 		{
 			Transform.AddLocalPosition({ -MovePixel, -MovePixel });
 			break;
@@ -110,25 +112,21 @@ void Actor::Update(float _Delta)
 	}
 
 	//공중인지 체크
-	 Color = PixelCollisionCheck({ 0.0f,-1.0f });
+	
 
 	//공중
-	if (
-		(GameEngineColor::WHITE == Color or
-		GameEngineColor::BLUE == Color and ThroughFloorCheck == true) and  //바닥 통과 체크
-		ForceGrivityOff == false 
-		)
+	if(AerialPixelCheck())
 	{
 		AerialCheck = true;
 		GrivityForce.Y -= _Delta * 5000.f; 
 		Transform.AddLocalPosition(GrivityForce * _Delta);
 	}
 	//중력이 꺼져도 공중인지 체크하고 중력초기화
-	else if (GameEngineColor::WHITE == Color)
+	/*else if (GameEngineColor::WHITE == Color)
 	{
 		AerialCheck = true;
 		GrivityForce = 0.0f;
-	}
+	}*/
 	//지상 
 	else
 	{
@@ -148,6 +146,25 @@ void Actor::Update(float _Delta)
 
 	
 }
+
+bool Actor::AerialPixelCheck()
+{
+	GameEngineColor Color = PixelCollisionCheck({ 0.0f,-1.0f });
+
+	if (
+		((GameEngineColor::WHITE == Color) or
+			(GameEngineColor::BLUE == Color and ThroughFloorCheck == true) or  //바닥 통과 체크
+			(GameEngineColor::GREEN == Color)) and  // 페이퍼월 체크
+		ForceGrivityOff == false
+		)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+
 
 void Actor::ChangeMainAnimation(std::string_view _AnimationName)
 {

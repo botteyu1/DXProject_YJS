@@ -60,12 +60,20 @@ void Player::DashStart()
 
 void Player::IdleUpdate(float _Delta)
 {
+	if (AerialCheck == true)
+	{
+		ChangeState(PlayerState::Jump_Falling);
+	}
+
 	bool PreFlip = Flip;
 
 	if (InputAttackUpdate(_Delta) == true or InputJumpUpdate(_Delta) == true or InputDashUpdate(_Delta) == true)
 	{
 		return;
 	}
+
+	
+
 
 	InputMoveUpdate(_Delta);
 	if (Dir != float4::ZERO)
@@ -81,6 +89,7 @@ void Player::IdleUpdate(float _Delta)
 			return;
 		}
 	}
+
 	
 }
 

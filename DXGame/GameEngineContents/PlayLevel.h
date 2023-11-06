@@ -49,8 +49,8 @@ private:
 	std::shared_ptr<class PlayUI> PlayUIPtr = nullptr;
 	std::shared_ptr <class  WeaponDrop > WeaponDropObject = nullptr;
 
-	bool GimmickValue = false; //기믹이 실행되고 나면면 트루
-	bool Gimmick2Value = false;
+	bool GimmickValue = false; //기믹이 실행되고 나면면 트루 카메라 체크용
+	bool Gimmick2Value = false; //기믹이 실행되고 나면면 트루 몬스터 2번쨰 소환용
 
 	GameEngineState State;
 	

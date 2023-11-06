@@ -11,7 +11,7 @@ FxSpriteRenderer::~FxSpriteRenderer()
 
 void FxSpriteRenderer::Update(float _Delta)
 {
-
+	Time += _Delta;
 	switch (Type)
 	{
 	case FXType::Surprised:
@@ -36,6 +36,13 @@ void FxSpriteRenderer::Update(float _Delta)
 		}
 		break;
 	default:
+	case FXType::DamageText:
+	{
+		if (Time >= 1.0f)
+		{
+			Off();
+		}
+	}
 		break;
 	}
 

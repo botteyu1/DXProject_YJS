@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Enemy.h"
 #include "Player.h"
+#include "FX.h"
 
 Enemy::Enemy() 
 {
@@ -13,6 +14,12 @@ Enemy::~Enemy()
 void Enemy::TakeDamage(GameEngineCollision* _Attacker,float _Damage)
 {
 	HP -= static_cast<int>(_Damage);
+
+
+
+	GetContentsLevel()->GetFXActor()->FXTextStart(FXType::DamageText, std::to_string(_Damage), Transform.GetLocalPosition());
+	
+
 	ChangeState(EnemyState::Hit);
 
 	//맞을 떄 플레이어 쪽을 바라보도록

@@ -45,10 +45,16 @@ public:
 
 	void virtual TakeDamage(GameEngineCollision* _Attacker, float _Damage) {}
 
+	
+
 protected:
+
+
 
 	void Start() override;
 	void Update(float _Delta) override;
+	bool AerialPixelCheck();
+
 	void ChangeMainAnimation(std::string_view _AnimationName);
 	bool CheckStartAttackFrame(int _Index = -1); 
 	bool CheckEndAttackFrame(int _Index = -1);

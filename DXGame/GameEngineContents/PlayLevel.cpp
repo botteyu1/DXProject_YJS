@@ -114,6 +114,7 @@ void PlayLevel::Start()
 				{
 					PaperWallvec[i]->GimmckStart();
 				}
+				PaperWallValue = true;
 
 			};
 
@@ -187,6 +188,7 @@ void PlayLevel::Start()
 				{
 					PaperWallvec[i]->GimmckEnd();
 				}
+				PaperWallValue = false;
 
 				float4 TargetPos = float4{ 11000.0f,-1920.0f, 0.0f };
 				WeaponDropObject = CreateActor<WeaponDrop>(ContentsObjectType::BackGround);

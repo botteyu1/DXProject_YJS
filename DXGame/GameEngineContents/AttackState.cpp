@@ -160,7 +160,7 @@ void Player::JumpingAttackUpdate(float _Delta)
 	if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
 		ForceGrivityOff = false;
-		if (AerialCheck == true)
+		if (AerialPixelCheck())
 		{
 			ChangeState(PlayerState::Jump_Falling);
 		}

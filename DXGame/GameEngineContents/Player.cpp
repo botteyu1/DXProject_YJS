@@ -312,6 +312,7 @@ void Player::ChangeState(PlayerState _State)
 	}
 
 	State = _State;
+	AttackCollisionValue = false;
 
 	switch (_State)
 	{
@@ -380,7 +381,7 @@ void Player::ChangeState(PlayerState _State)
 	}
 	
 	
-	AttackCollisionValue = false;
+	
 }
 
 void Player::LevelStart(GameEngineLevel* _NextLevel)

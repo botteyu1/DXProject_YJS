@@ -62,7 +62,7 @@ void WeaponDrop::Start()
 	BGSpriteRenderer_Smoke->SetMaterial("2DTextureAlwaysDepth");
 	BGSpriteRenderer_Smoke->SetSprite("Rune_Stroke_New_Smoke.png");
 	BGSpriteRenderer_Smoke->AutoSpriteSizeOn();
-	BGSpriteRenderer_Smoke->SetAutoScaleRatio({ 0.5f, 0.5f });
+	//BGSpriteRenderer_Smoke->SetAutoScaleRatio({ 0.5f, 0.5f });
 	BGSpriteRenderer_Smoke->GetColorData().MulColor = float4{ 0.6f,0.8f,0.0f,1.0f };
 	BGSpriteRenderer_Smoke->Transform.SetLocalPosition({ 0.0f, 150.0f, 0.5f });
 

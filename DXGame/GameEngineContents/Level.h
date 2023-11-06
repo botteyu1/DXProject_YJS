@@ -49,6 +49,7 @@ public:
 	void ClearContentsObject();
 
 	bool OtherWindow = false;
+	bool PaperWallValue = false;  //기믹용 페이퍼 벽이 생길때 체크
 
 protected:
 	std::shared_ptr<FX> FXActor;

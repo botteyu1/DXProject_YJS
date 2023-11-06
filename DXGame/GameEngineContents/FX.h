@@ -26,7 +26,7 @@ public:
 	FX& operator=(FX&& _Other) noexcept = delete;
 
 	void FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Scale = float4::ONE, const float4& _Pivot = float4(0.5f,0.5f));
-	void FXTextStart(FXType _Name, const float4& _Pos, const float _Scale = 30.0f);
+	void FXTextStart(FXType _Name, std::string_view _Text, const float4& _Pos, const float _Scale = 20.0f);
 
 protected:
 

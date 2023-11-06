@@ -91,7 +91,7 @@ void FX::FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Sc
 
 }
 
-void FX::FXTextStart(FXType _Name, const float4& _Pos, const float _Scale)
+void FX::FXTextStart(FXType _Name, std::string_view _Text, const float4& _Pos, const float _Scale )
 {
 	std::shared_ptr<class FxSpriteRenderer> Renderer = nullptr;
 	// 돌아가고있지않은 렌더러가 있으면 사용
@@ -108,6 +108,15 @@ void FX::FXTextStart(FXType _Name, const float4& _Pos, const float _Scale)
 	{
 		Renderer = AddFXTextRenderer();
 	}
+
+	Renderer->SetText("메이플스토리", _Text.data(), _Scale, float4::WHITE);
+
+	Renderer->Transform.SetLocalPosition(_Pos + float4{0.0f,0.0f, -5.0f});
+	Renderer->On();
+
+	Renderer->Type = _Name;
+	Renderer->Time = 0.0f;
+
 
 }
 
