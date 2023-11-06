@@ -14,6 +14,7 @@
 #include "Map.h"
 #include "PlayUI.h"
 #include "PaperWall.h"
+#include "WeaponDrop.h"
 
 
 PlayLevel::PlayLevel() 
@@ -186,12 +187,20 @@ void PlayLevel::Start()
 				{
 					PaperWallvec[i]->GimmckEnd();
 				}
+
+				float4 TargetPos = float4{ 11000.0f,-1920.0f, 0.0f };
+				WeaponDropObject = CreateActor<WeaponDrop>(ContentsObjectType::BackGround);
+				WeaponDropObject->Transform.SetLocalPosition(TargetPos);
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
 
-				State.ChangeState(PlayLevelState::Normal);
+				if (WeaponDropObject->AerialCheck == false or WeaponDropObject->IsUpdate() == false)
+				{
+					State.ChangeState(PlayLevelState::Normal);
+				}
+				
 			};
 
 		State.CreateState(PlayLevelState::GimmickEnd, NewPara);

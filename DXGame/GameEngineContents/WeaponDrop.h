@@ -6,6 +6,7 @@
 
 class WeaponDrop : public StageObject
 {
+	friend class PlayLevel;
 public:
 	// constrcuter destructer
 	WeaponDrop();

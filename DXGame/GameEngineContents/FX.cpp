@@ -14,9 +14,6 @@ void FX::FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Sc
 
 	std::shared_ptr<class FxSpriteRenderer> Renderer = nullptr;
 	// 돌아가고있지않은 렌더러가 있으면 사용
-
-	
-
 	for (size_t i = 0; i < MainSpriteRenderers.size(); i++)
 	{
 		if (MainSpriteRenderers[i]->IsUpdate() == false)
@@ -38,6 +35,9 @@ void FX::FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Sc
 
 	Renderer->Type = _Name;
 	Renderer->Scale = _Scale;
+	Renderer->Time = 0.0f;
+
+	//Renderer->SetText
 
 	float4 Pivot = _Pivot;
 	//Renderer->SetPivotValue(_Pivot);
@@ -88,26 +88,26 @@ void FX::FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Sc
 
 	Renderer->Flip = _flip;
 
-	//, "Ghost_Attack_FX", { 0.0f,0.5f }, { 55.0f, 50.0f }
-	////공격 이펙트 처리
-		//if (CurAnimationData->AttackFx != "")
-		//{
-		//	AttackfxRenderer->On();
-		//	if (Flip == true)
-		//	{
-		//		AttackPosition.X = -AttackPosition.X;
-		//		AttackfxRenderer->Transform.SetLocalPosition(AttackPosition);
-		//		AttackfxRenderer->LeftFlip();
-		//	}
-		//	else
-		//	{
-		//		AttackfxRenderer->RightFlip();
-		//		AttackfxRenderer->Transform.SetLocalPosition(AttackPosition);
-		//		AttackPivot.X = 1.0f - AttackPivot.X;
-		//	}
-		//	AttackfxRenderer->SetPivotValue( AttackPivot);
-		//	AttackfxRenderer->ChangeAnimation(CurAnimationData->AttackFx,true);
-		//}
+
+}
+
+void FX::FXTextStart(FXType _Name, const float4& _Pos, const float _Scale)
+{
+	std::shared_ptr<class FxSpriteRenderer> Renderer = nullptr;
+	// 돌아가고있지않은 렌더러가 있으면 사용
+	for (size_t i = 0; i < TextSpriteRenderers.size(); i++)
+	{
+		if (TextSpriteRenderers[i]->IsUpdate() == false)
+		{
+			Renderer = TextSpriteRenderers[i];
+			break;
+		}
+	}
+	//모든 렌더러가 사용중이면 생성
+	if (Renderer == nullptr)
+	{
+		Renderer = AddFXTextRenderer();
+	}
 
 }
 
@@ -190,6 +190,14 @@ std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 	Renderer->Off();
 
 	MainSpriteRenderers.push_back(Renderer);
+
+	return Renderer;
+}
+
+std::shared_ptr< FxSpriteRenderer> FX::AddFXTextRenderer()
+{
+	std::shared_ptr<FxSpriteRenderer> Renderer = CreateComponent<FxSpriteRenderer>(ContentsRenderType::FX);
+	Renderer->Off();
 
 	return Renderer;
 }

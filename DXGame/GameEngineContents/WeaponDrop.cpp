@@ -100,7 +100,7 @@ void WeaponDrop::Start()
 	MainCollision->Transform.SetLocalPosition({ 0.0f, 150.0f });
 	MainCollision->SetCollisionType(ColType::AABBBOX2D);
 	
-
+	BouncingStart();
 
 	GameEngineInput::AddInputObject(this);
 

@@ -7,6 +7,8 @@ enum class FXType
 	DustLanding,
 	GroundDust,
 	Ghost_Attack_FX,
+	DamageText,
+
 
 };
 // Ό³Έν :
@@ -24,6 +26,7 @@ public:
 	FX& operator=(FX&& _Other) noexcept = delete;
 
 	void FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Scale = float4::ONE, const float4& _Pivot = float4(0.5f,0.5f));
+	void FXTextStart(FXType _Name, const float4& _Pos, const float _Scale = 30.0f);
 
 protected:
 
@@ -31,9 +34,11 @@ protected:
 	void Update(float _Delta);
 
 	std::shared_ptr< class FxSpriteRenderer> AddFXRenderer();
+	std::shared_ptr< class FxSpriteRenderer> AddFXTextRenderer();
 
 private:
 	std::vector<std::shared_ptr<class FxSpriteRenderer>> MainSpriteRenderers;
+	std::vector<std::shared_ptr<class FxSpriteRenderer>> TextSpriteRenderers;
 	//std::vector<FXType> MainSpriteRenderers;
 	//std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer;  
 	

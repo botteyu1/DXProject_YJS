@@ -27,5 +27,6 @@ private:
 	FXType Type;
 	float4 Scale = float4::ONE; //비율스케일
 	bool Flip = false;
+	float Time = 0.0f;
 };
 
