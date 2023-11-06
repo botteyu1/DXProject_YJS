@@ -18,12 +18,16 @@ public:
 	FxSpriteRenderer& operator=(const FxSpriteRenderer& _Other) = delete;
 	FxSpriteRenderer& operator=(FxSpriteRenderer&& _Other) noexcept = delete;
 
-	
+	void SetSpawnEnemy(class Enemy* _Ptr)
+	{
+		SpawnEnemy = _Ptr;
+	}
 
 protected:
 	void Update(float _Delta) override;
 
 private:
+	class Enemy* SpawnEnemy = nullptr;
 	FXType Type;
 	float4 Scale = float4::ONE; //비율스케일
 	bool Flip = false;

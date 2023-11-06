@@ -9,10 +9,10 @@ FX::~FX()
 {
 }
 
-void FX::FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Scale, const float4& _Pivot)
+std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Scale, const float4& _Pivot)
 {
 
-	std::shared_ptr<class FxSpriteRenderer> Renderer = nullptr;
+	std::shared_ptr< FxSpriteRenderer> Renderer = nullptr;
 	// 돌아가고있지않은 렌더러가 있으면 사용
 	for (size_t i = 0; i < MainSpriteRenderers.size(); i++)
 	{
@@ -70,6 +70,9 @@ void FX::FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Sc
 		}
 		break;
 	}
+	case FXType::SpawnEnemy:
+		Renderer->ChangeAnimation("SpawnEnemy", true);
+		break;
 	default:
 		break;
 	}
@@ -88,7 +91,7 @@ void FX::FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Sc
 
 	Renderer->Flip = _flip;
 
-
+	return Renderer;
 }
 
 void FX::FXTextStart(FXType _Name, std::string_view _Text, const float4& _Pos, const float _Scale )
@@ -119,6 +122,9 @@ void FX::FXTextStart(FXType _Name, std::string_view _Text, const float4& _Pos, c
 
 
 }
+
+
+
 
 void FX::Start()
 {
@@ -168,6 +174,8 @@ void FX::Start()
 	
 	AddFXRenderer();
 	AddFXRenderer();
+	AddFXTextRenderer();
+	AddFXTextRenderer();
 }
 
 void FX::Update(float _Delta)
@@ -194,6 +202,9 @@ std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 
 	Renderer->CreateAnimation("GroundDust", "GroundDust", 0.0233f, -1, -1, true);
 	Renderer->SetEndEvent("GroundDust", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
+
+	Renderer->CreateAnimation("SpawnEnemy", "SpawnEnemy", 0.0633f, -1, -1, true);
+	//Renderer->SetEndEvent("SpawnEnemy", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
 
 	Renderer->AutoSpriteSizeOn();
 	Renderer->Off();

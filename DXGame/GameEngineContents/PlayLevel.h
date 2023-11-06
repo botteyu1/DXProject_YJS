@@ -7,6 +7,7 @@ enum class PlayLevelState
 	Normal,
 	GimmickIntro,
 	Gimmick,
+	GimmickEndIntro,
 	GimmickEnd,
 };
 

@@ -51,6 +51,9 @@ public:
 		return State;
 	}
 
+
+	void Spawn(); //중간에 리스폰 되는 경우
+
 protected:
 	
 	float MoveSpeed = 400.0f;

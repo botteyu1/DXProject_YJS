@@ -21,7 +21,38 @@ void Player::ComboMoveStart()
 
 void Player::ComboMoveUpdate(float _Delta)
 {
-	CheckStartAttackFrame();
+	
+	switch (ComboCount)
+	{
+	case 1:
+	{
+		CheckStartAttackFrame(1);
+		CheckEndAttackFrame(9);
+	}
+	break;
+	case 2:
+	{
+		CheckStartAttackFrame(1);
+		CheckEndAttackFrame(5);
+	}
+	case 3:
+	{
+		CheckStartAttackFrame(0);
+		CheckEndAttackFrame(7);
+	}
+	case 4:
+	{
+		CheckStartAttackFrame(9);
+		CheckEndAttackFrame(13);
+	}
+	break;
+	default:
+		break;
+	}
+
+	CheckAttackCollision();
+
+
 	if (GameEngineInput::IsDown(VK_LBUTTON,this))
 	{
 		NextCombo = true;
@@ -40,7 +71,8 @@ void Player::ComboMoveUpdate(float _Delta)
 	InputDashUpdate(_Delta);
 	DashProcessUpdate(_Delta, float4::RIGHT, DashSpeed);
 
-	CheckAttackCollision();
+
+	
 }
 
 void Player::ComboMove_RestStart()
@@ -95,7 +127,7 @@ void Player::ComboAerialUpdate(float _Delta)
 			ChangeState(PlayerState::ComboAerial);
 
 		}
-		else if(AerialCheck == true)
+		else if(AerialPixelCheck() == true)
 		{
 			ChangeState(PlayerState::ComboAerial_Rest);
 		}
@@ -106,7 +138,7 @@ void Player::ComboAerialUpdate(float _Delta)
 	}
 
 	
-
+	 
 	InputDashUpdate(_Delta);
 
 	DashProcessUpdate(_Delta, float4::RIGHT, DashSpeed);

@@ -151,8 +151,9 @@ void PlayLevel::Start()
 				Gimmick2Value = false;
 				for (size_t i = 0; i < GimicEnemyvec.size(); i++)
 				{
-					GimicEnemyvec[i]->On();
+					GimicEnemyvec[i]->Spawn();
 				}
+
 
 			};
 
@@ -164,18 +165,49 @@ void PlayLevel::Start()
 					Gimmick2Value = true;
 					for (size_t i = 0; i < Gimic2Enemyvec.size(); i++)
 					{
-						Gimic2Enemyvec[i]->On();
+						Gimic2Enemyvec[i]->Spawn();
 					}
 				}
 
-				if (CheckGimmickOver() == true)
+				if (CheckGimmickOver() == true and State.GetStateTime() >= 9.0f)
 				{
-					State.ChangeState(PlayLevelState::GimmickEnd);
+					State.ChangeState(PlayLevelState::GimmickEndIntro);
 				}
 
 			};
 
 		State.CreateState(PlayLevelState::Gimmick, NewPara);
+	}
+
+	{
+		CreateStateParameter NewPara;
+
+
+		NewPara.Start = [=](class GameEngineState* _Parent)
+			{
+
+			};
+
+		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
+			{
+				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
+				float4 MainCamaraPos = MainCamara->Transform.GetWorldPosition();
+				float4 TargetPos = float4{ 11000.0f,-2320.0f, MainCamaraPos.Z };
+				float4 Nor = (TargetPos - MainCamaraPos).NormalizeReturn();
+
+				float4 Pos = { Nor * _DeltaTime * 300.0f };
+
+				MainCamara->Transform.AddLocalPosition(Pos);
+
+				if (MainCamara->Transform.GetLocalPosition().Y <= -2320.0f)
+				{
+					MainCamara->Transform.SetLocalPosition(TargetPos);
+					State.ChangeState(PlayLevelState::GimmickEnd);
+				}
+				
+			};
+
+		State.CreateState(PlayLevelState::GimmickEndIntro, NewPara);
 	}
 	{
 		CreateStateParameter NewPara;
@@ -183,14 +215,14 @@ void PlayLevel::Start()
 
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
-				
 				for (size_t i = 0; i < PaperWallvec.size(); i++)
 				{
 					PaperWallvec[i]->GimmckEnd();
 				}
 				PaperWallValue = false;
 
-				float4 TargetPos = float4{ 11000.0f,-1920.0f, 0.0f };
+
+				float4 TargetPos = float4{ 11000.0f,-2320.0f, 5.0f };
 				WeaponDropObject = CreateActor<WeaponDrop>(ContentsObjectType::BackGround);
 				WeaponDropObject->Transform.SetLocalPosition(TargetPos);
 			};
@@ -198,10 +230,17 @@ void PlayLevel::Start()
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
 
-				if (WeaponDropObject->AerialCheck == false or WeaponDropObject->IsUpdate() == false)
+				
+				if (State.GetStateTime() >= 3.0f)
 				{
+					
 					State.ChangeState(PlayLevelState::Normal);
 				}
+
+				/*if (WeaponDropObject->AerialCheck == false or WeaponDropObject->IsUpdate() == false)
+				{
+					State.ChangeState(PlayLevelState::Normal);
+				}*/
 				
 			};
 
@@ -233,6 +272,7 @@ void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
 
 bool PlayLevel::CheckGimmickOver()
 {
+
 	for (size_t i = 0; i < GimicEnemyvec.size(); i++)
 	{
 		if (GimicEnemyvec[i]->IsUpdate() == true)

@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "FxSpriteRenderer.h"
+#include "Enemy.h"
 
 FxSpriteRenderer::FxSpriteRenderer() 
 {
@@ -29,12 +30,27 @@ void FxSpriteRenderer::Update(float _Delta)
 		{
 			Transform.AddLocalPosition(float4(300.0f * _Delta, 0.0f));
 		}
-
 		if (Scale.X >= 0.6f)
 		{
 			Off();
 		}
 		break;
+	case FXType::SpawnEnemy:
+	{
+
+		if (GetCurIndex() == 21)
+		{
+			SpawnEnemy->On();
+		}
+
+		if (IsCurAnimationEnd() == true)
+		{
+			
+			Off();
+		}
+		break;
+	}
+
 	default:
 	case FXType::DamageText:
 	{

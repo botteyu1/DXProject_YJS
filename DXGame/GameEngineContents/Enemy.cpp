@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "FX.h"
+#include "FxSpriteRenderer.h"
 
 Enemy::Enemy() 
 {
@@ -177,6 +178,13 @@ void Enemy::ChangeState(EnemyState _State)
 	FrameCheck = false;
 	DashStartCheck = false;
 	State = _State;
+}
+
+void Enemy::Spawn()
+{
+
+	std::shared_ptr<FxSpriteRenderer> Renderer = GetContentsLevel()->GetFXActor()->FXStart(FXType::SpawnEnemy, false, Transform.GetLocalPosition() + float4(0.0f, 20.0f));
+	Renderer->SetSpawnEnemy(this);
 }
 
 

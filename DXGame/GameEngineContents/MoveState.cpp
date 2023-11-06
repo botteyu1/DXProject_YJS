@@ -95,7 +95,11 @@ void Player::IdleUpdate(float _Delta)
 
 void Player::RunUpdate(float _Delta)
 {
-	bool PreFlip = Flip;
+	if (AerialCheck == true)
+	{
+		ChangeState(PlayerState::Jump_Falling);
+	}
+	bool PreFlip = Flip; 
 	InputMoveUpdate(_Delta);
 	InputJumpUpdate(_Delta);
 	InputAttackUpdate(_Delta);
@@ -116,9 +120,10 @@ void Player::RunUpdate(float _Delta)
 
 void Player::RunUturnUpdate(float _Delta)
 {
+
+
 	if (true == MainSpriteRenderer->IsCurAnimationEnd())
 	{
-		
 		ChangeState(PlayerState::Run);
 	}
 
