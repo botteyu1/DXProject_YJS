@@ -13,6 +13,10 @@ enum class FXType
 	Flash,
 	Circle_Gradient,
 	SpawnWeapon,
+	Splash_Water,
+	Splash_Water2,
+	Slash,
+
 
 
 };

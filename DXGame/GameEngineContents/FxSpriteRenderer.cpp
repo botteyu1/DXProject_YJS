@@ -73,6 +73,20 @@ void FxSpriteRenderer::Update(float _Delta)
 		}
 		break;
 	}
+	case FXType::Slash:
+	{
+		//Renderer->Scale = float4(0.5f, 2.0f, 1.0f);
+
+		Scale.X += _Delta * 4.0f * Dir;
+		Scale.Y -= _Delta * 6.0f * Dir;
+		SetAutoScaleRatio(Scale);
+
+		if (Scale.Y <= 0.0f)
+		{
+			Off();
+		}
+		break;
+	}
 	case FXType::Flash: {
 
 		if (Scale.X <= 2.0f)

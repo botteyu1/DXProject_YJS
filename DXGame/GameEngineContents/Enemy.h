@@ -52,6 +52,7 @@ public:
 	}
 
 
+
 	void Spawn(); //중간에 리스폰 되는 경우
 
 protected:
@@ -60,6 +61,9 @@ protected:
 	float AttackDamage = 10.0f;
 	float AttackCoolTime = 3.0f;
 	float AttackCoolTimeCheck = 0.0f;
+
+	float HitPushBackTime = 0.1f;
+	float HitPushBackTimeCheck = 10.0f;
 
 	float DamagedDelayTimer = 0.0f; // 피격후 무적시간 타이머
 	float DamagedDelay = 0.5f; // 피격후 무적시간
@@ -79,6 +83,8 @@ protected:
 	void CheckAttackCollision();
 
 	virtual void DeathCheck();
+
+	void HitPushBackUpdate(float _Delta);
 
 private:
 	

@@ -17,15 +17,37 @@ void Enemy::TakeDamage(GameEngineCollision* _Attacker,float _Damage)
 	HP -= static_cast<int>(_Damage);
 
 
-
+	// 데미지 표기
 	GetContentsLevel()->GetFXActor()->FXTextStart(FXType::DamageText, std::to_string(_Damage), Transform.GetLocalPosition());
-	
 
 	ChangeState(EnemyState::Hit);
 
+
 	//맞을 떄 플레이어 쪽을 바라보도록
-	LookPlayer();
+	Flip = LookPlayer();
 	FlipCheck();
+
+	HitPushBackTimeCheck = 0.0f;
+	//이펙트
+	GetContentsLevel()->GetFXActor()->FXStart(FXType::Splash_Water, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f));
+	GetContentsLevel()->GetFXActor()->FXStart(FXType::Slash, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f));
+}
+
+
+void Enemy::HitPushBackUpdate(float _Delta)
+{
+	if (HitPushBackTimeCheck < HitPushBackTime)
+	{
+		HitPushBackTimeCheck += _Delta;
+		if (Flip == false)
+		{
+			Transform.AddLocalPosition(float4(-500.0f * _Delta));
+		}
+		else
+		{
+			Transform.AddLocalPosition(float4(500.0f * _Delta));
+		}
+	}
 }
 
 void Enemy::CheckAttackCollision()
@@ -106,8 +128,8 @@ void Enemy::Update(float _Delta)
 	}
 	StateUpdate(_Delta);
 
+	HitPushBackUpdate(_Delta);
 	DeathCheck();
-
 	
 
 	//if (AttackCoolTimeCheck <= AttackCoolTime)
@@ -179,6 +201,7 @@ void Enemy::ChangeState(EnemyState _State)
 	DashStartCheck = false;
 	State = _State;
 }
+
 
 void Enemy::Spawn()
 {

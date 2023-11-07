@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "FX.h"
 #include "FxSpriteRenderer.h"
+#include "ContentsCore.h"
+
 FX::FX() 
 {
 }
@@ -90,6 +92,24 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 	case FXType::SpawnWeapon:
 	{
 		Renderer->ChangeAnimation("SpawnWeapon", true);
+	} 
+	break;
+	case FXType::Splash_Water:
+	{
+		Renderer->ChangeAnimation("Splash_Water", true);
+	}
+		break;
+	case FXType::Splash_Water2:
+	{
+		Renderer->ChangeAnimation("Splash_Water2", true);
+	}
+		break;
+	case FXType::Slash:
+	{
+		Renderer->ChangeAnimation("ImpactFight_0003", true);
+		Renderer->Scale = float4(0.3f, 1.3f, 1.0f);
+		float Rotate = ContentsCore::MainRandom->RandomFloat(-20.0f, 20.0f);
+		Renderer->Transform.AddLocalRotation(float4(0.0f, 0.0f, Rotate));
 	}
 		break;
 
@@ -109,7 +129,7 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 	}
 
 	Renderer->SetPivotValue(Pivot);
-	Renderer->SetAutoScaleRatio(_Scale);
+	Renderer->SetAutoScaleRatio(Renderer->Scale);
 
 	Renderer->Flip = _flip;
 
@@ -192,6 +212,8 @@ void FX::Start()
 	}
 
 	GameEngineSprite::CreateCut("DustLanding_atlas.png",7,2);
+	GameEngineSprite::CreateCut("FX_Splash_Water_01_Atlas.png",2,4);
+	GameEngineSprite::CreateCut("FX_Splash_Water_03_Atlas.png",4,4);
 
 	
 	AddFXRenderer();
@@ -226,6 +248,15 @@ std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 	Renderer->CreateAnimation("GroundDust", "GroundDust", 0.0233f, -1, -1, true);
 	Renderer->SetEndEvent("GroundDust", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
 
+	Renderer->CreateAnimation("Splash_Water", "FX_Splash_Water_01_Atlas.png", 0.0233f, -1, -1, true);
+	Renderer->SetEndEvent("Splash_Water", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
+
+	Renderer->CreateAnimation("Splash_Water2", "FX_Splash_Water_03_Atlas.png", 0.0233f, -1, -1, true);
+	Renderer->SetEndEvent("Splash_Water2", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
+	
+
+
+
 	Renderer->CreateAnimation("SpawnEnemy", "SpawnEnemy", 0.0633f, -1, -1, true);
 
 	Renderer->CreateAnimation("Circle_Gradient", "Circle_Mask_Gradient.png", 0.0633f, -1, -1, true);
@@ -233,6 +264,8 @@ std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 	Renderer->CreateAnimation("Flash5", "Flash23.png", 0.0633f, -1, -1, true);
 
 	Renderer->CreateAnimation("SpawnWeapon", "SpawnWeapon", 0.0333f, -1, -1, true);
+
+	Renderer->CreateAnimation("ImpactFight_0003", "ImpactFight_0003.png", 0.0333f, -1, -1, true);
 
 	
 
