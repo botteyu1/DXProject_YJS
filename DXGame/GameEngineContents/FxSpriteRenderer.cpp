@@ -91,8 +91,8 @@ void FxSpriteRenderer::Update(float _Delta)
 
 		if (Scale.X <= 2.0f)
 		{
-			Scale.X += _Delta * 5.0f * Dir;
-			Scale.Y += _Delta * 5.0f * Dir;
+			Scale.X += _Delta * 3.0f * Dir;
+			Scale.Y += _Delta * 3.0f * Dir;
 		}
 		
 		else

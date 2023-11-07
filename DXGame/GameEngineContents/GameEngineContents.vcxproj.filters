@@ -136,6 +136,9 @@
     <ClCompile Include="PaperWall.cpp">
       <Filter>StageObject</Filter>
     </ClCompile>
+    <ClCompile Include="LevelChanger.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -263,6 +266,9 @@
     </ClInclude>
     <ClInclude Include="WeaponDrop.h">
       <Filter>StageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelChanger.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

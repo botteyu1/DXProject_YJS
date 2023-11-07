@@ -15,6 +15,7 @@
 #include "Shader.h"
 #include "WeaponDrop.h"
 #include "PaperWall.h"
+#include "LevelChanger.h"
 
 Level::Level() 
 {
@@ -700,6 +701,12 @@ void Level::DeSerializer(GameEngineSerializer& _Data, bool _Debug)
 
 
 
+void Level::LevelChangerStart(std::string_view _Name)
+{
+	LevelChangerPtr->LevelChangeStart(_Name);
+}
+
+
 void Level::ClearContentsObject()
 {
 	std::vector<std::shared_ptr<ContentObject>> ObjectTypePlayer = GetObjectGroupConvert<ContentObject>(ContentsObjectType::Player);
@@ -733,6 +740,12 @@ void Level::Start()
 	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::SecondaryRenderer);
 	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::Enemy_Attack);
 	ShaderActor = CreateActor<Shader>(ContentsObjectType::Shader);
+	LevelChangerPtr = CreateActor<LevelChanger>(ContentsObjectType::Shader);
 	GameEngineLevel::IsDebug = false;
+}
+
+void Level::Update(float _Delta)
+{
+	
 }
 

@@ -13,6 +13,7 @@ enum class ContentsRenderType
 	FX,
 	Shader,
 	UI,
+	Transition,
 };
 
 

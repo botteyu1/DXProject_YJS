@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "TitleLevel.h"
 #include "Title.h"
+#include "LevelChanger.h"
 
 TitleLevel::TitleLevel() 
 {
@@ -19,9 +20,10 @@ void TitleLevel::Start()
 	GetMainCamera()->SetProjectionType(EPROJECTIONTYPE::Orthographic);
 
 	CreateActor<Title>(ContentsObjectType::UI);
-	
-
 	Level::Start();
+
+	LevelChangerPtr->IntroOff = true;
+	
 }
 
 

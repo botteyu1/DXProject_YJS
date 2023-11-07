@@ -161,7 +161,7 @@ void Title::Update(float _Delta)
 
 	if (GameEngineInput::IsDown(VK_RETURN, this) and ArrowLocate == 1)
 	{
-		GameEngineCore::ChangeLevel("PlayLevel");
+		GetContentsLevel()->LevelChangerStart("PlayLevel");
 	}
 	
 	float4 NextAddPos = Dir * _Delta * 25.0f;

@@ -46,6 +46,9 @@ public:
 	std::shared_ptr<ContentObject> CopyObject(std::shared_ptr<ContentObject> _Object);
 
 
+	void LevelChangerStart(std::string_view _Name);
+	
+
 	void ClearContentsObject();
 
 	bool OtherWindow = false;
@@ -57,8 +60,11 @@ protected:
 	std::vector< std::shared_ptr<class PaperWall>> PaperWallvec;
 	std::vector<std::shared_ptr<class Enemy>> GimicEnemyvec;
 	std::vector< std::shared_ptr<class Enemy>> Gimic2Enemyvec;
+	std::shared_ptr<class LevelChanger> LevelChangerPtr = nullptr;
+
 
 	void Start()  override;
+	void Update(float _Delta);
 
 private:
 
