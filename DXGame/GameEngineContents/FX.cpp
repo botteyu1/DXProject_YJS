@@ -30,12 +30,13 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 	
 
 	Renderer->Transform.SetLocalPosition(_Pos);
-	Renderer->SetAutoScaleRatio(_Scale);
+	
 	Renderer->On();
 
 	Renderer->Type = _Name;
 	Renderer->Scale = _Scale;
 	Renderer->Time = 0.0f;
+	Renderer->Dir = 1.0f;
 
 	//Renderer->SetText
 
@@ -73,6 +74,25 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 	case FXType::SpawnEnemy:
 		Renderer->ChangeAnimation("SpawnEnemy", true);
 		break;
+
+
+	case FXType::Flash:
+	{
+		Renderer->ChangeAnimation("Flash5", true);
+		Renderer->GetColorData().PlusColor = float4(0.5f, 0.5f, 0.5f,0.0f);
+	}
+		break;
+
+	case FXType::Circle_Gradient:
+		Renderer->ChangeAnimation("Circle_Gradient", true);
+		break;
+		 
+	case FXType::SpawnWeapon:
+	{
+		Renderer->ChangeAnimation("SpawnWeapon", true);
+	}
+		break;
+
 	default:
 		break;
 	}
@@ -87,7 +107,9 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 		Renderer->LeftFlip();
 		Pivot.X = 1.0f - Pivot.X;
 	}
+
 	Renderer->SetPivotValue(Pivot);
+	Renderer->SetAutoScaleRatio(_Scale);
 
 	Renderer->Flip = _flip;
 
@@ -186,6 +208,7 @@ void FX::Update(float _Delta)
 std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 {
 	std::shared_ptr<FxSpriteRenderer> Renderer = CreateComponent<FxSpriteRenderer>(ContentsRenderType::FX);
+	Renderer->SetMaterial("2DTextureAlwaysDepth");
 
 
 	Renderer->CreateAnimation("Ghost_Attack_FX", "Ghost_Attack_FX", 0.0666f, -1, -1, false);
@@ -204,7 +227,14 @@ std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 	Renderer->SetEndEvent("GroundDust", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
 
 	Renderer->CreateAnimation("SpawnEnemy", "SpawnEnemy", 0.0633f, -1, -1, true);
-	//Renderer->SetEndEvent("SpawnEnemy", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
+
+	Renderer->CreateAnimation("Circle_Gradient", "Circle_Mask_Gradient.png", 0.0633f, -1, -1, true);
+
+	Renderer->CreateAnimation("Flash5", "Flash23.png", 0.0633f, -1, -1, true);
+
+	Renderer->CreateAnimation("SpawnWeapon", "SpawnWeapon", 0.0333f, -1, -1, true);
+
+	
 
 	Renderer->AutoSpriteSizeOn();
 	Renderer->Off();

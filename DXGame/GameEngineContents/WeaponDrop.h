@@ -22,7 +22,7 @@ void static CollisionUpdate(class GameEngineCollision* _Left, GameEngineCollisio
 
 //void Init(ElevatorState _State);
 
-
+void Spawn();
 
 protected:
 	void Start() override;

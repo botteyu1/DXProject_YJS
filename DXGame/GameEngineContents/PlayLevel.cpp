@@ -225,6 +225,7 @@ void PlayLevel::Start()
 				float4 TargetPos = float4{ 11000.0f,-2320.0f, 5.0f };
 				WeaponDropObject = CreateActor<WeaponDrop>(ContentsObjectType::BackGround);
 				WeaponDropObject->Transform.SetLocalPosition(TargetPos);
+				WeaponDropObject->Spawn();
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
@@ -249,6 +250,8 @@ void PlayLevel::Start()
 
 
 	State.ChangeState(PlayLevelState::Normal);
+
+	GameEngineInput::AddInputObject(this);
 }
 
 
@@ -257,6 +260,19 @@ void PlayLevel::Update(float _Delta)
 	//카메라 포커스
 
 	State.Update(_Delta);
+
+
+	if (GameEngineInput::IsDown('V', this))
+	{
+		if (WeaponDropObject != nullptr)
+		{
+			WeaponDropObject->Death();
+		}
+
+		WeaponDropObject =  CreateActor<WeaponDrop>(ContentsObjectType::BackGround);
+		WeaponDropObject->Transform.SetLocalPosition(PlayerPtr->Transform.GetLocalPosition());
+		WeaponDropObject->Spawn();
+	}
 }
 
 void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)

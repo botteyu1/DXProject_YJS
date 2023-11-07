@@ -1,5 +1,6 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "ContentObject.h"
+
 enum class FXType
 {
 	Surprised,
@@ -9,11 +10,14 @@ enum class FXType
 	Ghost_Attack_FX,
 	SpawnEnemy,
 	DamageText,
+	Flash,
+	Circle_Gradient,
+	SpawnWeapon,
 
 
 };
 // Ό³Έν :
-class FX : public GameEngineActor
+class FX : public ContentObject
 {
 public:
 	// constrcuter destructer

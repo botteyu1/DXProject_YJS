@@ -122,6 +122,7 @@ void Player::ComboAerialUpdate(float _Delta)
 	}
 	if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
+		ForceGrivityOff = false;
 		if (NextCombo == true and AerialComboCount < 3)
 		{
 			ChangeState(PlayerState::ComboAerial);
@@ -225,14 +226,14 @@ void Player::AerialDownAttackUpdate(float _Delta)
 {
 	CheckStartAttackFrame();
 
-	if (AerialCheck == false and  DustLandingValue == false)
+	if (AerialPixelCheck() == false and  DustLandingValue == false)
 	{
 		DustLandingValue = true;
 		GetContentsLevel()->GetFXActor()->FXStart(FXType::GroundDust, Flip, Transform.GetLocalPosition() + float4(0.0f, 40.0f)/*, float4(0.2f, 0.2f, 1.0f)*/);
 	}
 
 
-	if (MainSpriteRenderer->IsCurAnimationEnd() and AerialCheck == false)
+	if (MainSpriteRenderer->IsCurAnimationEnd() and AerialPixelCheck() == false)
 	{
  		ChangeState(PlayerState::Idle);
 	}
@@ -250,11 +251,11 @@ bool Player::InputAttackUpdate(float _Delta)
 			ChangeState(PlayerState::JumpingAttack);
 			return true;
 		}
-		else if (AerialCheck == true and GameEngineInput::IsPress('S', this))
+		else if (AerialPixelCheck() == true and GameEngineInput::IsPress('S', this))
 		{
 			ChangeState(PlayerState::AerialDownAttack);
 		}
- 		else if (AerialCheck == true and AerialComboCount < 3)
+ 		else if (AerialPixelCheck() == true and AerialComboCount < 3)
 		{
 			ChangeState(PlayerState::ComboAerial);
 		}

@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "FxSpriteRenderer.h"
 #include "Enemy.h"
+#include "FX.h"
 
 FxSpriteRenderer::FxSpriteRenderer() 
 {
@@ -40,7 +41,7 @@ void FxSpriteRenderer::Update(float _Delta)
 
 		if (GetCurIndex() == 21)
 		{
-			SpawnEnemy->On();
+			SpawnObject->On();
 		}
 
 		if (IsCurAnimationEnd() == true)
@@ -48,6 +49,65 @@ void FxSpriteRenderer::Update(float _Delta)
 			
 			Off();
 		}
+		break;
+	}
+	case FXType::SpawnWeapon:
+	{
+
+		if (IsCurAnimationEnd() == true)
+		{
+			Off();
+		}
+		break;
+	}
+	case FXType::Circle_Gradient:
+	{
+
+		Scale.X += _Delta * 50.0f * Dir;
+		Scale.Y += _Delta * 50.0f * Dir;
+		SetAutoScaleRatio(Scale);
+
+		if (Scale.X >= 20.0f)
+		{
+			Off();
+		}
+		break;
+	}
+	case FXType::Flash: {
+
+		if (Scale.X <= 2.0f)
+		{
+			Scale.X += _Delta * 5.0f * Dir;
+			Scale.Y += _Delta * 5.0f * Dir;
+		}
+		
+		else
+		{
+			Scale.X += _Delta * 20.0f * Dir;
+			Scale.Y += _Delta * 20.0f * Dir;
+		}
+		
+
+		SetAutoScaleRatio(Scale);
+
+		if (Scale.X >= 4.0f)
+		{
+			Dir = -2.0f;
+			FX* Parent = dynamic_cast<FX*>(GetParentObject());
+			Parent->GetContentsLevel()->GetFXActor()->FXStart(FXType::SpawnWeapon, false, Transform.GetLocalPosition() + float4(0.0f, 20.0f), float4(10.0f, 10.0f, 1.0f));
+			Parent->GetContentsLevel()->GetFXActor()->FXStart(FXType::Circle_Gradient, false, Transform.GetLocalPosition() + float4(0.0f, 20.0f), float4(0.0f, 0.0f, 1.0f));
+			
+			if(SpawnObject != nullptr)
+			{
+				SpawnObject->On();
+			}
+		}
+
+		if (Scale.X < 0.0f)
+		{
+			Off();
+		}
+
 		break;
 	}
 

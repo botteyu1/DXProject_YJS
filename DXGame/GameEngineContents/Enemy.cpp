@@ -184,7 +184,7 @@ void Enemy::Spawn()
 {
 
 	std::shared_ptr<FxSpriteRenderer> Renderer = GetContentsLevel()->GetFXActor()->FXStart(FXType::SpawnEnemy, false, Transform.GetLocalPosition() + float4(0.0f, 20.0f));
-	Renderer->SetSpawnEnemy(this);
+	Renderer->SetSpawnObject(this);
 }
 
 

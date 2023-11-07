@@ -2,6 +2,7 @@
 #include "WeaponDrop.h"
 #include "Player.h"
 #include "Map.h"
+#include "FxSpriteRenderer.h"
 
 WeaponDrop::WeaponDrop() 
 {
@@ -16,6 +17,14 @@ void WeaponDrop::CollisionUpdate(GameEngineCollision* _Left, GameEngineCollision
 }
 
 
+
+void WeaponDrop::Spawn()
+{
+	Off();
+	std::shared_ptr<FxSpriteRenderer> Renderer = GetContentsLevel()->GetFXActor()->FXStart(FXType::Flash, false, Transform.GetLocalPosition() + float4(0.0f, 20.0f), float4(0.0f,0.0f,1.0f));
+	Renderer->SetSpawnObject(this);
+	
+}
 
 void WeaponDrop::Start()
 {
@@ -108,6 +117,7 @@ void WeaponDrop::Start()
 	Num++;
 
 	SetName("WeaponDrop_" + std::to_string(Num));
+
 }
 
 void WeaponDrop::Update(float _Delta)
@@ -125,6 +135,10 @@ void WeaponDrop::Update(float _Delta)
 
 	
 	HUD_Cape->SetSprite(Cape::CapeDataManager->GetImgName(Type));
+
+
+
+	//등장 애니메이션
 	
 
 	// 획득 상호작용

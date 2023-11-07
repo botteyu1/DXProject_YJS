@@ -25,6 +25,7 @@ void Player::TakeDamage(class GameEngineCollision* _Attacker, float _Damage)
 	if (State == PlayerState::Dash)
 		return;
 	HP -= static_cast<int>(_Damage);
+	ForceGrivityOff = false;
 	ChangeState(PlayerState::Hit);
 	ForceGrivityOff = false;
 }
