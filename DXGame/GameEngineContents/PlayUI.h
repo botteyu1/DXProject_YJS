@@ -20,6 +20,8 @@ protected:
 	void Start() override;
 	void Update(float _Delta) override;
 
+	void LevelStart(class GameEngineLevel* _NextLevel) override;
+
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Scythe_Outline;
 	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Scythe_BG;
@@ -31,12 +33,19 @@ private:
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Ult_BG;
 
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_LifeBar;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_LifeBar_Hit;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_LifeBar_On;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_LifeBar_On_Right;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_LifeBar_On_Left;
+
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_LifeBar_Text;
 
 
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_ManaBar;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_ManaBar_On;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_ManaBar_On_Left;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_ManaBar_On_Right;
+
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_ManaBar_Text;
 
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Anima;
@@ -49,6 +58,9 @@ private:
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Scythe;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Cape;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Cape2;
+
+	int PrevHP = 0;
+	float HPTimer = 500.0f;
 
 
 

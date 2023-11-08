@@ -117,13 +117,14 @@ private:
 	float MoveSpeed = 700.0f;
 	float JumpingSpeed = 1500.0f;
 	float JumpingAttackSpeed = 1500.0f;
+	
 
 	float DamagedDelayTimer = 0.0f; // 피격후 무적시간 타이머
 	float DamagedDelay = 0.5f; // 피격후 무적시간
 
 	PlayerState State = PlayerState::Max;
 
-	int MP = 30;
+	int MP = 50;
 	int MaxMP = 50;
 
 

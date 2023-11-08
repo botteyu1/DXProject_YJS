@@ -32,6 +32,7 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 	
 
 	Renderer->Transform.SetLocalPosition(_Pos);
+	Renderer->Transform.SetLocalRotation(float4::ZERONULL);
 	
 	Renderer->On();
 
@@ -76,8 +77,6 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 	case FXType::SpawnEnemy:
 		Renderer->ChangeAnimation("SpawnEnemy", true);
 		break;
-
-
 	case FXType::Flash:
 	{
 		Renderer->ChangeAnimation("Flash5", true);
@@ -110,6 +109,19 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 		Renderer->Scale = float4(0.3f, 1.3f, 1.0f);
 		float Rotate = ContentsCore::MainRandom->RandomFloat(-20.0f, 20.0f);
 		Renderer->Transform.AddLocalRotation(float4(0.0f, 0.0f, Rotate));
+	}
+		break;
+	case FXType::SlashHit:
+	{
+		Renderer->ChangeAnimation("ImpactFight_0003", true);
+		Renderer->Scale = float4(0.5f, 5.0f, 1.0f);
+		float Rotate = ContentsCore::MainRandom->RandomFloat(-15.0f, 15.0f);
+		Renderer->Transform.AddLocalRotation(float4(0.0f, 0.0f, Rotate));
+		break;
+	}
+	case FXType::Hit:
+	{
+		Renderer->ChangeAnimation("Hit", true);
 	}
 		break;
 
@@ -264,6 +276,7 @@ std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 	Renderer->CreateAnimation("Flash5", "Flash23.png", 0.0633f, -1, -1, true);
 
 	Renderer->CreateAnimation("SpawnWeapon", "SpawnWeapon", 0.0333f, -1, -1, true);
+	Renderer->CreateAnimation("Hit", "SpawnWeapon", 0.0333f, -1, -1, true);
 
 	Renderer->CreateAnimation("ImpactFight_0003", "ImpactFight_0003.png", 0.0333f, -1, -1, true);
 

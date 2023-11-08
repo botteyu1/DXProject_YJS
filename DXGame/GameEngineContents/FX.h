@@ -16,6 +16,9 @@ enum class FXType
 	Splash_Water,
 	Splash_Water2,
 	Slash,
+	SlashHit,
+	Hit,
+
 
 
 

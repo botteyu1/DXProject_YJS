@@ -24,10 +24,21 @@ void Player::TakeDamage(class GameEngineCollision* _Attacker, float _Damage)
 {
 	if (State == PlayerState::Dash)
 		return;
-	HP -= static_cast<int>(_Damage);
-	ForceGrivityOff = false;
-	ChangeState(PlayerState::Hit);
-	ForceGrivityOff = false;
+
+	if (DamagedDelayTimer >= DamagedDelay)
+	{
+		DamagedDelayTimer = 0.0f;
+		HP -= static_cast<int>(_Damage);
+		ForceGrivityOff = false;
+		ChangeState(PlayerState::Hit);
+		ForceGrivityOff = false;
+
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::Hit, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f), float4(3.0f, 3.0f, 2.0f));
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::SlashHit, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f));
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::SlashHit, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f));
+	}
+
+	
 }
 
 void Player::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)
@@ -240,15 +251,8 @@ void Player::Update(float _Delta)
 
 	StateUpdate(_Delta);
 	CapeState.Update(_Delta);
-
-
-	/*EventParameter Parameter;
-
-	Parameter.Enter = ComboHit;
-
-	AttackCollision->CollisionEvent<ContentsCollisionType>(ContentsCollisionType::Enemy,{ ComboHit,nullptr,nullptr});*/
-
 	DashStartCheck = true;
+	DamagedDelayTimer += _Delta;
 
 
 

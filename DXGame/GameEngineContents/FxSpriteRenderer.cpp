@@ -124,6 +124,29 @@ void FxSpriteRenderer::Update(float _Delta)
 
 		break;
 	}
+	case FXType::SlashHit:
+	{
+		//Renderer->Scale = float4(0.5f, 2.0f, 1.0f);
+
+		Scale.X += _Delta * 15.0f * Dir;
+		Scale.Y -= _Delta * 30.0f * Dir;
+		SetAutoScaleRatio(Scale);
+
+		if (Scale.Y <= 0.0f)
+		{
+			Off();
+		}
+		break;
+	}
+
+	case FXType::Hit:
+	{
+		if (IsCurAnimationEnd() == true)
+		{
+			Off();
+		}
+		break;
+	}
 
 	default:
 	case FXType::DamageText:
