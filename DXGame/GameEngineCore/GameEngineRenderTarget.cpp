@@ -6,6 +6,14 @@ bool GameEngineRenderTarget::IsDepth = true;
 
 GameEngineRenderUnit GameEngineRenderTarget::MergeUnit;
 
+void GameEngineRenderTarget::RenderTargetReset()
+{
+	ID3D11RenderTargetView* ArrRenderTarget[MAX_RENDER_TARGET_SETTING_COUNT] = {nullptr,};
+
+	GameEngineCore::GetContext()->OMSetRenderTargets(MAX_RENDER_TARGET_SETTING_COUNT, ArrRenderTarget, nullptr);
+	// GameEngineCore::GetContext()->RSSetViewports(static_cast<UINT>(ViewPorts.size()), &ViewPorts[0]);
+}
+
 void GameEngineRenderTarget::MergeRenderUnitInit()
 {
 	GameEngineRenderTarget::MergeUnit.SetMesh("FullRect");
@@ -39,6 +47,8 @@ void GameEngineRenderTarget::Clear()
 
 void GameEngineRenderTarget::Setting()
 {
+	RenderTargetReset();
+
 	ID3D11DepthStencilView* DSV = DepthTexture != nullptr ? DepthTexture->GetDSV() : nullptr;
 
 	if (0 >=  RTV.size())
@@ -57,7 +67,7 @@ void GameEngineRenderTarget::Setting()
 	GameEngineCore::GetContext()->RSSetViewports(static_cast<UINT>(ViewPorts.size()), &ViewPorts[0]);
 }
 
-void GameEngineRenderTarget::AddNewTexture(DXGI_FORMAT _Format, float4 _Scale, float4 _Color)
+void GameEngineRenderTarget::AddNewTexture(DXGI_FORMAT _Format, float4 _Scale, float4 _ClearColor)
 {
 	D3D11_TEXTURE2D_DESC Desc = { 0 };
 	Desc.ArraySize = 1;
@@ -76,10 +86,10 @@ void GameEngineRenderTarget::AddNewTexture(DXGI_FORMAT _Format, float4 _Scale, f
 
 	std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Create(Desc);
 
-	AddNewTexture(Tex, _Color);
+	AddNewTexture(Tex, _ClearColor);
 }
 
-void GameEngineRenderTarget::AddNewTexture(std::shared_ptr<GameEngineTexture> _Texture, float4 _Color)
+void GameEngineRenderTarget::AddNewTexture(std::shared_ptr<GameEngineTexture> _Texture, float4 _ClearColor)
 {
 	std::shared_ptr<GameEngineTexture> Tex = _Texture;
 
@@ -96,7 +106,7 @@ void GameEngineRenderTarget::AddNewTexture(std::shared_ptr<GameEngineTexture> _T
 
 	RTV.push_back(Tex->GetRTV());
 	SRV.push_back(Tex->GetSRV());
-	ClearColor.push_back(_Color);
+	ClearColor.push_back(_ClearColor);
 	ViewPorts.push_back(ViewPortData);
 
 }
@@ -143,4 +153,42 @@ void GameEngineRenderTarget::Merge(unsigned int ThisTarget, std::shared_ptr<Game
 	MergeUnit.ShaderResHelper.SetSampler("DiffuseTexSampler", "POINT");
 	MergeUnit.Render();
 	MergeUnit.ShaderResHelper.AllShaderResourcesReset();
+}
+
+void GameEngineRenderTarget::PostEffect(float _DeltaTime)
+{
+	RenderTargetReset();
+
+	for (std::shared_ptr<Effect>& Effect : Effects)
+	{
+		if (false == Effect->IsUpdate())
+		{
+			continue;
+		}
+
+		Effect->RenderBaseInfoValue.DeltaTime = _DeltaTime;
+		Effect->RenderBaseInfoValue.AccDeltaTime += _DeltaTime;
+		Effect->EffectProcess(_DeltaTime);
+	}
+}
+
+void GameEngineRenderTarget::EffectInit(Effect* _Effect)
+{
+	_Effect->EffectTarget = this;
+	_Effect->Start();
+}
+
+std::shared_ptr<GameEngineRenderTarget> GameEngineRenderTarget::CreateChildRenderTarget(std::vector<int> _Index)
+{
+	std::shared_ptr<GameEngineRenderTarget> NewRenderTarget = std::make_shared<GameEngineRenderTarget>();
+
+	for (size_t i = 0; i < _Index.size(); i++)
+	{
+		NewRenderTarget->RTV.push_back(RTV[_Index[i]]);
+		NewRenderTarget->SRV.push_back(SRV[_Index[i]]);
+		NewRenderTarget->ClearColor.push_back(ClearColor[_Index[i]]);
+		NewRenderTarget->ViewPorts.push_back(ViewPorts[_Index[i]]);
+	}
+
+	return NewRenderTarget;
 }

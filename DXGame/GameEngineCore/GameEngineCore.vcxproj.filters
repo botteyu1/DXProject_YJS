@@ -76,6 +76,12 @@
     <Filter Include="PathFind">
       <UniqueIdentifier>{89a24fbe-f28a-4c0b-9fec-98423ad17cc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Rendering\PostEffect">
+      <UniqueIdentifier>{ba4bc84f-3cba-48de-878a-2302a9a08b46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Engine">
+      <UniqueIdentifier>{a0cf300c-1100-4353-85a6-fdeef19530a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineActor.h">
@@ -238,6 +244,18 @@
     <ClInclude Include="AStartPathFinder.h">
       <Filter>PathFind</Filter>
     </ClInclude>
+    <ClInclude Include="FadePostEffect.h">
+      <Filter>Rendering\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineCoreWindow.h">
+      <Filter>GUI\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="BlurPostEffect.h">
+      <Filter>Rendering\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineStructuredBuffer.h">
+      <Filter>Resources\Buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineActor.cpp">
@@ -387,6 +405,18 @@
     </ClCompile>
     <ClCompile Include="AStartPathFinder.cpp">
       <Filter>PathFind</Filter>
+    </ClCompile>
+    <ClCompile Include="FadePostEffect.cpp">
+      <Filter>Rendering\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineCoreWindow.cpp">
+      <Filter>GUI\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="BlurPostEffect.cpp">
+      <Filter>Rendering\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineStructuredBuffer.cpp">
+      <Filter>Resources\Buffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

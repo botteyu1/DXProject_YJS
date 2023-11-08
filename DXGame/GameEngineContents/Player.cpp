@@ -118,7 +118,7 @@ void Player::Start()
 		MainSpriteRenderer->CreateAnimation("LD_ComboEvilHands_Up", "LD_ComboEvilHands_Up", 0.0433f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboEvilHands_Up", { 0.5f, 0.0f, false, {250.0f, 300.0f}, {100.0f, 150.0f} }));
 		
-		MainSpriteRenderer->CreateAnimation("LD_EvilBirds", "LD_EvilBirds", 0.0333f, -1, -1, false);
+		MainSpriteRenderer->CreateAnimation("LD_EvilBirds", "LD_EvilBirds", 0.0233f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_EvilBirds", { 0.5f, 0.0f, false, {500.0f, 500.0f}, {0.0f, 250.0f}, 0 , 0.9f }));
 		
 		/*MainSpriteRenderer->CreateAnimation("LD_EvilBirds_Up", "LD_EvilBirds_Up", 0.0333f, -1, -1, false);
@@ -231,7 +231,7 @@ void Player::Update(float _Delta)
 		return;
 	}
 
-	if (AerialCheck == false)
+	if (AerialCheck == false and ForceGrivityOff == false)
 	{
 		JumpingAttackEnd = false;
 		ThroughFloorCheck = false;

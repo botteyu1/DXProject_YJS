@@ -126,7 +126,6 @@ void Player::ComboAerialUpdate(float _Delta)
 		if (NextCombo == true and AerialComboCount < 3)
 		{
 			ChangeState(PlayerState::ComboAerial);
-
 		}
 		else if(AerialPixelCheck() == true)
 		{

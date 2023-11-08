@@ -5,8 +5,10 @@
 #include "GameEngineMaterial.h"
 #include "GameEngineRenderUnit.h"
 
+
 struct RenderBaseInfo
 {
+	float4 ScreenSize;
 	float4 BaseColor;
 	int IsMask = 0;
 	int BaseColorOnly = 0;
@@ -18,6 +20,16 @@ struct RenderBaseInfo
 	float4 MaskPivot;
 	float4 VertexUVPlus;
 	float4 VertexUVMul = float4::ONE;
+	float DeltaTime = 0.0f;
+	float AccDeltaTime = 0.0f;
+	int Target0 = 1;
+	int Target1 = 0;
+	int Target2 = 0;
+	int Target3 = 0;
+	int Target4 = 0;
+	int Target5 = 0;
+	int Target6 = 0;
+	int Target7 = 0;
 };
 
 // 설명 : GameEngineRenderer에게 Order는 랜더링 되는 순서를 의미합니다.
@@ -89,6 +101,7 @@ public:
 
 protected:
 	void Start();
+	void Update(float _Delta) override;
 	virtual void Render(class GameEngineCamera* _Camera, float _Delta);
 	virtual void SetMaterialEvent(std::string_view _Name, int _Index = 0);
 

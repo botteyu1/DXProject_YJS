@@ -45,6 +45,10 @@ void Player::CapeStart()
 				CheckEndAttackFrame(8);
 				DashProcessUpdate(_DeltaTime, float4::LEFT, 3000.0f);
 				CheckAttackCollision();
+				if (MainSpriteRenderer->GetCurIndex() > 9)
+				{
+					InputDashUpdate(_DeltaTime);
+				}
 
 				if (MainSpriteRenderer->IsCurAnimationEnd())
 				{
@@ -100,6 +104,11 @@ void Player::CapeStart()
 				CheckEndAttackFrame(8);*/
 				DashProcessUpdate(_DeltaTime, float4::LEFT, 2000.0f);
 				CheckAttackCollision();
+
+				if (MainSpriteRenderer->GetCurIndex() > 12)
+				{
+					InputDashUpdate(_DeltaTime);
+				}
 
 				if (MainSpriteRenderer->IsCurAnimationEnd())
 				{
@@ -157,6 +166,13 @@ void Player::CapeStart()
 				CheckEndAttackFrame(8);*/
 				DashProcessUpdate(_DeltaTime, float4::LEFT, 2000.0f);
 				CheckAttackCollision();
+
+				if (MainSpriteRenderer->GetCurIndex() > 18)
+				{
+
+					InputDashUpdate(_DeltaTime);
+
+				}
 
 				if (MainSpriteRenderer->IsCurAnimationEnd())
 				{

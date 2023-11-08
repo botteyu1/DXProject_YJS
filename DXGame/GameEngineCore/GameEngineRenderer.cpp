@@ -20,6 +20,7 @@
 
 GameEngineRenderer::GameEngineRenderer() 
 {
+	RenderBaseInfoValue.ScreenSize = GameEngineCore::MainWindow.GetScale();
 }
 
 GameEngineRenderer::~GameEngineRenderer() 
@@ -84,6 +85,12 @@ void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _Delta)
 		Units[i]->ResSetting();
 		Units[i]->Draw();
 	}
+}
+
+void GameEngineRenderer::Update(float _Delta)
+{
+	RenderBaseInfoValue.DeltaTime = _Delta;
+	RenderBaseInfoValue.AccDeltaTime += _Delta;
 }
 
 std::shared_ptr<GameEngineRenderUnit> GameEngineRenderer::CreateAndFindRenderUnit(int _Index)

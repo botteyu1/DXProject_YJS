@@ -122,6 +122,7 @@ void PlayUI::Start()
 
 	HUD_Ult = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	//HUD_Ult->SetAutoScaleRatio({ 1.2f,1.2f,1.2f });
+	HUD_Ult->SetMaterial("2DTextureAlwaysDepth");
 	HUD_Ult->AutoSpriteSizeOn();
 	HUD_Ult->SetCameraOrder(ECAMERAORDER::UI);
 	HUD_Ult->SetSprite("HUD_Main_Jauge.png");
@@ -130,6 +131,7 @@ void PlayUI::Start()
 
 	
 	HUD_LifeBar = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_LifeBar->SetMaterial("2DTextureAlwaysDepth");
 	HUD_LifeBar->SetCameraOrder(ECAMERAORDER::UI);
 	HUD_LifeBar->SetSprite("HUD_Main_LifeBar.png");
 	HUD_LifeBar->SetImageScale({ 446.0f,30.0f,1.0f });
@@ -141,6 +143,7 @@ void PlayUI::Start()
 
 	HUD_LifeBar_On = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_LifeBar_On->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_LifeBar_On->SetMaterial("2DTextureAlwaysDepth");
 	HUD_LifeBar_On->SetSprite("HUD_Main_LifeBar_On.png");
 	HUD_LifeBar_On->SetImageScale({ 420.f,18.f,1.0f });
 	HUD_LifeBar_On->Transform.SetLocalPosition({ -818.0f,485.0f,0.0f });
@@ -164,6 +167,7 @@ void PlayUI::Start()
 
 
 	HUD_ManaBar_On = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_ManaBar_On->SetMaterial("2DTextureAlwaysDepth");
 	HUD_ManaBar_On->SetCameraOrder(ECAMERAORDER::UI);
 	HUD_ManaBar_On->SetSprite("HUD_Main_LifeBar_On.png");
 	HUD_ManaBar_On->SetImageScale({ 330.f,9.f,1.0f });
