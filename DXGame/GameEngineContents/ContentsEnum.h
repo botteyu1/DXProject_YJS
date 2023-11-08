@@ -176,6 +176,7 @@ enum class ActorType
 	WeaponDrop3,
 
 	PaperWall,
+	Contractor,
 
 		
 

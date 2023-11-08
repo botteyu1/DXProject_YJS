@@ -44,6 +44,8 @@ void Elevator::Start()
 	MainCollision->Transform.SetLocalPosition({30.0f, 220.0f });
 	MainCollision->SetCollisionType(ColType::AABBBOX2D);
 
+
+
 	GameEngineInput::AddInputObject(this);
 	//DebugValue = true;
 

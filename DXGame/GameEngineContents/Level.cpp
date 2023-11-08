@@ -16,6 +16,7 @@
 #include "WeaponDrop.h"
 #include "PaperWall.h"
 #include "LevelChanger.h"
+#include "Contractor.h"
 
 Level::Level() 
 {
@@ -599,6 +600,11 @@ std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, flo
 		PaperWallvec.push_back(PaperWallObject);
 		break;
 	}
+
+	case ActorType::Contractor:
+		Object = CreateActor<Contractor>(ContentsObjectType::BackGroundobject);
+		//static_cast<WeaponDrop*>(Object.get())->Init("W1_Miniboss.png");
+		break;
 
 	default:
 		break;

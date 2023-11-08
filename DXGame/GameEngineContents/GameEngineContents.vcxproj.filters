@@ -139,6 +139,9 @@
     <ClCompile Include="LevelChanger.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="Contractor.cpp">
+      <Filter>StageObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -269,6 +272,9 @@
     </ClInclude>
     <ClInclude Include="LevelChanger.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Contractor.h">
+      <Filter>StageObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

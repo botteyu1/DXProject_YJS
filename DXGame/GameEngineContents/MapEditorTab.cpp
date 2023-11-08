@@ -146,6 +146,7 @@ void MapEditorTab::Start()
 		ObjectCreateNames.push_back("WeaponDrop2");
 		ObjectCreateNames.push_back("WeaponDrop3");
 		ObjectCreateNames.push_back("PaperWall");
+		ObjectCreateNames.push_back("Contractor");
 
 
 
