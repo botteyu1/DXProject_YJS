@@ -197,7 +197,7 @@ void Ghost_Woman::DeathUpdate(float _Delta)
 {
 	if (true == MainSpriteRenderer->IsCurAnimationEnd())
 	{
-		Off();
+		DeathEnd();
 	}
 }
 

@@ -147,6 +147,47 @@ void FxSpriteRenderer::Update(float _Delta)
 		}
 		break;
 	}
+	case FXType::Shard:
+	{
+		
+		{
+			Scale.X += _Delta * 10.0f * Dir;
+			Scale.Y += _Delta * 10.0f * Dir;
+		}
+
+		if (Time >= 0.3f)
+		{
+			Dir = -1.0f;
+			if (SpawnObject != nullptr)
+			{
+				SpawnObject->On();
+
+			}
+		}
+		if (Time >= 0.4f)
+		{
+			if (SpawnObject != nullptr and false == SpawnObjectOnCheck)
+			{
+				SpawnObjectOnCheck = true;
+				SpawnObject->On();
+				SpawnObject->Transform.SetLocalPosition(Transform.GetLocalPosition() + float4(0.0f, 50.0f, -3.0f));
+
+			}
+		}
+
+		SetAutoScaleRatio(Scale);
+		float4 Rotate = float4::VectorRotationToDegZ(float4::RIGHT, Transform.GetLocalRotationEuler().Z);
+		float4 NextPos = Rotate * _Delta * 400.0f;
+
+		Transform.AddLocalPosition(NextPos);
+
+		if (Time >= 0.5f)
+		{
+			
+			Off();
+		}
+		break;
+	}
 
 	default:
 	case FXType::DamageText:

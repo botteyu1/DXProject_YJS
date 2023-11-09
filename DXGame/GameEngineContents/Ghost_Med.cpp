@@ -102,9 +102,6 @@ void Ghost_Med::Start()
 void Ghost_Med::Update(float _Delta)
 {
 	Enemy::Update(_Delta);
-	
-
-
 }
 
 void Ghost_Med::IdleStart()
@@ -130,11 +127,13 @@ void Ghost_Med::IdleUpdate(float _Delta)
 		if (DetectPlayer = true)
 		{
 			ChangeState(EnemyState::Run);
+			return;
 		}
 		else
 		{
 			DetectPlayer = true;
 			ChangeState(EnemyState::Surprised);
+			return;
 		}
 	}
 
@@ -237,7 +236,7 @@ void Ghost_Med::DeathUpdate(float _Delta)
 {
 	if (true == MainSpriteRenderer->IsCurAnimationEnd())
 	{
-		Off();
+		DeathEnd();
 	}
 }
 

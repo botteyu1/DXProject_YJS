@@ -124,6 +124,14 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 		Renderer->ChangeAnimation("Hit", true);
 	}
 		break;
+	case FXType::Shard:
+	{
+		Renderer->ChangeAnimation("Shard", true);
+		float Rotate = ContentsCore::MainRandom->RandomFloat(45.0f, 135.0f);
+		Renderer->Transform.AddLocalRotation(float4(0.0f, 0.0f, Rotate));
+
+	}
+		break;
 
 	default:
 		break;
@@ -144,6 +152,7 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 	Renderer->SetAutoScaleRatio(Renderer->Scale);
 
 	Renderer->Flip = _flip;
+	Renderer->SpawnObjectOnCheck = false; 
 
 	return Renderer;
 }
@@ -221,11 +230,14 @@ void FX::Start()
 			GameEngineFile& File = Atlas[i];
 			GameEngineTexture::Load(File.GetStringPath());
 		}
+
+		
 	}
 
-	GameEngineSprite::CreateCut("DustLanding_atlas.png",7,2);
-	GameEngineSprite::CreateCut("FX_Splash_Water_01_Atlas.png",2,4);
-	GameEngineSprite::CreateCut("FX_Splash_Water_03_Atlas.png",4,4);
+	GameEngineSprite::CreateCut("DustLanding_atlas.png", 7, 2);
+	GameEngineSprite::CreateCut("FX_Splash_Water_01_Atlas.png", 2, 4);
+	GameEngineSprite::CreateCut("FX_Splash_Water_03_Atlas.png", 4, 4);
+	GameEngineSprite::CreateCut("FX_Shard_Particle_Atlas.png", 5, 5);
 
 	
 	AddFXRenderer();
@@ -266,6 +278,7 @@ std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 	Renderer->CreateAnimation("Splash_Water2", "FX_Splash_Water_03_Atlas.png", 0.0233f, -1, -1, true);
 	Renderer->SetEndEvent("Splash_Water2", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
 	
+	Renderer->CreateAnimation("Shard", "FX_Shard_Particle_Atlas.png", 0.0233f, -1, -1, true);
 
 
 

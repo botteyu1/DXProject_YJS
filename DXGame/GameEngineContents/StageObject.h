@@ -26,8 +26,18 @@ protected:
 	//std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer; //기본 렌더러
 	std::shared_ptr<GameEngineCollision> MainCollision;
 
+	bool BouncingValue = true; //바운스했으면 true;
+	bool AerialCheck = false;
+	bool ForceGrivityOff = true; //공중에 있거나 중력을 안받으면 트루
+	float4 GrivityForce = { 0.0f, 0.0f, 0.0f, 1.0f }; //중력힘
+	float GrivityPower = 2000.0f; //중력강도;
 
 private:
+	GameEngineColor PixelCollisionCheck(float4 _Pixel, GameEngineColor _DefaultColor = GameEngineColor::RED);
+	GameEngineColor PosCollisionCheck(float4 _Pos, GameEngineColor _DefaultColor = GameEngineColor::RED);
+
+
+	
 
 };
 

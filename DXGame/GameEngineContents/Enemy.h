@@ -83,6 +83,7 @@ protected:
 	void CheckAttackCollision();
 
 	virtual void DeathCheck();
+	void DeathEnd();
 
 	void HitPushBackUpdate(float _Delta);
 

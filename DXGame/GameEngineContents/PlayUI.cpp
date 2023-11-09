@@ -314,6 +314,10 @@ void PlayUI::Update(float _Delta)
 	}
 	
 	float HPBar = ((static_cast<float>(PlayerHP)/ 80.0f) * 440.f) - 95.0f;
+	if (HPBar <= 0.0f)
+	{
+		HPBar = 0.0f;
+	}
 	HUD_LifeBar_On->SetImageScale({ HPBar,55.f,1.0f });
 
 	float HPBarRight = ((static_cast<float>(PlayerHP) / 80.0f) * 440.f) - 856.0f;
@@ -325,6 +329,10 @@ void PlayUI::Update(float _Delta)
 
 
 	float ManaBar = (static_cast<float>(PlayerPtr->MP) / 50.f) * 300.0f;
+	if (ManaBar <= 0.0f)
+	{
+		ManaBar = 0.0f;
+	}
 	HUD_ManaBar_On->SetImageScale({ ManaBar,19.f,1.0f });
 	//HUD_ManaBar_On->Off();
 

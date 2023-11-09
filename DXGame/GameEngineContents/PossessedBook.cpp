@@ -187,7 +187,7 @@ void PossessedBook::DeathUpdate(float _Delta)
 {
 	if (true == MainSpriteRenderer->IsCurAnimationEnd())
 	{
-		Off();
+		DeathEnd();
 	}
 }
 

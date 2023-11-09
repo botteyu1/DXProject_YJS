@@ -195,7 +195,7 @@ void Ghost_Man::DeathUpdate(float _Delta)
 {
 	if (true == MainSpriteRenderer->IsCurAnimationEnd())
 	{
-		Off();
+		DeathEnd();
 	}
 }
 

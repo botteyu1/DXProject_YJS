@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "FX.h"
 #include "FxSpriteRenderer.h"
+#include "AnimaDrop.h"
 
 Enemy::Enemy() 
 {
@@ -14,8 +15,12 @@ Enemy::~Enemy()
 
 void Enemy::TakeDamage(GameEngineCollision* _Attacker,float _Damage)
 {
-	HP -= static_cast<int>(_Damage);
+	if (State == EnemyState::Death)
+	{
+		return;
+	}
 
+	HP -= static_cast<int>(_Damage);
 
 	// 데미지 표기
 	GetContentsLevel()->GetFXActor()->FXTextStart(FXType::DamageText, std::to_string(_Damage), Transform.GetLocalPosition());
@@ -61,11 +66,22 @@ void Enemy::CheckAttackCollision()
 
 void Enemy::DeathCheck()
 {
-	if (HP <= 0 )
+	if (HP <= 0 and DeathValue == false)
 	{
+		DeathValue = true;
 		ChangeState(EnemyState::Death);
+		std::shared_ptr<AnimaDrop> Object =  GetContentsLevel()->CreateActor<AnimaDrop>(ContentsObjectType::BackGroundobject);
+		Object->Spawn(Transform.GetLocalPosition());
 	}
 }
+
+void Enemy::DeathEnd()
+{
+	Off();
+	
+}
+
+
 
 void Enemy::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)
 {

@@ -41,6 +41,7 @@ private:
 	bool BouncingValue = true; //바운스했으면 true;
 	bool AerialCheck = false;
 	float4 GrivityForce = { 0.0f, 0.0f, 0.0f, 1.0f }; //중력힘
+
 	CapeType Type = CapeType::EvilHands;
 
 	void BouncingStart();

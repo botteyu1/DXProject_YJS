@@ -18,6 +18,8 @@ enum class FXType
 	Slash,
 	SlashHit,
 	Hit,
+	Shard,
+
 
 
 

@@ -142,6 +142,9 @@
     <ClCompile Include="Contractor.cpp">
       <Filter>StageObject</Filter>
     </ClCompile>
+    <ClCompile Include="AnimaDrop.cpp">
+      <Filter>StageObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -274,6 +277,9 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="Contractor.h">
+      <Filter>StageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimaDrop.h">
       <Filter>StageObject</Filter>
     </ClInclude>
   </ItemGroup>
