@@ -41,7 +41,7 @@ void ContentsCore::Start()
 		//D3D11_DEPTH_STENCILOP_DESC FrontFace;
 		//D3D11_DEPTH_STENCILOP_DESC BackFace;
 
-		Desc.DepthEnable = true;
+		Desc.DepthEnable = false;
 		// 깊이 테스트만 하고 안쓸수도 있다.
 		Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ZERO;
 		//Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ALL;

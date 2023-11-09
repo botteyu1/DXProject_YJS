@@ -26,7 +26,7 @@ void StageObject::Update(float _Delta)
 	float MovePixel = -1.0f;
 
 
-	while (GameEngineColor::WHITE != Color)
+	while (GameEngineColor::WHITE != Color and ForceGrivityOff == false)
 	{
 		MovePixel += 1.0f;
 
