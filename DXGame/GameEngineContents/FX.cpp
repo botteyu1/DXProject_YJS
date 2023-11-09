@@ -254,7 +254,7 @@ void FX::Update(float _Delta)
 std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 {
 	std::shared_ptr<FxSpriteRenderer> Renderer = CreateComponent<FxSpriteRenderer>(ContentsRenderType::FX);
-	//Renderer->SetMaterial("2DTextureAlwaysDepth");
+	Renderer->SetMaterial("2DTextureAlwaysDepth");
 
 
 	Renderer->CreateAnimation("Ghost_Attack_FX", "Ghost_Attack_FX", 0.0666f, -1, -1, false);

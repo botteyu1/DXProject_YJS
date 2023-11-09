@@ -745,6 +745,7 @@ void Level::Start()
 	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::Enemy);
 	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::SecondaryRenderer);
 	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::Enemy_Attack);
+	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::FX);
 	ShaderActor = CreateActor<Shader>(ContentsObjectType::Shader);
 	LevelChangerPtr = CreateActor<LevelChanger>(ContentsObjectType::Shader);
 	GameEngineLevel::IsDebug = false;

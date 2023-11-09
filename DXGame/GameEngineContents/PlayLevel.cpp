@@ -28,7 +28,7 @@ PlayLevel::~PlayLevel()
 void PlayLevel::Start()
 {
 	
-
+	FXActor = CreateActor<FX>(ContentsObjectType::FX);
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
 
 	GetMainCamera()->Transform.SetLocalPosition({ HalfWindowScale.X, -HalfWindowScale.Y, -5000.0f});
@@ -43,7 +43,7 @@ void PlayLevel::Start()
 		Object->Init("Stage1.dds", "StagePixel1.png", "Stage2.dds", "StagePixel2.png");
 		SetMap(Object);
 	}
-	FXActor = CreateActor<FX>(ContentsObjectType::FX);
+
 	PlayUIPtr = CreateActor<PlayUI>(ContentsObjectType::UI);
 
 	GameEngineDirectory Dir;

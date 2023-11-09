@@ -76,6 +76,7 @@ void Player::Start()
 
 		// ¿Ãµø
 		MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Player);
+		MainSpriteRenderer->SetMaterial("2DTextureAlwaysDepth");
 		MainSpriteRenderer->CreateAnimation("LD_Idle", "LD_Idle", 0.0333f, -1, -1, true);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Idle", {}));
 

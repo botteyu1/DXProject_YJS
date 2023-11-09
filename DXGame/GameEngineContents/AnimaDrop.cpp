@@ -36,6 +36,7 @@ void AnimaDrop::Start()
 	}
 	GameEngineSprite::CreateCut("FX_Anima_Particle_Atlas.png", 3, 3);
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::BackGroundobject);
+	MainSpriteRenderer->SetMaterial("2DTextureAlwaysDepth");
 	MainSpriteRenderer->CreateAnimation("Anima_Particle", "FX_Anima_Particle_Atlas.png", 0.0333f, -1, -1, true);
 	MainSpriteRenderer->ChangeAnimation("Anima_Particle");
 	//MainSpriteRenderer-> GetColorData().MulColor = float4(1.f, 1.f, 0.33f, 1.0f);

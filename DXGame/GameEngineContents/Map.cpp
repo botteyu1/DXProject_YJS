@@ -64,6 +64,7 @@ void Map::Init(std::string_view _Main, std::string_view _MainPixel, std::string_
 {
 	{
 		MainBackGround = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::BackGroundobject);
+		MainBackGround->SetMaterial("2DTextureAlwaysDepth");
 		MainBackGround->SetSprite(_Main);
 		
 
@@ -80,6 +81,7 @@ void Map::Init(std::string_view _Main, std::string_view _MainPixel, std::string_
 		if (_Main2 != "")
 		{
 			MainBackGround2 = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::BackGround);
+			MainBackGround2->SetMaterial("2DTextureAlwaysDepth");
 			MainBackGround2->SetSprite(_Main2);
 			PixelBackGround2 = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::BackGround);
 			PixelBackGround2->SetSprite(_MainPixel2);
