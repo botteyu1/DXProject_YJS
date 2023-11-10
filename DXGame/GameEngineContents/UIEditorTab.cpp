@@ -37,6 +37,7 @@ void UIEditorTab::SelectTabUpdate(GameEngineLevel* _Level)
 	if (ImGui::Button("Object Reload"))
 	{
 		std::vector<std::shared_ptr<UI>> ObjectUI = _Level->GetObjectGroupConvert<UI>(ContentsObjectType::UI);
+		//std::vector<std::shared_ptr<UI>> ObjectUIAfter = _Level->GetObjectGroupConvert<UI>(ContentsObjectType::);
 
 		ObjectLoaded.clear();
 
@@ -50,6 +51,17 @@ void UIEditorTab::SelectTabUpdate(GameEngineLevel* _Level)
 				if (RenderertUI[i]->GetName() != "")
 				{
 					ObjectLoaded.push_back(RenderertUI[i]);
+				}
+			}
+			{
+				std::vector<std::shared_ptr<GameEngineSpriteRenderer>> RenderertUI = ObjectUI[i]->GetObjectGroupConvert<GameEngineSpriteRenderer>(ContentsRenderType::UIAfter);
+
+				for (size_t i = 0; i < RenderertUI.size(); i++)
+				{
+					if (RenderertUI[i]->GetName() != "")
+					{
+						ObjectLoaded.push_back(RenderertUI[i]);
+					}
 				}
 			}
 		}

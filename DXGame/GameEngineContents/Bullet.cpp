@@ -46,6 +46,7 @@ void Bullet::Start()
 	}
 
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy_Attack);
+	MainSpriteRenderer->SetMaterial("2DTextureAlwaysDepth");
 	
 
 	MainSpriteRenderer->AutoSpriteSizeOn();

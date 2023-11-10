@@ -213,6 +213,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="CurseUI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="LevelChanger.cpp">
       <SubType>
       </SubType>
@@ -317,6 +321,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="SoularyDrop.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="StageObject.cpp">
       <SubType>
       </SubType>
@@ -393,6 +401,10 @@
     </ClInclude>
     <ClInclude Include="ContentsEnum.h" />
     <ClInclude Include="Contractor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="CurseUI.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -490,6 +502,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ShaderTab.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SoularyDrop.h">
       <SubType>
       </SubType>
     </ClInclude>

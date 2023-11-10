@@ -130,7 +130,8 @@ void Contractor::Start()
 				{
 					if (GameEngineInput::IsDown('F', this))
 					{
-						State.ChangeState(ContractorState::DisAppear);
+						
+						//State.ChangeState(ContractorState::DisAppear);
 					}
 					
 				}
@@ -174,6 +175,8 @@ void Contractor::Start()
 			{
 				if (MainSpriteRenderer->IsCurAnimationEnd() == true)
 				{
+
+
 					MainSpriteRenderer->Off();
 				}
 			};

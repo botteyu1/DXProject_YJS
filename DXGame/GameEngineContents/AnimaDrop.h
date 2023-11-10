@@ -1,6 +1,5 @@
 #pragma once
 #include "StageObject.h"
-#include "Cape.h"
 
 
 

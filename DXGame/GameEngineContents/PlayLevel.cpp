@@ -15,6 +15,9 @@
 #include "PlayUI.h"
 #include "PaperWall.h"
 #include "WeaponDrop.h"
+#include <GameEngineCore/EngineEnum.h>
+#include <GameEngineCore/FadePostEffect.h>
+#include "CurseUI.h"
 
 
 PlayLevel::PlayLevel() 
@@ -264,14 +267,17 @@ void PlayLevel::Update(float _Delta)
 
 	if (GameEngineInput::IsDown('V', this))
 	{
-		if (WeaponDropObject != nullptr)
+		GetCurseUI()->CurseUIStart(1);
+
+		//GetCamera(static_cast<int>(ECAMERAORDER::UI))->GetCameraAllRenderTarget()->CreateEffect<FadePostEffect>();
+		/*if (WeaponDropObject != nullptr)
 		{
 			WeaponDropObject->Death();
 		}
 
 		WeaponDropObject =  CreateActor<WeaponDrop>(ContentsObjectType::BackGround);
 		WeaponDropObject->Transform.SetLocalPosition(PlayerPtr->Transform.GetLocalPosition());
-		WeaponDropObject->Spawn();
+		WeaponDropObject->Spawn();*/
 	}
 }
 

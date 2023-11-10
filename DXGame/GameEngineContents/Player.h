@@ -98,11 +98,18 @@ public:
 	void LevelStart(class GameEngineLevel* _NextLevel) override;
 
 	void LevelEnd(class GameEngineLevel* _NextLevel) override;
+
+	void AddSoulary(int _Soulary)
+	{
+		Soulary += _Soulary;
+	}
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
 	std::shared_ptr<GameEngineCollision> DetectCollision;
 	std::shared_ptr<class BookOfTheDead> PlayerBook;
+
+
 	
 	//std::shared_ptr<class SecondaryRenderer> ShadowRenderer;
 

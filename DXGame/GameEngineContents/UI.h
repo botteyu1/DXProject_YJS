@@ -15,6 +15,8 @@ public:
 	UI& operator=(const UI& _Other) = delete;
 	UI& operator=(UI&& _Other) noexcept = delete;
 
+	virtual void UIOn() {}
+
 protected:
 
 private:

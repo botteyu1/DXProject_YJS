@@ -29,8 +29,8 @@ void Shader::Start()
 		}
 	}
 	
-	SetName("Shader");
 	float4 WindowScale = ContentsCore::GetStartWindowSize();
+	SetName("Shader");
 
 	Cloud = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Shader);
 	Cloud->SetSprite("snowCloudI.Png");

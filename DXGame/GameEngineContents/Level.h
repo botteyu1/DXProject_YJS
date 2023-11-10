@@ -37,6 +37,12 @@ public:
 		return ShaderActor;
 	}
 
+	std::shared_ptr<class CurseUI> GetCurseUI()
+	{
+		return CurseUIPtr;
+	}
+
+
 	std::shared_ptr<class ContentObject> AddActor(ActorType _Type, float4 _Pos,float4 _Rotation, bool _Flip, bool _Debug);
 
 	void Serializer(GameEngineSerializer& _Data) ;
@@ -61,6 +67,7 @@ protected:
 	std::vector<std::shared_ptr<class Enemy>> GimicEnemyvec;
 	std::vector< std::shared_ptr<class Enemy>> Gimic2Enemyvec;
 	std::shared_ptr<class LevelChanger> LevelChangerPtr = nullptr;
+	std::shared_ptr<class CurseUI> CurseUIPtr = nullptr;
 
 
 	void Start()  override;

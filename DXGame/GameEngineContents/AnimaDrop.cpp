@@ -2,6 +2,7 @@
 #include "AnimaDrop.h"
 #include "FX.h"
 #include "FxSpriteRenderer.h"
+#include "Player.h"
 
 AnimaDrop::AnimaDrop() 
 {
@@ -62,8 +63,27 @@ void AnimaDrop::Update(float _Delta)
 		return;
 	}
 
+
+	ForceGrivityOff = true;
+
+	float4 PlayerPos = Player::GetMainPlayer()->Transform.GetLocalPosition();
+
+
+	float4 Pos = Transform.GetLocalPosition();
+	//float time = 1.0f;
+
+	//float4 Lerp = float4::LerpClamp(Pos, PlayerPos, time);
+
+
+	float4 Move = PlayerPos - Pos;
+	float4 Nor = Move.NormalizeReturn();
+
+	Transform.AddLocalPosition(Nor * _Delta * 500.0f);
+
+
 	if (MainCollision->Collision<ContentsCollisionType>(ContentsCollisionType::Player))
 	{
-
+		Player::GetMainPlayer()->AddSoulary(1);
+		Death();
 	}
 }

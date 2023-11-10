@@ -26,8 +26,9 @@ protected:
 	//std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer; //기본 렌더러
 	std::shared_ptr<GameEngineCollision> MainCollision;
 
+	float GravityTimer = 0.0f;
 	bool BouncingValue = true; //바운스했으면 true;
-	bool AerialCheck = false;
+	bool AerialCheck = false; // 공중인지 체크 공중이면 트루
 	bool ForceGrivityOff = true; //공중에 있거나 중력을 안받으면 트루
 	float4 GrivityForce = { 0.0f, 0.0f, 0.0f, 1.0f }; //중력힘
 	float GrivityPower = 2000.0f; //중력강도;

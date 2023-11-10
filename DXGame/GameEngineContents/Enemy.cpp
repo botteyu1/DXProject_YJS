@@ -4,6 +4,7 @@
 #include "FX.h"
 #include "FxSpriteRenderer.h"
 #include "AnimaDrop.h"
+#include "SoularyDrop.h"
 
 Enemy::Enemy() 
 {
@@ -70,7 +71,18 @@ void Enemy::DeathCheck()
 	{
 		DeathValue = true;
 		ChangeState(EnemyState::Death);
-		std::shared_ptr<AnimaDrop> Object =  GetContentsLevel()->CreateActor<AnimaDrop>(ContentsObjectType::BackGroundobject);
+		//std::shared_ptr<AnimaDrop> Object =  GetContentsLevel()->CreateActor<AnimaDrop>(ContentsObjectType::BackGroundobject);
+		std::shared_ptr<SoularyDrop> Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
+		Object->Spawn(Transform.GetLocalPosition());
+		Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
+		Object->Spawn(Transform.GetLocalPosition());
+		Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
+		Object->Spawn(Transform.GetLocalPosition());
+		Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
+		Object->Spawn(Transform.GetLocalPosition());
+		Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
+		Object->Spawn(Transform.GetLocalPosition());
+		Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
 		Object->Spawn(Transform.GetLocalPosition());
 	}
 }

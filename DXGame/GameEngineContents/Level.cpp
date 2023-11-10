@@ -17,6 +17,8 @@
 #include "PaperWall.h"
 #include "LevelChanger.h"
 #include "Contractor.h"
+#include "CurseUI.h"
+#include <GameEngineCore/BlurPostEffect.h>
 
 Level::Level() 
 {
@@ -745,8 +747,15 @@ void Level::Start()
 	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::Enemy);
 	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::SecondaryRenderer);
 	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::Enemy_Attack);
-	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::FX);
+	GetMainCamera()->SetZSort<ContentsRenderType>(ContentsRenderType::FX);/*
+
+	GetCamera(static_cast<int>(ECAMERAORDER::UI))->GetCameraAllRenderTarget()->CreateEffect<BlurPostEffect>();
+	GetCamera(static_cast<int>(ECAMERAORDER::UI))->GetCameraAllRenderTarget()->CreateEffect<BlurPostEffect>();
+	GetCamera(static_cast<int>(ECAMERAORDER::UI))->GetCameraAllRenderTarget()->CreateEffect<BlurPostEffect>();
+	GetCamera(static_cast<int>(ECAMERAORDER::UI))->GetCameraAllRenderTarget()->CreateEffect<BlurPostEffect>();*/
 	ShaderActor = CreateActor<Shader>(ContentsObjectType::Shader);
+	CurseUIPtr = CreateActor<CurseUI>(ContentsObjectType::UI);
+
 	LevelChangerPtr = CreateActor<LevelChanger>(ContentsObjectType::Shader);
 	GameEngineLevel::IsDebug = false;
 }

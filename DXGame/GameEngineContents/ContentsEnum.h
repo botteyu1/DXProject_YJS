@@ -14,6 +14,9 @@ enum class ContentsRenderType
 	Shader,
 	UI,
 	Transition,
+	Fade,
+	UIAfter,
+	FadeAfter,
 };
 
 
