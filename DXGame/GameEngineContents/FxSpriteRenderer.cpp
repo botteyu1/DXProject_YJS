@@ -208,9 +208,42 @@ void FxSpriteRenderer::Update(float _Delta)
 		}
 		break;
 	}
+	case FXType::DamageText:
+	{
+		if (Alpha > 0.7f)
+		{
+			Alpha -= _Delta * 0.2f;
+
+			Transform.AddLocalPosition(float4::UP* _Delta * 50.0f);
+
+			SetTextAlpha(Alpha);
+		}
+		else if (Alpha > 0.0f)
+		{
+			
+			Alpha -= _Delta * 2.5f;
+			if (Alpha < 0.0f)
+			{
+				Alpha = 0.0f;
+			}
+
+			Transform.AddLocalPosition(float4::UP* _Delta * 400.0f);
+
+			SetTextAlpha(Alpha);
+		}
+		else
+		{
+			SetTextAlpha(Alpha);
+			Off();
+		}
+		
+
+
+	
+	}
+	break;
 
 	default:
-	case FXType::DamageText:
 	{
 		if (Time >= 1.0f)
 		{

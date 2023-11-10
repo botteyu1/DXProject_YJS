@@ -24,7 +24,7 @@ void Enemy::TakeDamage(GameEngineCollision* _Attacker,float _Damage)
 	HP -= static_cast<int>(_Damage);
 
 	// 데미지 표기
-	GetContentsLevel()->GetFXActor()->FXTextStart(FXType::DamageText, std::to_string(_Damage), Transform.GetLocalPosition());
+	GetContentsLevel()->GetFXActor()->FXTextStart(FXType::DamageText, std::to_string(static_cast<int>(_Damage)), Transform.GetLocalPosition() + float4(0.0f, 60.0f),30.0f);
 
 	ChangeState(EnemyState::Hit);
 

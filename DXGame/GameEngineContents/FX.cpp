@@ -183,12 +183,18 @@ void FX::FXTextStart(FXType _Name, std::string_view _Text, const float4& _Pos, c
 
 	Renderer->SetText("메이플스토리", _Text.data(), _Scale, float4::WHITE);
 
-	Renderer->Transform.SetLocalPosition(_Pos + float4{0.0f,0.0f, -5.0f});
+	float Y = ContentsCore::MainRandom->RandomFloat(0.0, 100.0f);
+	float X = ContentsCore::MainRandom->RandomFloat(-100.0, 100.0f);
+
+
+
+	Renderer->Transform.SetLocalPosition(_Pos + float4{X,Y, -5.0f});
 	Renderer->On();
 
 	Renderer->Type = _Name;
 	Renderer->Time = 0.0f;
-
+	Renderer->SpawnObjectOnCheck = false;
+	Renderer->Alpha = 1.0f;
 
 }
 
