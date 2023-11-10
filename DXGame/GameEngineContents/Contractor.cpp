@@ -1,6 +1,9 @@
 #include "PreCompile.h"
 #include "Contractor.h"
 #include <GameEngineCore/GameEngineState.h>
+#include "Level.h"
+#include "CurseUI.h"
+#include "Player.h"
 
 Contractor::Contractor() 
 {
@@ -128,12 +131,15 @@ void Contractor::Start()
 			{
 				if (MainCollision->Collision(ContentsCollisionType::Player))
 				{
-					if (GameEngineInput::IsDown('F', this))
+					if (GameEngineInput::IsDown('F', this) and GetContentsLevel()->GetCurseUI()->IsUpdate() == false)
 					{
-						
-						//State.ChangeState(ContractorState::DisAppear);
+						GetContentsLevel()->GetCurseUI()->CurseUIStart(1);
 					}
-					
+				}
+
+				if (Player::GetMainPlayer()->GetState() == PlayerState::PowerUp)
+				{
+					State.ChangeState(ContractorState::DisAppear);
 				}
 			};
 

@@ -25,6 +25,7 @@ enum class PlayerState
 	EnterElavator,
 	ExitElavator,
 	Acquisition,
+	PowerUp,
 	
 	ForceWait, //씬이나 UI상태일때 조작금지상태
 
@@ -102,6 +103,11 @@ public:
 	void AddSoulary(int _Soulary)
 	{
 		Soulary += _Soulary;
+	}
+
+	PlayerState GetState()
+	{
+		return State;
 	}
 protected:
 	void Start() override;
@@ -231,6 +237,9 @@ private:
 
 	void AcquisitionStart();
 	void AcquisitionUpdate(float _Delta);
+
+	void PowerUpStart();
+	void PowerUpUpdate(float _Delta);
 
 	bool InputMoveUpdate(float _Delta);
 	bool InputJumpUpdate(float _Delta);

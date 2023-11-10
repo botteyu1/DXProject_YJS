@@ -27,6 +27,8 @@ protected:
 	void LevelStart(class GameEngineLevel* _NextLevel) override;
 	void LevelEnd(class GameEngineLevel* _NextLevel) override;
 
+	
+
 private:
 	std::string NextLevelName; 
 	float DelayTime = 0.0f;

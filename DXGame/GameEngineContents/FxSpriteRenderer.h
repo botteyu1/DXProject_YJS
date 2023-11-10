@@ -34,6 +34,7 @@ private:
 	float Dir = 1.0f;
 
 	float4 Scale = float4::ONE; //비율스케일
+	float Alpha = 1.0f;
 	bool Flip = false;
 	bool SpawnObjectOnCheck = false;
 	float Time = 0.0f;

@@ -131,6 +131,11 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 		Renderer->Transform.AddLocalRotation(float4(0.0f, 0.0f, Rotate));
 
 	}
+	break;
+	case FXType::Death:
+	{
+		Renderer->ChangeAnimation("Death", true);
+	}
 		break;
 
 	default:
@@ -153,6 +158,7 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 
 	Renderer->Flip = _flip;
 	Renderer->SpawnObjectOnCheck = false; 
+	Renderer->Alpha = 1.0f;
 
 	return Renderer;
 }
@@ -238,6 +244,7 @@ void FX::Start()
 	GameEngineSprite::CreateCut("FX_Splash_Water_01_Atlas.png", 2, 4);
 	GameEngineSprite::CreateCut("FX_Splash_Water_03_Atlas.png", 4, 4);
 	GameEngineSprite::CreateCut("FX_Shard_Particle_Atlas.png", 5, 5);
+	GameEngineSprite::CreateCut("FX_Ritual_Weapon_Death_Silhouette_Atlas HD.png", 4, 6);
 
 	
 	AddFXRenderer();
@@ -278,6 +285,9 @@ std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 	Renderer->CreateAnimation("Splash_Water2", "FX_Splash_Water_03_Atlas.png", 0.0233f, -1, -1, true);
 	Renderer->SetEndEvent("Splash_Water2", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
 	
+	Renderer->CreateAnimation("Death", "FX_Ritual_Weapon_Death_Silhouette_Atlas HD.png", 0.0333f, -1, -1, true);
+	//Renderer->SetEndEvent("Death", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
+
 	Renderer->CreateAnimation("Shard", "FX_Shard_Particle_Atlas.png", 0.0233f, -1, -1, true);
 
 
@@ -292,6 +302,7 @@ std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 	Renderer->CreateAnimation("Hit", "SpawnWeapon", 0.0333f, -1, -1, true);
 
 	Renderer->CreateAnimation("ImpactFight_0003", "ImpactFight_0003.png", 0.0333f, -1, -1, true);
+
 
 	
 

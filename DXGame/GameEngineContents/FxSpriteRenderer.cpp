@@ -73,6 +73,7 @@ void FxSpriteRenderer::Update(float _Delta)
 		}
 		break;
 	}
+	
 	case FXType::Slash:
 	{
 		//Renderer->Scale = float4(0.5f, 2.0f, 1.0f);
@@ -184,6 +185,25 @@ void FxSpriteRenderer::Update(float _Delta)
 		if (Time >= 0.5f)
 		{
 			
+			Off();
+		}
+		break;
+	}
+	case FXType::Death:
+	{
+		Alpha -= _Delta * 1.6f;
+
+
+		Scale.X += _Delta * 3.0f;
+		Scale.Y += _Delta * 3.0f;
+		SetAutoScaleRatio(Scale);
+
+		Transform.AddLocalPosition(float4::UP* _Delta * 600.0f);
+
+		GetColorData().MulColor = float4(1.0f, 1.0f, 1.0f, Alpha);
+
+		if (Alpha <= 0.0f)
+		{
 			Off();
 		}
 		break;

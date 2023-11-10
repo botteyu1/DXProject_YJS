@@ -173,6 +173,9 @@ void Player::Start()
 		MainSpriteRenderer->CreateAnimation("LD_Acquisition", "LD_Acquisition", 0.0633f, -1, -1, true);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Acquisition", { }));
 
+		MainSpriteRenderer->CreateAnimation("LD_Acquisition_Curse", "LD_Acquisition_Curse", 0.0733f, -1, -1, true);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Acquisition_Curse", { }));
+
 
 
 		// ±×¿Ü 
@@ -382,6 +385,9 @@ void Player::ChangeState(PlayerState _State)
 	case PlayerState::ForceWait:
 		ForceWaitStart();
 		break;
+	case PlayerState::PowerUp:
+		PowerUpStart();
+		break;
 	default:
 		break;
 	}
@@ -464,6 +470,9 @@ void Player::StateUpdate(float _Delta)
 		break;
 	case PlayerState::ForceWait:
 		ForceWaitUpdate(_Delta);
+		break;
+	case PlayerState::PowerUp:
+		PowerUpUpdate(_Delta);
 		break;
 	default:
 		break;

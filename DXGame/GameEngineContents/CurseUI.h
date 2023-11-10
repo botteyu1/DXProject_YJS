@@ -27,10 +27,15 @@ protected:
 	void ExitAnimationUpdate(float _Delta);
 	void LevelStart(class GameEngineLevel* _NextLevel) override;
 
+	void RedMove(const float4& _Pos);
+	void BlueMove(const float4& _Pos);
+	void GreenMove(const float4& _Pos);
+
 private:
 	float FadeStrength = 0.0f;
 	float MoveDist = 0.0f;
-	int PickNum = 1;
+	int PickNum = 2; 
+	float ExitTimer = 0.0f;
 
 	bool ExitValue = false;
 

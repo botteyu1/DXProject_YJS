@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Player.h"
 #include "BookOfTheDead.h"
+#include "FX.h"
 
 void Player::HitStart()
 {
@@ -100,6 +101,24 @@ void Player::AcquisitionUpdate(float _Delta)
 	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
 	{
 		
+		ChangeState(PlayerState::Idle);
+	}
+}
+
+void Player::PowerUpStart()
+{
+	ChangeMainAnimation("LD_Acquisition_Curse");
+
+
+	GetContentsLevel()->GetFXActor()->FXStart(FXType::Death, Flip, Transform.GetLocalPosition() + float4(0.0f, 0.0f,2.0f), float4(2.0f,2.0f,4.0f));
+}
+
+
+void Player::PowerUpUpdate(float _Delta)
+{
+	if (MainSpriteRenderer->IsCurAnimationEnd() == true)
+	{
+		AerialCheck = false;
 		ChangeState(PlayerState::Idle);
 	}
 }

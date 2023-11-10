@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "CurseUI.h"
 #include "ContentsCore.h"
+#include "Player.h"
 
 CurseUI::CurseUI() 
 {
@@ -290,9 +291,12 @@ void CurseUI::Start()
 
 void CurseUI::CurseUIStart(int _Type)
 {
+	Player::GetMainPlayer()->ChangeState(PlayerState::ForceWait);
+
 	ExitValue = false;
 	On();
 	FadeStrength = 0.0f;
+	FadeRendererAfter->GetColorData().MulColor = float4(1.0f, 1.0f, 1.0f, 0.0f);
 	switch (_Type)
 	{
 	case 1:
@@ -344,9 +348,7 @@ void CurseUI::CurseUIStart(int _Type)
 		Curse_Border_On_Blue->Transform.SetLocalPosition({ 0.0f,0.0f,0.0f });
 		Curse_Border_On_Green->Transform.SetLocalPosition({ 0.0f,0.0f,0.0f });
 
-		Curse_Border_On_Red->Off();
-		Curse_Border_On_Blue->Off();
-		Curse_Border_On_Green->Off();
+		
 
 		Curse_Rarity_Red->Transform.SetLocalPosition({ 2.0f,-10.0f,0.0f });
 		Curse_Rarity_Blue->Transform.SetLocalPosition({ 2.0f,-10.0f,0.0f });
@@ -380,6 +382,7 @@ void CurseUI::UIOn()
 
 void CurseUI::ExitAnimationUpdate(float _Delta)
 {
+	ExitTimer += _Delta;
 	if (FadeStrength > 0.0f)
 	{
 		FadeStrength -= _Delta * 2.0f;
@@ -390,6 +393,32 @@ void CurseUI::ExitAnimationUpdate(float _Delta)
 	}
 	FadeRendererAfter->GetColorData().MulColor = float4(1.0f, 1.0f, 1.0f, FadeStrength);
 
+	switch (PickNum)
+	{
+	case 1:
+		BlueMove(float4{ 1.0f,0.0f,0.0f } *5000.0f * _Delta);
+		GreenMove(float4{ 1.0f,0.0f,0.0f } *5000.0f * _Delta);
+
+		break;
+	case 2:
+		RedMove(float4{ 1.0f,0.0f,0.0f } * 5000.0f * _Delta);
+		GreenMove(float4{ 1.0f,0.0f,0.0f } * 5000.0f * _Delta);
+
+		break;
+	case 3:
+		RedMove(float4{ 1.0f,0.0f,0.0f } *5000.0f * _Delta);
+		BlueMove(float4{ 1.0f,0.0f,0.0f } *5000.0f * _Delta);
+
+		break;
+	default:
+		break;
+	}
+
+	if (ExitTimer >= 1.0f)
+	{
+		Player::GetMainPlayer()->ChangeState(PlayerState::PowerUp);
+		Off();
+	}
 
 
 }
@@ -429,32 +458,17 @@ void CurseUI::Update(float _Delta)
 		MoveDist = 450.0f;
 	}
 
-	Curse_Border_Red->Transform.AddLocalPosition({ -NextDist });
-	Curse_BG_Red->Transform.AddLocalPosition({ -NextDist });
-	Curse_Icon_Red->Transform.AddLocalPosition({ -NextDist });
-	Curse_Rarity_Red->Transform.AddLocalPosition({ -NextDist });
-	Curse_MainText_Red->Transform.AddLocalPosition({ -NextDist });
-	Curse_SubText_Red->Transform.AddLocalPosition({ -NextDist });
-	Curse_Img_Red->Transform.AddLocalPosition({ -NextDist });
-	Curse_Border_On_Red->Transform.AddLocalPosition({ -NextDist });
+	RedMove({ -NextDist });
+	GreenMove({ NextDist });
 
 	//Curse_Border_On_Blue->Transform.SetLocalPosition({ 0.0f,0.0f,0.0f });
 
 	
 
-	Curse_Border_Green->Transform.AddLocalPosition({ NextDist });
-	Curse_BG_Green->Transform.AddLocalPosition({ NextDist });
-	Curse_Icon_Green->Transform.AddLocalPosition({ NextDist });
-	Curse_Rarity_Green->Transform.AddLocalPosition({ NextDist });
-	Curse_MainText_Green->Transform.AddLocalPosition({ NextDist });
-	Curse_SubText_Green->Transform.AddLocalPosition({ NextDist });
-	Curse_Img_Green->Transform.AddLocalPosition({ NextDist });
-	Curse_Border_On_Green->Transform.AddLocalPosition({ -NextDist });
+
 
 	
-	Curse_Border_On_Red->Off();
-	Curse_Border_On_Blue->Off();
-	Curse_Border_On_Green->Off();
+	
 
 	if (GameEngineInput::IsDown('F', this))
 	{
@@ -466,7 +480,33 @@ void CurseUI::Update(float _Delta)
 
 	if (PickNum > 1 and GameEngineInput::IsDown('A', this))
 	{
+		PickNum--;
 
+	}
+	else if (PickNum < 3 and GameEngineInput::IsDown('D', this)) 
+	{
+		PickNum++;
+	}
+
+	switch (PickNum)
+	{
+	case 1:
+		Curse_Border_On_Red->On();
+		Curse_Border_On_Blue->Off();
+		Curse_Border_On_Green->Off();
+		break;
+	case 2:
+		Curse_Border_On_Red->Off();
+		Curse_Border_On_Blue->On();
+		Curse_Border_On_Green->Off();
+		break;
+	case 3:
+		Curse_Border_On_Red->Off();
+		Curse_Border_On_Blue->Off();
+		Curse_Border_On_Green->On();
+		break;
+	default:
+		break;
 	}
 
 
@@ -474,4 +514,40 @@ void CurseUI::Update(float _Delta)
 
 void CurseUI::LevelStart(GameEngineLevel* _NextLevel)
 {
+}
+
+void CurseUI::RedMove(const float4& _Pos)
+{
+	Curse_Border_Red->Transform.AddLocalPosition({ _Pos });
+	Curse_BG_Red->Transform.AddLocalPosition({ _Pos });
+	Curse_Icon_Red->Transform.AddLocalPosition({ _Pos });
+	Curse_Rarity_Red->Transform.AddLocalPosition({ _Pos });
+	Curse_MainText_Red->Transform.AddLocalPosition({ _Pos });
+	Curse_SubText_Red->Transform.AddLocalPosition({ _Pos });
+	Curse_Img_Red->Transform.AddLocalPosition({ _Pos });
+	Curse_Border_On_Red->Transform.AddLocalPosition({ _Pos });
+}
+
+void CurseUI::BlueMove(const float4& _Pos)
+{
+	Curse_Border_Blue->Transform.AddLocalPosition({ _Pos });
+	Curse_BG_Blue->Transform.AddLocalPosition({ _Pos });
+	Curse_Icon_Blue->Transform.AddLocalPosition({ _Pos });
+	Curse_Rarity_Blue->Transform.AddLocalPosition({ _Pos });
+	Curse_MainText_Blue->Transform.AddLocalPosition({ _Pos });
+	Curse_SubText_Blue->Transform.AddLocalPosition({ _Pos });
+	Curse_Img_Blue->Transform.AddLocalPosition({ _Pos });
+	Curse_Border_On_Blue->Transform.AddLocalPosition({ _Pos });
+}
+
+void CurseUI::GreenMove(const float4& _Pos)
+{
+	Curse_Border_Green->Transform.AddLocalPosition({ _Pos });
+	Curse_BG_Green->Transform.AddLocalPosition({ _Pos });
+	Curse_Icon_Green->Transform.AddLocalPosition({ _Pos });
+	Curse_Rarity_Green->Transform.AddLocalPosition({ _Pos });
+	Curse_MainText_Green->Transform.AddLocalPosition({ _Pos });
+	Curse_SubText_Green->Transform.AddLocalPosition({ _Pos });
+	Curse_Img_Green->Transform.AddLocalPosition({ _Pos });
+	Curse_Border_On_Green->Transform.AddLocalPosition({ _Pos });
 }
