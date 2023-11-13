@@ -55,6 +55,7 @@ void SecondaryRenderer::Start()
 		}
 	}
 	GameEngineSpriteRenderer::Start();
+	SetMaterial("2DTextureAlwaysDepth");
 }
 
 void SecondaryRenderer::Update(float _Delta)

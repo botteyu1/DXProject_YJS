@@ -171,6 +171,8 @@ void BossGargoyle::Start()
 	Enemy::Start();
 
 	SetName("Gargoyle");
+
+	HP = 1000;
 }
 
 void BossGargoyle::Update(float _Delta)
@@ -305,17 +307,18 @@ void BossGargoyle::AttackUpdate(float _Delta)
 	{
 		DashStartCheck = true;
 	}
-	CheckAttackCollision();
-	DashProcessUpdate(_Delta, float4::RIGHT, DashSpeed);
+	
 
 	switch (AttackPatern)
 	{
 	case GargoyleAttackPatern::Combo:
 	{
+		CurDamage = 10.0f;
 		if (true == MainSpriteRenderer->IsCurAnimationEnd())
 		{
 			if (ComboCount < 3)
 			{
+				CurDamage = 10.0f;
 				ChangeState(EnemyState::Attack);
 			}
 			else
@@ -330,6 +333,7 @@ void BossGargoyle::AttackUpdate(float _Delta)
 	}
 	case GargoyleAttackPatern::Posing:
 	{
+		CurDamage = 20.0f;
 		if (MotionTime >= 0.5f)
 		{
 			ForceGrivityOff = false;
@@ -344,6 +348,7 @@ void BossGargoyle::AttackUpdate(float _Delta)
 		break;
 	case GargoyleAttackPatern::Dive:
 	{
+		CurDamage = 15.0f;
 		float4 NextPos = Transform.GetLocalPosition() + (MoveVec * _Delta);
 
 		if (Flip == true)
@@ -371,6 +376,7 @@ void BossGargoyle::AttackUpdate(float _Delta)
 	}
 	case GargoyleAttackPatern::Dive_Anti:
 	{
+		CurDamage = 15.0f;
 		float4 NextPos = Transform.GetLocalPosition() + (MoveVec * _Delta);
 
 		if (Flip == true)
@@ -439,7 +445,7 @@ void BossGargoyle::AttackUpdate(float _Delta)
 			//float4 Pos = Transform.GetLocalPosition() + float4{ 50.0f, 50.0f };
 			//float4 PlayerDir = Player::GetMainPlayer()->Transform.GetLocalPosition() - Transform.GetLocalPosition() + float4{ 0.0f, 0.0f, 1.0f };
 
-			Object->Init(BulletType::Rock, Pos2, AttackDamage, float4::UP, 0.0f);
+			Object->Init(BulletType::Rock, Pos2, 10.0f, float4::UP, 0.0f);
 		}
 
 		if (MotionTime >= 4.0f)
@@ -454,6 +460,9 @@ void BossGargoyle::AttackUpdate(float _Delta)
 	default:
 		break;
 	}
+
+	CheckAttackCollision();
+	DashProcessUpdate(_Delta, float4::RIGHT, DashSpeed);
 
 
 	

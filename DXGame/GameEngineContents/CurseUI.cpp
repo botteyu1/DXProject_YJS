@@ -295,6 +295,7 @@ void CurseUI::CurseUIStart(int _Type)
 
 	ExitValue = false;
 	On();
+	Type = _Type;
 	FadeStrength = 0.0f;
 	FadeRendererAfter->GetColorData().MulColor = float4(1.0f, 1.0f, 1.0f, 0.0f);
 	switch (_Type)
@@ -396,16 +397,43 @@ void CurseUI::ExitAnimationUpdate(float _Delta)
 	switch (PickNum)
 	{
 	case 1:
+		if (Type == 1)
+		{
+			Player::GetMainPlayerData().DamageComobo += 5.0f;
+		}
+		else
+		{
+			Player::GetMainPlayerData().DamageCapeScale += 0.25f;
+		}
+
 		BlueMove(float4{ 1.0f,0.0f,0.0f } *5000.0f * _Delta);
 		GreenMove(float4{ 1.0f,0.0f,0.0f } *5000.0f * _Delta);
 
 		break;
 	case 2:
+		if (Type == 1)
+		{
+			Player::GetMainPlayerData().DashCount += 1;
+		}
+		else
+		{
+			Player::GetMainPlayerData().AnimaSocket += 1;
+		}
+
 		RedMove(float4{ 1.0f,0.0f,0.0f } * 5000.0f * _Delta);
 		GreenMove(float4{ 1.0f,0.0f,0.0f } * 5000.0f * _Delta);
 
 		break;
 	case 3:
+
+		if (Type == 1)
+		{
+			Player::GetMainPlayerData().DamageMagicScale += 0.5f;
+		}
+		else
+		{
+			Player::GetMainPlayerData().MPScale += 1.0f;
+		}
 		RedMove(float4{ 1.0f,0.0f,0.0f } *5000.0f * _Delta);
 		BlueMove(float4{ 1.0f,0.0f,0.0f } *5000.0f * _Delta);
 
@@ -464,8 +492,6 @@ void CurseUI::Update(float _Delta)
 	//Curse_Border_On_Blue->Transform.SetLocalPosition({ 0.0f,0.0f,0.0f });
 
 	
-
-
 
 	
 	

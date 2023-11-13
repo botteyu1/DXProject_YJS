@@ -32,6 +32,16 @@ void Player::CapeStart()
 
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
+
+				if (CurCapeType == CapeType::Katana)
+				{
+					CurCapeCoolTime = 1.5f;
+				}
+
+				if (CurCapeType2 == CapeType::Katana)
+				{
+					CurCapeCoolTime2 = 1.5f;
+				}
 				ForceGrivityOff = true;
 				ChangeMainAnimation("LD_ComboKatana");
 			};
@@ -39,9 +49,9 @@ void Player::CapeStart()
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
-				CheckStartAttackFrame(0);
+				CheckStartAttackFrame(0,20.0f);
 				CheckEndAttackFrame(2);
-				CheckStartAttackFrame(4);
+				CheckStartAttackFrame(4, 20.0f);
 				CheckEndAttackFrame(8);
 				DashProcessUpdate(_DeltaTime, float4::LEFT, 3000.0f);
 				CheckAttackCollision();
@@ -82,6 +92,15 @@ void Player::CapeStart()
 
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
+				if (CurCapeType == CapeType::EvilHands)
+				{
+					CurCapeCoolTime = 3.0f;
+				}
+
+				if (CurCapeType2 == CapeType::EvilHands)
+				{
+					CurCapeCoolTime2 = 3.0f;
+				}
 				ForceGrivityOff = true;
 
 				if (GameEngineInput::IsPress('W', this) or AerialCheck == true)
@@ -144,11 +163,16 @@ void Player::CapeStart()
 			{
 				ForceGrivityOff = true;
 
-				/*if (GameEngineInput::IsPress('W', this))
+				if (CurCapeType == CapeType::EvilBirds)
 				{
-					ChangeMainAnimation("LD_EvilBirds");
+					CurCapeCoolTime = 2.0f;
 				}
-				else*/
+				
+				if (CurCapeType2 == CapeType::EvilBirds)
+				{
+					CurCapeCoolTime2 = 2.0f;
+				}
+
 				{
 					ChangeMainAnimation("LD_EvilBirds");
 					MainSpriteRenderer->SetAutoScaleRatio({ 1.5f,1.5f,1.0f });
@@ -160,10 +184,10 @@ void Player::CapeStart()
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
-				CheckStartAttackFrame(3);
+				CheckStartAttackFrame(3,25.0f);
+				CheckEndAttackFrame(8);
+				CheckStartAttackFrame(10,25.0f);
 				CheckEndAttackFrame(19);
-				/*CheckStartAttackFrame(4);
-				CheckEndAttackFrame(8);*/
 				DashProcessUpdate(_DeltaTime, float4::LEFT, 2000.0f);
 				CheckAttackCollision();
 
@@ -207,6 +231,7 @@ void Player::CapeStart()
 
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
+				MP -= 40;
 				ForceGrivityOff = true;
 				{
 					ChangeMainAnimation("LD_BookAttack_03");
@@ -235,7 +260,7 @@ void Player::CapeStart()
 
 					float4 PlayerDir = Player::GetMainPlayer()->Transform.GetLocalPosition() - Transform.GetLocalPosition();
 
-					Object->Init(BulletType::Tornado, Pos, 100.0f, Dir, 0.0f, Flip);
+					Object->Init(BulletType::Tornado, Pos, 35.0f, Dir, 0.0f, Flip);
 
 
 					if (AerialCheck == true)
@@ -264,16 +289,35 @@ void Player::CapeStart()
 
 void Player::CapeUpdate(float _Delta)
 {
+	if (CurCapeCoolTime > 0.0f)
+	{
+		CurCapeCoolTime -= _Delta;
+ 
+	}
+	else
+	{
+		//CurCapeCoolTime  = 0.0f;
+	}
+
+	if (CurCapeCoolTime2 > 0.0f)
+	{
+		CurCapeCoolTime2 -= _Delta;
+ 
+	}
+	else
+	{
+		CurCapeCoolTime2  = 0.0f;
+	}
 }
 
 void Player::CapeAttackStart()
 {
-	if (GameEngineInput::IsDown(VK_RBUTTON, this))
+	if (GameEngineInput::IsDown(VK_RBUTTON, this) and CurCapeCoolTime <= 0.0f and MP > 0.f)
 	{
 		CapeState.ChangeState(CurCapeType);
 	}
 	
-	else if (GameEngineInput::IsDown(VK_MBUTTON, this))
+	else if (GameEngineInput::IsDown(VK_MBUTTON, this) and CurCapeCoolTime2 <= 0.0f and MP > 0.f)
 	{
 		CapeState.ChangeState(CurCapeType2);
 	}
@@ -285,10 +329,24 @@ void Player::CapeAttackStart()
 	{
 		CapeState.ChangeState(CurCapeType4);
 	}
+	else
+	{
+		if (AerialPixelCheck() == true)
+		{
+			ChangeState(PlayerState::Jump_Falling);
+		}
+		else
+		{
+			ChangeState(PlayerState::Idle);
+
+		}
+	}
+
 }
 
 void Player::CapeAttackUpdate(float _Delta)
 {
+	
 }
 
 void Player::CapeAttackEnd()

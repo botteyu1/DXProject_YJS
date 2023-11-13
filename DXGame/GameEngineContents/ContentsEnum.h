@@ -181,6 +181,8 @@ enum class ActorType
 	PaperWall,
 	Contractor,
 
+	
+
 		
 
 

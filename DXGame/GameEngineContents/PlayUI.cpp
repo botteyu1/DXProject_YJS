@@ -85,6 +85,12 @@ void PlayUI::Start()
 	HUD_Cape->Transform.SetLocalPosition({ -865.0f,475.0f,0.0f });
 	HUD_Cape->SetName("HUD_Cape");
 
+	HUD_Cape_Text = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Cape_Text->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Cape_Text->SetText("메이플스토리", "50 / 65", 20.0f, float4(0.f, 0.7f, 0.f, 1.0f));
+	HUD_Cape_Text->Transform.SetLocalPosition({ -866.0f,487.0f,0.0f });
+	HUD_Cape_Text->SetName("HUD_Cape_Text");
+
 	HUD_Cape2_BG = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Cape2_BG->AutoSpriteSizeOn();
 	HUD_Cape2_BG->SetAutoScaleRatio({ 0.9f,0.9f,0.9f });
@@ -110,6 +116,13 @@ void PlayUI::Start()
 	HUD_Cape2->SetSprite("PLACEHOLDER_Wind.png");
 	HUD_Cape2->Transform.SetLocalPosition({ -820.0f,430.0f,0.0f });
 	HUD_Cape2->SetName("HUD_Cape2");
+
+
+	HUD_Cape2_Text = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Cape2_Text->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Cape2_Text->SetText("메이플스토리", "50 / 65", 20.0f, float4(0.f, 0.7f, 0.f, 1.0f));
+	HUD_Cape2_Text->Transform.SetLocalPosition({ -850.0f,440.0f,0.0f });
+	HUD_Cape2_Text->SetName("HUD_Cape2_Text");
 
 	HUD_Ult_BG = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Ult_BG->AutoSpriteSizeOn();
@@ -234,6 +247,8 @@ void PlayUI::Start()
 	HUD_ManaBar_Text->SetText("메이플스토리","50 / 65", 20.0f, float4(0.f, 0.7f, 0.f, 1.0f));
 	HUD_ManaBar_Text->Transform.SetLocalPosition({ -450.0f,470.0f,0.0f });
 	HUD_ManaBar_Text->SetName("HUD_ManaBar_Text");
+	
+	
 
 	HUD_Anima = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Anima->AutoSpriteSizeOn();
@@ -281,8 +296,14 @@ void PlayUI::Update(float _Delta)
 	Player* PlayerPtr = Player::GetMainPlayer();
 	int PlayerHP = Player::GetMainPlayer()->GetHP();
 
+	int MP = static_cast<int>(PlayerPtr->MP);
+	if (MP < 0)
+	{
+		MP = 0;
+	}
+
 	std::string HPstr = std::to_string(PlayerHP) + " / " + std::to_string(PlayerPtr->MaxHP);
-	std::string MPstr = std::to_string(PlayerPtr->MP) + " / " + std::to_string(PlayerPtr->MaxMP);
+	std::string MPstr = std::to_string(MP) + " / " + std::to_string(static_cast<int>(PlayerPtr->MaxMP));
 	std::string Soularystr = std::to_string(PlayerPtr->Soulary);
 
 	HUD_LifeBar_Text->SetText("메이플스토리", HPstr, 25.0f, float4::WHITE);
@@ -328,7 +349,7 @@ void PlayUI::Update(float _Delta)
 	HUD_LifeBar->SetImageScale({ MaxHPBar,30.0f,1.0f });
 
 
-	float ManaBar = (static_cast<float>(PlayerPtr->MP) / 50.f) * 300.0f;
+	float ManaBar = (static_cast<float>(MP) / 50.f) * 300.0f;
 	if (ManaBar <= 0.0f)
 	{
 		ManaBar = 0.0f;
@@ -336,7 +357,13 @@ void PlayUI::Update(float _Delta)
 	HUD_ManaBar_On->SetImageScale({ ManaBar,19.f,1.0f });
 	//HUD_ManaBar_On->Off();
 
-	float ManaBarRight = ((static_cast<float>(PlayerPtr->MP) / 50.f) * 350.0f) - 833.0f;
+
+	if (MP < 10)
+	{
+		MP = 10;
+	}
+
+	float ManaBarRight = ((static_cast<float>(MP) / 50.f) * 350.0f) - 833.0f;
 	HUD_ManaBar_On_Right->Transform.SetLocalPosition({ ManaBarRight,461.0f,1.0f });
 
 
@@ -349,6 +376,34 @@ void PlayUI::Update(float _Delta)
 	//HUD_Scythe->SetSprite(Cape::CapeDataManager->GetImgName());
 	HUD_Cape->SetSprite(Cape::CapeDataManager->GetImgName(PlayerPtr->CurCapeType));
 	HUD_Cape2->SetSprite(Cape::CapeDataManager->GetImgName(PlayerPtr->CurCapeType2));
+
+	if (PlayerPtr->CurCapeCoolTime > 0.0f)
+	{
+		HUD_Cape_Text->On();
+		std::ostringstream stream;
+		stream << std::fixed << std::setprecision(1) << PlayerPtr->CurCapeCoolTime;
+		HUD_Cape_Text->SetText("메이플스토리", stream.str(), 25.0f, float4(1.f, 1.f, 1.f, 1.0f),FW1_CENTER);
+		HUD_Cape->GetColorData().MulColor = float4(1.f, 1.f, 1.f, 0.5f);
+	}
+	else
+	{
+		HUD_Cape->GetColorData().MulColor = float4(1.f, 1.f, 1.f, 1.f);
+		HUD_Cape_Text->Off();
+	}
+
+	if (PlayerPtr->CurCapeCoolTime2 > 0.0f)
+	{
+		HUD_Cape2_Text->On();
+		std::ostringstream stream;
+		stream << std::fixed << std::setprecision(1) << PlayerPtr->CurCapeCoolTime2;
+		HUD_Cape2_Text->SetText("메이플스토리", stream.str(), 25.0f, float4(1.f, 1.f, 1.f, 1.0f),FW1_CENTER);
+		HUD_Cape2->GetColorData().MulColor = float4(1.f, 1.f, 1.f, 0.5f);
+	}
+	else
+	{
+		HUD_Cape2->GetColorData().MulColor = float4(1.f, 1.f, 1.f, 1.f);
+		HUD_Cape2_Text->Off();
+	}
 
 }
 

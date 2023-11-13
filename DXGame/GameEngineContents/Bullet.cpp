@@ -61,6 +61,7 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 {
 	Flip = _Flip;
 	float4 Pos = _Pos;
+	Damage = _Damage;
 	switch (_Type)
 	{
 		case BulletType::Fire:
@@ -146,7 +147,7 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 	float4 Deg2 = Normal2.Angle2DDeg();*/
 	
 	Transform.SetLocalPosition(Pos);
-	Damage = _Damage;
+	
 	Vecter = Normal * _Power;
 	Transform.AddLocalRotation({0.0f,0.0f,Deg});
 	Type = _Type;

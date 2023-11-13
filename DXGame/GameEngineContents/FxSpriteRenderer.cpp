@@ -90,16 +90,16 @@ void FxSpriteRenderer::Update(float _Delta)
 	}
 	case FXType::Flash: {
 
-		if (Scale.X <= 2.0f)
+		if (Scale.X <= 1.5f)
 		{
-			Scale.X += _Delta * 3.0f * Dir;
-			Scale.Y += _Delta * 3.0f * Dir;
+			Scale.X += _Delta * 2.0f * Dir;
+			Scale.Y += _Delta * 2.0f * Dir;
 		}
 		
 		else
 		{
-			Scale.X += _Delta * 20.0f * Dir;
-			Scale.Y += _Delta * 20.0f * Dir;
+			Scale.X += _Delta * 25.0f * Dir;
+			Scale.Y += _Delta * 25.0f * Dir;
 		}
 		
 

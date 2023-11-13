@@ -71,7 +71,7 @@ void Enemy::DeathCheck()
 	{
 		DeathValue = true;
 		ChangeState(EnemyState::Death);
-		//std::shared_ptr<AnimaDrop> Object =  GetContentsLevel()->CreateActor<AnimaDrop>(ContentsObjectType::BackGroundobject);
+		//std::shared_ptr<AnimaDrop> Object2 =  GetContentsLevel()->CreateActor<AnimaDrop>(ContentsObjectType::BackGroundobject);
 		std::shared_ptr<SoularyDrop> Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
 		Object->Spawn(Transform.GetLocalPosition());
 		Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
@@ -97,7 +97,7 @@ void Enemy::DeathEnd()
 
 void Enemy::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)
 {
-	float Damagef = _Left->GetParent<Enemy>()->GetAttackDamage();
+	float Damagef = _Left->GetParent<Enemy>()->GetCurDamage();
 	_Right->GetParent<Player>()->TakeDamage(_Left, Damagef);
 }
 

@@ -172,7 +172,6 @@ void Player::ComboAerial_RestUpdate(float _Delta)
 	else if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
 		ChangeState(PlayerState::Jump_Falling);
-		
 	}
 
 	InputDashUpdate(_Delta);

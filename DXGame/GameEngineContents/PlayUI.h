@@ -57,7 +57,9 @@ private:
 
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Scythe;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Cape;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_Cape_Text;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Cape2;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_Cape2_Text;
 
 	int PrevHP = 0;
 	float HPTimer = 500.0f;

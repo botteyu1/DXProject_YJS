@@ -59,7 +59,7 @@ void Contractor::Start()
 
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
-				MainSpriteRenderer->Off();
+				//MainSpriteRenderer->Off();
 				MainSpriteRenderer->SetAutoScaleRatio({ 1.0f, 1.0f });
 			};
 

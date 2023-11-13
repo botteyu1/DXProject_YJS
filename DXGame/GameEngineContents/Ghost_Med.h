@@ -35,6 +35,8 @@ private:
 
 
 
+
+
 	void IdleStart();
 	void IdleUpdate(float _Delta);
 

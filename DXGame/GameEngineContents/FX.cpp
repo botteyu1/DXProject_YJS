@@ -163,6 +163,33 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 	return Renderer;
 }
 
+std::shared_ptr<class FxSpriteRenderer> FX::FXUIStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Scale, const float4& _Pivot)
+{
+	float4x4 ViewPort;
+	float4 Scale = GameEngineCore::MainWindow.GetScale();
+	ViewPort.ViewPort(Scale.X, Scale.Y, 0, 0);
+
+	float4 ScreenPos = Transform.GetWorldPosition();
+
+	ScreenPos *= Transform.GetConstTransformDataRef().ViewMatrix;
+	ScreenPos *= Transform.GetConstTransformDataRef().ProjectionMatrix;
+
+
+	const float RHW = 1.0f / ScreenPos.W;
+
+	float4 PosInScreenSpace = float4(ScreenPos.X * RHW, ScreenPos.Y * RHW, ScreenPos.Z * RHW, ScreenPos.W);
+	const float NormalizedX = (PosInScreenSpace.X / 2.f) + 0.5f;
+	const float NormalizedY = 1.f - (PosInScreenSpace.Y / 2.f) - 0.5f;
+
+	float4 RayStartViewRectSpace;
+
+	RayStartViewRectSpace.X = NormalizedX * Scale.X;
+	RayStartViewRectSpace.Y = NormalizedY * Scale.Y;
+
+	float4 Result = RayStartViewRectSpace + float4(0, 0, 0, 0);
+	return std::shared_ptr<class FxSpriteRenderer>();
+}
+
 void FX::FXTextStart(FXType _Name, std::string_view _Text, const float4& _Pos, const float _Scale )
 {
 	std::shared_ptr<class FxSpriteRenderer> Renderer = nullptr;

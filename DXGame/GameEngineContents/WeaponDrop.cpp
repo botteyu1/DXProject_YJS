@@ -23,6 +23,7 @@ void WeaponDrop::Spawn()
 	Off();
 	std::shared_ptr<FxSpriteRenderer> Renderer = GetContentsLevel()->GetFXActor()->FXStart(FXType::Flash, false, Transform.GetLocalPosition() + float4(0.0f, 20.0f), float4(0.0f,0.0f,1.0f));
 	Renderer->SetSpawnObject(this);
+	BouncingStart();
 	
 }
 
@@ -110,7 +111,6 @@ void WeaponDrop::Start()
 	MainCollision->SetCollisionType(ColType::AABBBOX2D);
 	
 	ForceGrivityOff = false;
-	BouncingStart();
 
 	GameEngineInput::AddInputObject(this);
 
@@ -192,7 +192,7 @@ void WeaponDrop::Update(float _Delta)
 
 void WeaponDrop::BouncingStart()
 {
-	Transform.AddLocalPosition({ 0.0f,2.0f });
+	Transform.AddLocalPosition({ 0.0f,4.0f });
 	BouncingValue = false;
-	GrivityForce.Y += 800.0f;
+	GrivityForce.Y += 900.0f;
 }

@@ -87,6 +87,8 @@ void Ghost_Woman::Start()
 	Num++;
 
 	SetName("Ghost_Woman_" + std::to_string(Num));
+
+	HP = 50;
 }
 
 void Ghost_Woman::Update(float _Delta)
@@ -164,7 +166,7 @@ void Ghost_Woman::AttackUpdate(float _Delta)
 
 		float4 PlayerDir = Player::GetMainPlayer()->Transform.GetLocalPosition() - Transform.GetLocalPosition();
 
-		Object->Init(BulletType::Fire, Pos , AttackDamage, PlayerDir, 800.f);
+		Object->Init(BulletType::Fire, Pos , 10.0f, PlayerDir, 800.f);
 	}
 
 

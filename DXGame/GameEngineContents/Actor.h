@@ -45,7 +45,11 @@ public:
 
 	void virtual TakeDamage(GameEngineCollision* _Attacker, float _Damage) {}
 
-	
+	float GetCurDamage()
+	{
+		return CurDamage;
+	}
+
 
 protected:
 
@@ -56,7 +60,7 @@ protected:
 	bool AerialPixelCheck();
 
 	void ChangeMainAnimation(std::string_view _AnimationName);
-	bool CheckStartAttackFrame(int _Index = -1); 
+	bool CheckStartAttackFrame(int _Index = -1 , float _Damage = 10.0f); 
 	bool CheckEndAttackFrame(int _Index = -1);
 	void DashProcessUpdate(float _Delta, const float4& _Dir, float _Speed); //공격같은 실행할떄 대쉬업데이트
 	void virtual FlipCheck();
@@ -80,6 +84,7 @@ protected:
 
 	std::map<std::string, AnimationData> AnimationDataMap;
 	AnimationData* CurAnimationData; //현재 애니메이션 Data
+	float CurDamage = 0.f; //현재 애니메이션 공격의 데미지
 
 	float DashSpeed = 1000.0f;
 	float CurDash = 0.0f; //현재까지 움직인 대쉬 거리

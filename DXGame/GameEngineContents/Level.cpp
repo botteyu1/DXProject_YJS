@@ -608,6 +608,8 @@ std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, flo
 		//static_cast<WeaponDrop*>(Object.get())->Init("W1_Miniboss.png");
 		break;
 
+
+
 	default:
 		break;
 	}

@@ -10,6 +10,7 @@
 #include "ContentsCore.h"
 
 Player* Player::MainPlayer = nullptr;
+PlayerData Player::MainPlayerData;
 
 Player::Player() 
 {
@@ -43,8 +44,17 @@ void Player::TakeDamage(class GameEngineCollision* _Attacker, float _Damage)
 
 void Player::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)
 {
-	float Damage = _Left->GetParent<Player>()->GetDamageComobo() * _Left->GetParent<Player>()->GetDamageComoboScale();
-	_Right->GetParent<Enemy>()->TakeDamage(_Left, Damage);
+	float Damage;
+	if (Player::GetMainPlayer()->State == PlayerState::CapeAttack)
+	{
+		Damage = (_Left->GetParent<Player>()->GetCurDamage() + Player::GetMainPlayerData().DamageCape) * Player::GetMainPlayerData().DamageCapeScale;_Right->GetParent<Enemy>()->TakeDamage(_Left, Damage);
+	}
+	else
+	{
+		Damage = (_Left->GetParent<Player>()->GetCurDamage() + Player::GetMainPlayerData().DamageComobo) * Player::GetMainPlayerData().DamageComoboScale;_Right->GetParent<Enemy>()->TakeDamage(_Left, Damage);
+
+	}
+	 
 }
 
 void Player::CheckAttackCollision()
@@ -228,7 +238,7 @@ void Player::Start()
 
 	Actor::Start();
 
-	HP = 70;
+	
 }
 
 
@@ -255,15 +265,35 @@ void Player::Update(float _Delta)
 
 	StateUpdate(_Delta);
 	CapeState.Update(_Delta);
+	CapeUpdate(_Delta);
 	DashStartCheck = true;
 	DamagedDelayTimer += _Delta;
 
 
+	if (MP < MaxMP)
+	{
+		MP += _Delta * 20.0f * Player::GetMainPlayerData().MPScale;
+	}
+	else
+	{
+		MP = MaxMP;
+	}
 
+
+	DataUpdate();
 	
 }
 
 
+void Player::DataUpdate()
+{
+	PlayerData& PlayerDataPtr = Player::GetMainPlayerData();
+	PlayerDataPtr.HP = HP;
+	PlayerDataPtr.MaxMP = MaxMP;
+	PlayerDataPtr.MP = MP;
+	PlayerDataPtr.MaxHP = MaxHP;
+	PlayerDataPtr.Soulary = Soulary;
+}
 
 
 
@@ -399,11 +429,20 @@ void Player::ChangeState(PlayerState _State)
 void Player::LevelStart(GameEngineLevel* _NextLevel)
 {
 	MainPlayer = this;
+	
+	PlayerData& PlayerDataPtr = Player::GetMainPlayerData();
+	HP = PlayerDataPtr.HP;
+	MP = PlayerDataPtr.MP;
+	MaxHP = PlayerDataPtr.MaxHP;
+	MaxMP = PlayerDataPtr.MaxMP;
+	Soulary = PlayerDataPtr.Soulary;
+
 	Off();
 }
 
 void Player::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	DataUpdate();
 }
 
 
@@ -478,3 +517,4 @@ void Player::StateUpdate(float _Delta)
 		break;
 	}
 }
+

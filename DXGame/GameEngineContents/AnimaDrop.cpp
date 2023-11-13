@@ -64,6 +64,9 @@ void AnimaDrop::Update(float _Delta)
 	}
 
 
+	
+
+
 	ForceGrivityOff = true;
 
 	float4 PlayerPos = Player::GetMainPlayer()->Transform.GetLocalPosition();

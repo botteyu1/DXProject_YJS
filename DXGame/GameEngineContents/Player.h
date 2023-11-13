@@ -32,20 +32,52 @@ enum class PlayerState
 	Max, // 일반적으로 사용하지 않는 값.
 };
 
+class PlayerData
+{
+public:
+	int HP = 70;
+	int MaxHP = 80;
+	float MaxMP = 50;
+	float MP = 50;
+	int Soulary = 0;
+	float DamageComobo = 0.f; // 기본 공격 추가 데미지
+	float DamageComoboScale = 1.0f; // 기본 공격 스케일
+
+	int DamageCape= 0; // 망토 추가 데미지
+	float DamageCapeScale = 1.0f; // 망토 추가 스케일
+
+	int DamageMagic= 0; // 마법 추가 데미지
+	float DamageMagicScale = 1.0f; // 마법 추가 스케일
+
+	float MPScale = 1.0f;
+
+	int DashCount = 0;
+	int AnimaSocket = 3;
+
+	
+
+};
+
 
 // 설명 :
 class Player : public Actor
 {
 	friend class BookOfTheDead;
 	friend class PlayUI;
+	friend class CurseUI;
 
 private:
 	static Player* MainPlayer;
+	static PlayerData MainPlayerData;
 
 public:
 	static Player* GetMainPlayer()
 	{
 		return MainPlayer;
+	}
+	static PlayerData& GetMainPlayerData()
+	{
+		return MainPlayerData;
 	}
 public:
 	// constrcuter destructer
@@ -60,7 +92,8 @@ public:
 	void static ComboHit(class GameEngineCollision* _Left, GameEngineCollision* _Right);
 	void CheckAttackCollision();
 
-	int GetDamageComobo()
+
+	/*int GetDamageComobo()
 	{
 		return DamageComobo;
 	}
@@ -68,7 +101,7 @@ public:
 	float GetDamageComoboScale()
 	{
 		return DamageComoboScale;
-	}
+	}*/
 
 	CapeType GetCurCapeType()
 	{
@@ -125,7 +158,7 @@ protected:
 	//std::shared_ptr<class FX> FXJumpActor;
 
 private:
-	
+	void DataUpdate();
 
 	float MoveSpeed = 700.0f;
 	float JumpingSpeed = 1500.0f;
@@ -137,19 +170,15 @@ private:
 
 	PlayerState State = PlayerState::Max;
 
-	int MP = 50;
-	int MaxMP = 50;
-
-
+	float MP = 50;
+	float MaxMP = 50;
 	int MaxHP = 80;
-
 	int Soulary = 0;
 
 	int ComboCount = 0;
 	int AerialComboCount = 0;
 
-	int DamageComobo = 10; // 기본공격 데미지
-	float DamageComoboScale = 1.0f; // 기본 공격 스케일
+	
 	float DamagedTickTime = 0.5f; // 피격후 무적시간
 	
 
@@ -167,7 +196,11 @@ private:
 
 	GameEngineState CapeState;
 	CapeType CurCapeType = CapeType::EvilBirds; // 현재 착용중인 망토 타입
+	float CurCapeCoolTime = 0.0f;
 	CapeType CurCapeType2 = CapeType::Tornado; // 현재 착용중인 서브 망토 타입
+	float CurCapeCoolTime2 = 0.0f;
+
+
 	CapeType CurCapeType3 = CapeType::Katana; // 디버그용 서브 망토 타입
 	CapeType CurCapeType4 = CapeType::EvilHands; // 디버그용 서브 망토 타입
 	

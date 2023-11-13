@@ -39,10 +39,10 @@ public:
 
 	void static ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right);
 
-	float inline GetAttackDamage()
+	/*float inline GetAttackDamage()
 	{
 		return AttackDamage;
-	}
+	}*/
 
 	void ChangeState(EnemyState _State);
 
@@ -58,7 +58,7 @@ public:
 protected:
 	
 	float MoveSpeed = 400.0f;
-	float AttackDamage = 10.0f;
+	//float AttackDamage = 10.0f;
 	float AttackCoolTime = 3.0f;
 	float AttackCoolTimeCheck = 0.0f;
 

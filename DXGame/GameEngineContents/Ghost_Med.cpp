@@ -97,6 +97,8 @@ void Ghost_Med::Start()
 
 	//SetName("Ghost_Med_" + std::to_string(Num));
 	SetName("Ghost_Me");
+
+	HP = 200;
 }
 
 void Ghost_Med::Update(float _Delta)
@@ -189,6 +191,18 @@ void Ghost_Med::AttackStart()
 
 void Ghost_Med::AttackUpdate(float _Delta)
 {
+	switch (AttackPatern)
+	{
+	case MedAttackPatern::Combo:
+		CheckStartAttackFrame(-1, 10.0f);;
+		break;
+	case MedAttackPatern::Power:
+		CheckStartAttackFrame(-1, 13.0f);;
+		break;
+	default:
+		break;
+	}
+	
 	if (true == CheckStartAttackFrame())
 	{
 		DashStartCheck = true;

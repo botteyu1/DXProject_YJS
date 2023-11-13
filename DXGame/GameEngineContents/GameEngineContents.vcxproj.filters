@@ -25,9 +25,6 @@
     <ClCompile Include="AttackState.cpp">
       <Filter>Actor\Player\State</Filter>
     </ClCompile>
-    <ClCompile Include="OtherState.cpp">
-      <Filter>Actor\Player\State</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Actor\Enemy</Filter>
     </ClCompile>
@@ -150,6 +147,12 @@
     </ClCompile>
     <ClCompile Include="CurseUI.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectStageUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherState.cpp">
+      <Filter>Actor\Player\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +295,9 @@
       <Filter>StageObject</Filter>
     </ClInclude>
     <ClInclude Include="CurseUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectStageUI.h">
       <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>

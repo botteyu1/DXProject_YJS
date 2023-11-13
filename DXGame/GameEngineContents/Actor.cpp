@@ -188,10 +188,12 @@ void Actor::ChangeMainAnimation(std::string_view _AnimationName)
 	FrameCheck = false;
 }
 
-bool Actor::CheckStartAttackFrame(int _Index)
+bool Actor::CheckStartAttackFrame(int _Index, float _Damage)
 {
 	//예전방식
 	int AttackCollisionStartFrame = CurAnimationData->AttackCollisionStartFrame;
+
+	
 
 	//최신
 	if (_Index != -1)
@@ -202,7 +204,7 @@ bool Actor::CheckStartAttackFrame(int _Index)
 
 	if (AttackCollisionStartFrame == MainSpriteRenderer->GetCurIndex() and FrameCheck == false)
 	{
-	
+		CurDamage = _Damage;
 		float4 CollisionScale = CurAnimationData->CollisionScale;
 		float4 CollisionPosition = CurAnimationData->CollisionPosition;
 
@@ -231,6 +233,7 @@ bool Actor::CheckEndAttackFrame(int _Index)
 
 	if (AttackCollisionEndFrame == MainSpriteRenderer->GetCurIndex() and FrameCheck == true)
 	{
+		CurDamage = 0;
 		FrameCheck = false;
 
 		AttackCollision->Transform.SetLocalScale({ 0.0f,0.0f,0.0f });

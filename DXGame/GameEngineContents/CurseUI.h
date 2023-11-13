@@ -35,6 +35,7 @@ private:
 	float FadeStrength = 0.0f;
 	float MoveDist = 0.0f;
 	int PickNum = 2; 
+	int Type = 1;
 	float ExitTimer = 0.0f;
 
 	bool ExitValue = false;

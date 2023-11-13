@@ -90,6 +90,8 @@ void PossessedBook::Start()
 	SetName("PossessedBook_" + std::to_string(Num));
 
 	Enemy::Start();
+
+	HP = 20;
 }
 
 void PossessedBook::Update(float _Delta)
@@ -156,7 +158,7 @@ void PossessedBook::AttackUpdate(float _Delta)
 		float4 Pos = Transform.GetLocalPosition() + float4{ 50.0f, 50.0f };
 		float4 PlayerDir = Player::GetMainPlayer()->Transform.GetLocalPosition() - Transform.GetLocalPosition() + float4{0.0f, 0.0f, 1.0f};
 
-		Object->Init(BulletType::Paperplane, Pos, AttackDamage, PlayerDir, 1000.f);
+		Object->Init(BulletType::Paperplane, Pos, 7.0f, PlayerDir, 1000.f);
 	}
 
 

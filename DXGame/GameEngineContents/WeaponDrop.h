@@ -35,12 +35,10 @@ protected:
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Cape_BG2;
 
 private:
-	GameEngineColor PixelCollisionCheck(float4 _Pixel, GameEngineColor _DefaultColor = GameEngineColor::RED);
-	GameEngineColor PosCollisionCheck(float4 _Pos, GameEngineColor _DefaultColor = GameEngineColor::RED);
 
-	bool BouncingValue = true; //바운스했으면 true;
-	bool AerialCheck = false;
-	float4 GrivityForce = { 0.0f, 0.0f, 0.0f, 1.0f }; //중력힘
+	
+	
+	
 
 	CapeType Type = CapeType::EvilHands;
 

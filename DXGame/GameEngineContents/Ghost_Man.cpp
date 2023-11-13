@@ -98,7 +98,7 @@ void Ghost_Man::Start()
 	Enemy::Start();
 
 	
-
+	HP = 60;
 }
 
 void Ghost_Man::Update(float _Delta)
@@ -156,7 +156,7 @@ void Ghost_Man::AttackStart()
 
 void Ghost_Man::AttackUpdate(float _Delta)
 {
-	
+	CheckStartAttackFrame(-1, 10.0f);
 	CheckAttackCollision();
 
 	if (CheckStartAttackFrame() == true)
