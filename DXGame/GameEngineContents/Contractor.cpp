@@ -202,6 +202,13 @@ void Contractor::Start()
 
 void Contractor::Update(float _Delta)
 {
+	StageObject::Update(_Delta);
+
+	if (DebugValue == true)
+	{
+		return;
+	}
+
 	State.Update(_Delta);
 }
 
