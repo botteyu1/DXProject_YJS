@@ -102,9 +102,15 @@ void GameEngineRenderUnit::Draw()
 		}
 		else if (nullptr != Parent && Parent->GetLevel()->GetMainCamera()->GetProjectionType() == EPROJECTIONTYPE::Perspective)
 		{
+			if (FontText == "10")
+			{
+				int a = 0;
+			}
 			float4 ScreenPos = ParentRenderer->Transform.GetWorldPosition();
 
-			ScreenPos *= ParentRenderer->Transform.GetConstTransformDataRef().ViewMatrix;
+			float4x4 VM = ParentRenderer->Transform.GetConstTransformDataRef().ViewMatrix;
+
+			ScreenPos *= VM;
 			ScreenPos *= ParentRenderer->Transform.GetConstTransformDataRef().ProjectionMatrix;
 
 

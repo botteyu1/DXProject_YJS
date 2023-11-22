@@ -242,10 +242,19 @@ void FxSpriteRenderer::Update(float _Delta)
 	
 	}
 	break;
+	case FXType::TakeAnima: 
+	{
+		SetAutoScaleRatio(Scale);
+		if (Time >= 3.0f)
+		{
+			Off();
+		}
+	}
+	break;
 
 	default:
 	{
-		if (Time >= 1.0f)
+		if (Time >= 3.0f)
 		{
 			Off();
 		}

@@ -4,6 +4,7 @@
 #include "FxSpriteRenderer.h"
 #include "Player.h"
 
+
 AnimaDrop::AnimaDrop() 
 {
 }
@@ -64,29 +65,57 @@ void AnimaDrop::Update(float _Delta)
 	}
 
 
-	
 
 
-	ForceGrivityOff = true;
 
-	float4 PlayerPos = Player::GetMainPlayer()->Transform.GetLocalPosition();
+	ForceGrivityOff = false;
+
+	const TransformData& CameraTransform = GetLevel()->GetMainCamera()->Transform.GetConstTransformDataRef();
+	//const TransformData& CameraTransform = GetLevel()->GetCamera(10)->Transform.GetConstTransformDataRef();
+
+	Transform.CalculationViewAndProjection(CameraTransform);
+
+	//float4x4 ViewPort;
+	//float4 Scale = GameEngineCore::MainWindow.GetScale();
+	//ViewPort.ViewPort(Scale.X, Scale.Y, 0, 0);
+
+	////Transform.SetLocalPosition(float4::RIGHT);
+
+	//const TransformData& CameraTransform = GetLevel()->GetCamera(10)->Transform.GetConstTransformDataRef();
+
+	//Transform.CalculationViewAndProjection(CameraTransform);
+
+	//float4 ScreenPos = Transform.GetWorldPosition();
 
 
-	float4 Pos = Transform.GetLocalPosition();
-	//float time = 1.0f;
-
-	//float4 Lerp = float4::LerpClamp(Pos, PlayerPos, time);
+	//float4x4 VM = Transform.GetConstTransformDataRef().ViewMatrix;
+	//float4x4 PM = Transform.GetConstTransformDataRef().ProjectionMatrix;
 
 
-	float4 Move = PlayerPos - Pos;
-	float4 Nor = Move.NormalizeReturn();
+	//ScreenPos *= VM;
+	//ScreenPos *= PM;
 
-	Transform.AddLocalPosition(Nor * _Delta * 500.0f);
+
+
+
+	//const float RHW = 1.0f / ScreenPos.W;
+
+	//float4 PosInScreenSpace = float4(ScreenPos.X * RHW, ScreenPos.Y * RHW, ScreenPos.Z * RHW, ScreenPos.W);
+	//const float NormalizedX = (PosInScreenSpace.X / 2.f) + 0.5f;
+	//const float NormalizedY = 1.f - (PosInScreenSpace.Y / 2.f) - 0.5f;
+
+	//float4 RayStartViewRectSpace;
+
+	//RayStartViewRectSpace.X = NormalizedX * Scale.X;
+	//RayStartViewRectSpace.Y = NormalizedY * Scale.Y;
+
+	//float4 Result = RayStartViewRectSpace + float4(0, 0, 0, 0);
 
 
 	if (MainCollision->Collision<ContentsCollisionType>(ContentsCollisionType::Player))
 	{
-		Player::GetMainPlayer()->AddSoulary(1);
+		GetContentsLevel()->GetFXActor()->FXUIStart(FXType::TakeAnima,Flip, Transform.GetConstTransformDataRef());
+		//Player::GetMainPlayer()->AddSoulary(1);
 		Death();
 	}
 }

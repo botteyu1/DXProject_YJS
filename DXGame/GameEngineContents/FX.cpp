@@ -163,16 +163,55 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 	return Renderer;
 }
 
-std::shared_ptr<class FxSpriteRenderer> FX::FXUIStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Scale, const float4& _Pivot)
+std::shared_ptr<class FxSpriteRenderer> FX::FXUIStart(FXType _Name, bool _flip, const TransformData& _Transform)
 {
+
+	std::shared_ptr< FxSpriteRenderer> Renderer = nullptr;
+	// 돌아가고있지않은 렌더러가 있으면 사용
+	for (size_t i = 0; i < UISpriteRenderers.size(); i++)
+	{
+		if (UISpriteRenderers[i]->IsUpdate() == false)
+		{
+			Renderer = UISpriteRenderers[i];
+			break;
+		}
+	}
+	//모든 렌더러가 사용중이면 생성
+	if (Renderer == nullptr)
+	{
+		Renderer = AddFXUIRenderer();
+	}
+
+	//TransformData Trans = TransformData(_Transform);
+
+	//Renderer->Transform.SetTransformData(_Transform);
+	Renderer->On();
+
+	Renderer->Type = _Name;
+	Renderer->Scale = float4::ONE;
+	Renderer->Time = 0.0f;
+	Renderer->Dir = 1.0f;
+
+	//const TransformData& CameraTransform = GetLevel()->GetMainCamera()->Transform.GetConstTransformDataRef();
+	//const TransformData& CameraTransform = GetLevel()->GetCamera(10)->Transform.GetConstTransformDataRef();
+
+	//Renderer->Transform.CalculationViewAndProjection(CameraTransform);
+
+
+	// 스크린 좌표 계산
 	float4x4 ViewPort;
 	float4 Scale = GameEngineCore::MainWindow.GetScale();
 	ViewPort.ViewPort(Scale.X, Scale.Y, 0, 0);
 
-	float4 ScreenPos = Transform.GetWorldPosition();
+	float4 ScreenPos = _Transform.WorldPosition;
 
-	ScreenPos *= Transform.GetConstTransformDataRef().ViewMatrix;
-	ScreenPos *= Transform.GetConstTransformDataRef().ProjectionMatrix;
+
+	float4x4 VM = _Transform.ViewMatrix;
+	float4x4 PM = _Transform.ProjectionMatrix;
+
+	
+	ScreenPos *= VM;
+	ScreenPos *= PM;
 
 
 	const float RHW = 1.0f / ScreenPos.W;
@@ -184,10 +223,23 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXUIStart(FXType _Name, bool _flip, 
 	float4 RayStartViewRectSpace;
 
 	RayStartViewRectSpace.X = NormalizedX * Scale.X;
-	RayStartViewRectSpace.Y = NormalizedY * Scale.Y;
+	RayStartViewRectSpace.Y = -NormalizedY * Scale.Y;
 
-	float4 Result = RayStartViewRectSpace + float4(0, 0, 0, 0);
-	return std::shared_ptr<class FxSpriteRenderer>();
+	float4 Result = RayStartViewRectSpace /*+ float4(0, 200.0f, 0, 0)*/;
+
+	Result -= float4{Scale.X / 2, -Scale.Y/2};
+
+	Renderer->Transform.SetLocalPosition(Result);
+
+	//Renderer->SetPivotValue(Pivot);
+	Renderer->SetAutoScaleRatio(Renderer->Scale);
+	Renderer->Flip = _flip;
+	Renderer->SpawnObjectOnCheck = false;
+	Renderer->Alpha = 1.0f;
+
+	Renderer->ChangeAnimation("Anima_Particle");
+
+	return Renderer;
 }
 
 void FX::FXTextStart(FXType _Name, std::string_view _Text, const float4& _Pos, const float _Scale )
@@ -212,6 +264,8 @@ void FX::FXTextStart(FXType _Name, std::string_view _Text, const float4& _Pos, c
 
 	float Y = ContentsCore::MainRandom->RandomFloat(0.0, 100.0f);
 	float X = ContentsCore::MainRandom->RandomFloat(-100.0, 100.0f);
+
+	
 
 
 
@@ -269,9 +323,22 @@ void FX::Start()
 			GameEngineFile& File = Atlas[i];
 			GameEngineTexture::Load(File.GetStringPath());
 		}
-
-		
 	}
+
+	//if (nullptr == GameEngineTexture::Find("FX_Surprised_Atlas_0.png"))
+	//{
+	//	GameEngineDirectory Dir3;
+	//	Dir3.MoveParentToExistsChild("GameEngineResources");
+	//	Dir3.MoveChild("ContentsResources\\Sprite\\FXAtlas");
+	//	std::vector<GameEngineFile> Atlas = Dir3.GetAllFile();
+
+	//	for (size_t i = 0; i < Atlas.size(); i++)
+	//	{
+	//		GameEngineFile& File = Atlas[i];
+	//		GameEngineTexture::Load(File.GetStringPath());
+	//	}
+	//}
+
 
 	GameEngineSprite::CreateCut("DustLanding_atlas.png", 7, 2);
 	GameEngineSprite::CreateCut("FX_Splash_Water_01_Atlas.png", 2, 4);
@@ -284,6 +351,7 @@ void FX::Start()
 	AddFXRenderer();
 	AddFXTextRenderer();
 	AddFXTextRenderer();
+	//AddFXUIRenderer();
 }
 
 void FX::Update(float _Delta)
@@ -351,6 +419,28 @@ std::shared_ptr< FxSpriteRenderer> FX::AddFXTextRenderer()
 {
 	std::shared_ptr<FxSpriteRenderer> Renderer = CreateComponent<FxSpriteRenderer>(ContentsRenderType::FX);
 	Renderer->Off();
+
+	TextSpriteRenderers.push_back(Renderer);
+
+	return Renderer;
+}
+
+std::shared_ptr<class FxSpriteRenderer> FX::AddFXUIRenderer()
+{
+	std::shared_ptr<FxSpriteRenderer> Renderer = CreateComponent<FxSpriteRenderer>(ContentsRenderType::FXAfter);
+	Renderer->AutoSpriteSizeOn();
+	Renderer->SetCameraOrder(ECAMERAORDER::UI);
+
+
+	Renderer->SetMaterial("2DTextureAlwaysDepth");
+	Renderer->CreateAnimation("Anima_Particle", "FX_Anima_Particle_Atlas.png", 0.0333f, -1, -1, true);
+	
+
+
+	Renderer->Off();
+	Renderer->AutoSpriteSizeOn();
+
+	UISpriteRenderers.push_back(Renderer);
 
 	return Renderer;
 }

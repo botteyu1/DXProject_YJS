@@ -20,6 +20,7 @@ enum class FXType
 	Hit,
 	Shard,
 	Death,
+	TakeAnima,
 
 
 
@@ -42,7 +43,7 @@ public:
 
 	std::shared_ptr<class FxSpriteRenderer> FXStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Scale = float4::ONE, const float4& _Pivot = float4(0.5f,0.5f));
 
-	std::shared_ptr< FxSpriteRenderer> FXUIStart(FXType _Name, bool _flip, const float4& _Pos, const float4& _Scale = float4::ONE, const float4& _Pivot = float4(0.5f,0.5f));
+	std::shared_ptr< FxSpriteRenderer> FXUIStart(FXType _Name, bool _flip, const TransformData& _Transform);
 	void FXTextStart(FXType _Name, std::string_view _Text, const float4& _Pos, const float _Scale = 20.0f);
 
 protected:
@@ -52,10 +53,12 @@ protected:
 
 	std::shared_ptr< class FxSpriteRenderer> AddFXRenderer();
 	std::shared_ptr< class FxSpriteRenderer> AddFXTextRenderer();
+	std::shared_ptr< class FxSpriteRenderer> AddFXUIRenderer();
 
 private:
 	std::vector<std::shared_ptr<class FxSpriteRenderer>> MainSpriteRenderers;
 	std::vector<std::shared_ptr<class FxSpriteRenderer>> TextSpriteRenderers;
+	std::vector<std::shared_ptr<class FxSpriteRenderer>> UISpriteRenderers;
 	//std::vector<FXType> MainSpriteRenderers;
 	//std::shared_ptr<class GameEngineSpriteRenderer> MainSpriteRenderer;  
 	

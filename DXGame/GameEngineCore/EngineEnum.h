@@ -5,7 +5,7 @@ enum class ECAMERAORDER
 	MainPrev,
 	Main,
 	MainNext,
-	UI,
+	UI = 10, 
 };
 
 enum class EPROJECTIONTYPE
