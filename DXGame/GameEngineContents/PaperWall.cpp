@@ -139,8 +139,8 @@ void PaperWall::Start()
 	}
 
 
-	//State.ChangeState(PaperWallState::StaticOff);
-	State.ChangeState(PaperWallState::StaticOn);
+	State.ChangeState(PaperWallState::StaticOff);
+	//State.ChangeState(PaperWallState::StaticOn);
 
 
 	GameEngineInput::AddInputObject(this);
