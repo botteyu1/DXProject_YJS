@@ -154,6 +154,9 @@
     <ClCompile Include="OtherState.cpp">
       <Filter>Actor\Player\State</Filter>
     </ClCompile>
+    <ClCompile Include="PlayLevel2.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -299,6 +302,9 @@
     </ClInclude>
     <ClInclude Include="SelectStageUI.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayLevel2.h">
+      <Filter>Level</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

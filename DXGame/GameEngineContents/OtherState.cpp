@@ -54,13 +54,35 @@ void Player::EnterElavatorUpdate(float _Delta)
 	}
 	else if (1.0f >= MotionTime)
 	{
-		MainSpriteRenderer->ChangeAnimation("LD_Elevator_Enter");
+		
+		ChangeMainAnimation("LD_Elevator_Enter");
 		return;
 	}
 	else if (MainSpriteRenderer->IsCurAnimationEnd() == true)
 	{
 		ChangeMainAnimation("LD_Elevator_End");
+
+		
 	}
+	else if (3.0f >= MotionTime)
+	{
+		if (GetLevel()->GetName() == "PlayLevel")
+		{
+			GetContentsLevel()->LevelChangerStart("PlayLevel2");
+			//GetContentsLevel()->LevelChangeStart("PlayLevel2");
+		}
+		else if (GetLevel()->GetName() == "PlayLevel2")
+		{
+			GetContentsLevel()->LevelChangerStart("BossLevel");
+			//GameEngineCore::ChangeLevel("BossLevel");
+		}
+		else if (GetLevel()->GetName() == "BossLevel")
+		{
+			GetContentsLevel()->LevelChangerStart("BossLevel");
+			//GameEngineCore::ChangeLevel("BossLevel");
+		}
+	}
+
 }
 
 void Player::ExitElavatorStart()

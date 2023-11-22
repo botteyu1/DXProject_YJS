@@ -74,7 +74,7 @@ void Elevator::Update(float _Delta)
 		if (MainSpriteRenderer->IsCurAnimationEnd() == true)
 		{
 			State = ElevatorState::Static;
-			Player::GetMainPlayer()->Transform.SetLocalPosition(Transform.GetLocalPosition() + float4(30.0f, 0.0f, -5.0f));
+			//Player::GetMainPlayer()->Transform.SetLocalPosition(Transform.GetLocalPosition() + float4(30.0f, 0.0f, -5.0f));
 			Player::GetMainPlayer()->ChangeState(PlayerState::ExitElavator);
 		}
 		break;
@@ -83,7 +83,7 @@ void Elevator::Update(float _Delta)
 		{
 			if (GameEngineInput::IsDown('F', this))
 			{
-				
+				Player::GetMainPlayer()->SetTargetPos(Transform.GetLocalPosition() + float4(20.0f, 50.0f, -5.0f));
 				Player::GetMainPlayer()->ChangeState(PlayerState::EnterElavator);
 			}
 		}

@@ -458,7 +458,7 @@ std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, flo
 		break;
 	case ActorType::woker1:
 		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
-		static_cast<BGObject*>(Object.get())->Init("worker1.png");
+		static_cast<BGObject*>(Object.get())->Init("woker1.png");
 		break;
 	case ActorType::woker2:
 		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);

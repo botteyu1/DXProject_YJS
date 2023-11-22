@@ -29,10 +29,7 @@ void TitleLevel::Start()
 
 void TitleLevel::Update(float _Delta)
 {
-	if (GameEngineInput::IsPress('P', this))
-	{
-		GameEngineCore::ChangeLevel("PlayLevel");
-	}
+	
 }
 
 

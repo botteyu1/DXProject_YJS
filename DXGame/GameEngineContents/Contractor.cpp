@@ -59,7 +59,7 @@ void Contractor::Start()
 
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
-				//MainSpriteRenderer->Off();
+				MainSpriteRenderer->Off();
 				MainSpriteRenderer->SetAutoScaleRatio({ 1.0f, 1.0f });
 			};
 
@@ -190,13 +190,15 @@ void Contractor::Start()
 		State.CreateState(ContractorState::OFF, NewPara);
 	}
 
-	State.ChangeState(ContractorState::Hide);
+	State.ChangeState(ContractorState::Idle);
 	GameEngineInput::AddInputObject(this);
 
 	static int Num = 0;
 	Num++;
 
 	SetName("Contractor_" + std::to_string(Num));
+
+	ForceGrivityOff = true;
 
 }
 

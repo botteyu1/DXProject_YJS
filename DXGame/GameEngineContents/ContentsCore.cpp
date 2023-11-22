@@ -10,6 +10,7 @@
 #include "BossLevel.h"
 #include "Cape.h"
 #include <GameEngineCore/GameEngineDepthStencil.h>
+#include "PlayLevel2.h"
 
 
 std::shared_ptr< GameEngineRandom> ContentsCore::MainRandom;
@@ -70,6 +71,7 @@ void ContentsCore::Start()
 	MainRandom = std::make_shared<GameEngineRandom>();
 
 	GameEngineCore::CreateLevel<PlayLevel>("PlayLevel");
+	GameEngineCore::CreateLevel<PlayLevel2>("PlayLevel2");
 	GameEngineCore::CreateLevel<BossLevel>("BossLevel");
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
 	GameEngineCore::CreateLevel<MapEditorLevel>("MapEditorLevel");
