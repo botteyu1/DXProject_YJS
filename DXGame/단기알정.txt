@@ -133,79 +133,55 @@
 
 
 
-치유 공이 목표물을 향해 이동하고 목표물 주위를 선회한 다음 당겨지는 보다 역동적이고 시각적으로 흥미로운 효과를 얻으려면 공과 목표물 사이의 선에 수직인 방향에 초기 속도를 추가하여 궤도를 시뮬레이션할 수 있습니다.
+물체가 블랙홀을 향해 나선형으로 빨려 들어가는 것과 유사하게 치유 공이 대상 주위를 회전하면서 빨려 들어가는 효과를 만들려면 방사형 안쪽 움직임과 접선 운동을 결합하여 나선형 궤적을 만들면 됩니다. 다음은 간단한 접근 방식입니다:
 
-다음은 이를 구현하는 간단한 방법입니다:
+1. **방사형 안쪽 이동**: 이것은 중력의 당김을 시뮬레이션하여 대상을 향해 직접 이동하는 움직임입니다.
 
-1. **목표물을 향한 초기 이동**: 치유 공을 집어 들었을 때 목표물을 향해 움직이되 옆으로 약간 움직입니다.
+2. **탄젠셜 모션**: 방사형 방향에 수직인 모션으로, 목표물에 가까워질수록 치유 공이 목표물 주위를 회전합니다.
 
-2. **궤도 돌기**: 목표물에 가까워질수록 옆으로 움직이는 동작을 줄이고 중력 방향으로 끌어당기는 힘을 높입니다.
-
-3. **최종 당기기**: 궤도를 반 정도 돌고 나면 목표물을 향해 직접 당깁니다.
-
-코딩 방법은 다음과 같습니다:
+다음은 DirectX를 사용하여 이 개념을 보여주는 C++ 함수입니다:
 
 ```cpp
-#include <cmath>
-
-void MoveHealingBall(HealingBall& ball, const XMFLOAT3& targetPosition, float deltaTime) {
-    static const float GRAVITY_PULL = 10.0f; // 중력 당기는 힘
-    static const float ORBITAL_RADIUS = 5.0f; // 원하는 반궤도 반경
-    static bool inOrbit = false; // 궤도 상태 플래그
+void SpiralIntoTarget(HealingBall& ball, const XMFLOAT3& targetPosition, float deltaTime) {
+    static const float SPIRAL_FACTOR = 0.5f; // 나선의 팽팽함을 제어합니다.
+    static const float INWARD_PULL = 5.0f; // 안쪽으로 당기는 힘을 제어합니다.
 
     XMVECTOR ballPos = XMLoadFloat3(&ball.position);
     XMVECTOR targetPos = XMLoadFloat3(&targetPosition);
-    
-    // 공에서 타깃까지의 방향 계산
-    XMVECTOR toTargetNormalized = XMVector3Normalize(XMVectorSubtract(targetPos, ballPos));
-    
-    if (ball.isPickedUp && !inOrbit) {
-        // 치유 공에 toTarget에 수직인 초기 속도를 부여합니다.
-        XMVECTOR orbitDirection = XMVector3Orthogonal(toTargetNormalized);
-        float initialSpeed = 2.0f;
-        ball.velocity = XMVectorAdd(ball.velocity, XMVectorScale(orbitDirection, initialSpeed));
-        
-        inOrbit = true;
-    }
-    
-    if (inOrbit) {
-        // 공에서 목표 위치까지의 거리를 계산합니다.
-        float distanceToTarget = XMVectorGetX(XMVector3Length(XMVectorSubtract(ballPos, targetPos)));
 
-        // 궤도 반경 내에 있으면 중력을 더 강하게 시뮬레이션하여 타깃을 향해 끌어당깁니다.
-        if (distanceToTarget <= ORBITAL_RADIUS) {
-            float pullStrength = GRAVITY_PULL / (distanceToTarget * distanceToTarget);
-            pullStrength = std::min(pullStrength, GRAVITY_PULL); // 클램프 당김 강도
-            
-            // 목표를 향해 가속
-            XMVECTOR gravityForce = XMVectorScale(toTargetNormalized, pullStrength * deltaTime);
-            ball.velocity = XMVectorAdd(ball.velocity, gravityForce);
-            
-            if (distanceToTarget < 1.0f) {  
-                // 타겟에 충분히 가까워져 궤도를 멈춥니다.
-                inOrbit = false;
-                ball.isPickedUp = false;
-                ball.position = targetPosition;
-            }
-        }
+    // 정규화된 방향 벡터 계산
+    XMVECTOR toTargetVector = XMVectorSubtract(targetPos, ballPos);
+    XMVECTOR toTargetNormalized = XMVector3Normalize(toTargetVector);
+    XMVECTOR 탄젠셜디렉션 = XMVectorSet(-XMVectorGetY(toTargetNormalized), XMVectorGetX(toTargetNormalized), 0.0f, 0.0f);
+
+    // 공에서 목표 위치까지의 거리 계산
+    float distanceToTarget = XMVectorGetX(XMVector3Length(toTargetVector));
+
+    // 거리를 기준으로 탄젠셜 회전 속도 계산 (가까울수록 빠름)
+    float 탄젠셜스피드 = SPIRAL_FACTOR / distanceToTarget;
+
+    // 속도에 안쪽 당김과 탄젠셜 스핀을 추가합니다.
+    ball.velocity = XMVectorMultiplyAdd(XMVectorScale(toTargetNormalized, -INWARD_PULL * deltaTime), ball.velocity);
+    ball.velocity = XMVectorMultiplyAdd(XMVectorScale(tangentialDirection, tangentialSpeed * deltaTime), ball.velocity);
+
+    // 속도에 따라 위치를 업데이트하고 목표에 매우 가까우면 클램프합니다.
+    if (distanceToTarget > 1.0f) {
+        ball.position += ball.velocity * deltaTime;
+    } else {
+        // 목표 위치에 고정하고 이동 중지
+        ball.position = targetPosition;
+        ball.isPickedUp = false; // 치유 공이 목적지에 도달했습니다.
+        반환합니다;
     }
 
-    // 속도에 따라 위치 업데이트
-    ball.position += ball.velocity * deltaTime;
-
-    // 궤도 붕괴를 위한 공간에서의 마찰/저항을 시뮬레이션하기 위해 속도를 감쇠시킵니다.
-    float 댐핑팩터 = 0.99f; // 게임 느낌에 따라 필요에 따라 조정합니다.
+    // 안정성을 위해 매 프레임마다 속도를 약간 감속합니다.
+    float 댐핑팩터 = 0.98f;
     ball.velocity *= 댐핑팩터;
 }
+
 ```
 
 이 예제에서는
-- inOrbit`은 힐링볼이 현재 궤도 경로에 있는지 여부를 나타내는 플래그입니다.
-- 궤도 방향`은 `toTargetNormalized`에 직교하는 벡터를 찾아서 계산되며, 이는 치유 공과 목적지 사이의 시선에 수직인 방향을 제공합니다.
-- 초기 속도`는 물체를 목적지 주위의 궤도로 이동시키기 위한 초기 발차기로 사용됩니다.
-- 중력에 대한 역제곱 법칙은 단순화되어 `GRAVITY_PULL`로 고정됩니다.
-- 감쇠 계수는 시간이 지남에 따라 속도를 감소시켜 궤도 붕괴처럼 보이게 하고 결국 목표 위치에 안착하게 합니다.
-
-이 예제에서는 `HealingBall` 클래스 또는 구조체에 추가 프로퍼티(`velocity`)가 있다고 가정하고 벡터의 스칼라 덧셈과 곱셈을 처리하는 방법(`XMVectorAdd`, `XMVectorScale`)을 정의했음을 다시 한 번 확인합니다. 시각적 개연성과 재미있는 게임플레이를 위해 게임의 특정 요구사항에 따라 `initialSpeed`, `GRAVITY_PULL`, `dampingFactor`와 같은 상수를 조정해야 합니다.
-
-이 함수는 매 프레임 업데이트마다 호출하며, 여기서 `deltaTime`은 마지막 프레임 이후 경과된 시간을 나타냅니다. 이렇게 하면 치유 공이 수집을 위해 당겨지기 전에 목적지에 가까워질 때 시각적으로 매력적인 호를 만들 수 있습니다.
+- SPIRAL_FACTOR`는 물체가 중심을 향해 얼마나 세게 나선형을 그리는지를 제어하며, 값이 작을수록 더 세게 나선형을 그리게 됩니다.
+- INWARD_PULL`은 안쪽으로 끌어당기는 중력의 강도를 결정합니다.
+- 탄젠셜 방향`은 정규화된 벡터가 다음을 향하도록 회전하여 계산됩니다. 가까워질 때 시각적으로 매력적인 호를 만들 수 있습니다.

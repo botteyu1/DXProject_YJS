@@ -31,6 +31,7 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 	}
 	
 
+	Renderer->SpawnObject = nullptr;
 	Renderer->Transform.SetLocalPosition(_Pos);
 	Renderer->Transform.SetLocalRotation(float4::ZERONULL);
 	
@@ -238,6 +239,7 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXUIStart(FXType _Name, bool _flip, 
 	Renderer->Alpha = 1.0f;
 
 	Renderer->ChangeAnimation("Anima_Particle");
+	Renderer->gravityForce = float4{ -300.0f,800.0f };
 
 	return Renderer;
 }
@@ -427,7 +429,7 @@ std::shared_ptr< FxSpriteRenderer> FX::AddFXTextRenderer()
 
 std::shared_ptr<class FxSpriteRenderer> FX::AddFXUIRenderer()
 {
-	std::shared_ptr<FxSpriteRenderer> Renderer = CreateComponent<FxSpriteRenderer>(ContentsRenderType::FXAfter);
+	std::shared_ptr<FxSpriteRenderer> Renderer = CreateComponent<FxSpriteRenderer>(ContentsRenderType::FX);
 	Renderer->AutoSpriteSizeOn();
 	Renderer->SetCameraOrder(ECAMERAORDER::UI);
 

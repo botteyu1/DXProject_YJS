@@ -32,6 +32,7 @@ private:
 	FXType Type;
 
 	float Dir = 1.0f;
+	float4 gravityForce = float4::ZERONULL;
 
 	float4 Scale = float4::ONE; //비율스케일
 	float Alpha = 1.0f;

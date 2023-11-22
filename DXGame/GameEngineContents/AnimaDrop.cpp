@@ -112,7 +112,7 @@ void AnimaDrop::Update(float _Delta)
 	//float4 Result = RayStartViewRectSpace + float4(0, 0, 0, 0);
 
 
-	if (MainCollision->Collision<ContentsCollisionType>(ContentsCollisionType::Player))
+	if (MainCollision->Collision<ContentsCollisionType>(ContentsCollisionType::Player) and AerialCheck == false)
 	{
 		GetContentsLevel()->GetFXActor()->FXUIStart(FXType::TakeAnima,Flip, Transform.GetConstTransformDataRef());
 		//Player::GetMainPlayer()->AddSoulary(1);

@@ -264,20 +264,20 @@ void PlayLevel2::Update(float _Delta)
 	State.Update(_Delta);
 
 
-	if (GameEngineInput::IsDown('V', this))
-	{
-		/*GetCurseUI()->CurseUIStart(1);
+	//if (GameEngineInput::IsDown('V', this))
+	//{
+	//	/*GetCurseUI()->CurseUIStart(1);
 
-		GetCamera(static_cast<int>(ECAMERAORDER::UI))->GetCameraAllRenderTarget()->CreateEffect<FadePostEffect>();*/
-		if (WeaponDropObject != nullptr)
-		{
-			WeaponDropObject->Death();
-		}
+	//	GetCamera(static_cast<int>(ECAMERAORDER::UI))->GetCameraAllRenderTarget()->CreateEffect<FadePostEffect>();*/
+	//	if (WeaponDropObject != nullptr)
+	//	{
+	//		WeaponDropObject->Death();
+	//	}
 
-		WeaponDropObject = CreateActor<WeaponDrop>(ContentsObjectType::BackGround);
-		WeaponDropObject->Transform.SetLocalPosition(PlayerPtr->Transform.GetLocalPosition());
-		WeaponDropObject->Spawn();
-	}
+	//	WeaponDropObject = CreateActor<WeaponDrop>(ContentsObjectType::BackGround);
+	//	WeaponDropObject->Transform.SetLocalPosition(PlayerPtr->Transform.GetLocalPosition());
+	//	WeaponDropObject->Spawn();
+	//}
 }
 
 void PlayLevel2::LevelStart(GameEngineLevel* _PrevLevel)

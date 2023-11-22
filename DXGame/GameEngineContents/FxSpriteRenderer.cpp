@@ -3,6 +3,9 @@
 #include "Enemy.h"
 #include "FX.h"
 
+
+//#define NOMINMAX
+
 FxSpriteRenderer::FxSpriteRenderer() 
 {
 }
@@ -244,11 +247,64 @@ void FxSpriteRenderer::Update(float _Delta)
 	break;
 	case FXType::TakeAnima: 
 	{
-		SetAutoScaleRatio(Scale);
-		if (Time >= 3.0f)
+		
+
+
+		
+		//DirectX::XMVectorSubtract
+		//DirectX::XMVECTOR = D;
+		//static const float GRAVITY_PULL = 1000000.0f;
+
+		if (Time <= 0.8f)
+		{
+			float4 TargetNor = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract({ 0.0f, 100.0f }, Transform.GetLocalPosition().DirectXVector));
+
+			float distanceToTarget = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(Transform.GetLocalPosition().DirectXVector, { 0.0f, 100.0f })));
+
+			float pullStrength = 3000.0f;
+
+
+			gravityForce += TargetNor * pullStrength * _Delta;
+
+
+
+			Transform.AddLocalPosition(gravityForce* _Delta);
+
+
+			/*Scale.X -= _Delta * 0.2f;
+			Scale.Y -= _Delta * 0.2f;*/
+		}
+		else if (Time > 0.8f)
+		{
+			float4 TargetNor = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract({ -820.0f,515.0f,0.0f }, Transform.GetLocalPosition().DirectXVector));
+
+			float distanceToTarget = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(Transform.GetLocalPosition().DirectXVector, { -820.0f,515.0f,0.0f })));
+
+			//float pullStrength = distanceToTarget * 4.0f;
+			float pullStrength = 3000.0f;
+
+
+			gravityForce += gravityForce.NormalizeReturn() * -2000.0f * _Delta;
+
+			gravityForce += TargetNor * pullStrength * _Delta;
+
+
+			Transform.AddLocalPosition(gravityForce* _Delta);
+
+			Scale.X -= _Delta * 0.3f;
+			Scale.Y -= _Delta * 0.3f;
+		}
+
+		else if (Time > 1.5f)
+		{
+			Scale.X -= _Delta * 0.6f;
+			Scale.Y -= _Delta * 0.6f;
+		}
+		if(Scale.X <= 0.0f)
 		{
 			Off();
 		}
+		SetAutoScaleRatio(Scale);
 	}
 	break;
 
