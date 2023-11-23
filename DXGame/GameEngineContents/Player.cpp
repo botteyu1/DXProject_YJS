@@ -278,6 +278,26 @@ void Player::Update(float _Delta)
 	{
 		MP = MaxMP;
 	}
+	if (GameEngineInput::IsDown('Q', this))
+	{
+		PlayerData& PlayerDataPtr = Player::GetMainPlayerData();
+		if (PlayerDataPtr.Anima > 0 and PlayerDataPtr.HP < PlayerDataPtr.MaxHP)
+		{
+			PlayerDataPtr.Anima--;
+
+			if (HP + 35 <= MaxHP)
+			{
+				HP += 25;
+			}
+			else
+			{
+				HP = MaxHP;
+			}
+			GetContentsLevel()->GetFXActor()->FXStart(FXType::Hit, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f), float4(3.0f, 3.0f, 2.0f));
+			GetContentsLevel()->GetFXActor()->FXStart(FXType::EatAnima, Flip, Transform.GetLocalPosition() + float4(0.0f, 80.0f));
+		}
+
+	}
 
 
 	DataUpdate();

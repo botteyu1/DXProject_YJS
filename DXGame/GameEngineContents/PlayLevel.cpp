@@ -85,17 +85,65 @@ void PlayLevel::Start()
 
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
-
+				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
+				float4 PlayerPos = PlayerPtr->Transform.GetWorldPosition() + float4{ 0.0f,0.0f,-1000.0f };
+				MainCamara->Transform.SetLocalPosition(PlayerPos);
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
 				//카메라 포커스
 	
-				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
-				float4 PlayePos = PlayerPtr->Transform.GetWorldPosition();
+				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera(); 
+				float4 PlayerPos = PlayerPtr->Transform.GetWorldPosition();
+				float4 CameraPos = MainCamara->Transform.GetLocalPosition();
+				CameraPos.Z = PlayerPos.Z;
 
-				MainCamara->Transform.SetLocalPosition(PlayePos + float4{ 0.0f,0.0f,-1000.0f });
+				float4 TargetNor = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(PlayerPos.DirectXVector, CameraPos.DirectXVector));
+
+				float distanceToTarget = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(MainCamara->Transform.GetLocalPosition().DirectXVector, PlayerPos.DirectXVector)));
+
+				//float pullStrength = 4000.0f;
+
+
+				//float4 PlayerPos = MainPlayer->Transform.GetLocalPosition() + PivotPos;
+				
+
+				/*if (Flip == true)
+				{
+					PlayerPos.X -= 2.0f * PivotPos.X;
+				}*/
+
+				//float time = 1.0f;
+
+				//float4 Lerp = float4::LerpClamp(Pos, PlayerPos, time);
+
+				float4 Move = PlayerPos - CameraPos;
+				//float4 Dist = Move / Move.NormalizeReturn();
+
+				if (distanceToTarget > 10.0f)
+				{
+					MainCamara->Transform.AddLocalPosition(Move * _DeltaTime * 3.0f);
+
+				}
+
+				
+
+
+				//Transform.AddLocalPosition(gravityForce * _Delta);
+
+				//if (PlayerPos.X < 330.0f)
+				//{
+				//	PlayerPos.X = 330.0f;
+				//}
+				//if (PlayerPos.Y < -3800.0f)
+				//{
+				//	PlayerPos.Y = -3800.0f;
+				//}
+
+				
+
+
 
 				if (MainCamara->Transform.GetLocalPosition().X >= 10500.0f and GimmickValue == false)
 				{

@@ -256,22 +256,34 @@ void PlayUI::Start()
 	HUD_Anima->SetSprite("HUD_Main_Anima_Slot_On.png");
 	HUD_Anima->Transform.SetLocalPosition({ -833.0f,515.0f,0.0f });
 	HUD_Anima->SetName("HUD_Anima");
+	HUD_Animavec.push_back(HUD_Anima);
 
-	HUD_Anima2 = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
-	HUD_Anima2->AutoSpriteSizeOn();
-	HUD_Anima2->SetCameraOrder(ECAMERAORDER::UI);
-	HUD_Anima2->SetSprite("HUD_Main_Anima_Slot_On.png");
-	HUD_Anima2->Transform.SetLocalPosition({ -807.0f,515.0f,0.0f });
-	HUD_Anima2->SetName("HUD_Anima");
-	HUD_Anima2->GetColorData().MulColor = float4(1.f, 1.f, 0.33f, 1.0f);
+	HUD_Anima = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Anima->AutoSpriteSizeOn();
+	HUD_Anima->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Anima->SetSprite("HUD_Main_Anima_Slot_On.png");
+	HUD_Anima->Transform.SetLocalPosition({ -807.0f,515.0f,0.0f });
+	HUD_Anima->SetName("HUD_Anima");
+	HUD_Anima->GetColorData().MulColor = float4(1.f, 1.f, 0.33f, 1.0f);
+	HUD_Animavec.push_back(HUD_Anima);
 
-	HUD_Anima3 = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
-	HUD_Anima3->AutoSpriteSizeOn();
-	HUD_Anima3->SetCameraOrder(ECAMERAORDER::UI);
-	HUD_Anima3->SetSprite("HUD_Main_Anima_Slot_Off.png");
-	HUD_Anima3->Transform.SetLocalPosition({ -782.0f,515.0f,0.0f });
-	HUD_Anima3->SetName("HUD_Anima");
-	HUD_Anima3->GetColorData().MulColor = float4(1.f, 1.f, 0.33f, 1.0f);
+	HUD_Anima = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Anima->AutoSpriteSizeOn();
+	HUD_Anima->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Anima->SetSprite("HUD_Main_Anima_Slot_Off.png");
+	HUD_Anima->Transform.SetLocalPosition({ -782.0f,515.0f,0.0f });
+	HUD_Anima->SetName("HUD_Anima");
+	HUD_Animavec.push_back(HUD_Anima);
+
+	HUD_Anima = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Anima->AutoSpriteSizeOn();
+	HUD_Anima->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Anima->SetSprite("HUD_Main_Anima_Slot_Off.png");
+	HUD_Anima->Transform.SetLocalPosition({ -756.0f,515.0f,0.0f });
+	HUD_Anima->SetName("HUD_Anima");
+	HUD_Animavec.push_back(HUD_Anima);
+	//HUD_Anima3->GetColorData().MulColor = float4(1.f, 1.f, 0.33f, 1.0f);
+
 
 	HUD_Soulary = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Soulary->AutoSpriteSizeOn();
@@ -310,6 +322,7 @@ void PlayUI::Update(float _Delta)
 	HUD_ManaBar_Text->SetText("메이플스토리", MPstr, 20.0f, float4(0.f, 0.7f, 0.f, 1.0f));
 	HUD_Soulary_Text->SetText("메이플스토리", Soularystr, 45.0f, float4::WHITE, FW1_RIGHT);
 	HPTimer += _Delta;
+	HPAnimaTimer += _Delta;
 
 	if (PrevHP > PlayerHP)
 	{
@@ -318,15 +331,30 @@ void PlayUI::Update(float _Delta)
 		HUD_LifeBar_On_Right->GetColorData().MulColor = float4(0.8f, 0.0, 0.0, 1.0f);
 		HUD_LifeBar_On_Left->GetColorData().MulColor = float4(0.8f, 0.0, 0.0, 1.0f);
 	}
+	if (PrevHP < PlayerHP)
+	{
+		HPAnimaTimer = 0.0f;
+		HUD_LifeBar_On->GetColorData().MulColor = float4(0.0f, 0.3f, 0.4f, 1.0f);
+		HUD_LifeBar_On_Right->GetColorData().MulColor = float4(0.0f, 0.3f, 0.4f, 1.0f);
+		HUD_LifeBar_On_Left->GetColorData().MulColor = float4(0.0f, 0.3f, 0.4f, 1.0f);
+	}
 	PrevHP = PlayerHP;
 
-	if (HPTimer < 1.0f)
+
+	// 피격 색깔
+	if (HPAnimaTimer < 1.0f)
 	{
-		
+		HUD_LifeBar_On->GetColorData().MulColor = float4(HPAnimaTimer * 1.0f, 0.3f + HPAnimaTimer * 0.7f, 0.4f + HPAnimaTimer * 0.6f, 1.0f);
+		HUD_LifeBar_On_Right->GetColorData().MulColor = float4(HPAnimaTimer * 1.0f, 0.3f + HPAnimaTimer * 0.7f, 0.4f + HPAnimaTimer * 0.6f, 1.0f);
+		HUD_LifeBar_On_Left->GetColorData().MulColor = float4(HPAnimaTimer * 1.0f, 0.3f + HPAnimaTimer * 0.7f, 0.4f + HPAnimaTimer * 0.6f, 1.0f);
+	}
+	else if (HPTimer < 1.0f)
+	{
 		HUD_LifeBar_On->GetColorData().MulColor = float4(0.4f + HPTimer * 0.6f, HPTimer * 1.0f, HPTimer * 1.f, 1.0f);
 		HUD_LifeBar_On_Right->GetColorData().MulColor = float4(0.4f + HPTimer * 0.6f, HPTimer * 1.0f, HPTimer * 1.0f, 1.0f);
 		HUD_LifeBar_On_Left->GetColorData().MulColor = float4(0.4f + HPTimer * 0.6f, HPTimer * 1.0f, HPTimer * 1.0f, 1.0f);
 	}
+	// 회복 색깔
 	else
 	{
 		HUD_LifeBar_On->GetColorData().MulColor = float4(1.f, 1.0, 1.0, 1.0f);
@@ -404,6 +432,27 @@ void PlayUI::Update(float _Delta)
 		HUD_Cape2->GetColorData().MulColor = float4(1.f, 1.f, 1.f, 1.f);
 		HUD_Cape2_Text->Off();
 	}
+
+	const PlayerData& Data =  Player::GetMainPlayerData();
+
+	//애니마 체크
+
+	for (size_t i = 0; i < HUD_Animavec.size(); i++)
+	{
+		if (i < Data.Anima)
+		{
+			HUD_Animavec[i]->SetSprite("HUD_Main_Anima_Slot_On.png");
+			HUD_Animavec[i]->GetColorData().MulColor = float4(1.f, 1.f, 0.33f, 1.0f);
+		}
+		else
+		{
+			HUD_Animavec[i]->SetSprite("HUD_Main_Anima_Slot_Off.png");
+			HUD_Animavec[i]->GetColorData().MulColor = float4(1.f, 1.f, 1.0f, 1.0f);
+		}
+			
+	}
+	
+
 
 }
 

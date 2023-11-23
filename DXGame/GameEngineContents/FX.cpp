@@ -130,12 +130,17 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 		Renderer->ChangeAnimation("Shard", true);
 		float Rotate = ContentsCore::MainRandom->RandomFloat(45.0f, 135.0f);
 		Renderer->Transform.AddLocalRotation(float4(0.0f, 0.0f, Rotate));
-
 	}
 	break;
 	case FXType::Death:
 	{
 		Renderer->ChangeAnimation("Death", true);
+	}
+		break;
+	case FXType::EatAnima:
+	{
+		Renderer->ChangeAnimation("Concentrate", true);
+		Renderer->Scale = float4(1.5f, 1.5f, 1.0f);
 	}
 		break;
 
@@ -232,6 +237,9 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXUIStart(FXType _Name, bool _flip, 
 
 	Renderer->Transform.SetLocalPosition(Result);
 
+	float Y = ContentsCore::MainRandom->RandomFloat(50.0f, 150.0f);
+	float X = ContentsCore::MainRandom->RandomFloat(-300.0, 100.0f);
+
 	//Renderer->SetPivotValue(Pivot);
 	Renderer->SetAutoScaleRatio(Renderer->Scale);
 	Renderer->Flip = _flip;
@@ -239,7 +247,8 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXUIStart(FXType _Name, bool _flip, 
 	Renderer->Alpha = 1.0f;
 
 	Renderer->ChangeAnimation("Anima_Particle");
-	Renderer->gravityForce = float4{ -300.0f,800.0f };
+	Renderer->TargetPos = float4{ X,Y,0.0f };
+	Renderer->gravityForce = float4{ -300.0f,500.0f };
 
 	return Renderer;
 }
@@ -387,6 +396,9 @@ std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 
 	Renderer->CreateAnimation("Splash_Water2", "FX_Splash_Water_03_Atlas.png", 0.0233f, -1, -1, true);
 	Renderer->SetEndEvent("Splash_Water2", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
+
+	Renderer->CreateAnimation("Concentrate", "Concentrate", 0.0133f, -1, -1, true);
+	Renderer->SetEndEvent("Concentrate", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
 	
 	Renderer->CreateAnimation("Death", "FX_Ritual_Weapon_Death_Silhouette_Atlas HD.png", 0.0333f, -1, -1, true);
 	//Renderer->SetEndEvent("Death", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });

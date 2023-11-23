@@ -35,6 +35,7 @@ private:
 	float4 gravityForce = float4::ZERONULL;
 
 	float4 Scale = float4::ONE; //비율스케일
+	float4 TargetPos = float4::ONE;
 	float Alpha = 1.0f;
 	bool Flip = false;
 	bool SpawnObjectOnCheck = false;

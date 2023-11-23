@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "FxSpriteRenderer.h"
 #include "Enemy.h"
+#include "Player.h"
 #include "FX.h"
 
 
@@ -257,11 +258,11 @@ void FxSpriteRenderer::Update(float _Delta)
 
 		if (Time <= 0.8f)
 		{
-			float4 TargetNor = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract({ 0.0f, 100.0f }, Transform.GetLocalPosition().DirectXVector));
+			float4 TargetNor = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(TargetPos.DirectXVector, Transform.GetLocalPosition().DirectXVector));
 
-			float distanceToTarget = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(Transform.GetLocalPosition().DirectXVector, { 0.0f, 100.0f })));
+			float distanceToTarget = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(Transform.GetLocalPosition().DirectXVector, TargetPos.DirectXVector)));
 
-			float pullStrength = 3000.0f;
+			float pullStrength = 4000.0f;
 
 
 			gravityForce += TargetNor * pullStrength * _Delta;
@@ -281,27 +282,32 @@ void FxSpriteRenderer::Update(float _Delta)
 			float distanceToTarget = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(Transform.GetLocalPosition().DirectXVector, { -820.0f,515.0f,0.0f })));
 
 			//float pullStrength = distanceToTarget * 4.0f;
-			float pullStrength = 3000.0f;
+			float pullStrength = 3500.0f  ;
+
+			if (TargetNor.X > 0.0f or TargetNor.Y < 0.0f)
+			{
+				pullStrength += 1500.0f;
+			}
 
 
-			gravityForce += gravityForce.NormalizeReturn() * -2000.0f * _Delta;
+			gravityForce += gravityForce.NormalizeReturn() * (-1200.0f - (Time * 800.0f)) * _Delta;
 
 			gravityForce += TargetNor * pullStrength * _Delta;
 
 
 			Transform.AddLocalPosition(gravityForce* _Delta);
 
-			Scale.X -= _Delta * 0.3f;
-			Scale.Y -= _Delta * 0.3f;
+			Scale.X -= _Delta * 0.4f;
+			Scale.Y -= _Delta * 0.4f;
 		}
-
 		else if (Time > 1.5f)
 		{
-			Scale.X -= _Delta * 0.6f;
-			Scale.Y -= _Delta * 0.6f;
+			Scale.X -= _Delta * 1.2f;
+			Scale.Y -= _Delta * 1.2f;
 		}
 		if(Scale.X <= 0.0f)
 		{
+			Player::GetMainPlayerData().AddAnima();
 			Off();
 		}
 		SetAutoScaleRatio(Scale);
@@ -310,10 +316,7 @@ void FxSpriteRenderer::Update(float _Delta)
 
 	default:
 	{
-		if (Time >= 3.0f)
-		{
-			Off();
-		}
+		
 	}
 		break;
 	}

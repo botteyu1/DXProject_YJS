@@ -34,6 +34,7 @@ enum class PlayerState
 
 class PlayerData
 {
+
 public:
 	int HP = 70;
 	int MaxHP = 80;
@@ -54,6 +55,22 @@ public:
 	int DashCount = 0;
 	int AnimaSocket = 3;
 
+
+	int MaxAnima = 4;
+	int Anima = 1;
+
+
+	void AddAnima(int _Num = 1)
+	{
+		if (Anima + _Num <= MaxAnima)
+		{
+			Anima += _Num;
+		}
+		else
+		{
+			Anima = MaxAnima;
+		}
+	}
 	
 
 };

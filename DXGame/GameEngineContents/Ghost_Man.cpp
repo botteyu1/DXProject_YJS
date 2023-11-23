@@ -156,10 +156,10 @@ void Ghost_Man::AttackStart()
 
 void Ghost_Man::AttackUpdate(float _Delta)
 {
-	CheckStartAttackFrame(-1, 10.0f);
+
 	CheckAttackCollision();
 
-	if (CheckStartAttackFrame() == true)
+	if (CheckStartAttackFrame(-1, 10.0f) == true)
 	{
 		GetContentsLevel()->GetFXActor()->FXStart(FXType::Ghost_Attack_FX, Flip, Transform.GetLocalPosition(),float4::ONE,{1.0f,0.5f});
 	}

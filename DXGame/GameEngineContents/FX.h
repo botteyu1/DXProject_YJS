@@ -21,8 +21,7 @@ enum class FXType
 	Shard,
 	Death,
 	TakeAnima,
-
-
+	EatAnima,
 
 
 
