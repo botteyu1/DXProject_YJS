@@ -23,6 +23,9 @@ void Enemy::TakeDamage(GameEngineCollision* _Attacker,float _Damage)
 
 	HP -= static_cast<int>(_Damage);
 
+
+	GetContentsLevel()->StartScreenShake(0.5f, 8.0f, 10.0f);
+
 	// 데미지 표기
 	GetContentsLevel()->GetFXActor()->FXTextStart(FXType::DamageText, std::to_string(static_cast<int>(_Damage)), Transform.GetLocalPosition() + float4(0.0f, 60.0f),30.0f);
 
@@ -71,6 +74,7 @@ void Enemy::DeathCheck()
 	{
 		DeathValue = true;
 		ChangeState(EnemyState::Death);
+		GetContentsLevel()->StartScreenShake(0.5f, 12.0f, 10.0f);
 		std::shared_ptr<AnimaDrop> Object2 =  GetContentsLevel()->CreateActor<AnimaDrop>(ContentsObjectType::BackGroundobject);
 		Object2->Spawn(Transform.GetLocalPosition());
 		/*std::shared_ptr<SoularyDrop> Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);

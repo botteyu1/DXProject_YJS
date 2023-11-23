@@ -21,6 +21,7 @@ void WeaponDrop::CollisionUpdate(GameEngineCollision* _Left, GameEngineCollision
 void WeaponDrop::Spawn()
 {
 	Off();
+	GetContentsLevel()->StartScreenShake(0.5f, 8.0f, 10.0f);
 	std::shared_ptr<FxSpriteRenderer> Renderer = GetContentsLevel()->GetFXActor()->FXStart(FXType::Flash, false, Transform.GetLocalPosition() + float4(0.0f, 20.0f), float4(0.0f,0.0f,1.0f));
 	Renderer->SetSpawnObject(this);
 	BouncingStart();
@@ -151,6 +152,8 @@ void WeaponDrop::Update(float _Delta)
 			CapeType ReturnCapeType = PlayerPtr->GetCurCapeType();
 			PlayerPtr->SetCurCapeType(Type);
 
+			GetContentsLevel()->StartScreenShake(0.5f, 8.0f, 10.0f);
+
 			if (ReturnCapeType != CapeType::None)
 			{
 				BouncingStart();
@@ -169,6 +172,7 @@ void WeaponDrop::Update(float _Delta)
 			Player* PlayerPtr = Player::GetMainPlayer();
 			CapeType ReturnCapeType = PlayerPtr->GetCurCapeType2();
 			PlayerPtr->SetCurCapeType2(Type);
+			GetContentsLevel()->StartScreenShake(0.5f, 8.0f, 10.0f);
 
 			if (ReturnCapeType != CapeType::None)
 			{

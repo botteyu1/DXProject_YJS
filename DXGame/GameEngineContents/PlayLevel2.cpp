@@ -84,7 +84,9 @@ void PlayLevel2::Start()
 
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
-
+				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
+				float4 PlayerPos = PlayerPtr->Transform.GetWorldPosition() + float4{ 0.0f,0.0f,-1000.0f };
+				MainCamara->Transform.SetLocalPosition(PlayerPos);
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
@@ -92,9 +94,35 @@ void PlayLevel2::Start()
 				//카메라 포커스
 
 				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
-				float4 PlayePos = PlayerPtr->Transform.GetWorldPosition();
+				float4 PlayerPos = PlayerPtr->Transform.GetWorldPosition();
+				float4 CameraPos = MainCamara->Transform.GetLocalPosition();
+				CameraPos.Z = PlayerPos.Z;
 
-				MainCamara->Transform.SetLocalPosition(PlayePos + float4{ 0.0f,0.0f,-1000.0f });
+				//float4 TargetNor = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(PlayerPos.DirectXVector, CameraPos.DirectXVector));
+
+				float distanceToTarget = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(MainCamara->Transform.GetLocalPosition().DirectXVector, PlayerPos.DirectXVector)));
+
+
+				float4 Move = PlayerPos - CameraPos;
+
+				if (distanceToTarget > 10.0f)
+				{
+					MainCamara->Transform.AddLocalPosition(Move * _DeltaTime * 3.0f);
+				}
+
+				CameraPos = MainCamara->Transform.GetLocalPosition();
+
+
+				if (CameraPos.X < 830.0f)
+				{
+					CameraPos.X = 830.0f;
+					MainCamara->Transform.SetLocalPosition(CameraPos);
+				}
+				if (CameraPos.Y < -3800.0f)
+				{
+					CameraPos.Y = -3800.0f;
+					MainCamara->Transform.SetLocalPosition(CameraPos);
+				}
 
 				if (MainCamara->Transform.GetLocalPosition().X >= 11200.0f and GimmickValue == false)
 				{

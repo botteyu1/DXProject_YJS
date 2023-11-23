@@ -99,48 +99,33 @@ void PlayLevel::Start()
 				float4 CameraPos = MainCamara->Transform.GetLocalPosition();
 				CameraPos.Z = PlayerPos.Z;
 
-				float4 TargetNor = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(PlayerPos.DirectXVector, CameraPos.DirectXVector));
+				//float4 TargetNor = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(PlayerPos.DirectXVector, CameraPos.DirectXVector));
 
 				float distanceToTarget = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(MainCamara->Transform.GetLocalPosition().DirectXVector, PlayerPos.DirectXVector)));
 
-				//float pullStrength = 4000.0f;
-
-
-				//float4 PlayerPos = MainPlayer->Transform.GetLocalPosition() + PivotPos;
-				
-
-				/*if (Flip == true)
-				{
-					PlayerPos.X -= 2.0f * PivotPos.X;
-				}*/
-
-				//float time = 1.0f;
-
-				//float4 Lerp = float4::LerpClamp(Pos, PlayerPos, time);
 
 				float4 Move = PlayerPos - CameraPos;
-				//float4 Dist = Move / Move.NormalizeReturn();
 
 				if (distanceToTarget > 10.0f)
 				{
 					MainCamara->Transform.AddLocalPosition(Move * _DeltaTime * 3.0f);
+				}
 
+				CameraPos = MainCamara->Transform.GetLocalPosition();
+	
+
+				if (CameraPos.X < 330.0f)
+				{
+					CameraPos.X = 330.0f;
+					MainCamara->Transform.SetLocalPosition(CameraPos);
+				}
+				if (CameraPos.Y < -3800.0f)
+				{
+					CameraPos.Y = -3800.0f;
+					MainCamara->Transform.SetLocalPosition(CameraPos);
 				}
 
 				
-
-
-				//Transform.AddLocalPosition(gravityForce * _Delta);
-
-				//if (PlayerPos.X < 330.0f)
-				//{
-				//	PlayerPos.X = 330.0f;
-				//}
-				//if (PlayerPos.Y < -3800.0f)
-				//{
-				//	PlayerPos.Y = -3800.0f;
-				//}
-
 				
 
 
@@ -311,8 +296,25 @@ void PlayLevel::Update(float _Delta)
 	//카메라 포커스
 
 	State.Update(_Delta);
+	UpdateScreenShake(_Delta);
 
 
+	if (GameEngineInput::IsDown('Z', this))
+	{
+		StartScreenShake(0.5f, 8.0f, 3.0f);
+	}
+	if (GameEngineInput::IsDown('X', this))
+	{
+		StartScreenShake(0.5f, 10.0f, 1.0f);
+	}
+	if (GameEngineInput::IsDown('C', this))
+	{
+		StartScreenShake(0.5f, 12.0f, 3.0f);
+	}
+	if (GameEngineInput::IsDown('V', this))
+	{
+		StartScreenShake(0.5f, 5.0f, 3.0f);
+	}
 	//if (GameEngineInput::IsDown('V', this))
 	//{
 	//	/*GetCurseUI()->CurseUIStart(1);
