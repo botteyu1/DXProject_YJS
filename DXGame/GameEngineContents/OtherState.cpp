@@ -104,7 +104,7 @@ void Player::ExitElavatorUpdate(float _Delta)
 
 void Player::ForceWaitStart()
 {
-	ForceGrivityOff = true;
+	ForceGrivityOff = false;
 	ChangeMainAnimation("LD_Idle");
 }
 

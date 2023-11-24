@@ -22,6 +22,17 @@ enum class FXType
 	Death,
 	TakeAnima,
 	EatAnima,
+	Gargoyle_Fly_Stomp,
+	Gargoyle_DarkEmanation,
+	Gargoyle_DarkTornado_End,
+	Gargoyle_DarkTornado_Start,
+	Gargoyle_DarkTornado_Loop,
+	Gargoyle_DarkTornado_UL_Loop,
+	Gargoyle_DarkTornado_UL_Start,
+	Gargoyle_DarkTornado_UL_End,
+	Gargoyle_Falling_Rock,
+	Gargoyle_GhostEmanation,
+
 
 
 

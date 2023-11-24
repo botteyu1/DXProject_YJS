@@ -3,6 +3,7 @@
 #include "Actor.h"
 #include "Map.h"
 #include "Level.h"
+#include "FX.h"
 
 Bullet::Bullet() 
 {
@@ -221,6 +222,10 @@ void Bullet::Update(float _Delta)
 		{
 			GrivityForce = 0.0f;
 			AerialCheck = false;
+			if (Type == BulletType::Rock)
+			{
+				static_cast<Level*>(GetLevel())->GetFXActor()->FXStart(FXType::Gargoyle_Falling_Rock, Flip, Transform.GetLocalPosition() + float4(0.0f, 0.0f, -5.0f), { 1.0f,1.0f,1.0f }, { 0.5f,1.0f });
+			}
 			Death();
 		}
 	}

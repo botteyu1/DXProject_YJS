@@ -144,6 +144,17 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 	}
 		break;
 
+	case FXType::Gargoyle_Fly_Stomp:
+	{
+		Renderer->ChangeAnimation("Gargoyle_Fly_Stomp", true);
+	}
+	break;
+	case FXType::Gargoyle_Falling_Rock:
+	{
+		Renderer->ChangeAnimation("Gargoyle_Falling_Rock", true);
+	}
+	break;
+
 	default:
 		break;
 	}
@@ -399,6 +410,7 @@ std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 
 	Renderer->CreateAnimation("Concentrate", "Concentrate", 0.0133f, -1, -1, true);
 	Renderer->SetEndEvent("Concentrate", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
+
 	
 	Renderer->CreateAnimation("Death", "FX_Ritual_Weapon_Death_Silhouette_Atlas HD.png", 0.0333f, -1, -1, true);
 	//Renderer->SetEndEvent("Death", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
@@ -417,6 +429,13 @@ std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 	Renderer->CreateAnimation("Hit", "SpawnWeapon", 0.0333f, -1, -1, true);
 
 	Renderer->CreateAnimation("ImpactFight_0003", "ImpactFight_0003.png", 0.0333f, -1, -1, true);
+
+
+	Renderer->CreateAnimation("Gargoyle_Fly_Stomp", "Gargoyle_Fly_Stomp", 0.0233f, -1, -1, true);
+	Renderer->SetEndEvent("Gargoyle_Fly_Stomp", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
+	
+	Renderer->CreateAnimation("Gargoyle_Falling_Rock", "Gargoyle_Falling_Rock", 0.0233f, -1, -1, true);
+	Renderer->SetEndEvent("Gargoyle_Falling_Rock", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
 
 
 	

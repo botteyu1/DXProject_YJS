@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "ContentsCore.h"
 #include "Bullet.h"
+#include "FX.h"
 
 BossGargoyle::BossGargoyle() 
 {
@@ -14,7 +15,23 @@ BossGargoyle::~BossGargoyle()
 
 void BossGargoyle::TakeDamage(GameEngineCollision* _Attacker, float _Damage)
 {
+	if (State == EnemyState::Death)
+	{
+		return;
+	}
+
 	HP -= static_cast<int>(_Damage);
+
+
+	GetContentsLevel()->StartScreenShake(0.5f, 8.0f, 10.0f);
+
+	// 데미지 표기
+	GetContentsLevel()->GetFXActor()->FXTextStart(FXType::DamageText, std::to_string(static_cast<int>(_Damage)), Transform.GetLocalPosition() + float4(0.0f, 60.0f), 30.0f);
+
+	
+	GetContentsLevel()->GetFXActor()->FXStart(FXType::Splash_Water, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f));
+	GetContentsLevel()->GetFXActor()->FXStart(FXType::Slash, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f));
+
 }
 
 void BossGargoyle::Start()
@@ -65,7 +82,7 @@ void BossGargoyle::Start()
 	MainSpriteRenderer->CreateAnimation("Gargoyle_End_2", "Gargoyle_End_2", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_End_2", { 1.0f }));
 
-	MainSpriteRenderer->CreateAnimation("Gargoyle_Fly_Stomp_Anticipation", "Gargoyle_Fly_Stomp_Anticipation", 0.0666f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("Gargoyle_Fly_Stomp_Anticipation", "Gargoyle_Fly_Stomp_Anticipation", 0.0266f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Fly_Stomp_Anticipation", { 1.0f }));
 
 	/*MainSpriteRenderer->CreateAnimation("Gargoyle_Fly_Stomp_Anticipation", "Gargoyle_Fly_Stomp_Anticipation", 0.0666f, -1, -1, true);
@@ -167,6 +184,7 @@ void BossGargoyle::Start()
 
 	DefaultScale = Tex.get()->GetScale() + float4 { 50.0f, 0.0f };
 	DashSpeed = 3000.0f;
+	MoveSpeed = 600.0f;
 
 	Enemy::Start();
 
@@ -184,6 +202,7 @@ void BossGargoyle::DeathCheck()
 {
 	if (HP <= 0 and DeathValue == false)
 	{
+		ForceGrivityOff = false;
 		DeathValue = true;
 		ChangeState(EnemyState::Death);
 	}
@@ -191,6 +210,7 @@ void BossGargoyle::DeathCheck()
 
 void BossGargoyle::IdleStart()
 {
+	AttackPatern = GargoyleAttackPatern::Spin;
 	ChangeMainAnimation("Gargoyle_Idle");
 	MotionTime = 0.0f;
 }
@@ -199,7 +219,7 @@ void BossGargoyle::IdleUpdate(float _Delta)
 {
 	
 	MotionTime += _Delta;
-	if (MotionTime < 2.0f)
+	if (MotionTime < 1.2f)
 	{
 		return;
 	}
@@ -222,6 +242,7 @@ void BossGargoyle::AttackStart()
 {
 	MotionTime = 0.0f;
 	std::string AnimationName;
+	//AttackPatern = GargoyleAttackPatern::Posing;
 	switch (AttackPatern)
 	{
 	case GargoyleAttackPatern::Combo:
@@ -339,10 +360,10 @@ void BossGargoyle::AttackUpdate(float _Delta)
 			ForceGrivityOff = false;
 		}
 
-		if (AerialCheck == false)
+		if (!AerialPixelCheck() and ForceGrivityOff == false)
 		{
-			AttackPatern = GargoyleAttackPatern::Dive;
-			ChangeState(EnemyState::Idle);
+			
+			ChangeState(EnemyState::Attack_End);
 		}
 	}
 		break;
@@ -508,6 +529,8 @@ void BossGargoyle::Attack_EndStart()
 	case GargoyleAttackPatern::Combo:
 		break;
 	case GargoyleAttackPatern::Posing:
+		ChangeMainAnimation("Gargoyle_Fly_Stomp_Anticipation");
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_Fly_Stomp, Flip, Transform.GetLocalPosition() + float4(-20.0f, 0.0f,-5.0f),{1.2f,1.2f,1.0f}, {0.5f,1.0f});
 		break;
 	case GargoyleAttackPatern::Dive:
 		Flip = !Flip;
@@ -538,6 +561,7 @@ void BossGargoyle::Attack_EndUpdate(float _Delta)
 		case GargoyleAttackPatern::Combo:
 			break;
 		case GargoyleAttackPatern::Posing:
+			AttackPatern = GargoyleAttackPatern::Dive;
 			break;
 		case GargoyleAttackPatern::Dive:
 			AttackPatern = GargoyleAttackPatern::Spin;
@@ -568,7 +592,7 @@ void BossGargoyle::AppearUpdate(float _Delta)
 
 void BossGargoyle::DeathStart()
 {
-	ForceGrivityOff = true;
+	ForceGrivityOff = false;
 	Flip = true;
 	ChangeMainAnimation("Gargoyle_End");
 }

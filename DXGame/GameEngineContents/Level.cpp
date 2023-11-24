@@ -793,7 +793,7 @@ void Level::UpdateScreenShake(float _deltaTime)
 
 
 		// 보다 자연스러운 감쇠를 위해 부드러운 단계 함수를 사용하여 시간이 지남에 따라 흔들림 계수가 1에서 0으로 감소합니다.
-		float swayFactor = 1.0f - pow(screenShake.elapsed / screenShake.duration, 2);
+		float swayFactor = 1.0f - static_cast<float>(pow(screenShake.elapsed / screenShake.duration, 2));
 
 		// 부드러운 진동을 위해 사인파를 사용하여 스웨이 오프셋을 계산합니다.
 		// 주파수는 초당 발생하는 전체 진동 횟수를 결정합니다.
