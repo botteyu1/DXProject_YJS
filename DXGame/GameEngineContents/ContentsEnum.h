@@ -17,7 +17,7 @@ enum class ContentsRenderType
 	Fade,
 	UIAfter,
 	FadeAfter,
-	FXAfter,
+	MovieBar,
 };
 
 

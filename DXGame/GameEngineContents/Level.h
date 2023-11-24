@@ -81,6 +81,7 @@ protected:
 	std::vector< std::shared_ptr<class Enemy>> Gimic2Enemyvec;
 	std::shared_ptr<class LevelChanger> LevelChangerPtr = nullptr;
 	std::shared_ptr<class CurseUI> CurseUIPtr = nullptr;
+	std::shared_ptr<class MovieBar> MovieBarPtr = nullptr;
 
 
 	void Start()  override;

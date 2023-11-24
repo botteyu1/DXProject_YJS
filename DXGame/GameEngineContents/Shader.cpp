@@ -32,11 +32,11 @@ void Shader::Start()
 	float4 WindowScale = ContentsCore::GetStartWindowSize();
 	SetName("Shader");
 
-	Cloud = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Shader);
+	/*Cloud = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Shader);
 	Cloud->SetSprite("snowCloudI.Png");
 	Cloud->AutoSpriteSizeOn();
 	Cloud->Transform.SetWorldPosition({ 1971.0f,-2966.0f,-10.0f });
-	Cloud->SetName("Cloud"); 
+	Cloud->SetName("Cloud"); */
 
 	//Cloud->GetImageTransform().SetLocalScale(WindowScale);
 	//Cloud->GetColorData().MulColor = float4{ 0.07f,0.11f,0.0f,0.2f };

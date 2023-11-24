@@ -20,6 +20,7 @@
 #include "CurseUI.h"
 #include <GameEngineCore/BlurPostEffect.h>
 #include "ContentsCore.h"
+#include "MovieBar.h"
 
 Level::Level() 
 {
@@ -766,6 +767,8 @@ void Level::Start()
 	GetCamera(static_cast<int>(ECAMERAORDER::UI))->GetCameraAllRenderTarget()->CreateEffect<BlurPostEffect>();*/
 	ShaderActor = CreateActor<Shader>(ContentsObjectType::Shader);
 	CurseUIPtr = CreateActor<CurseUI>(ContentsObjectType::UI);
+	MovieBarPtr = CreateActor<MovieBar>(ContentsObjectType::UI);
+	MovieBarPtr->Off();
 
 	LevelChangerPtr = CreateActor<LevelChanger>(ContentsObjectType::Shader);
 	GameEngineLevel::IsDebug = false;

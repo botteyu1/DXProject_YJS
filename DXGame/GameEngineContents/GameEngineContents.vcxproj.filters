@@ -160,6 +160,9 @@
     <ClCompile Include="BossUI.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="MovieBar.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -310,6 +313,9 @@
       <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="BossUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MovieBar.h">
       <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
