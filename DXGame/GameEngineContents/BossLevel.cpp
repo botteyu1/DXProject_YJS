@@ -7,6 +7,7 @@
 #include "FX.h"
 #include "BossGargoyle.h"
 #include "PlayUI.h"
+#include "BossUI.h"
 
 BossLevel::BossLevel() 
 {
@@ -35,7 +36,11 @@ void BossLevel::Start()
 	}
 	BossPtr = CreateActor<BossGargoyle>(ContentsObjectType::BackGround);
 	PlayUIPtr = CreateActor<PlayUI>(ContentsObjectType::UI);
+	BossUIPtr = CreateActor<BossUI>(ContentsObjectType::UI);
+	BossUIPtr->SetBoss(BossPtr);
+
 	FXActor = CreateActor<FX>(ContentsObjectType::FX);
+
 
 	GameEngineDirectory Dir;
 	Dir.MoveParentToExistsChild("GameEngineResources");

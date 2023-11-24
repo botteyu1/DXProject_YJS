@@ -152,15 +152,6 @@ void PlayUI::Start()
 	HUD_LifeBar->SetName("HUD_LifeBar");
 	HUD_LifeBar->SetPivotType(PivotType::Left);
 
-	/*HUD_LifeBar_Hit = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
-	HUD_LifeBar_Hit->SetMaterial("2DTextureAlwaysDepth");
-	HUD_LifeBar_Hit->SetCameraOrder(ECAMERAORDER::UI);
-	HUD_LifeBar_Hit->SetSprite("HUD_Main_LifeBar_On.png");
-	HUD_LifeBar_Hit->SetImageScale({ 410.0f,17.0f,1.0f });
-	HUD_LifeBar_Hit->Transform.SetLocalPosition({ -818.f,485.0f,1.0f });
-	HUD_LifeBar_Hit->SetName("HUD_LifeBar");
-	HUD_LifeBar_Hit->SetPivotType(PivotType::Left);
-	HUD_LifeBar_Hit->GetColorData().MulColor = float4(0.8f, 0.0, 0.0, 1.0f);*/
 	
 	HUD_LifeBar_On_Left = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_LifeBar_On_Left->SetCameraOrder(ECAMERAORDER::UI);

@@ -157,6 +157,9 @@
     <ClCompile Include="PlayLevel2.cpp">
       <Filter>Level</Filter>
     </ClCompile>
+    <ClCompile Include="BossUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -305,6 +308,9 @@
     </ClInclude>
     <ClInclude Include="PlayLevel2.h">
       <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="BossUI.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
