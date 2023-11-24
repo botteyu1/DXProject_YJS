@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "FX.h"
 #include "BossGargoyle.h"
+#include "PlayUI.h"
 
 BossLevel::BossLevel() 
 {
@@ -33,7 +34,7 @@ void BossLevel::Start()
 		SetMap(Object);
 	}
 	BossPtr = CreateActor<BossGargoyle>(ContentsObjectType::BackGround);
-
+	PlayUIPtr = CreateActor<PlayUI>(ContentsObjectType::UI);
 	FXActor = CreateActor<FX>(ContentsObjectType::FX);
 
 	GameEngineDirectory Dir;

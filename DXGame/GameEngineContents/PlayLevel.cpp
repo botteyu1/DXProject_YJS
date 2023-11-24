@@ -299,21 +299,24 @@ void PlayLevel::Update(float _Delta)
 	UpdateScreenShake(_Delta);
 
 
-	if (GameEngineInput::IsDown('Z', this))
+	if (GameEngineInput::IsDown('1', this))
 	{
-		StartScreenShake(0.5f, 8.0f, 3.0f);
+		PlayerPtr->AddHP(5);
 	}
-	if (GameEngineInput::IsDown('X', this))
+	if (GameEngineInput::IsDown('2', this))
 	{
-		StartScreenShake(0.5f, 10.0f, 1.0f);
+		PlayerPtr->AddHP(-5);
+		//StartScreenShake(0.5f, 10.0f, 1.0f);
 	}
-	if (GameEngineInput::IsDown('C', this))
+	if (GameEngineInput::IsDown('3', this))
 	{
-		StartScreenShake(0.5f, 12.0f, 3.0f);
+		PlayerPtr->AddHP(2);
+		//StartScreenShake(0.5f, 12.0f, 3.0f);
 	}
-	if (GameEngineInput::IsDown('V', this))
+	if (GameEngineInput::IsDown('4', this))
 	{
-		StartScreenShake(0.5f, 5.0f, 3.0f);
+		PlayerPtr->AddHP(-2);
+		//StartScreenShake(0.5f, 5.0f, 3.0f);
 	}
 	//if (GameEngineInput::IsDown('V', this))
 	//{

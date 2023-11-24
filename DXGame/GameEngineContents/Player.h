@@ -36,7 +36,7 @@ class PlayerData
 {
 
 public:
-	int HP = 70;
+	int HP = 80;
 	int MaxHP = 80;
 	float MaxMP = 50;
 	float MP = 50;

@@ -166,7 +166,7 @@ void PlayUI::Start()
 	HUD_LifeBar_On_Left->SetCameraOrder(ECAMERAORDER::UI);
 	HUD_LifeBar_On_Left->SetMaterial("2DTextureAlwaysDepth");
 	HUD_LifeBar_On_Left->SetSprite("HUD_Main_LifeBar_On_Glow_Left.png");
-	HUD_LifeBar_On_Left->SetImageScale({ 46.f,55.f,1.0f });
+	HUD_LifeBar_On_Left->SetImageScale({ 26.f,55.f,1.0f });
 	HUD_LifeBar_On_Left->Transform.SetLocalPosition({ -832.0f,485.0f,0.0f });
 	HUD_LifeBar_On_Left->SetName("HUD_LifeBar_On_Left");
 	HUD_LifeBar_On_Left->SetPivotType(PivotType::Left);
@@ -176,9 +176,9 @@ void PlayUI::Start()
 	HUD_LifeBar_On_Right->SetCameraOrder(ECAMERAORDER::UI);
 	HUD_LifeBar_On_Right->SetMaterial("2DTextureAlwaysDepth");
 	HUD_LifeBar_On_Right->SetSprite("HUD_Main_LifeBar_On_Glow_Right.png");
-	HUD_LifeBar_On_Right->SetImageScale({ 49.f,55.f,1.0f });
-	HUD_LifeBar_On_Right->Transform.SetLocalPosition({ -416.0f,485.0f,0.0f });
-	HUD_LifeBar_On_Right->SetName("HUD_LifeBar_On_Left");
+	HUD_LifeBar_On_Right->SetImageScale({ 27.f,55.f,1.0f });
+	HUD_LifeBar_On_Right->Transform.SetLocalPosition({ -405.0f,485.0f,0.0f });
+	HUD_LifeBar_On_Right->SetName("HUD_LifeBar_On_Right");
 	//HUD_LifeBar_On_Right->Off();
 	//HUD_ManaBar_On_Right->SetPivotType(PivotType::Right);
 
@@ -187,8 +187,8 @@ void PlayUI::Start()
 	HUD_LifeBar_On->SetCameraOrder(ECAMERAORDER::UI);
 	HUD_LifeBar_On->SetMaterial("2DTextureAlwaysDepth");
 	HUD_LifeBar_On->SetSprite("HUD_Main_LifeBar_On_Glow.png");
-	HUD_LifeBar_On->SetImageScale({ 345.f,55.f,1.0f });
-	HUD_LifeBar_On->Transform.SetLocalPosition({ -786.0f,485.0f,0.0f });
+	HUD_LifeBar_On->SetImageScale({ 387.f,55.f,1.0f });
+	HUD_LifeBar_On->Transform.SetLocalPosition({ -806.0f,485.0f,0.0f });
 	HUD_LifeBar_On->SetName("HUD_LifeBar_On");
 	HUD_LifeBar_On->SetPivotType(PivotType::Left);
 	//HUD_LifeBar_On->Off();
@@ -362,37 +362,81 @@ void PlayUI::Update(float _Delta)
 		HUD_LifeBar_On_Left->GetColorData().MulColor = float4(1.f, 1.0, 1.0, 1.0f);
 	}
 	
-	float HPBar = ((static_cast<float>(PlayerHP)/ 80.0f) * 440.f) - 95.0f;
-	if (HPBar <= 0.0f)
-	{
-		HPBar = 0.0f;
-	}
-	HUD_LifeBar_On->SetImageScale({ HPBar,55.f,1.0f });
+	
 
-	float HPBarRight = ((static_cast<float>(PlayerHP) / 80.0f) * 440.f) - 856.0f;
-	HUD_LifeBar_On_Right->Transform.SetLocalPosition({ HPBarRight ,485.0f,1.f});
+	if (PlayerHP < 7)
+	{
+		HUD_LifeBar_On_Right->Off();
+		HUD_LifeBar_On->Off();
+	}
+	else
+	{
+
+		float HPBar = ((static_cast<float>(PlayerHP) / 80.0f) * 427.0f) - 39.5f;
+		if (HPBar <= 0.0f)
+		{
+			HPBar = 0.0f;
+		}
+		HUD_LifeBar_On->SetImageScale({ HPBar,55.f,1.0f });
+		HUD_LifeBar_On->On();
+
+		HUD_LifeBar_On_Right->On();
+		float HPBarRight = ((static_cast<float>(PlayerHP) / 80.0f) * 427.0f) - 832.0f;
+		HUD_LifeBar_On_Right->Transform.SetLocalPosition({ HPBarRight ,485.0f,1.f });
+	}
+
+	if (PlayerHP <= 0)
+	{
+		HUD_LifeBar_On_Left->Off();
+	}
+	else
+	{
+		HUD_LifeBar_On_Left->On();
+	}
+
+
 
 
 	float MaxHPBar = ((static_cast<float>(PlayerPtr->MaxHP) / 80.0f) * 440.0f);
 	HUD_LifeBar->SetImageScale({ MaxHPBar,30.0f,1.0f });
 
 
-	float ManaBar = (static_cast<float>(MP) / 50.f) * 300.0f;
-	if (ManaBar <= 0.0f)
+	
+	/*if (ManaBar <= 0.0f)
 	{
 		ManaBar = 0.0f;
-	}
-	HUD_ManaBar_On->SetImageScale({ ManaBar,19.f,1.0f });
+	}*/
+	
 	//HUD_ManaBar_On->Off();
 
 
-	if (MP < 10)
+
+
+	if (MP <5)
 	{
-		MP = 10;
+		HUD_ManaBar_On_Right->Off();
+		HUD_ManaBar_On->Off();
+	}
+	else
+	{
+		HUD_ManaBar_On_Right->On();
+		HUD_ManaBar_On->On();
+
+		float ManaBar = (static_cast<float>(MP) / 50.f) * 300.0f;
+		HUD_ManaBar_On->SetImageScale({ ManaBar,19.f,1.0f });
+
+		float ManaBarRight = ((static_cast<float>(MP) / 50.f) * 350.0f) - 833.0f;
+		HUD_ManaBar_On_Right->Transform.SetLocalPosition({ ManaBarRight,461.0f,1.0f });
+	}
+	if (MP <= 0)
+	{
+		HUD_ManaBar_On_Left->Off();
+	}
+	else {
+		HUD_ManaBar_On_Left->On();
 	}
 
-	float ManaBarRight = ((static_cast<float>(MP) / 50.f) * 350.0f) - 833.0f;
-	HUD_ManaBar_On_Right->Transform.SetLocalPosition({ ManaBarRight,461.0f,1.0f });
+	
 
 
 	float MaxMPBar = (static_cast<float>(PlayerPtr->MaxMP) / 50.f) * 350.0f;

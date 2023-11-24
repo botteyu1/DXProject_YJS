@@ -584,6 +584,14 @@ std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, flo
 		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
 		static_cast<BGObject*>(Object.get())->Init("W1_Miniboss.png");
 		break;
+	case ActorType::GroundTile:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("GroundTile.png");
+		break;
+	case ActorType::WallBackground_Sprite2:
+		Object = CreateActor<BGObject>(ContentsObjectType::BackGroundobject);
+		static_cast<BGObject*>(Object.get())->Init("WallBackground_Sprite2.png");
+		break;
 	case ActorType::WeaponDrop1:
 		Object = CreateActor<WeaponDrop>(ContentsObjectType::BackGroundobject);
 		//static_cast<WeaponDrop*>(Object.get())->Init("W1_Miniboss.png");

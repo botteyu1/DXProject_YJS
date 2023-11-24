@@ -181,6 +181,9 @@ enum class ActorType
 
 	PaperWall,
 	Contractor,
+	GroundTile,
+	WallBackground_Sprite2,
+
 
 	
 
