@@ -27,6 +27,21 @@ void PlayUI::Start()
 			GameEnginePath Path = File;
 			GameEngineSprite::CreateSingle(Path.GetFileName());
 		}
+
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources\\Sprite\\Boss");
+			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
+
+			for (size_t i = 0; i < Directorys.size(); i++)
+			{
+				GameEngineDirectory& Dir = Directorys[i];
+
+				GameEngineSprite::CreateFolder(Dir.GetStringPath());
+
+			}
+		}
 	}
 	
 	HUD_Scythe_BG = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
@@ -291,7 +306,7 @@ void PlayUI::Start()
 	HUD_Soulary_Text->Transform.SetLocalPosition({ 853.0f,495.0f,0.0f });
 	HUD_Soulary_Text->SetName("HUD_ManaBar_Text");
 
-	std::shared_ptr<GameEngineSpriteRenderer> Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	/*std::shared_ptr<GameEngineSpriteRenderer> Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	Renderer->CreateAnimation("Gargoyle_DarkTornado_Loop", "Gargoyle_DarkTornado_Loop", 0.0233f, -1, -1, true);
 	Renderer->ChangeAnimation("Gargoyle_DarkTornado_Loop");
 	Renderer->AutoSpriteSizeOn();
@@ -349,6 +364,20 @@ void PlayUI::Start()
 	Renderer->SetAutoScaleRatio({ 3.0f,3.0f,3.0f });
 	Renderer->SetPivotValue({ 1.0f,1.0f,1.0f });
 	Renderer->LeftFlip();
+
+
+	
+
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	Renderer->CreateAnimation("Gargoyle_Intro_Desk", "Gargoyle_Intro_Desk", 0.0633f, -1, -1, false);
+	Renderer->CreateAnimation("Gargoyle_Intro_Desk_Lock", "Gargoyle_Intro_Desk", 0.0633f, 0, 0, false);
+	Renderer->ChangeAnimation("Gargoyle_Intro_Desk_Lock");
+	Renderer->AutoSpriteSizeOn();
+	Renderer->LeftFlip();
+	Renderer->SetPivotValue({ 0.0f,1.0f });
+	Renderer->Transform.SetLocalPosition({ 5000.0f, -3000.0f , -3.0f });
+	Renderer->SetName("Gargoyle_Intro_Desk_Lock");*/
+
 }
 
 void PlayUI::Update(float _Delta)

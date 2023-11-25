@@ -5,7 +5,9 @@
 #include "Bullet.h"
 #include "FX.h"
 #include "FxSpriteRenderer.h"
+#include "StageObject.h"
 #include "Shader.h"
+#include "BossDesk.h"
 
 BossGargoyle::BossGargoyle() 
 {
@@ -172,16 +174,38 @@ void BossGargoyle::Start()
 		GetContentsLevel()->GetShaderActor()->BossOutroShaderStart();
 
 		});
-	
-	
 
+	MainSpriteRenderer->SetFrameEvent("Gargoyle_Intro", 36, [=](GameEngineSpriteRenderer* _Renderer) {
+		
+		DeskActor->ChangeDeskAnimation("Gargoyle_Intro_Desk");
+		});
 
-	
 
 	MainSpriteRenderer->AutoSpriteSizeOn();
 	MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
 
+
+
+	//데스크
+	//DeskActor = GetLevel()->CreateActor<StageObject>(ContentsObjectType::StageObject);
+
+	//DeskActor->MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::BackGroundobject);
+	//DeskActor->MainSpriteRenderer->CreateAnimation("Gargoyle_Intro_Desk", "Gargoyle_Intro_Desk", 0.0633f, -1, -1, true);
+	//DeskActor->MainSpriteRenderer->CreateAnimation("Gargoyle_Intro_Desk_Lock", "Gargoyle_Intro_Desk", 0.0633f, 0, 0, true);
+	//DeskActor->MainSpriteRenderer->ChangeAnimation("Gargoyle_Intro_Desk_Lock");
+	//DeskActor->MainSpriteRenderer->AutoSpriteSizeOn();
+	////DeskActor->MainSpriteRenderer->Off();
+	//DeskActor->MainSpriteRenderer->LeftFlip();
+	//DeskActor->MainSpriteRenderer->SetPivotValue({0.0f,1.0f});
+	//DeskActor->MainSpriteRenderer->Transform.SetLocalPosition({ 4984.0f, -3526.0f , -4.0f });
 	
+
+
+	
+
+	
+
+	//콜리전
 
 	MainCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy);
 	MainCollision->Transform.SetLocalScale({ 100.0f, 250.0f });
@@ -200,6 +224,8 @@ void BossGargoyle::Start()
 	DetectAttackCollision->Transform.SetLocalPosition({ 0.0f, 80.0f });
 	DetectAttackCollision->SetCollisionType(ColType::AABBBOX2D);
 
+
+	//배치
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
 	Transform.SetLocalPosition({ 5000.0f, -3000.0f , -3.0f});
 	ChangeState(EnemyState::IntroIdle);
@@ -236,29 +262,33 @@ void BossGargoyle::IdleStart()
 	AttackPatern = GargoyleAttackPatern::Combo;
 	ChangeMainAnimation("Gargoyle_Idle");
 	MotionTime = 0.0f;
+
+
+	//Flip = true;
+	//ChangeMainAnimation("Gargoyle_Intro_Idle");
 }
 
 void BossGargoyle::IdleUpdate(float _Delta)
 {
-	
-	Transform.SetLocalPosition({4000.0f , -3474.0f, -1.0f });
-	//MotionTime += _Delta;
-	//if (MotionTime < 1.5f)
-	//{
-	//	return;
-	//}
-	//bool PreFlip = Flip;
-	//Flip = LookPlayer();
-	////플레이어 반대방향에있으면
-	//if (Flip != PreFlip)
-	//{
-	//	ChangeState(EnemyState::Uturn);
-	//	return;
-	//}
-	//else
-	//{
-	//	ChangeState(EnemyState::Run);
-	//}
+	//Transform.SetLocalPosition({ 5000.0f, -3524.0f , -3.0f });
+	//Transform.SetLocalPosition({4000.0f , -3474.0f, -1.0f });
+	MotionTime += _Delta;
+	if (MotionTime < 1.5f)
+	{
+		return;
+	}
+	bool preflip = Flip;
+	Flip = LookPlayer();
+	//플레이어 반대방향에있으면
+	if (Flip != preflip)
+	{
+		ChangeState(EnemyState::Uturn);
+		return;
+	}
+	else
+	{
+		ChangeState(EnemyState::Run);
+	}
 }
 
 
@@ -844,6 +874,7 @@ void BossGargoyle::WaitingUpdate(float _Delta)
 
 void BossGargoyle::IntroStart()
 {
+	DeskActor->On();
 	Flip = true;
 	ChangeMainAnimation("Gargoyle_Intro");
 }

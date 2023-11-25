@@ -15,6 +15,7 @@ enum class GargoyleAttackPatern
 // Ό³Έν :
 class BossGargoyle : public Enemy
 {
+	friend class BossLevel;
 public:
 	// constrcuter destructer
 	BossGargoyle();
@@ -91,7 +92,9 @@ private:
 	float BulletDelay = 0.3f;
 	float BulletDelayCheck = 0.0f;
 
-	std::shared_ptr<class GameEngineSpriteRenderer> DeskSpriteRenderer; 
+
+	std::shared_ptr<class BossDesk> DeskActor;
+
 	std::shared_ptr<class FxSpriteRenderer> DarkTornadoFXRenderer;
 
 };

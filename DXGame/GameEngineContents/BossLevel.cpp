@@ -11,6 +11,8 @@
 #include "MovieBar.h"
 #include "FxSpriteRenderer.h"
 #include "Shader.h"
+#include "StageObject.h"
+#include "BossDesk.h"
 BossLevel::BossLevel() 
 {
 }
@@ -40,7 +42,10 @@ void BossLevel::Start()
 	PlayUIPtr = CreateActor<PlayUI>(ContentsObjectType::UI);
 	BossUIPtr = CreateActor<BossUI>(ContentsObjectType::UI);
 	BossUIPtr->SetBoss(BossPtr);
-	
+
+
+	std::shared_ptr<BossDesk> DeskActor = CreateActor<BossDesk>(ContentsObjectType::StageObject);
+	BossPtr->DeskActor = DeskActor;
 
 	FXActor = CreateActor<FX>(ContentsObjectType::FX);
 
