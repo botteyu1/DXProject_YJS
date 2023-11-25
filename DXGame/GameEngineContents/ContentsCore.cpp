@@ -75,7 +75,7 @@ void ContentsCore::Start()
 	GameEngineCore::CreateLevel<BossLevel>("BossLevel");
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
 	GameEngineCore::CreateLevel<MapEditorLevel>("MapEditorLevel");
-	GameEngineCore::ChangeLevel("BossLevel");
+	GameEngineCore::ChangeLevel("PlayLevel");
 
 	
 

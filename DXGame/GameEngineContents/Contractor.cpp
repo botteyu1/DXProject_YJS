@@ -31,14 +31,14 @@ void Contractor::Start()
 	}
 
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::BackGroundobject);
-	MainSpriteRenderer->CreateAnimation("Contractor_ON", "Contractor_ON", 0.0633f, -1, -1, true);
-	MainSpriteRenderer->CreateAnimation("Contractor_OFF", "Contractor_OFF", 0.0633f, -1, -1, true);
-	MainSpriteRenderer->CreateAnimation("Contractor_Appear", "Contractor_Appear", 0.0633f, -1, -1, true);
-	MainSpriteRenderer->CreateAnimation("Contractor_Disappear", "Contractor_Disappear", 0.0633f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("Contractor_ON", "Contractor_ON", 0.0633f, -1, -1, false);
+	MainSpriteRenderer->CreateAnimation("Contractor_OFF", "Contractor_OFF", 0.0633f, -1, -1, false);
+	MainSpriteRenderer->CreateAnimation("Contractor_Appear", "Contractor_Appear", 0.0633f, -1, -1, false);
+	MainSpriteRenderer->CreateAnimation("Contractor_Disappear", "Contractor_Disappear", 0.0633f, -1, -1, false);
 	MainSpriteRenderer->CreateAnimation("Contractor_Reading", "Contractor_Reading", 0.1033f, -1, -1, true);
 	//MainSpriteRenderer->CreateAnimation("Contractor_Appear", "Contractor_Appear", 0.0333f, -1, -1, false);
 	MainSpriteRenderer->AutoSpriteSizeOn();
-	MainSpriteRenderer->SetPivotValue({ 0.5f, 0.0f });
+	MainSpriteRenderer->SetPivotValue({ 0.5f, 1.0f,1.0f});
 	MainSpriteRenderer->SetAutoScaleRatio({ 1.0f, 1.0f });
 	MainSpriteRenderer->ChangeAnimation("Contractor_Appear");
 	//MainSpriteRenderer->Off();
@@ -60,7 +60,7 @@ void Contractor::Start()
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
 				MainSpriteRenderer->Off();
-				MainSpriteRenderer->SetAutoScaleRatio({ 1.0f, 1.0f });
+				MainSpriteRenderer->SetAutoScaleRatio({ 1.0f, 1.0f,1.0f });
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
@@ -82,7 +82,7 @@ void Contractor::Start()
 			{
 				MainSpriteRenderer->On();
 				MainSpriteRenderer->ChangeAnimation("Contractor_ON");
-				MainSpriteRenderer->SetAutoScaleRatio({ 1.0f, 1.0f });
+				MainSpriteRenderer->SetAutoScaleRatio({ 1.0f, 1.0f,1.0f });
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
@@ -102,7 +102,7 @@ void Contractor::Start()
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
 				MainSpriteRenderer->On();
-				MainSpriteRenderer->SetAutoScaleRatio({ 1.5f, 1.5f });
+				MainSpriteRenderer->SetAutoScaleRatio({ 1.5f, 1.5f,1.5f });
 				MainSpriteRenderer->ChangeAnimation("Contractor_Appear");
 			};
 
@@ -123,7 +123,7 @@ void Contractor::Start()
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
 				
-				MainSpriteRenderer->SetAutoScaleRatio({ 1.0f, 1.0f });
+				MainSpriteRenderer->SetAutoScaleRatio({ 1.0f, 1.0f ,1.0f});
 				MainSpriteRenderer->ChangeAnimation("Contractor_Reading");
 			};
 
@@ -153,7 +153,7 @@ void Contractor::Start()
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
 
-				MainSpriteRenderer->SetAutoScaleRatio({ 1.5f, 1.5f });
+				MainSpriteRenderer->SetAutoScaleRatio({ 1.5f, 1.5f ,1.5f});
 				MainSpriteRenderer->ChangeAnimation("Contractor_DisAppear");
 			};
 
@@ -174,7 +174,7 @@ void Contractor::Start()
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
 				MainSpriteRenderer->ChangeAnimation("Contractor_OFF");
-				MainSpriteRenderer->SetAutoScaleRatio({ 1.0f, 1.0f });
+				MainSpriteRenderer->SetAutoScaleRatio({ 1.0f, 1.0f,1.0f });
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
@@ -198,7 +198,7 @@ void Contractor::Start()
 
 	SetName("Contractor_" + std::to_string(Num));
 
-	ForceGrivityOff = true;
+	ForceGrivityOff = false;
 
 }
 
