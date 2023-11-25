@@ -92,6 +92,7 @@ private:
 	float BulletDelayCheck = 0.0f;
 
 	std::shared_ptr<class GameEngineSpriteRenderer> DeskSpriteRenderer; 
+	std::shared_ptr<class FxSpriteRenderer> DarkTornadoFXRenderer;
 
 };
 

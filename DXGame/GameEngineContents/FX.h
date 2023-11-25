@@ -24,14 +24,13 @@ enum class FXType
 	EatAnima,
 	Gargoyle_Fly_Stomp,
 	Gargoyle_DarkEmanation,
-	Gargoyle_DarkTornado_End,
-	Gargoyle_DarkTornado_Start,
-	Gargoyle_DarkTornado_Loop,
-	Gargoyle_DarkTornado_UL_Loop,
-	Gargoyle_DarkTornado_UL_Start,
-	Gargoyle_DarkTornado_UL_End,
+	
+	Gargoyle_DarkTornado,
+	Gargoyle_DarkTornado_UL,
 	Gargoyle_Falling_Rock,
 	Gargoyle_GhostEmanation,
+	Gargoyle_Slash,
+	Gargoyle_Lightning,
 
 
 

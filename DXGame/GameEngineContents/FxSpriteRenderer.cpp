@@ -82,8 +82,8 @@ void FxSpriteRenderer::Update(float _Delta)
 	{
 		//Renderer->Scale = float4(0.5f, 2.0f, 1.0f);
 
-		Scale.X += _Delta * 4.0f * Dir;
-		Scale.Y -= _Delta * 6.0f * Dir;
+		Scale.X += _Delta * 3.0f * Dir;
+		Scale.Y -= _Delta * 4.5f * Dir;
 		SetAutoScaleRatio(Scale);
 
 		if (Scale.Y <= 0.0f)
@@ -133,7 +133,22 @@ void FxSpriteRenderer::Update(float _Delta)
 	{
 		//Renderer->Scale = float4(0.5f, 2.0f, 1.0f);
 
-		Scale.X += _Delta * 15.0f * Dir;
+		Scale.X += _Delta * 10.0f * Dir;
+		Scale.Y -= _Delta * 20.0f * Dir;
+		SetAutoScaleRatio(Scale);
+
+		if (Scale.Y <= 0.0f)
+		{
+			Off();
+		}
+		break;
+	}
+	
+	case FXType::Gargoyle_Slash:
+	{
+		//Renderer->Scale = float4(0.5f, 2.0f, 1.0f);
+
+		Scale.X -= _Delta * 15.0f * Dir;
 		Scale.Y -= _Delta * 30.0f * Dir;
 		SetAutoScaleRatio(Scale);
 
@@ -240,18 +255,10 @@ void FxSpriteRenderer::Update(float _Delta)
 			SetTextAlpha(Alpha);
 			Off();
 		}
-		
-
-
-	
 	}
 	break;
 	case FXType::TakeAnima: 
 	{
-		
-
-
-		
 		//DirectX::XMVectorSubtract
 		//DirectX::XMVECTOR = D;
 		//static const float GRAVITY_PULL = 1000000.0f;
@@ -313,6 +320,23 @@ void FxSpriteRenderer::Update(float _Delta)
 		SetAutoScaleRatio(Scale);
 	}
 	break;
+
+	case FXType::Gargoyle_DarkTornado:
+	{
+		if (Time > 2.0f and IsCurAnimation("Gargoyle_DarkTornado_End") == false)
+		{
+			ChangeAnimation("Gargoyle_DarkTornado_End");
+		}
+		break;
+	}
+	case FXType::Gargoyle_DarkTornado_UL:
+	{
+		if (Time > 2.0f and IsCurAnimation("Gargoyle_DarkTornado_UL_End") == false)
+		{
+			ChangeAnimation("Gargoyle_DarkTornado_UL_End");
+		}
+		break;
+	}
 
 	default:
 	{

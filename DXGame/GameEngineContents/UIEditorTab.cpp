@@ -116,20 +116,20 @@ void UIEditorTab::SelectTabUpdate(GameEngineLevel* _Level)
 		if (GameEngineInput::IsDown('C', this) and static_cast<Level*>(_Level)->OtherWindow == false)
 		{
 			
-			ObjectLoaded[Key]->GetImageTransform().AddLocalScale(float4::LEFT);
+			ObjectLoaded[Key]->GetImageTransform().AddLocalScale(float4::ONE * -1.0f);
 		}
 		if (GameEngineInput::IsDown('V', this) and static_cast<Level*>(_Level)->OtherWindow == false)
 		{
-			ObjectLoaded[Key]->GetImageTransform().AddLocalScale(float4::RIGHT);
+			ObjectLoaded[Key]->GetImageTransform().AddLocalScale(float4::ONE);
 		}
 		if (GameEngineInput::IsDown('Z', this) and static_cast<Level*>(_Level)->OtherWindow == false)
 		{
 			
-			ObjectLoaded[Key]->GetImageTransform().AddLocalScale(float4::LEFT * 10.0f);
+			ObjectLoaded[Key]->GetImageTransform().AddLocalScale(float4::ONE * -10.0f);
 		}
 		if (GameEngineInput::IsDown('X', this) and static_cast<Level*>(_Level)->OtherWindow == false)
 		{
-			ObjectLoaded[Key]->GetImageTransform().AddLocalScale(float4::RIGHT * 10.0f);
+			ObjectLoaded[Key]->GetImageTransform().AddLocalScale(float4::ONE * 10.0f);
 		}
 	}
 }

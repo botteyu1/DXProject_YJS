@@ -291,7 +291,64 @@ void PlayUI::Start()
 	HUD_Soulary_Text->Transform.SetLocalPosition({ 853.0f,495.0f,0.0f });
 	HUD_Soulary_Text->SetName("HUD_ManaBar_Text");
 
-	
+	std::shared_ptr<GameEngineSpriteRenderer> Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_Loop", "Gargoyle_DarkTornado_Loop", 0.0233f, -1, -1, true);
+	Renderer->ChangeAnimation("Gargoyle_DarkTornado_Loop");
+	Renderer->AutoSpriteSizeOn();
+	Renderer->SetName("Gargoyle_DarkTornado_Loop");
+	Renderer->Transform.SetLocalPosition({ 5000.0f, -3000.0f, -2.0f });
+	Renderer->SetPivotValue({ 1.0f,1.0f,1.0f });
+	Renderer->LeftFlip();
+
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_Loop", "Gargoyle_DarkTornado_Loop", 0.0233f, -1, -1, true);
+	Renderer->ChangeAnimation("Gargoyle_DarkTornado_Loop");
+	Renderer->AutoSpriteSizeOn();
+	Renderer->SetName("Gargoyle_DarkTornado_Loop2");
+	Renderer->Transform.SetLocalPosition({ 5000.0f, -3000.0f, -3.0f });	
+	Renderer->SetAutoScaleRatio({ 2.0f,2.0f,2.0f });
+	Renderer->SetPivotValue({ 1.0f,1.0f,1.0f });
+	Renderer->LeftFlip();
+
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_Loop", "Gargoyle_DarkTornado_Loop", 0.0233f, -1, -1, true);
+	Renderer->ChangeAnimation("Gargoyle_DarkTornado_Loop");
+	Renderer->AutoSpriteSizeOn();
+	Renderer->SetName("Gargoyle_DarkTornado_Loop3");
+	Renderer->Transform.SetLocalPosition({ 5000.0f, -3000.0f, -4.0f });
+	Renderer->SetPivotValue({ 1.0f,1.0f,1.0f });
+	Renderer->SetAutoScaleRatio({ 3.0f,3.0f,3.0f });
+	Renderer->LeftFlip();
+
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_UL_Loop", "Gargoyle_DarkTornado_UL_Loop", 0.0233f, -1, -1, true);
+	Renderer->ChangeAnimation("Gargoyle_DarkTornado_UL_Loop");
+	Renderer->AutoSpriteSizeOn();
+	Renderer->SetName("Gargoyle_DarkTornado_UL_Loop");
+	Renderer->Transform.SetLocalPosition({ 5000.0f, -3000.0f, 0.0f });
+	Renderer->SetPivotValue({ 1.0f,1.0f,1.0f });
+	Renderer->LeftFlip();
+
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_UL_Loop", "Gargoyle_DarkTornado_UL_Loop", 0.0233f, -1, -1, true);
+	Renderer->ChangeAnimation("Gargoyle_DarkTornado_UL_Loop");
+	Renderer->AutoSpriteSizeOn();
+	Renderer->SetName("Gargoyle_DarkTornado_UL_Loop2");
+	Renderer->Transform.SetLocalPosition({ 5000.0f, -3000.0f, 0.5f });
+	Renderer->SetAutoScaleRatio({ 2.0f,2.0f,2.0f });
+	Renderer->SetPivotValue({ 1.0f,1.0f,1.0f });
+
+	Renderer->LeftFlip();
+
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_UL_Loop", "Gargoyle_DarkTornado_UL_Loop", 0.0233f, -1, -1, true);
+	Renderer->ChangeAnimation("Gargoyle_DarkTornado_UL_Loop");
+	Renderer->AutoSpriteSizeOn();
+	Renderer->SetName("Gargoyle_DarkTornado_UL_Loop3");
+	Renderer->Transform.SetLocalPosition({ 5000.0f, -3000.0f, 1.0f });
+	Renderer->SetAutoScaleRatio({ 3.0f,3.0f,3.0f });
+	Renderer->SetPivotValue({ 1.0f,1.0f,1.0f });
+	Renderer->LeftFlip();
 }
 
 void PlayUI::Update(float _Delta)

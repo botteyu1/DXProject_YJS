@@ -34,6 +34,7 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 	Renderer->SpawnObject = nullptr;
 	Renderer->Transform.SetLocalPosition(_Pos);
 	Renderer->Transform.SetLocalRotation(float4::ZERONULL);
+	Renderer->GetColorData().MulColor = float4::ONE;
 	
 	Renderer->On();
 
@@ -120,6 +121,14 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 		Renderer->Transform.AddLocalRotation(float4(0.0f, 0.0f, Rotate));
 		break;
 	}
+	case FXType::Gargoyle_Slash:
+	{
+		Renderer->ChangeAnimation("ImpactFight_0003", true);
+		Renderer->Scale = float4(7.0f, 7.0f, 1.0f);
+		float Rotate = ContentsCore::MainRandom->RandomFloat(-30.0f, 30.0f);
+		Renderer->Transform.AddLocalRotation(float4(0.0f, 0.0f, Rotate));
+		break;
+	}
 	case FXType::Hit:
 	{
 		Renderer->ChangeAnimation("Hit", true);
@@ -152,6 +161,22 @@ std::shared_ptr<class FxSpriteRenderer> FX::FXStart(FXType _Name, bool _flip, co
 	case FXType::Gargoyle_Falling_Rock:
 	{
 		Renderer->ChangeAnimation("Gargoyle_Falling_Rock", true);
+	}
+	break;
+	case FXType::Gargoyle_Lightning:
+	{
+		Renderer->ChangeAnimation("Gargoyle_Lightning", true);
+	}
+	break;
+	case FXType::Gargoyle_DarkTornado:
+	{
+		Renderer->ChangeAnimation("Gargoyle_DarkTornado_Start", true);
+	}
+	break;
+
+	case FXType::Gargoyle_DarkTornado_UL:
+	{
+		Renderer->ChangeAnimation("Gargoyle_DarkTornado_UL_Start", true);
 	}
 	break;
 
@@ -367,6 +392,7 @@ void FX::Start()
 	GameEngineSprite::CreateCut("FX_Splash_Water_03_Atlas.png", 4, 4);
 	GameEngineSprite::CreateCut("FX_Shard_Particle_Atlas.png", 5, 5);
 	GameEngineSprite::CreateCut("FX_Ritual_Weapon_Death_Silhouette_Atlas HD.png", 4, 6);
+	GameEngineSprite::CreateCut("Lightning_Atlas1024.png", 6, 4);
 
 	
 	AddFXRenderer();
@@ -410,6 +436,27 @@ std::shared_ptr<FxSpriteRenderer> FX::AddFXRenderer()
 
 	Renderer->CreateAnimation("Concentrate", "Concentrate", 0.0133f, -1, -1, true);
 	Renderer->SetEndEvent("Concentrate", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
+
+	Renderer->CreateAnimation("Gargoyle_Lightning", "Lightning_Atlas1024.png", 0.0333f, -1, -1, true);
+	Renderer->SetEndEvent("Gargoyle_Lightning", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
+
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_Start", "Gargoyle_DarkTornado_Start", 0.0233f, -1, -1, false);
+	Renderer->SetEndEvent("Gargoyle_DarkTornado_Start", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->ChangeAnimation("Gargoyle_DarkTornado_Loop"); });
+	
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_Loop", "Gargoyle_DarkTornado_Loop", 0.0233f, -1, -1, true);
+//	Renderer->SetEndEvent("Gargoyle_DarkTornado_Loop", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->ChangeAnimation("Gargoyle_DarkTornado_End"); });
+
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_End", "Gargoyle_DarkTornado_End", 0.0233f, -1, -1, false);
+	Renderer->SetEndEvent("Gargoyle_DarkTornado_End", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
+
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_UL_Start", "Gargoyle_DarkTornado_UL_Start", 0.0233f, -1, -1, false);
+	Renderer->SetEndEvent("Gargoyle_DarkTornado_UL_Start", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->ChangeAnimation("Gargoyle_DarkTornado_UL_Loop"); });
+	
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_UL_Loop", "Gargoyle_DarkTornado_UL_Loop", 0.0233f, -1, -1, true);
+	//Renderer->SetEndEvent("Gargoyle_DarkTornado_UL_Loop", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->ChangeAnimation("Gargoyle_DarkTornado_UL_End"); });
+
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_UL_End", "Gargoyle_DarkTornado_UL_End", 0.0233f, -1, -1, false);
+	Renderer->SetEndEvent("Gargoyle_DarkTornado_UL_End", [=](GameEngineSpriteRenderer* _Renderer) { _Renderer->Off(); });
 
 	
 	Renderer->CreateAnimation("Death", "FX_Ritual_Weapon_Death_Silhouette_Atlas HD.png", 0.0333f, -1, -1, true);

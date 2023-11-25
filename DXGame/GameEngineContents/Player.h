@@ -41,7 +41,7 @@ public:
 	float MaxMP = 50;
 	float MP = 50;
 	int Soulary = 0;
-	float DamageComobo = 100.f; // 기본 공격 추가 데미지
+	float DamageComobo = 10000.f; // 기본 공격 추가 데미지
 	float DamageComoboScale = 1.0f; // 기본 공격 스케일
 
 	int DamageCape= 0; // 망토 추가 데미지
