@@ -84,6 +84,8 @@ void Elevator::Update(float _Delta)
 			if (GameEngineInput::IsDown('F', this))
 			{
 				Player::GetMainPlayer()->SetTargetPos(Transform.GetLocalPosition() + float4(20.0f, 50.0f, -5.0f));
+
+				GameEngineSound::SoundPlay("ElevatorEnter");
 				Player::GetMainPlayer()->ChangeState(PlayerState::EnterElavator);
 			}
 		}

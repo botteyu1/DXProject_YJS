@@ -25,7 +25,9 @@ void WeaponDrop::Spawn()
 	std::shared_ptr<FxSpriteRenderer> Renderer = GetContentsLevel()->GetFXActor()->FXStart(FXType::Flash, false, Transform.GetLocalPosition() + float4(0.0f, 20.0f), float4(0.0f,0.0f,1.0f));
 	Renderer->SetSpawnObject(this);
 	BouncingStart();
-	
+
+
+	GameEngineSound::SoundPlay("WeaponDrop");
 }
 
 void WeaponDrop::Start()
@@ -164,6 +166,7 @@ void WeaponDrop::Update(float _Delta)
 				Death();
 			}
 
+			GameEngineSound::SoundPlay("WeaponGet");
 			Player::GetMainPlayer()->ChangeState(PlayerState::Acquisition);
 		}
 
@@ -184,6 +187,7 @@ void WeaponDrop::Update(float _Delta)
 				Death();
 			}
 
+			GameEngineSound::SoundPlay("WeaponGet");
 			Player::GetMainPlayer()->ChangeState(PlayerState::Acquisition);
 		}
 	}

@@ -27,6 +27,19 @@ void BossGargoyle::TakeDamage(GameEngineCollision* _Attacker, float _Damage)
 	HP -= static_cast<int>(_Damage);
 
 
+	static bool HitSound = false;
+
+	if (HitSound == true)
+	{
+		GameEngineSound::SoundPlay("EnemyHit1");
+	}
+	else
+	{
+
+		GameEngineSound::SoundPlay("EnemyHit2");
+	}
+
+
 	GetContentsLevel()->StartScreenShake(0.5f, 8.0f, 10.0f);
 
 	// 데미지 표기

@@ -64,7 +64,7 @@ void Player::EnterElavatorUpdate(float _Delta)
 
 		
 	}
-	else if (3.0f >= MotionTime)
+	else if (3.0f <= MotionTime)
 	{
 		if (GetLevel()->GetName() == "PlayLevel")
 		{

@@ -34,6 +34,8 @@ void Player::TakeDamage(class GameEngineCollision* _Attacker, float _Damage)
 		ChangeState(PlayerState::Hit);
 		ForceGrivityOff = false;
 
+		GameEngineSound::SoundPlay("PlayerHit");
+
 		GetContentsLevel()->StartScreenShake(0.5f, 12.0f, 10.0f);
 
 		GetContentsLevel()->GetFXActor()->FXStart(FXType::Hit, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f), float4(3.0f, 3.0f, 2.0f));

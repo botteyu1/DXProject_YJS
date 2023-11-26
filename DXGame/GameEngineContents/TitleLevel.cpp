@@ -35,10 +35,10 @@ void TitleLevel::Update(float _Delta)
 
 void TitleLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	
+	Bgm = GameEngineSound::SoundPlay("OST Main Menu", 100);
 }
 
 void TitleLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
-	int a = 0;
+	Bgm.Stop();
 }

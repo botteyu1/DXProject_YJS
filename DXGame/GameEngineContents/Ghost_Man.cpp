@@ -152,6 +152,7 @@ void Ghost_Man::IdleUpdate(float _Delta)
 void Ghost_Man::AttackStart()
 {
 	ChangeMainAnimation("Ghost_Attack");
+	GameEngineSound::SoundPlay("ManAttackInit");
 }
 
 void Ghost_Man::AttackUpdate(float _Delta)
@@ -161,6 +162,7 @@ void Ghost_Man::AttackUpdate(float _Delta)
 
 	if (CheckStartAttackFrame(-1, 10.0f) == true)
 	{
+		GameEngineSound::SoundPlay("ManAttack");
 		GetContentsLevel()->GetFXActor()->FXStart(FXType::Ghost_Attack_FX, Flip, Transform.GetLocalPosition(),float4::ONE,{1.0f,0.5f});
 	}
 

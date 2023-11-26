@@ -21,6 +21,20 @@ void Enemy::TakeDamage(GameEngineCollision* _Attacker,float _Damage)
 		return;
 	}
 
+	static bool HitSound = false;
+	HitSound = !HitSound;
+
+	if (HitSound == true)
+	{
+
+		GameEngineSound::SoundPlay("EnemyHit1");
+	}
+	else
+	{
+
+		GameEngineSound::SoundPlay("EnemyHit2");
+	}
+
 	HP -= static_cast<int>(_Damage);
 
 
@@ -72,6 +86,20 @@ void Enemy::DeathCheck()
 {
 	if (HP <= 0 and DeathValue == false)
 	{
+
+		static bool DeathSound = false;
+		DeathSound = !DeathSound;
+
+		if (DeathSound == true)
+		{
+			GameEngineSound::SoundPlay("EnemyDeath1");
+		}
+		else
+		{
+
+			GameEngineSound::SoundPlay("EnemyDeath2");
+		}
+
 		DeathValue = true;
 		ChangeState(EnemyState::Death);
 		GetContentsLevel()->StartScreenShake(0.5f, 12.0f, 10.0f);

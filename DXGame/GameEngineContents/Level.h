@@ -93,7 +93,7 @@ protected:
 	float4 PrevShackeMovePos = float4::ZERO;
 	float4 PrevShackeRotationPos = float4::ZERO;
 
-	//class GameEngineSoundPlayer Bgm;
+	class GameEngineSoundPlayer Bgm;
 
 private:
 

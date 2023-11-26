@@ -34,6 +34,17 @@ void GameEngineRenderUnit::SetText(const std::string& _Font, const std::string& 
 	FontFlag = Flag;
 }
 
+void GameEngineRenderUnit::ChangeText(std::string_view _Text)
+{
+	if (nullptr == Font)
+	{
+		MsgBoxAssert("존재하지 않는 폰트를 참조하려 했습니다.");
+		return;
+	}
+
+	FontText = _Text;
+}
+
 void GameEngineRenderUnit::SetTextColor(const float4& _Color /*= float4::RED*/)
 {
 	if (nullptr == Font)
@@ -102,15 +113,9 @@ void GameEngineRenderUnit::Draw()
 		}
 		else if (nullptr != Parent && Parent->GetLevel()->GetMainCamera()->GetProjectionType() == EPROJECTIONTYPE::Perspective)
 		{
-			if (FontText == "10")
-			{
-				int a = 0;
-			}
 			float4 ScreenPos = ParentRenderer->Transform.GetWorldPosition();
 
-			float4x4 VM = ParentRenderer->Transform.GetConstTransformDataRef().ViewMatrix;
-
-			ScreenPos *= VM;
+			ScreenPos *= ParentRenderer->Transform.GetConstTransformDataRef().ViewMatrix;
 			ScreenPos *= ParentRenderer->Transform.GetConstTransformDataRef().ProjectionMatrix;
 
 

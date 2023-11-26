@@ -24,6 +24,7 @@ void Player::Jump_LandingStart()
 void Player::Jump_StartStart()
 {
 	ChangeMainAnimation("LD_Jump_Start");
+	GameEngineSound::SoundPlay("Jump");
 
 	GrivityForce.Y += JumpingSpeed;
 	Transform.AddLocalPosition({ 0.0f,1.0f });
@@ -50,6 +51,8 @@ void Player::RunToIdleStart()
 void Player::DashStart()
 {
 	ChangeMainAnimation("LD_Dash");
+
+	GameEngineSound::SoundPlay("Dash");
 	CurDash = 0.0f;
 	ForceGrivityOff = true;
 	GetContentsLevel()->GetFXActor()->FXStart(FXType::Shockwave, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f,8.0f), float4(0.2f, 0.2f, 5.0f));

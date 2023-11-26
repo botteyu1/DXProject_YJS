@@ -151,6 +151,7 @@ void PlayLevel::Start()
 					PaperWallvec[i]->GimmckStart();
 				}
 				PaperWallValue = true;
+				GameEngineSound::SoundPlay("PaperWallOn");
 
 			};
 
@@ -338,11 +339,14 @@ void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	int a = 0; 
 	GimmickValue = false; 
+	Bgm = GameEngineSound::SoundPlay("Hall of Eternity", 100);
+	Bgm.SetVolume(0.4f);
 }
 
 void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	int a = 0;
+	Bgm.Stop();
 }
 
 bool PlayLevel::CheckGimmickOver()

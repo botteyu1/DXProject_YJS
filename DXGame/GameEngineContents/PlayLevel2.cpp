@@ -87,6 +87,7 @@ void PlayLevel2::Start()
 				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
 				float4 PlayerPos = PlayerPtr->Transform.GetWorldPosition() + float4{ 0.0f,0.0f,-1000.0f };
 				MainCamara->Transform.SetLocalPosition(PlayerPos);
+				GameEngineSound::SoundPlay("PaperWallOn");
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)

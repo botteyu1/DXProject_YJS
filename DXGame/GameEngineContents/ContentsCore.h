@@ -41,7 +41,7 @@ protected:
 
 private:
 
-	void SoundLoad();
+	void ContentsCoreSoundLoad();
 
 };
 
