@@ -191,7 +191,7 @@ void PlayLevel::Start()
 					GimicEnemyvec[i]->Spawn();
 				}
 
-
+				GameEngineSound::SoundPlay("EnemyRespone");
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
@@ -204,6 +204,7 @@ void PlayLevel::Start()
 					{
 						Gimic2Enemyvec[i]->Spawn();
 					}
+					GameEngineSound::SoundPlay("EnemyRespone");
 				}
 
 				if (CheckGimmickOver() == true and State.GetStateTime() >= 9.0f)

@@ -314,6 +314,8 @@ void FxSpriteRenderer::Update(float _Delta)
 		}
 		if(Scale.X <= 0.0f)
 		{
+
+			GameEngineSound::SoundPlay("AnimaUI");
 			Player::GetMainPlayerData().AddAnima();
 			Off();
 		}

@@ -83,6 +83,7 @@ void Contractor::Start()
 				MainSpriteRenderer->On();
 				MainSpriteRenderer->ChangeAnimation("Contractor_ON");
 				MainSpriteRenderer->SetAutoScaleRatio({ 1.0f, 1.0f,1.0f });
+				GameEngineSound::SoundPlay("ContractorOn");
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
@@ -190,7 +191,7 @@ void Contractor::Start()
 		State.CreateState(ContractorState::OFF, NewPara);
 	}
 
-	State.ChangeState(ContractorState::Idle);
+	State.ChangeState(ContractorState::Hide);
 	GameEngineInput::AddInputObject(this);
 
 	static int Num = 0;

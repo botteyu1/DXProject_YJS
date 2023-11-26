@@ -105,7 +105,7 @@ void Enemy::DeathCheck()
 		GetContentsLevel()->StartScreenShake(0.5f, 12.0f, 10.0f);
 		std::shared_ptr<AnimaDrop> Object2 =  GetContentsLevel()->CreateActor<AnimaDrop>(ContentsObjectType::BackGroundobject);
 		Object2->Spawn(Transform.GetLocalPosition());
-		/*std::shared_ptr<SoularyDrop> Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
+		std::shared_ptr<SoularyDrop> Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
 		Object->Spawn(Transform.GetLocalPosition());
 		Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
 		Object->Spawn(Transform.GetLocalPosition());
@@ -116,7 +116,7 @@ void Enemy::DeathCheck()
 		Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
 		Object->Spawn(Transform.GetLocalPosition());
 		Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
-		Object->Spawn(Transform.GetLocalPosition());*/
+		Object->Spawn(Transform.GetLocalPosition());
 	}
 }
 

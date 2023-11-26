@@ -198,7 +198,7 @@ void Player::Start()
 		MainSpriteRenderer->CreateAnimation("LD_Dash", "LD_Dash", 0.0333f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Dash", {}));
 
-		MainSpriteRenderer->CreateAnimation("LD_Hit", "LD_Hit", 0.0333f, -1, -1, false);
+		MainSpriteRenderer->CreateAnimation("LD_Hit", "LD_Hit", 0.0483f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Hit", {}));
 
 	
@@ -290,6 +290,7 @@ void Player::Update(float _Delta)
 		if (PlayerDataPtr.Anima > 0 and PlayerDataPtr.HP < PlayerDataPtr.MaxHP)
 		{
 			PlayerDataPtr.Anima--;
+			GameEngineSound::SoundPlay("AnimaConsume");
 
 			if (HP + 35 <= MaxHP)
 			{

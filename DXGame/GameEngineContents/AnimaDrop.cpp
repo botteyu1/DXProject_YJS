@@ -115,6 +115,19 @@ void AnimaDrop::Update(float _Delta)
 	if (MainCollision->Collision<ContentsCollisionType>(ContentsCollisionType::Player) and AerialCheck == false)
 	{
 		GetContentsLevel()->GetFXActor()->FXUIStart(FXType::TakeAnima,Flip, Transform.GetConstTransformDataRef());
+
+		static bool AnimaSound = false;
+		AnimaSound != AnimaSound;
+
+		if (AnimaSound == false)
+		{
+			GameEngineSound::SoundPlay("AnimaGet");
+		}
+		else
+		{
+			GameEngineSound::SoundPlay("AnimaGet2");
+		}
+		
 		//Player::GetMainPlayer()->AddSoulary(1);
 		Death();
 	}

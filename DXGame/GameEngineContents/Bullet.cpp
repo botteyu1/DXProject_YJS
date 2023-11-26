@@ -130,6 +130,7 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 			AttackCollision->Transform.SetLocalPosition({0.0f,300.0f});
 			AttackCollision->Transform.SetLocalScale({ 150.0f,600.0f });
 			TargetCollision = ContentsCollisionType::Enemy;
+			GameEngineSound::SoundPlay("Tornado");
 			break;
 		}
 		default:

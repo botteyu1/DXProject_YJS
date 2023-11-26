@@ -61,8 +61,6 @@ void Player::EnterElavatorUpdate(float _Delta)
 	else if (MainSpriteRenderer->IsCurAnimationEnd() == true)
 	{
 		ChangeMainAnimation("LD_Elevator_End");
-
-		
 	}
 	else if (3.0f <= MotionTime)
 	{

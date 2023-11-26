@@ -145,6 +145,23 @@ void ContentsCore::ContentsCoreSoundLoad()
 		GameEngineSound::SoundLoad("ElevatorEnter", FilePath.PlusFilePath("ElevatorEnter.wav"));
 
 
+		GameEngineSound::SoundLoad("Tornado", FilePath.PlusFilePath("Tornado.wav"));
+		GameEngineSound::SoundLoad("SoularyGet", FilePath.PlusFilePath("SoularyGet.wav"));
+		GameEngineSound::SoundLoad("MedAttackPower", FilePath.PlusFilePath("MedAttackPower.wav"));
+		GameEngineSound::SoundLoad("MedAttackInit", FilePath.PlusFilePath("MedAttackInit.wav"));
+		GameEngineSound::SoundLoad("MedAttackCombo3", FilePath.PlusFilePath("MedAttackCombo3.wav"));
+		GameEngineSound::SoundLoad("MedAttackCombo2", FilePath.PlusFilePath("MedAttackCombo2.wav"));
+		GameEngineSound::SoundLoad("MedAttackCombo1", FilePath.PlusFilePath("MedAttackCombo1.wav"));
+		GameEngineSound::SoundLoad("EnemyRespone", FilePath.PlusFilePath("EnemyRespone.wav"));
+		GameEngineSound::SoundLoad("AnimaUI", FilePath.PlusFilePath("AnimaUI.wav"));
+		GameEngineSound::SoundLoad("AnimaGet2", FilePath.PlusFilePath("AnimaGet2.wav"));
+		GameEngineSound::SoundLoad("AnimaGet", FilePath.PlusFilePath("AnimaGet.wav"));
+		GameEngineSound::SoundLoad("AnimaConsume", FilePath.PlusFilePath("AnimaConsume.wav"));
+
+		GameEngineSound::SoundLoad("ContractorOn", FilePath.PlusFilePath("ContractorOn.wav"));
+		GameEngineSound::SoundLoad("CurseUIOff", FilePath.PlusFilePath("CurseUIOff.wav"));
+		GameEngineSound::SoundLoad("CurseUIOn", FilePath.PlusFilePath("CurseUIOn.wav"));
+		GameEngineSound::SoundLoad("CurseUISelect", FilePath.PlusFilePath("CurseUISelect.wav"));
 		
 	}
 

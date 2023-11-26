@@ -103,7 +103,7 @@ void PaperWall::Start()
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
-				AlphaValue += _DeltaTime /2.0f;
+				AlphaValue += _DeltaTime /1.0f;
 				if (AlphaValue >= 1.0f)
 				{
 					AlphaValue = 1.0f;
@@ -126,7 +126,7 @@ void PaperWall::Start()
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
-				AlphaValue -= _DeltaTime / 2.0f;
+				AlphaValue -= _DeltaTime / 1.0f;
 				if (AlphaValue <= 0.0f)
 				{
 					AlphaValue = 0.0f;

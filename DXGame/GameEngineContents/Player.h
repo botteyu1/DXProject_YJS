@@ -183,7 +183,7 @@ private:
 	
 
 	float DamagedDelayTimer = 0.0f; // 피격후 무적시간 타이머
-	float DamagedDelay = 0.5f; // 피격후 무적시간
+	float DamagedDelay = 0.8f; // 피격후 무적시간
 
 	PlayerState State = PlayerState::Max;
 
