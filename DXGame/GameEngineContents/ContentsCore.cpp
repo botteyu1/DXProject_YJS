@@ -78,7 +78,7 @@ void ContentsCore::Start()
 	GameEngineCore::CreateLevel<BossLevel>("BossLevel");
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
 	GameEngineCore::CreateLevel<MapEditorLevel>("MapEditorLevel");
-	GameEngineCore::ChangeLevel("PlayLevel");
+	GameEngineCore::ChangeLevel("BossLevel");
 
 	
 
@@ -162,6 +162,8 @@ void ContentsCore::ContentsCoreSoundLoad()
 		GameEngineSound::SoundLoad("CurseUIOff", FilePath.PlusFilePath("CurseUIOff.wav"));
 		GameEngineSound::SoundLoad("CurseUIOn", FilePath.PlusFilePath("CurseUIOn.wav"));
 		GameEngineSound::SoundLoad("CurseUISelect", FilePath.PlusFilePath("CurseUISelect.wav"));
+		GameEngineSound::SoundLoad("BossIntro1", FilePath.PlusFilePath("BossIntro1.wav"));
+		GameEngineSound::SoundLoad("BossIntro2", FilePath.PlusFilePath("BossIntro2.wav"));
 		
 	}
 

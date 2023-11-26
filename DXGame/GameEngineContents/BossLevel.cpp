@@ -101,11 +101,7 @@ void BossLevel::Start()
 	{
 		CreateStateParameter NewPara;
 
-		// 한번만 실행되는 겁니다.
-		NewPara.Init = [=](class GameEngineState* _Parent)
-			{
-				// MainSpriteRenderer->ChangeAnimation("Idle");
-			};
+		
 
 
 		NewPara.Start = [=](class GameEngineState* _Parent)
@@ -115,6 +111,8 @@ void BossLevel::Start()
 				PlayUIPtr->Off();
 				PlayerPtr->ChangeState(PlayerState::ForceWait);
 
+				GameEngineSound::SoundPlay("BossIntro1");
+
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
@@ -122,7 +120,7 @@ void BossLevel::Start()
 				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
 				//float4 PlayePos = PlayerPtr->Transform.GetWorldPosition();
 				float4 MainCamaraPos = MainCamara->Transform.GetWorldPosition();
-				float4 Pos = { MainCamaraPos.X + 500.0f * _DeltaTime, -3150.0f,-1000.0f };
+				float4 Pos = { MainCamaraPos.X + 1000.0f * _DeltaTime, -3150.0f,-1000.0f };
 				if (Pos.X >= 4175.0f)
 				{
 					Pos.X = 4175.0f;
@@ -144,14 +142,6 @@ void BossLevel::Start()
 	{
 		CreateStateParameter NewPara;
 
-		// 한번만 실행되는 겁니다.
-		NewPara.Init = [=](class GameEngineState* _Parent)
-			{
-				
-
-			};
-
-
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
 				BossIntroOver = true;
@@ -164,7 +154,6 @@ void BossLevel::Start()
 				if (BossPtr->GetState() == EnemyState::Idle)
 				{
 					_Parent->ChangeState(BossLevelState::Boss);
-					
 				}
 				
 			};
@@ -367,8 +356,10 @@ void BossLevel::Update(float _Delta)
 
 void BossLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	Bgm = GameEngineSound::SoundPlay("Brad in Shape", 100);
 }
 
 void BossLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	Bgm.Stop();
 }

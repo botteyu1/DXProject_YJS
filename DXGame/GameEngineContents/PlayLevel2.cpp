@@ -314,11 +314,13 @@ void PlayLevel2::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	int a = 0;
 	GimmickValue = false;
+	Bgm = GameEngineSound::SoundPlay("Hall of Eternity", 100);
 }
 
 void PlayLevel2::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	int a = 0;
+	Bgm.Stop();
 }
 
 bool PlayLevel2::CheckGimmickOver()
