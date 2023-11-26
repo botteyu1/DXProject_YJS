@@ -41,5 +41,7 @@ protected:
 
 private:
 
+	void SoundLoad();
+
 };
 

@@ -35,7 +35,7 @@ void TitleLevel::Update(float _Delta)
 
 void TitleLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	int a = 0;
+	
 }
 
 void TitleLevel::LevelEnd(GameEngineLevel* _NextLevel)

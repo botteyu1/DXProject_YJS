@@ -93,6 +93,8 @@ protected:
 	float4 PrevShackeMovePos = float4::ZERO;
 	float4 PrevShackeRotationPos = float4::ZERO;
 
+	//class GameEngineSoundPlayer Bgm;
+
 private:
 
 	std::shared_ptr<Map> MapPtr = nullptr;

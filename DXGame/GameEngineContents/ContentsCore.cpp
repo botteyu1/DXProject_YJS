@@ -28,6 +28,9 @@ void ContentsCore::Start()
 
 	GameEngineFont::Load("궁서");
 	GameEngineFont::Load("메이플스토리");
+
+	SoundLoad();
+
 	{
 		// 이걸 세팅하는 순간
 		// order가 2d랜더링의 순서가 되는것이 아니라
@@ -91,4 +94,33 @@ void ContentsCore::Update(float _Delta)
 void ContentsCore::Release()
 {
 
+}
+
+void ContentsCore::SoundLoad()
+{
+	if (nullptr == GameEngineSound::FindSound("character_move_01.wav"))
+	{
+		{
+			GameEngineDirectory FilePath;
+			FilePath.MoveParentToExistsChild("GameEngineResources");
+			FilePath.MoveChild("ContentsResources\\Sound\\Effect");
+
+			GameEngineSound::SoundLoad("Click", FilePath.PlusFilePath("Click.wav"));
+		}
+
+
+		{
+			GameEngineDirectory FilePath;
+			FilePath.MoveParentToExistsChild("GameEngineResources");
+			FilePath.MoveChild("ContentsResources\\Sound\\BG");
+
+			GameEngineSound::SoundLoad("OST Main Menu", FilePath.PlusFilePath("OST Main Menu.wav"));
+			GameEngineSound::SoundLoad("Modern Warfare Department", FilePath.PlusFilePath("Modern Warfare Department.wav"));
+			GameEngineSound::SoundLoad("It’s About Time (Original Soundtrack)", FilePath.PlusFilePath("It’s About Time (Original Soundtrack).wav"));
+			GameEngineSound::SoundLoad("Head of Security Gargoyle (Original Soundtrack)", FilePath.PlusFilePath("Head of Security Gargoyle (Original Soundtrack).wav"));
+			GameEngineSound::SoundLoad("Hall of Eternity (Original Soundtrack)", FilePath.PlusFilePath("Hall of Eternity (Original Soundtrack).wav"));
+			GameEngineSound::SoundLoad("Brad in Shape (Original Soundtrack)", FilePath.PlusFilePath("Brad in Shape (Original Soundtrack).wav"));
+		}
+	
+	}
 }

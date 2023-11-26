@@ -44,6 +44,7 @@ void PlayUI::Start()
 		}
 	}
 	
+	
 	HUD_Scythe_BG = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Scythe_BG->SetMaterial("2DTextureAlwaysDepth");
 	HUD_Scythe_BG->AutoSpriteSizeOn();
