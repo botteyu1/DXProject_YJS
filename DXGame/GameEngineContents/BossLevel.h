@@ -14,6 +14,8 @@ enum class BossLevelState
 // Ό³Έν :
 class BossLevel : public Level
 {
+	
+
 public:
 	// constrcuter destructer
 	BossLevel();
@@ -24,6 +26,11 @@ public:
 	BossLevel(BossLevel&& _Other) noexcept = delete;
 	BossLevel& operator=(const BossLevel& _Other) = delete;
 	BossLevel& operator=(BossLevel&& _Other) noexcept = delete;
+
+	GameEngineSoundPlayer& GetEndBG()
+	{
+		return EndBG;
+	}
 
 protected:
 	void Start() override;
@@ -42,5 +49,10 @@ private:
 	std::shared_ptr<class BossUI> BossUIPtr = nullptr;
 	std::shared_ptr<class PlayUI> PlayUIPtr = nullptr;
 	GameEngineState State;
+
+	class GameEngineSoundPlayer BattleBG;
+	class GameEngineSoundPlayer EndBG;
+
+	float BGVolume = 0.0f;
 };
 

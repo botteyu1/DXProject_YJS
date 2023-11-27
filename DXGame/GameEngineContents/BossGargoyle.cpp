@@ -8,6 +8,7 @@
 #include "StageObject.h"
 #include "Shader.h"
 #include "BossDesk.h"
+#include "BossLevel.h"
 
 BossGargoyle::BossGargoyle() 
 {
@@ -176,8 +177,16 @@ void BossGargoyle::Start()
 	MainSpriteRenderer->CreateAnimation("Gargoyle_End_Loop", "Gargoyle_End_Loop", 0.0633f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_End_Loop", { 0.5f }));
 
-	MainSpriteRenderer->CreateAnimation("Gargoyle_Outro", "Gargoyle_End_2", 0.0633f, -1, -1, false);
+	MainSpriteRenderer->CreateAnimation("Gargoyle_Outro", "Gargoyle_End_2", 0.1633f, -1, -1, false);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Outro", { 0.8f }));
+
+
+	MainSpriteRenderer->SetFrameEvent("Gargoyle_End", 29, [=](GameEngineSpriteRenderer* _Renderer) {
+		GameEngineSound::SoundPlay("BossOuttro2");
+		});
+
+	MainSpriteRenderer->FindAnimation("Gargoyle_End")->Inter[78] = 1.2f;
+
 
 	MainSpriteRenderer->SetFrameEvent("Gargoyle_End", 69, [=](GameEngineSpriteRenderer* _Renderer) {
 
@@ -189,6 +198,11 @@ void BossGargoyle::Start()
 		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado, false, Transform.GetLocalPosition() + float4(-350.0f, -120.0f, -3.0f), float4(2.0f, 2.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
 		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado, false, Transform.GetLocalPosition() + float4(-500.0f, -273.0f, -4.0f), float4(3.0f, 3.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
 		GetContentsLevel()->GetShaderActor()->BossOutroShaderStart();
+
+		static_cast<BossLevel*>(GetContentsLevel())->GetEndBG() = GameEngineSound::SoundPlay("BossBGEnd");
+		static_cast<BossLevel*>(GetContentsLevel())->GetEndBG().SetVolume(0.6f);
+
+
 
 		});
 
@@ -276,7 +290,7 @@ void BossGargoyle::DeathCheck()
 
 void BossGargoyle::IdleStart()
 {
-	AttackPatern = GargoyleAttackPatern::Combo;
+	//AttackPatern = GargoyleAttackPatern::Combo;
 	ChangeMainAnimation("Gargoyle_Idle");
 	MotionTime = 0.0f;
 
@@ -325,6 +339,16 @@ void BossGargoyle::AttackStart()
 		}
 		ComboCount++;
 		AnimationName = "Gargoyle_Combo" + std::to_string(ComboCount);
+		if (ComboCount <= 2)
+		{
+
+			GameEngineSound::SoundPlay("BossCombo");
+		}
+		else
+		{
+			GameEngineSound::SoundPlay("BossCombo2");
+		}
+
 		break;
 	}
 	case GargoyleAttackPatern::Posing:
@@ -332,6 +356,7 @@ void BossGargoyle::AttackStart()
 		PosingCount++;
 		AnimationName = "Gargoyle_Posing" + std::to_string(PosingCount);
 		//AnimationName = "Gargoyle_Posing1" ;
+		GameEngineSound::SoundPlay("BossPosing2");
 		if (PosingCount >= 7)
 		{
 			PosingCount = 0;
@@ -354,6 +379,8 @@ void BossGargoyle::AttackStart()
 		AnimationName = "Gargoyle_Dive_Attack_Loop";
 		float4 StartPos = Transform.GetLocalPosition();
 		float4 Nor = (TargetPos - StartPos).NormalizeReturn();
+
+		GameEngineSound::SoundPlay("BossDive");
 		MoveVec = Nor * 1700.0f;
 	}
 		break;
@@ -373,6 +400,7 @@ void BossGargoyle::AttackStart()
 		AnimationName = "Gargoyle_Dive_Attack_Loop";
 		float4 StartPos = Transform.GetLocalPosition();
 		float4 Nor = (TargetPos - StartPos).NormalizeReturn();
+		GameEngineSound::SoundPlay("BossDive_Anti");
 		MoveVec = Nor * 1700.0f;
 		break;
 	}
@@ -380,6 +408,7 @@ void BossGargoyle::AttackStart()
 	{
 		ForceGrivityOff = true;
 		AnimationName = "Gargoyle_SpinGround";
+		GameEngineSound::SoundPlay("BossSpin0");
 		break;
 	}
 	case GargoyleAttackPatern::Max:
@@ -433,7 +462,6 @@ void BossGargoyle::AttackUpdate(float _Delta)
 
 		if (!AerialPixelCheck() and ForceGrivityOff == false)
 		{
-			
 			ChangeState(EnemyState::Attack_End);
 		}
 	}
@@ -571,6 +599,8 @@ void BossGargoyle::Attack_InitStart()
 	case GargoyleAttackPatern::Dive:
 		Flip = !Flip;
 		ChangeMainAnimation("Gargoyle_DiveAttack_Anticipation");
+
+		GameEngineSound::SoundPlay("BossPosing1");
 		break;
 	case GargoyleAttackPatern::Dive_Anti:
 		Flip = !Flip;
@@ -601,6 +631,7 @@ void BossGargoyle::Attack_EndStart()
 		break;
 	case GargoyleAttackPatern::Posing:
 		ChangeMainAnimation("Gargoyle_Fly_Stomp_Anticipation");
+		GameEngineSound::SoundPlay("BossPosing3");
 		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_Fly_Stomp, Flip, Transform.GetLocalPosition() + float4(-20.0f, 0.0f,-5.0f),{1.2f,1.2f,1.0f}, {0.5f,1.0f});
 		break;
 	case GargoyleAttackPatern::Dive:

@@ -341,6 +341,7 @@ void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
 	int a = 0; 
 	GimmickValue = false; 
 	Bgm = GameEngineSound::SoundPlay("Hall of Eternity", 100);
+	//GameEngineSound::Golbal
 	Bgm.SetVolume(0.4f);
 }
 

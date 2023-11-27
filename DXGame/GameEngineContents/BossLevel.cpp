@@ -87,8 +87,15 @@ void BossLevel::Start()
 				float4 MainCamaraPos = MainCamara->Transform.GetWorldPosition();
 				float4 Pos = { PlayePos.X, -3150.0f,-1000.0f };
 
+				if (BossIntroOver == false)
+				{
+					float Volume = PlayePos.X / (3450.0f - 1107.0f) * 0.6f;
+					Bgm.SetVolume(Volume);
+				}
+
 				if (Pos.X >= 3450.0f and BossIntroOver == false)
 				{
+					Bgm.Stop();
 					_Parent->ChangeState(BossLevelState::IntroCamera);
 				}
 
@@ -112,6 +119,9 @@ void BossLevel::Start()
 				PlayerPtr->ChangeState(PlayerState::ForceWait);
 
 				GameEngineSound::SoundPlay("BossIntro1");
+
+				BattleBG = GameEngineSound::SoundPlay("BossBGBattle");
+				BattleBG.SetVolume(0.6f);
 
 			};
 
@@ -147,6 +157,8 @@ void BossLevel::Start()
 				BossIntroOver = true;
 
 				BossPtr->ChangeState(EnemyState::Intro);
+
+
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
@@ -243,10 +255,14 @@ void BossLevel::Start()
 				Renderer->GetColorData().MulColor = float4{ 0.3f,0.0f,00.0f,1.0f };
 				CircleFx = true;
 
+				GameEngineSound::SoundPlay("BossOuttro1");
+
 				//PlayerPtr->ChangeState(PlayerState::Idle);
 				MovieBarPtr->MovieBarStart();
 				PlayUIPtr->Off(); 
 				BossUIPtr->Off();
+
+				BGVolume = 0.6f;
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
@@ -271,11 +287,16 @@ void BossLevel::Start()
 					PlayerPtr->Transform.SetLocalPosition(PlayerPos);
 				}
 
-				if (BossPtr->GetState() == EnemyState::Outro)
+				
+				if (BGVolume > 0.0f)
 				{
-					
-					
-					//_Parent->ChangeState(BossLevelState::End);
+					BattleBG.SetVolume(BGVolume );
+					BGVolume -= _DeltaTime * 0.3f;
+				}
+				else
+				{
+					BGVolume = 0.0f;
+					BattleBG.Stop();
 				}
 
 				if (BossPtr->IsUpdate() == false)
@@ -284,7 +305,6 @@ void BossLevel::Start()
 					PlayUIPtr->On();
 					_Parent->ChangeState(BossLevelState::Normal);
 				}
-				
 			};
 
 		State.CreateState(BossLevelState::End, NewPara);
@@ -309,7 +329,7 @@ void BossLevel::Update(float _Delta)
 {
 	State.Update(_Delta);
 
-	if (GameEngineInput::IsDown('3', this))
+	/*if (GameEngineInput::IsDown('3', this))
 	{
 		std::shared_ptr<FxSpriteRenderer> Renderer = GetFXActor()->FXStart(FXType::Circle_Gradient, false, BossPtr->Transform.GetLocalPosition() + float4(0.0f, 20.0f, -3.0f), float4(0.0f, 0.0f, 1.0f));
 		Renderer->GetColorData().MulColor = float4{ 0.0f,0.0f,0.0f,1.0f };
@@ -351,12 +371,13 @@ void BossLevel::Update(float _Delta)
 		GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado, false, BossPtr->Transform.GetLocalPosition() + float4(-350.0f, -120.0f, -3.0f), float4(2.0f, 2.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
 		GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado, false, BossPtr->Transform.GetLocalPosition() + float4(-500.0f, -273.0f, -4.0f), float4(3.0f, 3.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
 
-	}
+	}*/
 }
 
 void BossLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	Bgm = GameEngineSound::SoundPlay("Brad in Shape", 100);
+	Bgm = GameEngineSound::SoundPlay("BossBGStart", 100);
+	Bgm.SetVolume(0.5f);
 }
 
 void BossLevel::LevelEnd(GameEngineLevel* _NextLevel)

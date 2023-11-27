@@ -164,6 +164,19 @@ void ContentsCore::ContentsCoreSoundLoad()
 		GameEngineSound::SoundLoad("CurseUISelect", FilePath.PlusFilePath("CurseUISelect.wav"));
 		GameEngineSound::SoundLoad("BossIntro1", FilePath.PlusFilePath("BossIntro1.wav"));
 		GameEngineSound::SoundLoad("BossIntro2", FilePath.PlusFilePath("BossIntro2.wav"));
+		GameEngineSound::SoundLoad("BossOuttro1", FilePath.PlusFilePath("BossOuttro1.wav"));
+		GameEngineSound::SoundLoad("BossOuttro2", FilePath.PlusFilePath("BossOuttro2.wav"));
+
+
+
+		GameEngineSound::SoundLoad("BossSpin0", FilePath.PlusFilePath("BossSpin0.wav"));
+		GameEngineSound::SoundLoad("BossPosing3", FilePath.PlusFilePath("BossPosing3.wav"));
+		GameEngineSound::SoundLoad("BossPosing2", FilePath.PlusFilePath("BossPosing2.wav"));
+		GameEngineSound::SoundLoad("BossPosing1", FilePath.PlusFilePath("BossPosing1.wav"));
+		GameEngineSound::SoundLoad("BossDive_Anti", FilePath.PlusFilePath("BossDive_Anti.wav"));
+		GameEngineSound::SoundLoad("BossDive", FilePath.PlusFilePath("BossDive.wav"));
+		GameEngineSound::SoundLoad("BossCombo2", FilePath.PlusFilePath("BossCombo2.wav"));
+		GameEngineSound::SoundLoad("BossCombo", FilePath.PlusFilePath("BossCombo.wav"));
 		
 	}
 
@@ -179,6 +192,10 @@ void ContentsCore::ContentsCoreSoundLoad()
 		GameEngineSound::SoundLoad("Head of Security Gargoyle", FilePath.PlusFilePath("Head of Security Gargoyle (Original Soundtrack).wav"));
 		GameEngineSound::SoundLoad("Hall of Eternity", FilePath.PlusFilePath("Hall of Eternity (Original Soundtrack).wav"));
 		GameEngineSound::SoundLoad("Brad in Shape", FilePath.PlusFilePath("Brad in Shape (Original Soundtrack).wav"));
+
+		GameEngineSound::SoundLoad("BossBGStart", FilePath.PlusFilePath("BossBGStart.wav"));
+		GameEngineSound::SoundLoad("BossBGBattle", FilePath.PlusFilePath("BossBGBattle.wav"));
+		GameEngineSound::SoundLoad("BossBGEnd", FilePath.PlusFilePath("BossBGEnd.wav"));
 	}
 	
 	

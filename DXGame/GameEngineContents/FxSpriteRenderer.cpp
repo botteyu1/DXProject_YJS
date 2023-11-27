@@ -325,7 +325,7 @@ void FxSpriteRenderer::Update(float _Delta)
 
 	case FXType::Gargoyle_DarkTornado:
 	{
-		if (Time > 2.0f and IsCurAnimation("Gargoyle_DarkTornado_End") == false)
+		if (Time > 3.2f and IsCurAnimation("Gargoyle_DarkTornado_End") == false)
 		{
 			ChangeAnimation("Gargoyle_DarkTornado_End");
 		}
@@ -333,7 +333,7 @@ void FxSpriteRenderer::Update(float _Delta)
 	}
 	case FXType::Gargoyle_DarkTornado_UL:
 	{
-		if (Time > 2.0f and IsCurAnimation("Gargoyle_DarkTornado_UL_End") == false)
+		if (Time > 3.2f and IsCurAnimation("Gargoyle_DarkTornado_UL_End") == false)
 		{
 			ChangeAnimation("Gargoyle_DarkTornado_UL_End");
 		}
