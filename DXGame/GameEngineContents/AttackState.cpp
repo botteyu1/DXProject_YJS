@@ -301,6 +301,8 @@ void Player::UltAttackUpdate(float _Delta)
 
 	
 
+	CheckAttackCollision();
+
 	
 	
 	if (MainSpriteRenderer->IsCurAnimationEnd())
