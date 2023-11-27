@@ -28,6 +28,33 @@ void GameEngineSoundPlayer::Stop()
 	Control->stop();
 }
 
+bool GameEngineSoundPlayer::IsPlaying()
+{
+	bool Result = false;
+	if (FMOD_OK != Control->isPlaying(&Result))
+	{
+		return false;
+	}
+	return Result;
+}
+
+std::string GameEngineSoundPlayer::GetCurSoundName()
+{
+	FMOD::Sound* _Sound;
+	if (FMOD_OK != Control->getCurrentSound(&_Sound))
+	{
+		MsgBoxAssert("FMOD::Sound를 얻어오는데 실패했습니다.");
+	}
+
+	char _Name[512] = {};
+	if (FMOD_OK != _Sound->getName(_Name, 512))
+	{
+		MsgBoxAssert("이름을 얻어오는데 실패했습니다.");
+	}
+	std::string Result = _Name;
+
+	return Result;
+}
 
 //////////////////////////////////////////////// 관리를 위한 코드 
 
@@ -75,7 +102,7 @@ void GameEngineSound::Update()
 SoundSystemCreator SoundInitObject = SoundSystemCreator();
 float GameEngineSound::GlobalVolume = 1.0f;
 
-std::map<std::string, GameEngineSound*> GameEngineSound::AllSound;
+std::map<std::string, std::shared_ptr<GameEngineSound>> GameEngineSound::AllSound;
 
 
 GameEngineSound::GameEngineSound() 
@@ -107,11 +134,11 @@ GameEngineSound::~GameEngineSound()
 //	IsOnce = true;
 //}
 
-GameEngineSound* GameEngineSound::FindSound(std::string_view _Name)
+std::shared_ptr<GameEngineSound> GameEngineSound::FindSound(std::string_view _Name)
 {
 	std::string UpperName = GameEngineString::ToUpperReturn(_Name);
 
-	std::map<std::string, GameEngineSound*>::iterator FindIter = AllSound.find(UpperName);
+	std::map<std::string, std::shared_ptr<GameEngineSound>>::iterator FindIter = AllSound.find(UpperName);
 
 	if (FindIter == AllSound.end())
 	{
@@ -125,7 +152,7 @@ void GameEngineSound::SoundLoad(std::string_view _Name, std::string_view _Path)
 {
 	std::string UpperName = GameEngineString::ToUpperReturn(_Name);
 
-	GameEngineSound* NewSound = new GameEngineSound();
+	std::shared_ptr<GameEngineSound> NewSound = std::make_shared<GameEngineSound>();
 
 	NewSound->Load(_Path);
 
@@ -134,7 +161,7 @@ void GameEngineSound::SoundLoad(std::string_view _Name, std::string_view _Path)
 
 GameEngineSoundPlayer GameEngineSound::SoundPlay(std::string_view _Name, int _Loop)
 {
-	GameEngineSound* FindSoundPtr = FindSound(_Name);
+	std::shared_ptr<GameEngineSound> FindSoundPtr = FindSound(_Name);
 
 	if (nullptr == FindSoundPtr)
 	{
@@ -153,15 +180,7 @@ GameEngineSoundPlayer GameEngineSound::SoundPlay(std::string_view _Name, int _Lo
 
 void GameEngineSound::Release()
 {
-	for (std::pair<std::string, GameEngineSound*> Pair  : GameEngineSound::AllSound)
-	{
-		if (nullptr == Pair.second)
-		{
-			return;
-		}
-
-		delete Pair.second;
-	}
+	GameEngineSound::AllSound.clear();
 }
 
 

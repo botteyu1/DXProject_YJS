@@ -85,17 +85,50 @@ void PlayLevel::Start()
 
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
-
+				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
+				float4 PlayerPos = PlayerPtr->Transform.GetWorldPosition() + float4{ 0.0f,0.0f,-1000.0f };
+				MainCamara->Transform.SetLocalPosition(PlayerPos);
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
 				//카메라 포커스
 	
-				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
-				float4 PlayePos = PlayerPtr->Transform.GetWorldPosition();
+				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera(); 
+				float4 PlayerPos = PlayerPtr->Transform.GetWorldPosition();
+				float4 CameraPos = MainCamara->Transform.GetLocalPosition();
+				CameraPos.Z = PlayerPos.Z;
 
-				MainCamara->Transform.SetLocalPosition(PlayePos + float4{ 0.0f,0.0f,-1000.0f });
+				//float4 TargetNor = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(PlayerPos.DirectXVector, CameraPos.DirectXVector));
+
+				float distanceToTarget = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(MainCamara->Transform.GetLocalPosition().DirectXVector, PlayerPos.DirectXVector)));
+
+
+				float4 Move = PlayerPos - CameraPos;
+
+				if (distanceToTarget > 10.0f)
+				{
+					MainCamara->Transform.AddLocalPosition(Move * _DeltaTime * 3.0f);
+				}
+
+				CameraPos = MainCamara->Transform.GetLocalPosition();
+	
+
+				if (CameraPos.X < 330.0f)
+				{
+					CameraPos.X = 330.0f;
+					MainCamara->Transform.SetLocalPosition(CameraPos);
+				}
+				if (CameraPos.Y < -3800.0f)
+				{
+					CameraPos.Y = -3800.0f;
+					MainCamara->Transform.SetLocalPosition(CameraPos);
+				}
+
+				
+				
+
+
 
 				if (MainCamara->Transform.GetLocalPosition().X >= 10500.0f and GimmickValue == false)
 				{
@@ -118,6 +151,7 @@ void PlayLevel::Start()
 					PaperWallvec[i]->GimmckStart();
 				}
 				PaperWallValue = true;
+				GameEngineSound::SoundPlay("PaperWallOn");
 
 			};
 
@@ -157,7 +191,7 @@ void PlayLevel::Start()
 					GimicEnemyvec[i]->Spawn();
 				}
 
-
+				GameEngineSound::SoundPlay("EnemyRespone");
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
@@ -170,6 +204,7 @@ void PlayLevel::Start()
 					{
 						Gimic2Enemyvec[i]->Spawn();
 					}
+					GameEngineSound::SoundPlay("EnemyRespone");
 				}
 
 				if (CheckGimmickOver() == true and State.GetStateTime() >= 9.0f)
@@ -263,33 +298,57 @@ void PlayLevel::Update(float _Delta)
 	//카메라 포커스
 
 	State.Update(_Delta);
+	UpdateScreenShake(_Delta);
 
 
-	if (GameEngineInput::IsDown('V', this))
+	if (GameEngineInput::IsDown('1', this))
 	{
-		/*GetCurseUI()->CurseUIStart(1);
-
-		GetCamera(static_cast<int>(ECAMERAORDER::UI))->GetCameraAllRenderTarget()->CreateEffect<FadePostEffect>();*/
-		if (WeaponDropObject != nullptr)
-		{
-			WeaponDropObject->Death();
-		}
-
-		WeaponDropObject =  CreateActor<WeaponDrop>(ContentsObjectType::BackGround);
-		WeaponDropObject->Transform.SetLocalPosition(PlayerPtr->Transform.GetLocalPosition());
-		WeaponDropObject->Spawn();
+		PlayerPtr->AddHP(5);
 	}
+	if (GameEngineInput::IsDown('2', this))
+	{
+		PlayerPtr->AddHP(-5);
+		//StartScreenShake(0.5f, 10.0f, 1.0f);
+	}
+	if (GameEngineInput::IsDown('3', this))
+	{
+		PlayerPtr->AddHP(2);
+		//StartScreenShake(0.5f, 12.0f, 3.0f);
+	}
+	if (GameEngineInput::IsDown('4', this))
+	{
+		PlayerPtr->AddHP(-2);
+		//StartScreenShake(0.5f, 5.0f, 3.0f);
+	}
+	//if (GameEngineInput::IsDown('V', this))
+	//{
+	//	/*GetCurseUI()->CurseUIStart(1);
+
+	//	GetCamera(static_cast<int>(ECAMERAORDER::UI))->GetCameraAllRenderTarget()->CreateEffect<FadePostEffect>();*/
+	//	if (WeaponDropObject != nullptr)
+	//	{
+	//		WeaponDropObject->Death();
+	//	}
+
+	//	WeaponDropObject =  CreateActor<WeaponDrop>(ContentsObjectType::BackGround);
+	//	WeaponDropObject->Transform.SetLocalPosition(PlayerPtr->Transform.GetLocalPosition());
+	//	WeaponDropObject->Spawn();
+	//}
 }
 
 void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	int a = 0; 
 	GimmickValue = false; 
+	Bgm = GameEngineSound::SoundPlay("Hall of Eternity", 100);
+	//GameEngineSound::Golbal
+	Bgm.SetVolume(0.4f);
 }
 
 void PlayLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	int a = 0;
+	Bgm.Stop();
 }
 
 bool PlayLevel::CheckGimmickOver()

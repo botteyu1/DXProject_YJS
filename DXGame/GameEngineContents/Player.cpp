@@ -34,6 +34,10 @@ void Player::TakeDamage(class GameEngineCollision* _Attacker, float _Damage)
 		ChangeState(PlayerState::Hit);
 		ForceGrivityOff = false;
 
+		GameEngineSound::SoundPlay("PlayerHit");
+
+		GetContentsLevel()->StartScreenShake(0.5f, 12.0f, 10.0f);
+
 		GetContentsLevel()->GetFXActor()->FXStart(FXType::Hit, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f), float4(3.0f, 3.0f, 2.0f));
 		GetContentsLevel()->GetFXActor()->FXStart(FXType::SlashHit, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f));
 		GetContentsLevel()->GetFXActor()->FXStart(FXType::SlashHit, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f));
@@ -44,6 +48,8 @@ void Player::TakeDamage(class GameEngineCollision* _Attacker, float _Damage)
 
 void Player::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)
 {
+
+
 	float Damage;
 	if (Player::GetMainPlayer()->State == PlayerState::CapeAttack)
 	{
@@ -192,7 +198,7 @@ void Player::Start()
 		MainSpriteRenderer->CreateAnimation("LD_Dash", "LD_Dash", 0.0333f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Dash", {}));
 
-		MainSpriteRenderer->CreateAnimation("LD_Hit", "LD_Hit", 0.0333f, -1, -1, false);
+		MainSpriteRenderer->CreateAnimation("LD_Hit", "LD_Hit", 0.0483f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Hit", {}));
 
 	
@@ -277,6 +283,27 @@ void Player::Update(float _Delta)
 	else
 	{
 		MP = MaxMP;
+	}
+	if (GameEngineInput::IsDown('Q', this))
+	{
+		PlayerData& PlayerDataPtr = Player::GetMainPlayerData();
+		if (PlayerDataPtr.Anima > 0 and PlayerDataPtr.HP < PlayerDataPtr.MaxHP)
+		{
+			PlayerDataPtr.Anima--;
+			GameEngineSound::SoundPlay("AnimaConsume");
+
+			if (HP + 35 <= MaxHP)
+			{
+				HP += 25;
+			}
+			else
+			{
+				HP = MaxHP;
+			}
+			GetContentsLevel()->GetFXActor()->FXStart(FXType::Hit, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f), float4(3.0f, 3.0f, 2.0f));
+			GetContentsLevel()->GetFXActor()->FXStart(FXType::EatAnima, Flip, Transform.GetLocalPosition() + float4(0.0f, 80.0f));
+		}
+
 	}
 
 

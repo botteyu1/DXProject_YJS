@@ -1,7 +1,11 @@
 #include "PreCompile.h"
 #include "FxSpriteRenderer.h"
 #include "Enemy.h"
+#include "Player.h"
 #include "FX.h"
+
+
+//#define NOMINMAX
 
 FxSpriteRenderer::FxSpriteRenderer() 
 {
@@ -78,8 +82,8 @@ void FxSpriteRenderer::Update(float _Delta)
 	{
 		//Renderer->Scale = float4(0.5f, 2.0f, 1.0f);
 
-		Scale.X += _Delta * 4.0f * Dir;
-		Scale.Y -= _Delta * 6.0f * Dir;
+		Scale.X += _Delta * 3.0f * Dir;
+		Scale.Y -= _Delta * 4.5f * Dir;
 		SetAutoScaleRatio(Scale);
 
 		if (Scale.Y <= 0.0f)
@@ -129,7 +133,22 @@ void FxSpriteRenderer::Update(float _Delta)
 	{
 		//Renderer->Scale = float4(0.5f, 2.0f, 1.0f);
 
-		Scale.X += _Delta * 15.0f * Dir;
+		Scale.X += _Delta * 10.0f * Dir;
+		Scale.Y -= _Delta * 20.0f * Dir;
+		SetAutoScaleRatio(Scale);
+
+		if (Scale.Y <= 0.0f)
+		{
+			Off();
+		}
+		break;
+	}
+	
+	case FXType::Gargoyle_Slash:
+	{
+		//Renderer->Scale = float4(0.5f, 2.0f, 1.0f);
+
+		Scale.X -= _Delta * 15.0f * Dir;
 		Scale.Y -= _Delta * 30.0f * Dir;
 		SetAutoScaleRatio(Scale);
 
@@ -236,19 +255,94 @@ void FxSpriteRenderer::Update(float _Delta)
 			SetTextAlpha(Alpha);
 			Off();
 		}
-		
+	}
+	break;
+	case FXType::TakeAnima: 
+	{
+		//DirectX::XMVectorSubtract
+		//DirectX::XMVECTOR = D;
+		//static const float GRAVITY_PULL = 1000000.0f;
+
+		if (Time <= 0.8f)
+		{
+			float4 TargetNor = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(TargetPos.DirectXVector, Transform.GetLocalPosition().DirectXVector));
+
+			float distanceToTarget = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(Transform.GetLocalPosition().DirectXVector, TargetPos.DirectXVector)));
+
+			float pullStrength = 4000.0f;
 
 
-	
+			gravityForce += TargetNor * pullStrength * _Delta;
+
+
+
+			Transform.AddLocalPosition(gravityForce* _Delta);
+
+
+			/*Scale.X -= _Delta * 0.2f;
+			Scale.Y -= _Delta * 0.2f;*/
+		}
+		else if (Time > 0.8f)
+		{
+			float4 TargetNor = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract({ -820.0f,515.0f,0.0f }, Transform.GetLocalPosition().DirectXVector));
+
+			float distanceToTarget = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(Transform.GetLocalPosition().DirectXVector, { -820.0f,515.0f,0.0f })));
+
+			//float pullStrength = distanceToTarget * 4.0f;
+			float pullStrength = 3500.0f  ;
+
+			if (TargetNor.X > 0.0f or TargetNor.Y < 0.0f)
+			{
+				pullStrength += 1500.0f;
+			}
+
+
+			gravityForce += gravityForce.NormalizeReturn() * (-1200.0f - (Time * 800.0f)) * _Delta;
+
+			gravityForce += TargetNor * pullStrength * _Delta;
+
+
+			Transform.AddLocalPosition(gravityForce* _Delta);
+
+			Scale.X -= _Delta * 0.4f;
+			Scale.Y -= _Delta * 0.4f;
+		}
+		else if (Time > 1.5f)
+		{
+			Scale.X -= _Delta * 1.2f;
+			Scale.Y -= _Delta * 1.2f;
+		}
+		if(Scale.X <= 0.0f)
+		{
+
+			GameEngineSound::SoundPlay("AnimaUI");
+			Player::GetMainPlayerData().AddAnima();
+			Off();
+		}
+		SetAutoScaleRatio(Scale);
 	}
 	break;
 
+	case FXType::Gargoyle_DarkTornado:
+	{
+		if (Time > 3.2f and IsCurAnimation("Gargoyle_DarkTornado_End") == false)
+		{
+			ChangeAnimation("Gargoyle_DarkTornado_End");
+		}
+		break;
+	}
+	case FXType::Gargoyle_DarkTornado_UL:
+	{
+		if (Time > 3.2f and IsCurAnimation("Gargoyle_DarkTornado_UL_End") == false)
+		{
+			ChangeAnimation("Gargoyle_DarkTornado_UL_End");
+		}
+		break;
+	}
+
 	default:
 	{
-		if (Time >= 1.0f)
-		{
-			Off();
-		}
+		
 	}
 		break;
 	}

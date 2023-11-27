@@ -12,6 +12,7 @@ void Player::ComboMoveStart()
 {
 	ComboCount++;
 	std::string AnimationName = "LD_ComboMove_0" + std::to_string(ComboCount);
+	GameEngineSound::SoundPlay("ComboAttack" + std::to_string(ComboCount));
 	ChangeMainAnimation(AnimationName);
 
 	NextCombo = false;
@@ -106,6 +107,7 @@ void Player::ComboAerialStart()
 {
 	AerialComboCount++;
 	std::string AnimationName = "LD_ComboAerial_0" + std::to_string(AerialComboCount);
+	GameEngineSound::SoundPlay("JumpComboAttack" + std::to_string(AerialComboCount));
 	ChangeMainAnimation(AnimationName);
 
 	NextCombo = false;
@@ -180,6 +182,8 @@ void Player::ComboAerial_RestUpdate(float _Delta)
 void Player::JumpingAttackStart()
 {
 	ChangeMainAnimation("LD_JumpingAttack");
+
+	GameEngineSound::SoundPlay("AerialAttack");
 	CurAnimationData = &AnimationDataMap.find("LD_JumpingAttack")->second;
 	ForceGrivityOff = true;
 	CurDash = 0;
@@ -214,6 +218,7 @@ void Player::JumpingAttackUpdate(float _Delta)
 void Player::AerialDownAttackStart()
 {
 	ChangeMainAnimation("LD_AerialDownAttack");
+	GameEngineSound::SoundPlay("DownAttack");
 	GrivityForce.Y -= 3500.f;
 	AerialComboCount = 0;
 

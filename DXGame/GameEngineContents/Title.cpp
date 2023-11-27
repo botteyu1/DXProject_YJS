@@ -150,11 +150,13 @@ void Title::Update(float _Delta)
 
 	if (GameEngineInput::IsDown('W', this) and ArrowLocate > 1)
 	{
+		GameEngineSound::SoundPlay("Click");
 		ArrowLocate--;
 		UIArrow->Transform.AddLocalPosition({ 0.0f,90.0f });
 	}
 	if (GameEngineInput::IsDown('S', this) and ArrowLocate < 4)
 	{
+		GameEngineSound::SoundPlay("Click");
 		ArrowLocate++;
 		UIArrow->Transform.AddLocalPosition({ 0.0f, -90.0f });
 	}

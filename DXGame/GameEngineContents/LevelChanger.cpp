@@ -52,6 +52,7 @@ void LevelChanger::LevelChangeStart(std::string_view _Name)
 {
 	MainSpriteRenderer->On();
 	MainSpriteRenderer->ChangeAnimation("TransitionIntro", true);
+	GameEngineSound::SoundPlay("TransitionIntro");
 	NextLevelName = _Name;
 
 }
@@ -83,6 +84,8 @@ void LevelChanger::LevelStart(GameEngineLevel* _NextLevel)
 	if (IntroOff == true)
 		return;
 	MainSpriteRenderer->ChangeAnimation("TransitionOuttro", true);
+
+	GameEngineSound::SoundPlay("TransitionOuttro");
 	MainSpriteRenderer->On();
 }
 

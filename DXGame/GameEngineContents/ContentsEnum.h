@@ -17,6 +17,7 @@ enum class ContentsRenderType
 	Fade,
 	UIAfter,
 	FadeAfter,
+	MovieBar,
 };
 
 
@@ -180,6 +181,9 @@ enum class ActorType
 
 	PaperWall,
 	Contractor,
+	GroundTile,
+	WallBackground_Sprite2,
+
 
 	
 

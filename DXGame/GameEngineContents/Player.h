@@ -34,13 +34,14 @@ enum class PlayerState
 
 class PlayerData
 {
+
 public:
-	int HP = 70;
+	int HP = 80;
 	int MaxHP = 80;
 	float MaxMP = 50;
 	float MP = 50;
 	int Soulary = 0;
-	float DamageComobo = 0.f; // 기본 공격 추가 데미지
+	float DamageComobo = 10000.f; // 기본 공격 추가 데미지
 	float DamageComoboScale = 1.0f; // 기본 공격 스케일
 
 	int DamageCape= 0; // 망토 추가 데미지
@@ -54,6 +55,22 @@ public:
 	int DashCount = 0;
 	int AnimaSocket = 3;
 
+
+	int MaxAnima = 4;
+	int Anima = 1;
+
+
+	void AddAnima(int _Num = 1)
+	{
+		if (Anima + _Num <= MaxAnima)
+		{
+			Anima += _Num;
+		}
+		else
+		{
+			Anima = MaxAnima;
+		}
+	}
 	
 
 };
@@ -166,7 +183,7 @@ private:
 	
 
 	float DamagedDelayTimer = 0.0f; // 피격후 무적시간 타이머
-	float DamagedDelay = 0.5f; // 피격후 무적시간
+	float DamagedDelay = 0.8f; // 피격후 무적시간
 
 	PlayerState State = PlayerState::Max;
 

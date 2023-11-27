@@ -54,6 +54,7 @@ private:
 	bool Gimmick2Value = false; //기믹이 실행되고 나면면 트루 몬스터 2번쨰 소환용
 
 	GameEngineState State;
+
 	
 };
 

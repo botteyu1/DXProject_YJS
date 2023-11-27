@@ -85,7 +85,7 @@ void SoularyDrop::Update(float _Delta)
 
 		Transform.AddLocalPosition(Move * _Delta * 4.0f);
 
-		if (GravityTimer >= 1.5f)
+		if (GravityTimer >= 1.0f)
 		{
 			Transform.AddLocalPosition(Move * _Delta * 20.0f);
 
@@ -96,6 +96,7 @@ void SoularyDrop::Update(float _Delta)
 		if (MainCollision->Collision<ContentsCollisionType>(ContentsCollisionType::Player))
 		{
 			Player::GetMainPlayer()->AddSoulary(1);
+			GameEngineSound::SoundPlay("SoularyGet");
 			Death();
 		}
 	}

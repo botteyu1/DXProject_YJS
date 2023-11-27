@@ -141,7 +141,8 @@ void Ghost_Woman::IdleUpdate(float _Delta)
 void Ghost_Woman::AttackStart()
 {
 	ChangeMainAnimation("GhostWoman_Attack");
-	
+
+	GameEngineSound::SoundPlay("WomanAttackInit");
 	
 }
 
@@ -150,6 +151,7 @@ void Ghost_Woman::AttackUpdate(float _Delta)
 	CheckAttackCollision();
 	if (CheckStartAttackFrame() == true)
 	{
+		GameEngineSound::SoundPlay("WomanAttack");
 		std::shared_ptr <Bullet> Object = GetLevel()->CreateActor<Bullet>(ContentsObjectType::Bullet);
 
 		//float4 Pos2 = Transform.GetLocalPosition();

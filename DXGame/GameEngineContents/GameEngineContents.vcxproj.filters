@@ -154,6 +154,18 @@
     <ClCompile Include="OtherState.cpp">
       <Filter>Actor\Player\State</Filter>
     </ClCompile>
+    <ClCompile Include="PlayLevel2.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="BossUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MovieBar.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="BossDesk.cpp">
+      <Filter>StageObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayLevel.h">
@@ -299,6 +311,18 @@
     </ClInclude>
     <ClInclude Include="SelectStageUI.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayLevel2.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="BossUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MovieBar.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="BossDesk.h">
+      <Filter>StageObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -15,6 +15,7 @@ enum class GargoyleAttackPatern
 // 설명 :
 class BossGargoyle : public Enemy
 {
+	friend class BossLevel;
 public:
 	// constrcuter destructer
 	BossGargoyle();
@@ -84,14 +85,17 @@ private:
 	bool ComboStart = false;
 	int ComboCount = 0;
 	int PosingCount = 0;
-	GargoyleAttackPatern AttackPatern = GargoyleAttackPatern::Combo;
+	GargoyleAttackPatern AttackPatern = GargoyleAttackPatern::Posing;
 	float4 TargetPlayerPos = float4::ZERO;
 	float4 TargetPos = float4::ZERO; //공격용 좌표 저장
 	float4 MoveVec = float4::ZERO;
 	float BulletDelay = 0.3f;
 	float BulletDelayCheck = 0.0f;
 
-	std::shared_ptr<class GameEngineSpriteRenderer> DeskSpriteRenderer; 
+
+	std::shared_ptr<class BossDesk> DeskActor;
+
+	std::shared_ptr<class FxSpriteRenderer> DarkTornadoFXRenderer;
 
 };
 

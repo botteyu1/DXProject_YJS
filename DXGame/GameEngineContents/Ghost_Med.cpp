@@ -29,13 +29,13 @@ void Ghost_Med::Start()
 	}
 
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy);
-	MainSpriteRenderer->CreateAnimation("GhostMed_Attack1", "GhostMed_Attack1", 0.0466f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("GhostMed_Attack1", "GhostMed_Attack1", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostMed_Attack1", { 0.5f , 300.0f, false,
 		{230.0f, 150.0f}, {130.0f, 80.0f},5}));
-	MainSpriteRenderer->CreateAnimation("GhostMed_Attack2", "GhostMed_Attack2", 0.0466f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("GhostMed_Attack2", "GhostMed_Attack2", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostMed_Attack2", { 0.5f , 120.0f, false,
 		{250.0f, 450.0f}, {40.0f, 200.0f},5}));
-	MainSpriteRenderer->CreateAnimation("GhostMed_Attack3", "GhostMed_Attack3", 0.0466f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("GhostMed_Attack3", "GhostMed_Attack3", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("GhostMed_Attack3", { 0.5f , 150.0f, false,
 		{250.0f, 450.0f}, {40.0f, 200.0f},5 }));
 	MainSpriteRenderer->CreateAnimation("GhostMed_Attack4", "GhostMed_Attack4", 0.06666f, -1, -1, true);
@@ -156,6 +156,7 @@ void Ghost_Med::AttackStart()
 {
 	if (ComboStart == true)
 	{
+		GameEngineSound::SoundPlay("MedAttackInit");
 		if (AttackPatern == MedAttackPatern::Combo)
 		{
 			AttackPatern = MedAttackPatern::Power;
@@ -170,9 +171,12 @@ void Ghost_Med::AttackStart()
 
 	std::string AnimationName;
 	//ChangeMainAnimation("GhostMed_Attack");
+
+
 	switch (AttackPatern)
 	{
 	case MedAttackPatern::Combo:
+
 		ComboCount++;
 		break;
 	case MedAttackPatern::Power:
@@ -194,19 +198,28 @@ void Ghost_Med::AttackUpdate(float _Delta)
 	switch (AttackPatern)
 	{
 	case MedAttackPatern::Combo:
-		CheckStartAttackFrame(-1, 10.0f);;
+		if (CheckStartAttackFrame(-1, 10.0f))
+		{
+			DashStartCheck = true;
+			GameEngineSound::SoundPlay("MedAttackCombo" + std::to_string(ComboCount));
+		}
 		break;
 	case MedAttackPatern::Power:
-		CheckStartAttackFrame(-1, 13.0f);;
+		if (CheckStartAttackFrame(-1, 13.0f) == true)
+		{
+			DashStartCheck = true;
+			GameEngineSound::SoundPlay("MedAttackPower");
+		}
+
 		break;
 	default:
 		break;
 	}
 	
-	if (true == CheckStartAttackFrame())
+	/*if (true == CheckStartAttackFrame())
 	{
 		DashStartCheck = true;
-	}
+	}*/
 	CheckAttackCollision();
 	DashProcessUpdate(_Delta, float4::RIGHT, DashSpeed);
 

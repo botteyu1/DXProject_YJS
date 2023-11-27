@@ -27,7 +27,23 @@ void PlayUI::Start()
 			GameEnginePath Path = File;
 			GameEngineSprite::CreateSingle(Path.GetFileName());
 		}
+
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToExistsChild("GameEngineResources");
+			Dir.MoveChild("ContentsResources\\Sprite\\Boss");
+			std::vector<GameEngineDirectory> Directorys = Dir.GetAllDirectory();
+
+			for (size_t i = 0; i < Directorys.size(); i++)
+			{
+				GameEngineDirectory& Dir = Directorys[i];
+
+				GameEngineSprite::CreateFolder(Dir.GetStringPath());
+
+			}
+		}
 	}
+	
 	
 	HUD_Scythe_BG = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Scythe_BG->SetMaterial("2DTextureAlwaysDepth");
@@ -152,21 +168,12 @@ void PlayUI::Start()
 	HUD_LifeBar->SetName("HUD_LifeBar");
 	HUD_LifeBar->SetPivotType(PivotType::Left);
 
-	/*HUD_LifeBar_Hit = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
-	HUD_LifeBar_Hit->SetMaterial("2DTextureAlwaysDepth");
-	HUD_LifeBar_Hit->SetCameraOrder(ECAMERAORDER::UI);
-	HUD_LifeBar_Hit->SetSprite("HUD_Main_LifeBar_On.png");
-	HUD_LifeBar_Hit->SetImageScale({ 410.0f,17.0f,1.0f });
-	HUD_LifeBar_Hit->Transform.SetLocalPosition({ -818.f,485.0f,1.0f });
-	HUD_LifeBar_Hit->SetName("HUD_LifeBar");
-	HUD_LifeBar_Hit->SetPivotType(PivotType::Left);
-	HUD_LifeBar_Hit->GetColorData().MulColor = float4(0.8f, 0.0, 0.0, 1.0f);*/
 	
 	HUD_LifeBar_On_Left = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_LifeBar_On_Left->SetCameraOrder(ECAMERAORDER::UI);
 	HUD_LifeBar_On_Left->SetMaterial("2DTextureAlwaysDepth");
 	HUD_LifeBar_On_Left->SetSprite("HUD_Main_LifeBar_On_Glow_Left.png");
-	HUD_LifeBar_On_Left->SetImageScale({ 46.f,55.f,1.0f });
+	HUD_LifeBar_On_Left->SetImageScale({ 26.f,55.f,1.0f });
 	HUD_LifeBar_On_Left->Transform.SetLocalPosition({ -832.0f,485.0f,0.0f });
 	HUD_LifeBar_On_Left->SetName("HUD_LifeBar_On_Left");
 	HUD_LifeBar_On_Left->SetPivotType(PivotType::Left);
@@ -176,9 +183,9 @@ void PlayUI::Start()
 	HUD_LifeBar_On_Right->SetCameraOrder(ECAMERAORDER::UI);
 	HUD_LifeBar_On_Right->SetMaterial("2DTextureAlwaysDepth");
 	HUD_LifeBar_On_Right->SetSprite("HUD_Main_LifeBar_On_Glow_Right.png");
-	HUD_LifeBar_On_Right->SetImageScale({ 49.f,55.f,1.0f });
-	HUD_LifeBar_On_Right->Transform.SetLocalPosition({ -416.0f,485.0f,0.0f });
-	HUD_LifeBar_On_Right->SetName("HUD_LifeBar_On_Left");
+	HUD_LifeBar_On_Right->SetImageScale({ 27.f,55.f,1.0f });
+	HUD_LifeBar_On_Right->Transform.SetLocalPosition({ -405.0f,485.0f,0.0f });
+	HUD_LifeBar_On_Right->SetName("HUD_LifeBar_On_Right");
 	//HUD_LifeBar_On_Right->Off();
 	//HUD_ManaBar_On_Right->SetPivotType(PivotType::Right);
 
@@ -187,8 +194,8 @@ void PlayUI::Start()
 	HUD_LifeBar_On->SetCameraOrder(ECAMERAORDER::UI);
 	HUD_LifeBar_On->SetMaterial("2DTextureAlwaysDepth");
 	HUD_LifeBar_On->SetSprite("HUD_Main_LifeBar_On_Glow.png");
-	HUD_LifeBar_On->SetImageScale({ 345.f,55.f,1.0f });
-	HUD_LifeBar_On->Transform.SetLocalPosition({ -786.0f,485.0f,0.0f });
+	HUD_LifeBar_On->SetImageScale({ 387.f,55.f,1.0f });
+	HUD_LifeBar_On->Transform.SetLocalPosition({ -806.0f,485.0f,0.0f });
 	HUD_LifeBar_On->SetName("HUD_LifeBar_On");
 	HUD_LifeBar_On->SetPivotType(PivotType::Left);
 	//HUD_LifeBar_On->Off();
@@ -256,22 +263,34 @@ void PlayUI::Start()
 	HUD_Anima->SetSprite("HUD_Main_Anima_Slot_On.png");
 	HUD_Anima->Transform.SetLocalPosition({ -833.0f,515.0f,0.0f });
 	HUD_Anima->SetName("HUD_Anima");
+	HUD_Animavec.push_back(HUD_Anima);
 
-	HUD_Anima2 = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
-	HUD_Anima2->AutoSpriteSizeOn();
-	HUD_Anima2->SetCameraOrder(ECAMERAORDER::UI);
-	HUD_Anima2->SetSprite("HUD_Main_Anima_Slot_On.png");
-	HUD_Anima2->Transform.SetLocalPosition({ -807.0f,515.0f,0.0f });
-	HUD_Anima2->SetName("HUD_Anima");
-	HUD_Anima2->GetColorData().MulColor = float4(1.f, 1.f, 0.33f, 1.0f);
+	HUD_Anima = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Anima->AutoSpriteSizeOn();
+	HUD_Anima->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Anima->SetSprite("HUD_Main_Anima_Slot_On.png");
+	HUD_Anima->Transform.SetLocalPosition({ -807.0f,515.0f,0.0f });
+	HUD_Anima->SetName("HUD_Anima");
+	HUD_Anima->GetColorData().MulColor = float4(1.f, 1.f, 0.33f, 1.0f);
+	HUD_Animavec.push_back(HUD_Anima);
 
-	HUD_Anima3 = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
-	HUD_Anima3->AutoSpriteSizeOn();
-	HUD_Anima3->SetCameraOrder(ECAMERAORDER::UI);
-	HUD_Anima3->SetSprite("HUD_Main_Anima_Slot_Off.png");
-	HUD_Anima3->Transform.SetLocalPosition({ -782.0f,515.0f,0.0f });
-	HUD_Anima3->SetName("HUD_Anima");
-	HUD_Anima3->GetColorData().MulColor = float4(1.f, 1.f, 0.33f, 1.0f);
+	HUD_Anima = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Anima->AutoSpriteSizeOn();
+	HUD_Anima->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Anima->SetSprite("HUD_Main_Anima_Slot_Off.png");
+	HUD_Anima->Transform.SetLocalPosition({ -782.0f,515.0f,0.0f });
+	HUD_Anima->SetName("HUD_Anima");
+	HUD_Animavec.push_back(HUD_Anima);
+
+	HUD_Anima = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Anima->AutoSpriteSizeOn();
+	HUD_Anima->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Anima->SetSprite("HUD_Main_Anima_Slot_Off.png");
+	HUD_Anima->Transform.SetLocalPosition({ -756.0f,515.0f,0.0f });
+	HUD_Anima->SetName("HUD_Anima");
+	HUD_Animavec.push_back(HUD_Anima);
+	//HUD_Anima3->GetColorData().MulColor = float4(1.f, 1.f, 0.33f, 1.0f);
+
 
 	HUD_Soulary = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Soulary->AutoSpriteSizeOn();
@@ -288,7 +307,78 @@ void PlayUI::Start()
 	HUD_Soulary_Text->Transform.SetLocalPosition({ 853.0f,495.0f,0.0f });
 	HUD_Soulary_Text->SetName("HUD_ManaBar_Text");
 
+	/*std::shared_ptr<GameEngineSpriteRenderer> Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_Loop", "Gargoyle_DarkTornado_Loop", 0.0233f, -1, -1, true);
+	Renderer->ChangeAnimation("Gargoyle_DarkTornado_Loop");
+	Renderer->AutoSpriteSizeOn();
+	Renderer->SetName("Gargoyle_DarkTornado_Loop");
+	Renderer->Transform.SetLocalPosition({ 5000.0f, -3000.0f, -2.0f });
+	Renderer->SetPivotValue({ 1.0f,1.0f,1.0f });
+	Renderer->LeftFlip();
+
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_Loop", "Gargoyle_DarkTornado_Loop", 0.0233f, -1, -1, true);
+	Renderer->ChangeAnimation("Gargoyle_DarkTornado_Loop");
+	Renderer->AutoSpriteSizeOn();
+	Renderer->SetName("Gargoyle_DarkTornado_Loop2");
+	Renderer->Transform.SetLocalPosition({ 5000.0f, -3000.0f, -3.0f });	
+	Renderer->SetAutoScaleRatio({ 2.0f,2.0f,2.0f });
+	Renderer->SetPivotValue({ 1.0f,1.0f,1.0f });
+	Renderer->LeftFlip();
+
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_Loop", "Gargoyle_DarkTornado_Loop", 0.0233f, -1, -1, true);
+	Renderer->ChangeAnimation("Gargoyle_DarkTornado_Loop");
+	Renderer->AutoSpriteSizeOn();
+	Renderer->SetName("Gargoyle_DarkTornado_Loop3");
+	Renderer->Transform.SetLocalPosition({ 5000.0f, -3000.0f, -4.0f });
+	Renderer->SetPivotValue({ 1.0f,1.0f,1.0f });
+	Renderer->SetAutoScaleRatio({ 3.0f,3.0f,3.0f });
+	Renderer->LeftFlip();
+
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_UL_Loop", "Gargoyle_DarkTornado_UL_Loop", 0.0233f, -1, -1, true);
+	Renderer->ChangeAnimation("Gargoyle_DarkTornado_UL_Loop");
+	Renderer->AutoSpriteSizeOn();
+	Renderer->SetName("Gargoyle_DarkTornado_UL_Loop");
+	Renderer->Transform.SetLocalPosition({ 5000.0f, -3000.0f, 0.0f });
+	Renderer->SetPivotValue({ 1.0f,1.0f,1.0f });
+	Renderer->LeftFlip();
+
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_UL_Loop", "Gargoyle_DarkTornado_UL_Loop", 0.0233f, -1, -1, true);
+	Renderer->ChangeAnimation("Gargoyle_DarkTornado_UL_Loop");
+	Renderer->AutoSpriteSizeOn();
+	Renderer->SetName("Gargoyle_DarkTornado_UL_Loop2");
+	Renderer->Transform.SetLocalPosition({ 5000.0f, -3000.0f, 0.5f });
+	Renderer->SetAutoScaleRatio({ 2.0f,2.0f,2.0f });
+	Renderer->SetPivotValue({ 1.0f,1.0f,1.0f });
+
+	Renderer->LeftFlip();
+
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	Renderer->CreateAnimation("Gargoyle_DarkTornado_UL_Loop", "Gargoyle_DarkTornado_UL_Loop", 0.0233f, -1, -1, true);
+	Renderer->ChangeAnimation("Gargoyle_DarkTornado_UL_Loop");
+	Renderer->AutoSpriteSizeOn();
+	Renderer->SetName("Gargoyle_DarkTornado_UL_Loop3");
+	Renderer->Transform.SetLocalPosition({ 5000.0f, -3000.0f, 1.0f });
+	Renderer->SetAutoScaleRatio({ 3.0f,3.0f,3.0f });
+	Renderer->SetPivotValue({ 1.0f,1.0f,1.0f });
+	Renderer->LeftFlip();
+
+
 	
+
+	Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	Renderer->CreateAnimation("Gargoyle_Intro_Desk", "Gargoyle_Intro_Desk", 0.0633f, -1, -1, false);
+	Renderer->CreateAnimation("Gargoyle_Intro_Desk_Lock", "Gargoyle_Intro_Desk", 0.0633f, 0, 0, false);
+	Renderer->ChangeAnimation("Gargoyle_Intro_Desk_Lock");
+	Renderer->AutoSpriteSizeOn();
+	Renderer->LeftFlip();
+	Renderer->SetPivotValue({ 0.0f,1.0f });
+	Renderer->Transform.SetLocalPosition({ 5000.0f, -3000.0f , -3.0f });
+	Renderer->SetName("Gargoyle_Intro_Desk_Lock");*/
+
 }
 
 void PlayUI::Update(float _Delta)
@@ -310,6 +400,7 @@ void PlayUI::Update(float _Delta)
 	HUD_ManaBar_Text->SetText("메이플스토리", MPstr, 20.0f, float4(0.f, 0.7f, 0.f, 1.0f));
 	HUD_Soulary_Text->SetText("메이플스토리", Soularystr, 45.0f, float4::WHITE, FW1_RIGHT);
 	HPTimer += _Delta;
+	HPAnimaTimer += _Delta;
 
 	if (PrevHP > PlayerHP)
 	{
@@ -318,15 +409,30 @@ void PlayUI::Update(float _Delta)
 		HUD_LifeBar_On_Right->GetColorData().MulColor = float4(0.8f, 0.0, 0.0, 1.0f);
 		HUD_LifeBar_On_Left->GetColorData().MulColor = float4(0.8f, 0.0, 0.0, 1.0f);
 	}
+	if (PrevHP < PlayerHP)
+	{
+		HPAnimaTimer = 0.0f;
+		HUD_LifeBar_On->GetColorData().MulColor = float4(0.0f, 0.3f, 0.4f, 1.0f);
+		HUD_LifeBar_On_Right->GetColorData().MulColor = float4(0.0f, 0.3f, 0.4f, 1.0f);
+		HUD_LifeBar_On_Left->GetColorData().MulColor = float4(0.0f, 0.3f, 0.4f, 1.0f);
+	}
 	PrevHP = PlayerHP;
 
-	if (HPTimer < 1.0f)
+
+	// 피격 색깔
+	if (HPAnimaTimer < 1.0f)
 	{
-		
+		HUD_LifeBar_On->GetColorData().MulColor = float4(HPAnimaTimer * 1.0f, 0.3f + HPAnimaTimer * 0.7f, 0.4f + HPAnimaTimer * 0.6f, 1.0f);
+		HUD_LifeBar_On_Right->GetColorData().MulColor = float4(HPAnimaTimer * 1.0f, 0.3f + HPAnimaTimer * 0.7f, 0.4f + HPAnimaTimer * 0.6f, 1.0f);
+		HUD_LifeBar_On_Left->GetColorData().MulColor = float4(HPAnimaTimer * 1.0f, 0.3f + HPAnimaTimer * 0.7f, 0.4f + HPAnimaTimer * 0.6f, 1.0f);
+	}
+	else if (HPTimer < 1.0f)
+	{
 		HUD_LifeBar_On->GetColorData().MulColor = float4(0.4f + HPTimer * 0.6f, HPTimer * 1.0f, HPTimer * 1.f, 1.0f);
 		HUD_LifeBar_On_Right->GetColorData().MulColor = float4(0.4f + HPTimer * 0.6f, HPTimer * 1.0f, HPTimer * 1.0f, 1.0f);
 		HUD_LifeBar_On_Left->GetColorData().MulColor = float4(0.4f + HPTimer * 0.6f, HPTimer * 1.0f, HPTimer * 1.0f, 1.0f);
 	}
+	// 회복 색깔
 	else
 	{
 		HUD_LifeBar_On->GetColorData().MulColor = float4(1.f, 1.0, 1.0, 1.0f);
@@ -334,37 +440,81 @@ void PlayUI::Update(float _Delta)
 		HUD_LifeBar_On_Left->GetColorData().MulColor = float4(1.f, 1.0, 1.0, 1.0f);
 	}
 	
-	float HPBar = ((static_cast<float>(PlayerHP)/ 80.0f) * 440.f) - 95.0f;
-	if (HPBar <= 0.0f)
-	{
-		HPBar = 0.0f;
-	}
-	HUD_LifeBar_On->SetImageScale({ HPBar,55.f,1.0f });
+	
 
-	float HPBarRight = ((static_cast<float>(PlayerHP) / 80.0f) * 440.f) - 856.0f;
-	HUD_LifeBar_On_Right->Transform.SetLocalPosition({ HPBarRight ,485.0f,1.f});
+	if (PlayerHP < 7)
+	{
+		HUD_LifeBar_On_Right->Off();
+		HUD_LifeBar_On->Off();
+	}
+	else
+	{
+
+		float HPBar = ((static_cast<float>(PlayerHP) / 80.0f) * 427.0f) - 39.5f;
+		if (HPBar <= 0.0f)
+		{
+			HPBar = 0.0f;
+		}
+		HUD_LifeBar_On->SetImageScale({ HPBar,55.f,1.0f });
+		HUD_LifeBar_On->On();
+
+		HUD_LifeBar_On_Right->On();
+		float HPBarRight = ((static_cast<float>(PlayerHP) / 80.0f) * 427.0f) - 832.0f;
+		HUD_LifeBar_On_Right->Transform.SetLocalPosition({ HPBarRight ,485.0f,1.f });
+	}
+
+	if (PlayerHP <= 0)
+	{
+		HUD_LifeBar_On_Left->Off();
+	}
+	else
+	{
+		HUD_LifeBar_On_Left->On();
+	}
+
+
 
 
 	float MaxHPBar = ((static_cast<float>(PlayerPtr->MaxHP) / 80.0f) * 440.0f);
 	HUD_LifeBar->SetImageScale({ MaxHPBar,30.0f,1.0f });
 
 
-	float ManaBar = (static_cast<float>(MP) / 50.f) * 300.0f;
-	if (ManaBar <= 0.0f)
+	
+	/*if (ManaBar <= 0.0f)
 	{
 		ManaBar = 0.0f;
-	}
-	HUD_ManaBar_On->SetImageScale({ ManaBar,19.f,1.0f });
+	}*/
+	
 	//HUD_ManaBar_On->Off();
 
 
-	if (MP < 10)
+
+
+	if (MP <5)
 	{
-		MP = 10;
+		HUD_ManaBar_On_Right->Off();
+		HUD_ManaBar_On->Off();
+	}
+	else
+	{
+		HUD_ManaBar_On_Right->On();
+		HUD_ManaBar_On->On();
+
+		float ManaBar = (static_cast<float>(MP) / 50.f) * 300.0f;
+		HUD_ManaBar_On->SetImageScale({ ManaBar,19.f,1.0f });
+
+		float ManaBarRight = ((static_cast<float>(MP) / 50.f) * 350.0f) - 833.0f;
+		HUD_ManaBar_On_Right->Transform.SetLocalPosition({ ManaBarRight,461.0f,1.0f });
+	}
+	if (MP <= 0)
+	{
+		HUD_ManaBar_On_Left->Off();
+	}
+	else {
+		HUD_ManaBar_On_Left->On();
 	}
 
-	float ManaBarRight = ((static_cast<float>(MP) / 50.f) * 350.0f) - 833.0f;
-	HUD_ManaBar_On_Right->Transform.SetLocalPosition({ ManaBarRight,461.0f,1.0f });
+	
 
 
 	float MaxMPBar = (static_cast<float>(PlayerPtr->MaxMP) / 50.f) * 350.0f;
@@ -404,6 +554,27 @@ void PlayUI::Update(float _Delta)
 		HUD_Cape2->GetColorData().MulColor = float4(1.f, 1.f, 1.f, 1.f);
 		HUD_Cape2_Text->Off();
 	}
+
+	const PlayerData& Data =  Player::GetMainPlayerData();
+
+	//애니마 체크
+
+	for (size_t i = 0; i < HUD_Animavec.size(); i++)
+	{
+		if (i < Data.Anima)
+		{
+			HUD_Animavec[i]->SetSprite("HUD_Main_Anima_Slot_On.png");
+			HUD_Animavec[i]->GetColorData().MulColor = float4(1.f, 1.f, 0.33f, 1.0f);
+		}
+		else
+		{
+			HUD_Animavec[i]->SetSprite("HUD_Main_Anima_Slot_Off.png");
+			HUD_Animavec[i]->GetColorData().MulColor = float4(1.f, 1.f, 1.0f, 1.0f);
+		}
+			
+	}
+	
+
 
 }
 

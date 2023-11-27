@@ -29,19 +29,16 @@ void TitleLevel::Start()
 
 void TitleLevel::Update(float _Delta)
 {
-	if (GameEngineInput::IsPress('P', this))
-	{
-		GameEngineCore::ChangeLevel("PlayLevel");
-	}
+	
 }
 
 
 void TitleLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	int a = 0;
+	Bgm = GameEngineSound::SoundPlay("OST Main Menu", 100);
 }
 
 void TitleLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
-	int a = 0;
+	Bgm.Stop();
 }

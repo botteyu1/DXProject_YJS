@@ -22,6 +22,8 @@ public:
 class ContentObject : public GameEngineActor
 {
 	friend class Level;
+	friend class BossGargoyle;
+	friend class BossLevel;
 
 public:
 	// constrcuter destructer

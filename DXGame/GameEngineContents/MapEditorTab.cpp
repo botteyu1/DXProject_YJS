@@ -147,7 +147,11 @@ void MapEditorTab::Start()
 		ObjectCreateNames.push_back("WeaponDrop3");
 		ObjectCreateNames.push_back("PaperWall");
 		ObjectCreateNames.push_back("Contractor");
+		ObjectCreateNames.push_back("GroundTile");
+		ObjectCreateNames.push_back("WallBackground_Sprite2");
 
+		
+			
 
 
 	}

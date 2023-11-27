@@ -44,6 +44,8 @@ void Player::CapeStart()
 				}
 				ForceGrivityOff = true;
 				ChangeMainAnimation("LD_ComboKatana");
+
+				GameEngineSound::SoundPlay("Katana");
 			};
 		
 
@@ -106,10 +108,12 @@ void Player::CapeStart()
 				if (GameEngineInput::IsPress('W', this) or AerialCheck == true)
 				{
 					ChangeMainAnimation("LD_ComboEvilHands_Up");
+					GameEngineSound::SoundPlay("EvilHandsAerial");
 				}
 				else
 				{
 					ChangeMainAnimation("LD_ComboEvilHands");
+					GameEngineSound::SoundPlay("EvilHandsGround");
 				}
 				
 			};
@@ -117,7 +121,7 @@ void Player::CapeStart()
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
-				CheckStartAttackFrame(5);
+				CheckStartAttackFrame(5,70.0f);
 				CheckEndAttackFrame(13);
 				/*CheckStartAttackFrame(4);
 				CheckEndAttackFrame(8);*/
@@ -176,6 +180,7 @@ void Player::CapeStart()
 				{
 					ChangeMainAnimation("LD_EvilBirds");
 					MainSpriteRenderer->SetAutoScaleRatio({ 1.5f,1.5f,1.0f });
+					GameEngineSound::SoundPlay("EvilBirds");
 				}
 				
 				

@@ -372,8 +372,8 @@ void CurseUI::CurseUIStart(int _Type)
 		Curse_Img_Green->Transform.SetLocalPosition({ 0.0f,50.0f,0.0f });
 
 
-		
 
+		GameEngineSound::SoundPlay("CurseUIOn");
 }
 
 void CurseUI::UIOn()
@@ -502,16 +502,20 @@ void CurseUI::Update(float _Delta)
 		Curse_Transition->On();
 		FadeStrength = 1.0f;
 		ExitValue = true;
+
+		GameEngineSound::SoundPlay("CurseUISelect");
 	}
 
 	if (PickNum > 1 and GameEngineInput::IsDown('A', this))
 	{
 		PickNum--;
+		GameEngineSound::SoundPlay("Click");
 
 	}
 	else if (PickNum < 3 and GameEngineInput::IsDown('D', this)) 
 	{
 		PickNum++;
+		GameEngineSound::SoundPlay("Click");
 	}
 
 	switch (PickNum)

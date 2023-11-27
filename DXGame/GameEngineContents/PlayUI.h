@@ -52,6 +52,10 @@ private:
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Anima2;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Anima3;
 
+	std::vector<std::shared_ptr< GameEngineSpriteRenderer>> HUD_Animavec;
+
+
+
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Soulary;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Soulary_Text;
 
@@ -63,6 +67,9 @@ private:
 
 	int PrevHP = 0;
 	float HPTimer = 500.0f;
+	float HPAnimaTimer = 500.0f;
+
+
 
 
 

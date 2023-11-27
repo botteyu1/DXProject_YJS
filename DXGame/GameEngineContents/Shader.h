@@ -20,12 +20,23 @@ public:
 	{
 		return GlobalShader;
 	}
+
+	void BossOutroShaderStart();
+	void BossOutroShaderEnd();
+
+
 protected:
 	void Start() override;
 	void Update(float _Delta)override;
 
+	bool BossOutroStartAnimationValue = false;
+	bool BossOutroEndAnimationValue = false;
+
+	float AnimationTime = 0.0f;
+
+
 private:
-	std::shared_ptr<GameEngineSpriteRenderer> GlobalShader= nullptr;	
+	std::shared_ptr<GameEngineSpriteRenderer> GlobalShader = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> Cloud= nullptr;
 
 };

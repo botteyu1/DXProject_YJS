@@ -3,6 +3,7 @@
 #include "Actor.h"
 #include "Map.h"
 #include "Level.h"
+#include "FX.h"
 
 Bullet::Bullet() 
 {
@@ -129,6 +130,7 @@ void Bullet::Init(BulletType _Type,float4 _Pos, float _Damage,  float4 _Dir, flo
 			AttackCollision->Transform.SetLocalPosition({0.0f,300.0f});
 			AttackCollision->Transform.SetLocalScale({ 150.0f,600.0f });
 			TargetCollision = ContentsCollisionType::Enemy;
+			GameEngineSound::SoundPlay("Tornado");
 			break;
 		}
 		default:
@@ -221,6 +223,10 @@ void Bullet::Update(float _Delta)
 		{
 			GrivityForce = 0.0f;
 			AerialCheck = false;
+			if (Type == BulletType::Rock)
+			{
+				static_cast<Level*>(GetLevel())->GetFXActor()->FXStart(FXType::Gargoyle_Falling_Rock, Flip, Transform.GetLocalPosition() + float4(0.0f, 0.0f, -5.0f), { 1.0f,1.0f,1.0f }, { 0.5f,1.0f });
+			}
 			Death();
 		}
 	}

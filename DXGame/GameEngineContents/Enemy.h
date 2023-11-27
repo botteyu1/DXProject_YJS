@@ -87,9 +87,11 @@ protected:
 
 	void HitPushBackUpdate(float _Delta);
 
+	EnemyState State = EnemyState::Max;
+
 private:
 	
-	EnemyState State = EnemyState::Max;
+
 
 
 

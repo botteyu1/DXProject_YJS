@@ -14,6 +14,8 @@ enum class BossLevelState
 // 설명 :
 class BossLevel : public Level
 {
+	
+
 public:
 	// constrcuter destructer
 	BossLevel();
@@ -25,6 +27,11 @@ public:
 	BossLevel& operator=(const BossLevel& _Other) = delete;
 	BossLevel& operator=(BossLevel&& _Other) noexcept = delete;
 
+	GameEngineSoundPlayer& GetEndBG()
+	{
+		return EndBG;
+	}
+
 protected:
 	void Start() override;
 
@@ -35,9 +42,17 @@ protected:
 
 private:
 	bool BossIntroOver = false; // 보스 등장씬이 시작했는 지 여부
+	bool CircleFx = false;
 
 	std::shared_ptr<class Player> PlayerPtr = nullptr;
 	std::shared_ptr<class BossGargoyle> BossPtr = nullptr;
+	std::shared_ptr<class BossUI> BossUIPtr = nullptr;
+	std::shared_ptr<class PlayUI> PlayUIPtr = nullptr;
 	GameEngineState State;
+
+	class GameEngineSoundPlayer BattleBG;
+	class GameEngineSoundPlayer EndBG;
+
+	float BGVolume = 0.0f;
 };
 

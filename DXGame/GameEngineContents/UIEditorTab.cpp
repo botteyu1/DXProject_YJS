@@ -25,7 +25,10 @@ void UIEditorTab::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	for (int Key : SelectObjects)
 	{
 		ImGui::Text(ObjectLoadedNamesString[Key].c_str());
-		SelectList = "Position " + ObjectLoaded[Key]->Transform.GetLocalPosition().ToString() + "Scale  " + "\n";
+		SelectList = "Position " + ObjectLoaded[Key]->Transform.GetLocalPosition().ToString() ;
+		ImGui::Text(SelectList.c_str());
+		ImGui::Text(ObjectLoadedNamesString[Key].c_str());
+		SelectList = "Scale " + ObjectLoaded[Key]->GetImageTransform().GetLocalScale().ToString();
 		ImGui::Text(SelectList.c_str());
 	}
 }
@@ -108,6 +111,25 @@ void UIEditorTab::SelectTabUpdate(GameEngineLevel* _Level)
 			//float4 PrevPos = Transform.GetLocalPosition();
 			Pos.X = -Pos.X;
 			ObjectLoaded[Key]->Transform.AddLocalPosition(Pos);
+		}
+
+		if (GameEngineInput::IsDown('C', this) and static_cast<Level*>(_Level)->OtherWindow == false)
+		{
+			
+			ObjectLoaded[Key]->GetImageTransform().AddLocalScale(float4::ONE * -1.0f);
+		}
+		if (GameEngineInput::IsDown('V', this) and static_cast<Level*>(_Level)->OtherWindow == false)
+		{
+			ObjectLoaded[Key]->GetImageTransform().AddLocalScale(float4::ONE);
+		}
+		if (GameEngineInput::IsDown('Z', this) and static_cast<Level*>(_Level)->OtherWindow == false)
+		{
+			
+			ObjectLoaded[Key]->GetImageTransform().AddLocalScale(float4::ONE * -10.0f);
+		}
+		if (GameEngineInput::IsDown('X', this) and static_cast<Level*>(_Level)->OtherWindow == false)
+		{
+			ObjectLoaded[Key]->GetImageTransform().AddLocalScale(float4::ONE * 10.0f);
 		}
 	}
 }

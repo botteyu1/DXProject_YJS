@@ -21,7 +21,24 @@ void Enemy::TakeDamage(GameEngineCollision* _Attacker,float _Damage)
 		return;
 	}
 
+	static bool HitSound = false;
+	HitSound = !HitSound;
+
+	if (HitSound == true)
+	{
+
+		GameEngineSound::SoundPlay("EnemyHit1");
+	}
+	else
+	{
+
+		GameEngineSound::SoundPlay("EnemyHit2");
+	}
+
 	HP -= static_cast<int>(_Damage);
+
+
+	GetContentsLevel()->StartScreenShake(0.5f, 8.0f, 10.0f);
 
 	// 데미지 표기
 	GetContentsLevel()->GetFXActor()->FXTextStart(FXType::DamageText, std::to_string(static_cast<int>(_Damage)), Transform.GetLocalPosition() + float4(0.0f, 60.0f),30.0f);
@@ -69,9 +86,25 @@ void Enemy::DeathCheck()
 {
 	if (HP <= 0 and DeathValue == false)
 	{
+
+		static bool DeathSound = false;
+		DeathSound = !DeathSound;
+
+		if (DeathSound == true)
+		{
+			GameEngineSound::SoundPlay("EnemyDeath1");
+		}
+		else
+		{
+
+			GameEngineSound::SoundPlay("EnemyDeath2");
+		}
+
 		DeathValue = true;
 		ChangeState(EnemyState::Death);
-		//std::shared_ptr<AnimaDrop> Object2 =  GetContentsLevel()->CreateActor<AnimaDrop>(ContentsObjectType::BackGroundobject);
+		GetContentsLevel()->StartScreenShake(0.5f, 12.0f, 10.0f);
+		std::shared_ptr<AnimaDrop> Object2 =  GetContentsLevel()->CreateActor<AnimaDrop>(ContentsObjectType::BackGroundobject);
+		Object2->Spawn(Transform.GetLocalPosition());
 		std::shared_ptr<SoularyDrop> Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
 		Object->Spawn(Transform.GetLocalPosition());
 		Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);

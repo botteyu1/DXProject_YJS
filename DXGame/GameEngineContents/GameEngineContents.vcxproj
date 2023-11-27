@@ -180,11 +180,19 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BossDesk.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BossGargoyle.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="BossLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BossUI.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -221,7 +229,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="MovieBar.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PaperWall.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayLevel2.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -375,11 +391,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BossDesk.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BossGargoyle.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="BossLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="BossUI.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -416,7 +440,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="MovieBar.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PaperWall.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayLevel2.h">
       <SubType>
       </SubType>
     </ClInclude>

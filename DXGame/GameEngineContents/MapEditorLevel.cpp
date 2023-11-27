@@ -28,7 +28,7 @@ void MapEditorLevel::Start()
 
 	{
 		std::shared_ptr<PlayMap> Object = CreateActor<PlayMap>(ContentsObjectType::BackGround);
-		Object->Init("Stage1.dds", "StagePixel1.png", "Stage2.dds", "StagePixel2.png");
+		Object->Init("StageBoss.dds", "StagePixelBoss.png");
 		//Object->Init("StageBoss.dds", "StagePixelBoss.png");
 		SetMap(Object);
 	}

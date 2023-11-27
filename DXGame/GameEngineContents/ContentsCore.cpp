@@ -10,6 +10,7 @@
 #include "BossLevel.h"
 #include "Cape.h"
 #include <GameEngineCore/GameEngineDepthStencil.h>
+#include "PlayLevel2.h"
 
 
 std::shared_ptr< GameEngineRandom> ContentsCore::MainRandom;
@@ -27,6 +28,9 @@ void ContentsCore::Start()
 
 	GameEngineFont::Load("궁서");
 	GameEngineFont::Load("메이플스토리");
+
+	ContentsCoreSoundLoad();
+
 	{
 		// 이걸 세팅하는 순간
 		// order가 2d랜더링의 순서가 되는것이 아니라
@@ -70,10 +74,11 @@ void ContentsCore::Start()
 	MainRandom = std::make_shared<GameEngineRandom>();
 
 	GameEngineCore::CreateLevel<PlayLevel>("PlayLevel");
+	GameEngineCore::CreateLevel<PlayLevel2>("PlayLevel2");
 	GameEngineCore::CreateLevel<BossLevel>("BossLevel");
 	GameEngineCore::CreateLevel<TitleLevel>("TitleLevel");
 	GameEngineCore::CreateLevel<MapEditorLevel>("MapEditorLevel");
-	GameEngineCore::ChangeLevel("PlayLevel");
+	GameEngineCore::ChangeLevel("BossLevel");
 
 	
 
@@ -89,4 +94,109 @@ void ContentsCore::Update(float _Delta)
 void ContentsCore::Release()
 {
 
+}
+
+void ContentsCore::ContentsCoreSoundLoad()
+{
+	
+	
+	{
+		GameEngineDirectory FilePath;
+		FilePath.MoveParentToExistsChild("GameEngineResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\Effect");
+
+
+		GameEngineSound::SoundLoad("LevelChangeEnd", FilePath.PlusFilePath("LevelChangeEnd.wav"));
+		GameEngineSound::SoundLoad("Click", FilePath.PlusFilePath("Click.wav"));
+		GameEngineSound::SoundLoad("ComboAttack1", FilePath.PlusFilePath("ComboAttack1.wav"));
+		GameEngineSound::SoundLoad("ComboAttack2", FilePath.PlusFilePath("ComboAttack2.wav"));
+		GameEngineSound::SoundLoad("ComboAttack3", FilePath.PlusFilePath("ComboAttack3.wav"));
+		GameEngineSound::SoundLoad("ComboAttack4", FilePath.PlusFilePath("ComboAttack4.wav"));
+
+		GameEngineSound::SoundLoad("JumpComboAttack1", FilePath.PlusFilePath("JumpComboAttack1.wav"));
+		GameEngineSound::SoundLoad("JumpComboAttack2", FilePath.PlusFilePath("JumpComboAttack2.wav"));
+		GameEngineSound::SoundLoad("JumpComboAttack3", FilePath.PlusFilePath("JumpComboAttack3.wav"));
+		GameEngineSound::SoundLoad("Katana", FilePath.PlusFilePath("Katana.wav"));
+		GameEngineSound::SoundLoad("EvilBirds", FilePath.PlusFilePath("EvilBirds.wav"));
+		GameEngineSound::SoundLoad("EvilHandsAerial", FilePath.PlusFilePath("EvilHandsAerial.wav"));
+		GameEngineSound::SoundLoad("EvilHandsGround", FilePath.PlusFilePath("EvilHandsGround.wav"));
+		GameEngineSound::SoundLoad("DownAttack", FilePath.PlusFilePath("DownAttack.wav"));
+		GameEngineSound::SoundLoad("AerialAttack", FilePath.PlusFilePath("AerialAttack.wav"));
+		GameEngineSound::SoundLoad("Dash", FilePath.PlusFilePath("Dash.wav"));
+		GameEngineSound::SoundLoad("BookAttackInit", FilePath.PlusFilePath("BookAttackInit.wav"));
+		GameEngineSound::SoundLoad("BookAttack", FilePath.PlusFilePath("BookAttack.wav"));
+		GameEngineSound::SoundLoad("ManAttackInit", FilePath.PlusFilePath("ManAttackInit.wav"));
+		GameEngineSound::SoundLoad("ManAttack", FilePath.PlusFilePath("ManAttack.wav"));
+		GameEngineSound::SoundLoad("Jump", FilePath.PlusFilePath("Jump.wav"));
+
+		GameEngineSound::SoundLoad("EnemyHit1", FilePath.PlusFilePath("EnemyHit1.wav"));
+		GameEngineSound::SoundLoad("EnemyHit2", FilePath.PlusFilePath("EnemyHit2.wav"));
+		GameEngineSound::SoundLoad("EnemyDeath1", FilePath.PlusFilePath("EnemyDeath1.wav"));
+		GameEngineSound::SoundLoad("EnemyDeath2", FilePath.PlusFilePath("EnemyDeath2.wav"));
+
+		GameEngineSound::SoundLoad("PlayerHit", FilePath.PlusFilePath("PlayerHit.wav"));
+		GameEngineSound::SoundLoad("WomanAttackInit", FilePath.PlusFilePath("WomanAttackInit.wav"));
+		GameEngineSound::SoundLoad("WomanAttack", FilePath.PlusFilePath("WomanAttack.wav"));
+		GameEngineSound::SoundLoad("WeaponGet", FilePath.PlusFilePath("WeaponGet.wav"));
+		GameEngineSound::SoundLoad("WeaponDrop", FilePath.PlusFilePath("WeaponDrop.wav"));
+		GameEngineSound::SoundLoad("TransitionOuttro", FilePath.PlusFilePath("TransitionOuttro.wav"));
+		GameEngineSound::SoundLoad("TransitionIntro", FilePath.PlusFilePath("TransitionIntro.wav"));
+		GameEngineSound::SoundLoad("PaperWallOn", FilePath.PlusFilePath("PaperWallOn.wav"));
+		GameEngineSound::SoundLoad("ElevatorEnter", FilePath.PlusFilePath("ElevatorEnter.wav"));
+
+
+		GameEngineSound::SoundLoad("Tornado", FilePath.PlusFilePath("Tornado.wav"));
+		GameEngineSound::SoundLoad("SoularyGet", FilePath.PlusFilePath("SoularyGet.wav"));
+		GameEngineSound::SoundLoad("MedAttackPower", FilePath.PlusFilePath("MedAttackPower.wav"));
+		GameEngineSound::SoundLoad("MedAttackInit", FilePath.PlusFilePath("MedAttackInit.wav"));
+		GameEngineSound::SoundLoad("MedAttackCombo3", FilePath.PlusFilePath("MedAttackCombo3.wav"));
+		GameEngineSound::SoundLoad("MedAttackCombo2", FilePath.PlusFilePath("MedAttackCombo2.wav"));
+		GameEngineSound::SoundLoad("MedAttackCombo1", FilePath.PlusFilePath("MedAttackCombo1.wav"));
+		GameEngineSound::SoundLoad("EnemyRespone", FilePath.PlusFilePath("EnemyRespone.wav"));
+		GameEngineSound::SoundLoad("AnimaUI", FilePath.PlusFilePath("AnimaUI.wav"));
+		GameEngineSound::SoundLoad("AnimaGet2", FilePath.PlusFilePath("AnimaGet2.wav"));
+		GameEngineSound::SoundLoad("AnimaGet", FilePath.PlusFilePath("AnimaGet.wav"));
+		GameEngineSound::SoundLoad("AnimaConsume", FilePath.PlusFilePath("AnimaConsume.wav"));
+
+		GameEngineSound::SoundLoad("ContractorOn", FilePath.PlusFilePath("ContractorOn.wav"));
+		GameEngineSound::SoundLoad("CurseUIOff", FilePath.PlusFilePath("CurseUIOff.wav"));
+		GameEngineSound::SoundLoad("CurseUIOn", FilePath.PlusFilePath("CurseUIOn.wav"));
+		GameEngineSound::SoundLoad("CurseUISelect", FilePath.PlusFilePath("CurseUISelect.wav"));
+		GameEngineSound::SoundLoad("BossIntro1", FilePath.PlusFilePath("BossIntro1.wav"));
+		GameEngineSound::SoundLoad("BossIntro2", FilePath.PlusFilePath("BossIntro2.wav"));
+		GameEngineSound::SoundLoad("BossOuttro1", FilePath.PlusFilePath("BossOuttro1.wav"));
+		GameEngineSound::SoundLoad("BossOuttro2", FilePath.PlusFilePath("BossOuttro2.wav"));
+
+
+
+		GameEngineSound::SoundLoad("BossSpin0", FilePath.PlusFilePath("BossSpin0.wav"));
+		GameEngineSound::SoundLoad("BossPosing3", FilePath.PlusFilePath("BossPosing3.wav"));
+		GameEngineSound::SoundLoad("BossPosing2", FilePath.PlusFilePath("BossPosing2.wav"));
+		GameEngineSound::SoundLoad("BossPosing1", FilePath.PlusFilePath("BossPosing1.wav"));
+		GameEngineSound::SoundLoad("BossDive_Anti", FilePath.PlusFilePath("BossDive_Anti.wav"));
+		GameEngineSound::SoundLoad("BossDive", FilePath.PlusFilePath("BossDive.wav"));
+		GameEngineSound::SoundLoad("BossCombo2", FilePath.PlusFilePath("BossCombo2.wav"));
+		GameEngineSound::SoundLoad("BossCombo", FilePath.PlusFilePath("BossCombo.wav"));
+		
+	}
+
+
+	{
+		GameEngineDirectory FilePath;
+		FilePath.MoveParentToExistsChild("GameEngineResources");
+		FilePath.MoveChild("ContentsResources\\Sound\\BG");
+
+		GameEngineSound::SoundLoad("OST Main Menu", FilePath.PlusFilePath("OST Main Menu.wav"));
+		GameEngineSound::SoundLoad("Modern Warfare Department", FilePath.PlusFilePath("Modern Warfare Department.wav"));
+		GameEngineSound::SoundLoad("It’s About Time", FilePath.PlusFilePath("It’s About Time (Original Soundtrack).wav"));
+		GameEngineSound::SoundLoad("Head of Security Gargoyle", FilePath.PlusFilePath("Head of Security Gargoyle (Original Soundtrack).wav"));
+		GameEngineSound::SoundLoad("Hall of Eternity", FilePath.PlusFilePath("Hall of Eternity (Original Soundtrack).wav"));
+		GameEngineSound::SoundLoad("Brad in Shape", FilePath.PlusFilePath("Brad in Shape (Original Soundtrack).wav"));
+
+		GameEngineSound::SoundLoad("BossBGStart", FilePath.PlusFilePath("BossBGStart.wav"));
+		GameEngineSound::SoundLoad("BossBGBattle", FilePath.PlusFilePath("BossBGBattle.wav"));
+		GameEngineSound::SoundLoad("BossBGEnd", FilePath.PlusFilePath("BossBGEnd.wav"));
+	}
+	
+	
 }

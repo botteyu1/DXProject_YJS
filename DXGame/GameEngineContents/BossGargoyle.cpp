@@ -3,6 +3,12 @@
 #include "Player.h"
 #include "ContentsCore.h"
 #include "Bullet.h"
+#include "FX.h"
+#include "FxSpriteRenderer.h"
+#include "StageObject.h"
+#include "Shader.h"
+#include "BossDesk.h"
+#include "BossLevel.h"
 
 BossGargoyle::BossGargoyle() 
 {
@@ -14,7 +20,36 @@ BossGargoyle::~BossGargoyle()
 
 void BossGargoyle::TakeDamage(GameEngineCollision* _Attacker, float _Damage)
 {
+	if (State == EnemyState::Death)
+	{
+		return;
+	}
+
 	HP -= static_cast<int>(_Damage);
+
+
+	static bool HitSound = false;
+
+	if (HitSound == true)
+	{
+		GameEngineSound::SoundPlay("EnemyHit1");
+	}
+	else
+	{
+
+		GameEngineSound::SoundPlay("EnemyHit2");
+	}
+
+
+	GetContentsLevel()->StartScreenShake(0.5f, 8.0f, 10.0f);
+
+	// 데미지 표기
+	GetContentsLevel()->GetFXActor()->FXTextStart(FXType::DamageText, std::to_string(static_cast<int>(_Damage)), Transform.GetLocalPosition() + float4(0.0f, 60.0f), 30.0f);
+
+	
+	GetContentsLevel()->GetFXActor()->FXStart(FXType::Splash_Water, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f));
+	GetContentsLevel()->GetFXActor()->FXStart(FXType::Slash, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f));
+
 }
 
 void BossGargoyle::Start()
@@ -33,7 +68,7 @@ void BossGargoyle::Start()
 
 	}
 
-	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Enemy);
+	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::FX);
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Combo1", "Gargoyle_Combo1", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Combo1", { 1.0f, 300.0f, false,
 		{230.0f, 150.0f}, {130.0f, 80.0f},10 }));
@@ -65,7 +100,7 @@ void BossGargoyle::Start()
 	MainSpriteRenderer->CreateAnimation("Gargoyle_End_2", "Gargoyle_End_2", 0.0666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_End_2", { 1.0f }));
 
-	MainSpriteRenderer->CreateAnimation("Gargoyle_Fly_Stomp_Anticipation", "Gargoyle_Fly_Stomp_Anticipation", 0.0666f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("Gargoyle_Fly_Stomp_Anticipation", "Gargoyle_Fly_Stomp_Anticipation", 0.0266f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Fly_Stomp_Anticipation", { 1.0f }));
 
 	/*MainSpriteRenderer->CreateAnimation("Gargoyle_Fly_Stomp_Anticipation", "Gargoyle_Fly_Stomp_Anticipation", 0.0666f, -1, -1, true);
@@ -126,8 +161,12 @@ void BossGargoyle::Start()
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Uturn", "Gargoyle_Uturn", 0.03666f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Uturn", { 1.0f }));
 
-	MainSpriteRenderer->CreateAnimation("Gargoyle_Intro", "Gargoyle_Intro", 0.04666f, -1, -1, false);
+	MainSpriteRenderer->CreateAnimation("Gargoyle_Intro", "Gargoyle_Intro", 0.05066f, -1, -1, false);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Intro", { 0.8f }));
+
+	MainSpriteRenderer->SetFrameEvent("Gargoyle_Intro", 38, [=](GameEngineSpriteRenderer* _Renderer) {
+		GameEngineSound::SoundPlay("BossIntro2");
+		});
 
 	MainSpriteRenderer->CreateAnimation("Gargoyle_Intro_Idle", "Gargoyle_Intro_Idle", 0.0466f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Intro_Idle", { 0.8f }));
@@ -135,13 +174,69 @@ void BossGargoyle::Start()
 	MainSpriteRenderer->CreateAnimation("Gargoyle_End", "Gargoyle_End_1", 0.0633f, -1, -1, false);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_End", { 0.5f }));
 
-	MainSpriteRenderer->CreateAnimation("Gargoyle_Outro", "Gargoyle_End_2", 0.0633f, -1, -1, false);
+	MainSpriteRenderer->CreateAnimation("Gargoyle_End_Loop", "Gargoyle_End_Loop", 0.0633f, -1, -1, true);
+	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_End_Loop", { 0.5f }));
+
+	MainSpriteRenderer->CreateAnimation("Gargoyle_Outro", "Gargoyle_End_2", 0.1633f, -1, -1, false);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Outro", { 0.8f }));
+
+
+	MainSpriteRenderer->SetFrameEvent("Gargoyle_End", 29, [=](GameEngineSpriteRenderer* _Renderer) {
+		GameEngineSound::SoundPlay("BossOuttro2");
+		});
+
+	MainSpriteRenderer->FindAnimation("Gargoyle_End")->Inter[78] = 1.2f;
+
+
+	MainSpriteRenderer->SetFrameEvent("Gargoyle_End", 69, [=](GameEngineSpriteRenderer* _Renderer) {
+
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado_UL, false, Transform.GetLocalPosition() + float4(-200.0f, -43.0f, 0.33f), float4(1.0f, 1.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado_UL, false, Transform.GetLocalPosition() + float4(-350.0f, -205.0f, 0.66f), float4(2.0f, 2.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado_UL, false, Transform.GetLocalPosition() + float4(-500.0f, -403.0f, 0.99f), float4(3.0f, 3.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
+
+		DarkTornadoFXRenderer = GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado, false, Transform.GetLocalPosition() + float4(-200.0f, 0.0f, -2.0f), float4(1.0f, 1.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado, false, Transform.GetLocalPosition() + float4(-350.0f, -120.0f, -3.0f), float4(2.0f, 2.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado, false, Transform.GetLocalPosition() + float4(-500.0f, -273.0f, -4.0f), float4(3.0f, 3.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
+		GetContentsLevel()->GetShaderActor()->BossOutroShaderStart();
+
+		static_cast<BossLevel*>(GetContentsLevel())->GetEndBG() = GameEngineSound::SoundPlay("BossBGEnd");
+		static_cast<BossLevel*>(GetContentsLevel())->GetEndBG().SetVolume(0.6f);
+
+
+
+		});
+
+	MainSpriteRenderer->SetFrameEvent("Gargoyle_Intro", 36, [=](GameEngineSpriteRenderer* _Renderer) {
+		
+		DeskActor->ChangeDeskAnimation("Gargoyle_Intro_Desk");
+		});
+
 
 	MainSpriteRenderer->AutoSpriteSizeOn();
 	MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
 
+
+
+	//데스크
+	//DeskActor = GetLevel()->CreateActor<StageObject>(ContentsObjectType::StageObject);
+
+	//DeskActor->MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::BackGroundobject);
+	//DeskActor->MainSpriteRenderer->CreateAnimation("Gargoyle_Intro_Desk", "Gargoyle_Intro_Desk", 0.0633f, -1, -1, true);
+	//DeskActor->MainSpriteRenderer->CreateAnimation("Gargoyle_Intro_Desk_Lock", "Gargoyle_Intro_Desk", 0.0633f, 0, 0, true);
+	//DeskActor->MainSpriteRenderer->ChangeAnimation("Gargoyle_Intro_Desk_Lock");
+	//DeskActor->MainSpriteRenderer->AutoSpriteSizeOn();
+	////DeskActor->MainSpriteRenderer->Off();
+	//DeskActor->MainSpriteRenderer->LeftFlip();
+	//DeskActor->MainSpriteRenderer->SetPivotValue({0.0f,1.0f});
+	//DeskActor->MainSpriteRenderer->Transform.SetLocalPosition({ 4984.0f, -3526.0f , -4.0f });
 	
+
+
+	
+
+	
+
+	//콜리전
 
 	MainCollision = CreateComponent<GameEngineCollision>(ContentsCollisionType::Enemy);
 	MainCollision->Transform.SetLocalScale({ 100.0f, 250.0f });
@@ -160,13 +255,16 @@ void BossGargoyle::Start()
 	DetectAttackCollision->Transform.SetLocalPosition({ 0.0f, 80.0f });
 	DetectAttackCollision->SetCollisionType(ColType::AABBBOX2D);
 
+
+	//배치
 	float4 HalfWindowScale = GameEngineCore::MainWindow.GetScale().Half();
-	Transform.SetLocalPosition({ 5000.0f, -3000.0f , -1.0f});
+	Transform.SetLocalPosition({ 5000.0f, -3000.0f , -3.0f});
 	ChangeState(EnemyState::IntroIdle);
 	std::shared_ptr<GameEngineTexture> Tex = GameEngineTexture::Find("Boss_Gargoyle_Idle_0001.png");
 
 	DefaultScale = Tex.get()->GetScale() + float4 { 50.0f, 0.0f };
 	DashSpeed = 3000.0f;
+	MoveSpeed = 600.0f;
 
 	Enemy::Start();
 
@@ -184,6 +282,7 @@ void BossGargoyle::DeathCheck()
 {
 	if (HP <= 0 and DeathValue == false)
 	{
+		ForceGrivityOff = false;
 		DeathValue = true;
 		ChangeState(EnemyState::Death);
 	}
@@ -191,22 +290,28 @@ void BossGargoyle::DeathCheck()
 
 void BossGargoyle::IdleStart()
 {
+	//AttackPatern = GargoyleAttackPatern::Combo;
 	ChangeMainAnimation("Gargoyle_Idle");
 	MotionTime = 0.0f;
+
+
+	//Flip = true;
+	//ChangeMainAnimation("Gargoyle_Intro_Idle");
 }
 
 void BossGargoyle::IdleUpdate(float _Delta)
 {
-	
+	//Transform.SetLocalPosition({ 5000.0f, -3524.0f , -3.0f });
+	//Transform.SetLocalPosition({4000.0f , -3474.0f, -1.0f });
 	MotionTime += _Delta;
-	if (MotionTime < 2.0f)
+	if (MotionTime < 1.5f)
 	{
 		return;
 	}
-	bool PreFlip = Flip;
+	bool preflip = Flip;
 	Flip = LookPlayer();
 	//플레이어 반대방향에있으면
-	if (Flip != PreFlip)
+	if (Flip != preflip)
 	{
 		ChangeState(EnemyState::Uturn);
 		return;
@@ -222,6 +327,7 @@ void BossGargoyle::AttackStart()
 {
 	MotionTime = 0.0f;
 	std::string AnimationName;
+	//AttackPatern = GargoyleAttackPatern::Posing;
 	switch (AttackPatern)
 	{
 	case GargoyleAttackPatern::Combo:
@@ -233,6 +339,16 @@ void BossGargoyle::AttackStart()
 		}
 		ComboCount++;
 		AnimationName = "Gargoyle_Combo" + std::to_string(ComboCount);
+		if (ComboCount <= 2)
+		{
+
+			GameEngineSound::SoundPlay("BossCombo");
+		}
+		else
+		{
+			GameEngineSound::SoundPlay("BossCombo2");
+		}
+
 		break;
 	}
 	case GargoyleAttackPatern::Posing:
@@ -240,6 +356,7 @@ void BossGargoyle::AttackStart()
 		PosingCount++;
 		AnimationName = "Gargoyle_Posing" + std::to_string(PosingCount);
 		//AnimationName = "Gargoyle_Posing1" ;
+		GameEngineSound::SoundPlay("BossPosing2");
 		if (PosingCount >= 7)
 		{
 			PosingCount = 0;
@@ -262,6 +379,8 @@ void BossGargoyle::AttackStart()
 		AnimationName = "Gargoyle_Dive_Attack_Loop";
 		float4 StartPos = Transform.GetLocalPosition();
 		float4 Nor = (TargetPos - StartPos).NormalizeReturn();
+
+		GameEngineSound::SoundPlay("BossDive");
 		MoveVec = Nor * 1700.0f;
 	}
 		break;
@@ -281,6 +400,7 @@ void BossGargoyle::AttackStart()
 		AnimationName = "Gargoyle_Dive_Attack_Loop";
 		float4 StartPos = Transform.GetLocalPosition();
 		float4 Nor = (TargetPos - StartPos).NormalizeReturn();
+		GameEngineSound::SoundPlay("BossDive_Anti");
 		MoveVec = Nor * 1700.0f;
 		break;
 	}
@@ -288,6 +408,7 @@ void BossGargoyle::AttackStart()
 	{
 		ForceGrivityOff = true;
 		AnimationName = "Gargoyle_SpinGround";
+		GameEngineSound::SoundPlay("BossSpin0");
 		break;
 	}
 	case GargoyleAttackPatern::Max:
@@ -339,10 +460,9 @@ void BossGargoyle::AttackUpdate(float _Delta)
 			ForceGrivityOff = false;
 		}
 
-		if (AerialCheck == false)
+		if (!AerialPixelCheck() and ForceGrivityOff == false)
 		{
-			AttackPatern = GargoyleAttackPatern::Dive;
-			ChangeState(EnemyState::Idle);
+			ChangeState(EnemyState::Attack_End);
 		}
 	}
 		break;
@@ -479,6 +599,8 @@ void BossGargoyle::Attack_InitStart()
 	case GargoyleAttackPatern::Dive:
 		Flip = !Flip;
 		ChangeMainAnimation("Gargoyle_DiveAttack_Anticipation");
+
+		GameEngineSound::SoundPlay("BossPosing1");
 		break;
 	case GargoyleAttackPatern::Dive_Anti:
 		Flip = !Flip;
@@ -508,6 +630,9 @@ void BossGargoyle::Attack_EndStart()
 	case GargoyleAttackPatern::Combo:
 		break;
 	case GargoyleAttackPatern::Posing:
+		ChangeMainAnimation("Gargoyle_Fly_Stomp_Anticipation");
+		GameEngineSound::SoundPlay("BossPosing3");
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_Fly_Stomp, Flip, Transform.GetLocalPosition() + float4(-20.0f, 0.0f,-5.0f),{1.2f,1.2f,1.0f}, {0.5f,1.0f});
 		break;
 	case GargoyleAttackPatern::Dive:
 		Flip = !Flip;
@@ -538,6 +663,7 @@ void BossGargoyle::Attack_EndUpdate(float _Delta)
 		case GargoyleAttackPatern::Combo:
 			break;
 		case GargoyleAttackPatern::Posing:
+			AttackPatern = GargoyleAttackPatern::Dive;
 			break;
 		case GargoyleAttackPatern::Dive:
 			AttackPatern = GargoyleAttackPatern::Spin;
@@ -568,7 +694,7 @@ void BossGargoyle::AppearUpdate(float _Delta)
 
 void BossGargoyle::DeathStart()
 {
-	ForceGrivityOff = true;
+	ForceGrivityOff = false;
 	Flip = true;
 	ChangeMainAnimation("Gargoyle_End");
 }
@@ -577,7 +703,7 @@ void BossGargoyle::DeathUpdate(float _Delta)
 {
 	if (true == MainSpriteRenderer->IsCurAnimationEnd())
 	{
-		ChangeState(EnemyState::Outro);
+		ChangeState(EnemyState::End);
 	}
 }
 
@@ -796,6 +922,7 @@ void BossGargoyle::WaitingUpdate(float _Delta)
 
 void BossGargoyle::IntroStart()
 {
+	DeskActor->On();
 	Flip = true;
 	ChangeMainAnimation("Gargoyle_Intro");
 }
@@ -826,12 +953,19 @@ void BossGargoyle::IntroIdleUpdate(float _Delta)
 
 void BossGargoyle::EndStart()
 {
-	ChangeMainAnimation("Gargoyle_End");
+	ChangeMainAnimation("Gargoyle_End_Loop");
+	
+	
 }
 
 
 void BossGargoyle::EndUpdate(float _Delta)
 {
+	if (DarkTornadoFXRenderer->IsCurAnimation("Gargoyle_DarkTornado_End") == true)
+	{
+		GetContentsLevel()->GetShaderActor()->BossOutroShaderEnd();
+		ChangeState(EnemyState::Outro);
+	}
 }
 
 void BossGargoyle::OutroStart()
@@ -848,9 +982,9 @@ void BossGargoyle::OutroUpdate(float _Delta)
 		Transform.AddLocalPosition(float4::RIGHT * 1500.0f * _Delta);
 	}
 
-	if (MotionTime >= 4.0f)
+	if (MotionTime >= 5.0f)
 	{
-		Death();
+		Off();
 	}
 }
 

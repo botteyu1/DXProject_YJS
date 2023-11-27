@@ -30,10 +30,12 @@ void PlayMap::Start()
 
 		}
 		GameEngineSprite::CreateSingle("Stage1.dds");
+		GameEngineSprite::CreateSingle("Stage3.dds");
 		GameEngineSprite::CreateSingle("Stage2.dds");
 		GameEngineSprite::CreateSingle("StageBoss.dds");
 		GameEngineSprite::CreateSingle("StagePixel1.png");
 		GameEngineSprite::CreateSingle("StagePixel2.png");
+		GameEngineSprite::CreateSingle("StagePixel3.png");
 		GameEngineSprite::CreateSingle("StagePixelBoss.png");
 	}
 
