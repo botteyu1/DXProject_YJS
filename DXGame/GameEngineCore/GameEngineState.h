@@ -15,6 +15,7 @@ class State
 {
 public:
 	std::string Name;
+	bool InitValue = false;
 
 	CreateStateParameter Event;
 };
@@ -41,6 +42,11 @@ public:
 
 		if (nullptr != CurState && nullptr != CurState->Event.Start)
 		{
+			if (nullptr != CurState && nullptr != CurState->Event.Init and CurState->InitValue == false)
+			{
+				CurState->InitValue = true;
+				CurState->Event.Init(this);
+			}
 			CurState->Event.Start(this);
 		}
 

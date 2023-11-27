@@ -230,6 +230,9 @@ private:
 	float UltGauge = 0.0f;
 	float MaxUltGauge = 100.0f;
 
+	std::shared_ptr<class GameEngineSpriteRenderer> UltSpriteRenderer;
+	std::shared_ptr<GameEngineSpriteRenderer> UltmateSpriteRenderer;
+
 
 	//Cape CapeData;
 

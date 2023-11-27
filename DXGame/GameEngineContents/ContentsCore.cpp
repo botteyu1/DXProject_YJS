@@ -177,7 +177,8 @@ void ContentsCore::ContentsCoreSoundLoad()
 		GameEngineSound::SoundLoad("BossDive", FilePath.PlusFilePath("BossDive.wav"));
 		GameEngineSound::SoundLoad("BossCombo2", FilePath.PlusFilePath("BossCombo2.wav"));
 		GameEngineSound::SoundLoad("BossCombo", FilePath.PlusFilePath("BossCombo.wav"));
-		
+
+		GameEngineSound::SoundLoad("UltKatana", FilePath.PlusFilePath("UltKatana.wav"));
 	}
 
 

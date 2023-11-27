@@ -16,6 +16,11 @@ public:
 	PlayUI& operator=(const PlayUI& _Other) = delete;
 	PlayUI& operator=(PlayUI&& _Other) noexcept = delete;
 
+	std::shared_ptr<class GameEngineSpriteRenderer> GetUltmateSpriteRenderer()
+	{
+		return UltmateSpriteRenderer;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
@@ -64,6 +69,8 @@ private:
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Cape_Text;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Cape2;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Cape2_Text;
+
+	std::shared_ptr<GameEngineSpriteRenderer> UltmateSpriteRenderer;
 
 	int PrevHP = 0;
 	float HPTimer = 500.0f;

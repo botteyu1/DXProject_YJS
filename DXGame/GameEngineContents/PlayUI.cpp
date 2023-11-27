@@ -306,9 +306,8 @@ void PlayUI::Start()
 	HUD_Soulary_Text->SetText("메이플스토리", "0", 45.0f, float4::WHITE,FW1_RIGHT);
 	HUD_Soulary_Text->Transform.SetLocalPosition({ 853.0f,495.0f,0.0f });
 	HUD_Soulary_Text->SetName("HUD_ManaBar_Text");
-
-	/*std::shared_ptr<GameEngineSpriteRenderer> Renderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
-	Renderer->CreateAnimation("Gargoyle_DarkTornado_Loop", "Gargoyle_DarkTornado_Loop", 0.0233f, -1, -1, true);
+ //= CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	/*Renderer->CreateAnimation("Gargoyle_DarkTornado_Loop", "Gargoyle_DarkTornado_Loop", 0.0233f, -1, -1, true);
 	Renderer->ChangeAnimation("Gargoyle_DarkTornado_Loop");
 	Renderer->AutoSpriteSizeOn();
 	Renderer->SetName("Gargoyle_DarkTornado_Loop");
@@ -378,6 +377,17 @@ void PlayUI::Start()
 	Renderer->SetPivotValue({ 0.0f,1.0f });
 	Renderer->Transform.SetLocalPosition({ 5000.0f, -3000.0f , -3.0f });
 	Renderer->SetName("Gargoyle_Intro_Desk_Lock");*/
+
+
+	UltmateSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::MovieBar);
+	UltmateSpriteRenderer->SetCameraOrder(ECAMERAORDER::UI);
+	UltmateSpriteRenderer->SetMaterial("2DTextureAlwaysDepth");
+	UltmateSpriteRenderer->AutoSpriteSizeOn();
+	UltmateSpriteRenderer->SetAutoScaleRatio({ 1.0f,1.0f,1.0f,1.0f });
+	UltmateSpriteRenderer->SetImageScale({ 1920.0,840.0f,10.0f });
+	//UltmateSpriteRenderer->Transform.SetLocalRotation({ 0.0f, 0.0f,-500.0f });
+	UltmateSpriteRenderer->CreateAnimation("LD_ComboKatanas_Ult", "LD_ComboKatanas_Ult", 0.0333f, -1, -1, false);
+	UltmateSpriteRenderer->Off();
 
 }
 

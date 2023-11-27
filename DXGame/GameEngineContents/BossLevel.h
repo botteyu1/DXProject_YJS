@@ -47,7 +47,6 @@ private:
 	std::shared_ptr<class Player> PlayerPtr = nullptr;
 	std::shared_ptr<class BossGargoyle> BossPtr = nullptr;
 	std::shared_ptr<class BossUI> BossUIPtr = nullptr;
-	std::shared_ptr<class PlayUI> PlayUIPtr = nullptr;
 	GameEngineState State;
 
 	class GameEngineSoundPlayer BattleBG;

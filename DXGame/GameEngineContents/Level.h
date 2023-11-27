@@ -73,6 +73,16 @@ public:
 		screenShake.elapsed = 0.0f;
 	}
 
+	std::shared_ptr<class PlayUI> GetPlayUIPtr()
+	{
+		return PlayUIPtr;
+	}
+
+
+	std::shared_ptr<class MovieBar> GetMovieBarPtr()
+	{
+		return MovieBarPtr;
+	}
 protected:
 	std::shared_ptr<FX> FXActor;
 	std::shared_ptr<class Shader> ShaderActor = nullptr;
@@ -82,6 +92,7 @@ protected:
 	std::shared_ptr<class LevelChanger> LevelChangerPtr = nullptr;
 	std::shared_ptr<class CurseUI> CurseUIPtr = nullptr;
 	std::shared_ptr<class MovieBar> MovieBarPtr = nullptr;
+	std::shared_ptr<class PlayUI> PlayUIPtr = nullptr;
 
 
 	void Start()  override;

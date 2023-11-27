@@ -193,8 +193,6 @@ bool Actor::CheckStartAttackFrame(int _Index, float _Damage)
 	//예전방식
 	int AttackCollisionStartFrame = CurAnimationData->AttackCollisionStartFrame;
 
-	
-
 	//최신
 	if (_Index != -1)
 	{

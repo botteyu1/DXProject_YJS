@@ -23,7 +23,7 @@ Player::~Player()
 
 void Player::TakeDamage(class GameEngineCollision* _Attacker, float _Damage)
 {
-	if (State == PlayerState::Dash)
+	if (State == PlayerState::Dash or State == PlayerState::UltAttack_Rest or State == PlayerState::UltAttack)
 		return;
 
 	if (DamagedDelayTimer >= DamagedDelay)
@@ -92,7 +92,8 @@ void Player::Start()
 
 		// 이동
 		MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::Player);
-		MainSpriteRenderer->SetMaterial("2DTextureAlwaysDepth");
+		
+		//MainSpriteRenderer->SetMaterial("2DTextureAlwaysDepth");
 		MainSpriteRenderer->CreateAnimation("LD_Idle", "LD_Idle", 0.0333f, -1, -1, true);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_Idle", {}));
 
@@ -160,13 +161,36 @@ void Player::Start()
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_BookAttack_03", {}));
 
 
-		MainSpriteRenderer->CreateAnimation("LD_ComboKatanas_Ult_Init", "LD_ComboKatanas_Ult_Init", 0.0333f, -1, -1, false);
+		MainSpriteRenderer->CreateAnimation("LD_ComboKatanas_Ult_Init", "LD_ComboKatanas_Ult_Init", 0.11923f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatanas_Ult_Init", {}));
+
 		MainSpriteRenderer->CreateAnimation("LD_ComboKatanas_Ult", "LD_ComboKatanas_Ult", 0.0333f, -1, -1, false);
-		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatanas_Ult", {}));
-		MainSpriteRenderer->CreateAnimation("LD_ComboKatanas_Ult_Rest", "LD_ComboKatanas_Ult_Rest", 0.0333f, -1, -1, false);
-		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatanas_Ult_Rest", {}));
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatanas_Ult", { 0.5f, 0.0f, false, {1920.0f, 1080.0f} }));
 		
+		MainSpriteRenderer->CreateAnimation("LD_ComboKatanas_Ult_Rest", "LD_ComboKatanas_Ult_Rest", 0.0833f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatanas_Ult_Rest", {}));
+
+		/*UltSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::MovieBar);
+		UltSpriteRenderer->SetCameraOrder(ECAMERAORDER::UI);
+		UltSpriteRenderer->SetMaterial("2DTextureAlwaysDepth");
+		UltSpriteRenderer->AutoSpriteSizeOn();
+		UltSpriteRenderer->SetAutoScaleRatio({ 1.0f,1.0f,1.0f,1.0f });
+		UltSpriteRenderer->SetImageScale({ 1920.0,840.0f,10.0f });
+		UltSpriteRenderer->Transform.SetLocalRotation({ 0.0f, 0.0f,-500.0f });
+		UltSpriteRenderer->CreateAnimation("LD_ComboKatanas_Ult", "LD_ComboKatanas_Ult", 0.0333f, -1, -1, false);
+		UltSpriteRenderer->On();*/
+		
+		//UltmateSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::MovieBar);
+		//UltmateSpriteRenderer->SetCameraOrder(ECAMERAORDER::UI);
+		//UltmateSpriteRenderer->SetMaterial("2DTextureAlwaysDepth");
+		//UltmateSpriteRenderer->AutoSpriteSizeOn();
+		//UltmateSpriteRenderer->SetAutoScaleRatio({ 1.0f,1.0f,1.0f,1.0f });
+		//UltmateSpriteRenderer->SetImageScale({ 1920.0,840.0f,10.0f });
+		////UltmateSpriteRenderer->Transform.SetLocalRotation({ 0.0f, 0.0f,-500.0f });
+		//UltmateSpriteRenderer->CreateAnimation("LD_ComboKatanas_Ult", "LD_ComboKatanas_Ult", 0.0333f, -1, -1, false);
+		//UltmateSpriteRenderer->On();
+
+		//AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatanas_Ult", {}));
 
 
 		//마무리 행동

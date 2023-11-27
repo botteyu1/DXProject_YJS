@@ -2,7 +2,8 @@
 #include "Player.h"
 #include "FX.h"
 #include "Level.h"
-
+#include "PlayUI.h"
+#include"MovieBar.h"
 
 
 
@@ -245,7 +246,10 @@ void Player::AerialDownAttackUpdate(float _Delta)
 
 void Player::UltAttackStart()
 {
+	Flip = false;
+	GameEngineSound::SoundPlay("UltKatana"); 
 	ChangeMainAnimation("LD_ComboKatanas_Ult_Init");
+	GetContentsLevel()->GetMovieBarPtr()->MovieBarStart();
 }
 
 void Player::UltAttackUpdate(float _Delta)
@@ -255,22 +259,55 @@ void Player::UltAttackUpdate(float _Delta)
 	{
 		if (MainSpriteRenderer->IsCurAnimationEnd())
 		{
-			MainSpriteRenderer->SetAutoScaleRatio({ 3.0f,3.0f,1.0f });
+			//MainSpriteRenderer->Off();
 			ChangeMainAnimation("LD_ComboKatanas_Ult");
-		}
+			MainSpriteRenderer->GetColorData().MulColor = float4::ZERONULL;
+
+			GetContentsLevel()->GetPlayUIPtr()->GetUltmateSpriteRenderer()->On();
+			GetContentsLevel()->GetPlayUIPtr()->GetUltmateSpriteRenderer()->ChangeAnimation("LD_ComboKatanas_Ult", true);
+
+			//UltmateSpriteRenderer->On();
+			//UltmateSpriteRenderer->ChangeAnimation("LD_ComboKatanas_Ult",true);
+			//MainSpriteRenderer->SetAutoScaleRatio({ 3.0f,3.0f,1.0f });
+			//ChangeMainAnimation("LD_ComboKatanas_Ult");
+		} 
 		return;
 	}
 
 
-	if (CheckStartAttackFrame())
-	{
+	CheckStartAttackFrame(0,15);
+	CheckEndAttackFrame(1);
 
-	}
+	CheckStartAttackFrame(3, 15);
+	CheckEndAttackFrame(5);
 
+	CheckStartAttackFrame(7, 15);
+	CheckEndAttackFrame(9);
+
+	CheckStartAttackFrame(11, 15);
+	CheckEndAttackFrame(13);
+
+	CheckStartAttackFrame(15, 15);
+	CheckEndAttackFrame(17);
+
+	CheckStartAttackFrame(19, 15);
+	CheckEndAttackFrame(21);
+
+	CheckStartAttackFrame(23, 15);
+	CheckEndAttackFrame(25);
+
+	CheckStartAttackFrame(27, 15);
+	CheckEndAttackFrame(28);
+
+	
+
+	
+	
 	if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
-
-		MainSpriteRenderer->SetAutoScaleRatio({ 1.0f,1.0f,1.0f });
+		GetContentsLevel()->GetPlayUIPtr()->GetUltmateSpriteRenderer()->Off();
+		MainSpriteRenderer->GetColorData().MulColor = float4::ONE;
+		GetContentsLevel()->GetMovieBarPtr()->MovieBarEnd();
 		ChangeState(PlayerState::UltAttack_Rest);
 	}
 }
