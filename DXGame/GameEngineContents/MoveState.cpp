@@ -53,6 +53,13 @@ void Player::DashStart()
 	ChangeMainAnimation("LD_Dash");
 
 	GameEngineSound::SoundPlay("Dash");
+	if (DashCountCur == 0)
+	{
+		DashDelayTimer = 0.0f;
+	}
+
+	DashCountCur += 1;
+	
 	CurDash = 0.0f;
 	ForceGrivityOff = true;
 	GetContentsLevel()->GetFXActor()->FXStart(FXType::Shockwave, Flip, Transform.GetLocalPosition() + float4(0.0f, 50.0f,8.0f), float4(0.2f, 0.2f, 5.0f));
@@ -317,7 +324,7 @@ bool Player::InputJumpUpdate(float _Delta)
 
 bool Player::InputDashUpdate(float _Delta)
 {
-	if (GameEngineInput::IsDown(VK_LSHIFT, this))
+	if (GameEngineInput::IsDown(VK_LSHIFT, this) and (DashCountCur < Player::GetMainPlayerData().DashCount))
 	{
 		ChangeState(PlayerState::Dash);
 		return true;

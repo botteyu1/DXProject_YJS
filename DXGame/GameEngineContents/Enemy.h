@@ -58,9 +58,8 @@ public:
 protected:
 	
 	float MoveSpeed = 400.0f;
-	//float AttackDamage = 10.0f;
-	float AttackCoolTime = 3.0f;
-	float AttackCoolTimeCheck = 0.0f;
+	float AttackCoolDown = 2.0f;
+	float AttackCoolDownTimer = 0.0f;
 
 	float HitPushBackTime = 0.1f;
 	float HitPushBackTimeCheck = 10.0f;
@@ -78,7 +77,7 @@ protected:
 	bool LookPlayer();
 	bool IsDetectPlayer();
 
-	bool  DetectPlayer = false;
+	bool DetectPlayer = false;
 
 	void CheckAttackCollision();
 
@@ -87,7 +86,12 @@ protected:
 
 	void HitPushBackUpdate(float _Delta);
 
+	bool AttackCoolTimeCheck();
+
 	EnemyState State = EnemyState::Max;
+
+
+	
 
 private:
 	

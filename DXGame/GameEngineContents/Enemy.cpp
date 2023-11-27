@@ -73,6 +73,16 @@ void Enemy::HitPushBackUpdate(float _Delta)
 	}
 }
 
+bool Enemy::AttackCoolTimeCheck()
+{
+	if (AttackCoolDownTimer < AttackCoolDown)
+	{
+		AttackCoolDownTimer = 0.0f;
+		return true;
+	}
+	return false;
+}
+
 void Enemy::CheckAttackCollision()
 {
 	EventParameter Parameter;
@@ -191,6 +201,7 @@ void Enemy::Update(float _Delta)
 
 	HitPushBackUpdate(_Delta);
 	DeathCheck();
+	AttackCoolDownTimer += _Delta;
 	
 
 	//if (AttackCoolTimeCheck <= AttackCoolTime)
@@ -212,9 +223,16 @@ void Enemy::ChangeState(EnemyState _State)
 		IdleStart();
 		break;
 	case EnemyState::Attack:
+		if (AttackCoolTimeCheck() == true)
+		{
+			AttackStart();
+		}
+		else
+		{
+			return;
+		}
 		
-		AttackCoolTimeCheck = 0.0f;
-		AttackStart();
+		
 		break;
 	case EnemyState::Attack_Init:
 		Attack_InitStart();

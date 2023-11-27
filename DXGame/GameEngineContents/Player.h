@@ -52,12 +52,14 @@ public:
 
 	float MPScale = 1.0f;
 
-	int DashCount = 0;
+	int DashCount = 1;
 	int AnimaSocket = 3;
 
 
 	int MaxAnima = 4;
 	int Anima = 1;
+
+	
 
 
 	void AddAnima(int _Num = 1)
@@ -185,6 +187,12 @@ private:
 	float DamagedDelayTimer = 0.0f; // 피격후 무적시간 타이머
 	float DamagedDelay = 0.8f; // 피격후 무적시간
 
+	float DashDelay = 2.0f;
+	float DashDelayTimer = 0.0f;
+
+	int DashCountCur= 0;
+
+
 	PlayerState State = PlayerState::Max;
 
 	float MP = 50;
@@ -195,6 +203,7 @@ private:
 	int ComboCount = 0;
 	int AerialComboCount = 0;
 
+	
 	
 	float DamagedTickTime = 0.5f; // 피격후 무적시간
 	

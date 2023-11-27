@@ -262,6 +262,8 @@ void Player::Update(float _Delta)
 		return;
 	}
 
+	
+
 	if (AerialCheck == false and ForceGrivityOff == false)
 	{
 		JumpingAttackEnd = false;
@@ -274,7 +276,12 @@ void Player::Update(float _Delta)
 	CapeUpdate(_Delta);
 	DashStartCheck = true;
 	DamagedDelayTimer += _Delta;
+	DashDelayTimer += _Delta;
 
+	if (DashDelayTimer > DashDelay)
+	{
+		DashCountCur = 0;
+	}
 
 	if (MP < MaxMP)
 	{
