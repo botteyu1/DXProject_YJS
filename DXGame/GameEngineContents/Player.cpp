@@ -158,6 +158,14 @@ void Player::Start()
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_BookAttack_02", {}));
 		MainSpriteRenderer->CreateAnimation("LD_BookAttack_03", "LD_BookAttack_03", 0.0333f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_BookAttack_03", {}));
+
+
+		MainSpriteRenderer->CreateAnimation("LD_ComboKatanas_Ult_Init", "LD_ComboKatanas_Ult_Init", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatanas_Ult_Init", {}));
+		MainSpriteRenderer->CreateAnimation("LD_ComboKatanas_Ult", "LD_ComboKatanas_Ult", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatanas_Ult", {}));
+		MainSpriteRenderer->CreateAnimation("LD_ComboKatanas_Ult_Rest", "LD_ComboKatanas_Ult_Rest", 0.0333f, -1, -1, false);
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatanas_Ult_Rest", {}));
 		
 
 
@@ -269,6 +277,7 @@ void Player::Update(float _Delta)
 		JumpingAttackEnd = false;
 		ThroughFloorCheck = false;
 		AerialComboCount = 0;
+		//JumpingAttackCount = 0;
 	}
 
 	StateUpdate(_Delta);
@@ -452,6 +461,12 @@ void Player::ChangeState(PlayerState _State)
 	case PlayerState::PowerUp:
 		PowerUpStart();
 		break;
+	case PlayerState::UltAttack:
+		UltAttackStart();
+		break;
+	case PlayerState::UltAttack_Rest:
+		UltAttack_RestStart();
+		break;
 	default:
 		break;
 	}
@@ -546,6 +561,12 @@ void Player::StateUpdate(float _Delta)
 		break;
 	case PlayerState::PowerUp:
 		PowerUpUpdate(_Delta);
+		break;
+	case PlayerState::UltAttack:
+		UltAttackUpdate(_Delta);
+		break;
+	case PlayerState::UltAttack_Rest:
+		UltAttack_RestUpdate(_Delta);
 		break;
 	default:
 		break;

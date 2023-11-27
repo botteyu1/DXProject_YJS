@@ -26,6 +26,8 @@ enum class PlayerState
 	ExitElavator,
 	Acquisition,
 	PowerUp,
+	UltAttack,
+	UltAttack_Rest,
 	
 	ForceWait, //씬이나 UI상태일때 조작금지상태
 
@@ -161,6 +163,12 @@ public:
 	{
 		return State;
 	}
+
+	void AddUltGauge(float _UltGauge = 5.0f)
+	{
+		UltGauge += _UltGauge;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
@@ -192,6 +200,8 @@ private:
 
 	int DashCountCur= 0;
 
+	int JumpingAttackCount = 0;
+
 
 	PlayerState State = PlayerState::Max;
 
@@ -216,6 +226,9 @@ private:
 
 	void CapeStart();
 	void CapeUpdate(float _Delta);
+
+	float UltGauge = 0.0f;
+	float MaxUltGauge = 100.0f;
 
 
 	//Cape CapeData;
@@ -299,6 +312,12 @@ private:
 
 	void PowerUpStart();
 	void PowerUpUpdate(float _Delta);
+
+	void UltAttackStart();
+	void UltAttackUpdate(float _Delta);
+
+	void UltAttack_RestStart();
+	void UltAttack_RestUpdate(float _Delta);
 
 	bool InputMoveUpdate(float _Delta);
 	bool InputJumpUpdate(float _Delta);

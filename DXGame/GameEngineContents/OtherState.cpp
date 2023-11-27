@@ -142,3 +142,5 @@ void Player::PowerUpUpdate(float _Delta)
 		ChangeState(PlayerState::Idle);
 	}
 }
+
+

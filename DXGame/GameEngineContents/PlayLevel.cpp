@@ -82,6 +82,18 @@ void PlayLevel::Start()
 	{
 		CreateStateParameter NewPara;
 
+		NewPara.Init = [=](class GameEngineState* _Parent)
+			{
+				// MainSpriteRenderer->ChangeAnimation("Idle");
+				//std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
+				//float4 PlayerPos = PlayerPtr->Transform.GetWorldPosition();
+				//float4 Pos = { PlayerPos.X, -3150.0f,-1000.0f };
+				//MainCamara->Transform.SetWorldPosition(PlayerPos);
+
+				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
+				float4 PlayerPos = PlayerPtr->Transform.GetWorldPosition() + float4{ 0.0f,0.0f,-1000.0f };
+				MainCamara->Transform.SetLocalPosition(PlayerPos);
+			};
 
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
@@ -124,10 +136,6 @@ void PlayLevel::Start()
 					CameraPos.Y = -3800.0f;
 					MainCamara->Transform.SetLocalPosition(CameraPos);
 				}
-
-				
-				
-
 
 
 				if (MainCamara->Transform.GetLocalPosition().X >= 10500.0f and GimmickValue == false)

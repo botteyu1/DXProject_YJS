@@ -110,6 +110,8 @@ void Enemy::DeathCheck()
 			GameEngineSound::SoundPlay("EnemyDeath2");
 		}
 
+		Player::GetMainPlayer()->AddUltGauge();
+
 		DeathValue = true;
 		ChangeState(EnemyState::Death);
 		GetContentsLevel()->StartScreenShake(0.5f, 12.0f, 10.0f);

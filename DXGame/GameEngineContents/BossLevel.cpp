@@ -72,24 +72,42 @@ void BossLevel::Start()
 		NewPara.Init = [=](class GameEngineState* _Parent)
 			{
 				// MainSpriteRenderer->ChangeAnimation("Idle");
+				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
+				float4 PlayerPos = PlayerPtr->Transform.GetWorldPosition();
+				float4 Pos = { PlayerPos.X, -3150.0f,-1000.0f };
+				MainCamara->Transform.SetWorldPosition(Pos);
 			};
 
 
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
 				BossUIPtr->Off();
+
+				
+
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
 				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
-				float4 PlayePos = PlayerPtr->Transform.GetWorldPosition();
+				float4 PlayerPos = PlayerPtr->Transform.GetWorldPosition();
 				float4 MainCamaraPos = MainCamara->Transform.GetWorldPosition();
-				float4 Pos = { PlayePos.X, -3150.0f,-1000.0f };
+				
+				float distanceToTarget = DirectX::XMVectorGetX(DirectX::XMVector3Length(DirectX::XMVectorSubtract(MainCamara->Transform.GetLocalPosition().DirectXVector, PlayerPos.DirectXVector)));
+
+
+				float4 Move = PlayerPos - MainCamaraPos;
+
+				if (distanceToTarget > 10.0f)
+				{
+					MainCamara->Transform.AddLocalPosition({ Move.X * _DeltaTime * 3.0f });
+				}
+
+				float4 Pos = { PlayerPos.X, -3150.0f,-1000.0f };
 
 				if (BossIntroOver == false)
 				{
-					float Volume = PlayePos.X / (3450.0f - 1107.0f) * 0.6f;
+					float Volume = PlayerPos.X / (3450.0f - 1107.0f) * 0.6f;
 					Bgm.SetVolume(Volume);
 				}
 
@@ -99,7 +117,7 @@ void BossLevel::Start()
 					_Parent->ChangeState(BossLevelState::IntroCamera);
 				}
 
-				MainCamara->Transform.SetWorldPosition(Pos);
+				//MainCamara->Transform.SetWorldPosition(Pos);
 			};
 
 		State.CreateState(BossLevelState::Normal, NewPara);

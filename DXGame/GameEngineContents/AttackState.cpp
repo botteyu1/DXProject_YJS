@@ -243,8 +243,58 @@ void Player::AerialDownAttackUpdate(float _Delta)
 	CheckAttackCollision();
 }
 
+void Player::UltAttackStart()
+{
+	ChangeMainAnimation("LD_ComboKatanas_Ult_Init");
+}
+
+void Player::UltAttackUpdate(float _Delta)
+{
+
+	if (MainSpriteRenderer->IsCurAnimation("LD_ComboKatanas_Ult_Init") == true)
+	{
+		if (MainSpriteRenderer->IsCurAnimationEnd())
+		{
+			MainSpriteRenderer->SetAutoScaleRatio({ 3.0f,3.0f,1.0f });
+			ChangeMainAnimation("LD_ComboKatanas_Ult");
+		}
+		return;
+	}
+
+
+	if (CheckStartAttackFrame())
+	{
+
+	}
+
+	if (MainSpriteRenderer->IsCurAnimationEnd())
+	{
+
+		MainSpriteRenderer->SetAutoScaleRatio({ 1.0f,1.0f,1.0f });
+		ChangeState(PlayerState::UltAttack_Rest);
+	}
+}
+
+void Player::UltAttack_RestStart()
+{
+	ChangeMainAnimation("LD_ComboKatanas_Ult_Rest");
+}
+
+void Player::UltAttack_RestUpdate(float _Delta)
+{
+	if (MainSpriteRenderer->IsCurAnimationEnd())
+	{
+		ChangeState(PlayerState::Idle);
+	}
+}
+
 bool Player::InputAttackUpdate(float _Delta)
 {
+	if(GameEngineInput::IsDown('R', this)/* and UltGauge >= MaxUltGauge*/)
+	{
+		ChangeState(PlayerState::UltAttack);
+	}
+	
 	if (GameEngineInput::IsDown(VK_LBUTTON, this))
 	{
 		ComboCount = 0;

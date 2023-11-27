@@ -117,7 +117,7 @@ void AnimaDrop::Update(float _Delta)
 		GetContentsLevel()->GetFXActor()->FXUIStart(FXType::TakeAnima,Flip, Transform.GetConstTransformDataRef());
 
 		static bool AnimaSound = false;
-		AnimaSound != AnimaSound;
+		AnimaSound = !AnimaSound;
 
 		if (AnimaSound == false)
 		{
