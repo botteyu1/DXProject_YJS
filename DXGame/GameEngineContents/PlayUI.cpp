@@ -387,6 +387,7 @@ void PlayUI::Start()
 	UltmateSpriteRenderer->SetImageScale({ 1920.0,840.0f,10.0f });
 	//UltmateSpriteRenderer->Transform.SetLocalRotation({ 0.0f, 0.0f,-500.0f });
 	UltmateSpriteRenderer->CreateAnimation("LD_ComboKatanas_Ult", "LD_ComboKatanas_Ult", 0.0333f, -1, -1, false);
+	UltmateSpriteRenderer->GetColorData().MulColor = float4{ 1.0f,0.7f,0.7f,1.0f }; ;
 	UltmateSpriteRenderer->Off();
 
 }

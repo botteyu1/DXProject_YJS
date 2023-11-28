@@ -83,6 +83,7 @@ public:
 	{
 		return MovieBarPtr;
 	}
+
 protected:
 	std::shared_ptr<FX> FXActor;
 	std::shared_ptr<class Shader> ShaderActor = nullptr;

@@ -24,6 +24,9 @@ public:
 	void BossOutroShaderStart();
 	void BossOutroShaderEnd();
 
+	void UltShaderStart();
+	void UltShaderEnd();
+
 
 protected:
 	void Start() override;
@@ -32,12 +35,15 @@ protected:
 	bool BossOutroStartAnimationValue = false;
 	bool BossOutroEndAnimationValue = false;
 
+	bool UltStartAnimationValue = false;
+	bool UltEndAnimationValue = false;
+
 	float AnimationTime = 0.0f;
 
 
 private:
 	std::shared_ptr<GameEngineSpriteRenderer> GlobalShader = nullptr;
-	std::shared_ptr<GameEngineSpriteRenderer> Cloud= nullptr;
+	std::shared_ptr<GameEngineSpriteRenderer> UltVignetteShader= nullptr;
 
 };
 

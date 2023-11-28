@@ -4,6 +4,7 @@
 #include "Level.h"
 #include "PlayUI.h"
 #include"MovieBar.h"
+#include "Shader.h"
 
 
 
@@ -250,6 +251,8 @@ void Player::UltAttackStart()
 	GameEngineSound::SoundPlay("UltKatana"); 
 	ChangeMainAnimation("LD_ComboKatanas_Ult_Init");
 	GetContentsLevel()->GetMovieBarPtr()->MovieBarStart();
+	GetContentsLevel()->GetShaderActor()->UltShaderStart();
+
 }
 
 void Player::UltAttackUpdate(float _Delta)
@@ -275,7 +278,7 @@ void Player::UltAttackUpdate(float _Delta)
 	}
 
 
-	CheckStartAttackFrame(0,15);
+	CheckStartAttackFrame(0, 15);
 	CheckEndAttackFrame(1);
 
 	CheckStartAttackFrame(3, 15);
@@ -323,6 +326,7 @@ void Player::UltAttack_RestUpdate(float _Delta)
 {
 	if (MainSpriteRenderer->IsCurAnimationEnd())
 	{
+		GetContentsLevel()->GetShaderActor()->UltShaderEnd();
 		ChangeState(PlayerState::Idle);
 	}
 }
