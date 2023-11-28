@@ -161,7 +161,7 @@ void PlayUI::Start()
 	HUD_Ult->SetSprite("HUD_Main_Purple.png");
 	HUD_Ult->Transform.SetLocalPosition({-865.0f,390.0f,-1.0f });
 	HUD_Ult->SetName("HUD_Ult_BG");
-	//HUD_Ult->GetColorData().MulColor = float4(0.2f,0.2f,0.2f,1.0f);
+	HUD_Ult->GetColorData().MulColor = float4(1.0f,1.0f,1.0f,1.0f);
 
 	
 
@@ -592,7 +592,12 @@ void PlayUI::Update(float _Delta)
 			
 	}
 	
+	// �ñر� üũ
+	float UltGauge = PlayerPtr->UltGauge;
+	float MaxUltGauge = PlayerPtr->MaxUltGauge;
 
+
+	HUD_Ult->GetColorData().MulColor = float4(1.f, 1.f, 1.0f, UltGauge / MaxUltGauge);
 
 }
 

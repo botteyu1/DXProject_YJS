@@ -5,6 +5,7 @@
 #include "FxSpriteRenderer.h"
 #include "AnimaDrop.h"
 #include "SoularyDrop.h"
+#include "ContentsCore.h"
 
 Enemy::Enemy() 
 {
@@ -115,20 +116,30 @@ void Enemy::DeathCheck()
 		DeathValue = true;
 		ChangeState(EnemyState::Death);
 		GetContentsLevel()->StartScreenShake(0.5f, 12.0f, 10.0f);
-		std::shared_ptr<AnimaDrop> Object2 =  GetContentsLevel()->CreateActor<AnimaDrop>(ContentsObjectType::BackGroundobject);
-		Object2->Spawn(Transform.GetLocalPosition());
-		std::shared_ptr<SoularyDrop> Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
-		Object->Spawn(Transform.GetLocalPosition());
-		Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
-		Object->Spawn(Transform.GetLocalPosition());
-		Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
-		Object->Spawn(Transform.GetLocalPosition());
-		Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
-		Object->Spawn(Transform.GetLocalPosition());
-		Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
-		Object->Spawn(Transform.GetLocalPosition());
-		Object =  GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
-		Object->Spawn(Transform.GetLocalPosition());
+
+		static int AnimaCount = 0;
+
+		AnimaCount++;
+
+		if (AnimaCount >= 15)
+		{
+			AnimaCount = 0;
+
+			std::shared_ptr<AnimaDrop> Object2 = GetContentsLevel()->CreateActor<AnimaDrop>(ContentsObjectType::BackGroundobject);
+			Object2->Spawn(Transform.GetLocalPosition());
+		}
+
+		int SoularyCount = ContentsCore::MainRandom->RandomInt(0,4);
+
+
+		for (int i = 0; i < SoularyCount; i++)
+		{
+			std::shared_ptr<SoularyDrop> Object = GetContentsLevel()->CreateActor<SoularyDrop>(ContentsObjectType::BackGroundobject);
+			Object->Spawn(Transform.GetLocalPosition());
+			
+		}
+		
+		
 	}
 }
 
