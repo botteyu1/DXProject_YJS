@@ -75,7 +75,7 @@ void Enemy::HitPushBackUpdate(float _Delta)
 
 bool Enemy::AttackCoolTimeCheck()
 {
-	if (AttackCoolDownTimer < AttackCoolDown)
+	if (AttackCoolDownTimer > AttackCoolDown)
 	{
 		AttackCoolDownTimer = 0.0f;
 		return true;

@@ -327,6 +327,7 @@ void BossGargoyle::AttackStart()
 {
 	MotionTime = 0.0f;
 	std::string AnimationName;
+	AttackCoolDownTimer = 100.0f;
 	//AttackPatern = GargoyleAttackPatern::Posing;
 	switch (AttackPatern)
 	{
@@ -599,8 +600,6 @@ void BossGargoyle::Attack_InitStart()
 	case GargoyleAttackPatern::Dive:
 		Flip = !Flip;
 		ChangeMainAnimation("Gargoyle_DiveAttack_Anticipation");
-
-		GameEngineSound::SoundPlay("BossPosing1");
 		break;
 	case GargoyleAttackPatern::Dive_Anti:
 		Flip = !Flip;
@@ -736,6 +735,7 @@ void BossGargoyle::RunStart()
 		ForceGrivityOff = true;
 		TargetPlayerPos = Player::GetMainPlayer()->Transform.GetLocalPosition() + float4{ 0.0f,400.0f,0.0f };
 		TargetPos = Transform.GetLocalPosition() + float4{ 0.0f, 50.0f };
+		GameEngineSound::SoundPlay("BossPosing1");
 		ChangeMainAnimation("Gargoyle_SpinAir");
 		break;
 	}

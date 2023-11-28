@@ -195,7 +195,7 @@ private:
 	float DamagedDelayTimer = 0.0f; // 피격후 무적시간 타이머
 	float DamagedDelay = 0.8f; // 피격후 무적시간
 
-	float DashDelay = 2.0f;
+	float DashDelay = 1.0f;
 	float DashDelayTimer = 0.0f;
 
 	int DashCountCur= 0;
