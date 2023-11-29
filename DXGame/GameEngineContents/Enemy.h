@@ -58,7 +58,7 @@ public:
 protected:
 	
 	float MoveSpeed = 400.0f;
-	float AttackCoolDown = 2.0f;
+	float AttackCoolDown = 3.0f;
 	float AttackCoolDownTimer = 0.0f;
 
 	float HitPushBackTime = 0.1f;

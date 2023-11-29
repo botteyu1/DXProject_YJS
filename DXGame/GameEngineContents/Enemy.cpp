@@ -236,16 +236,16 @@ void Enemy::ChangeState(EnemyState _State)
 		IdleStart();
 		break;
 	case EnemyState::Attack:
-		if (AttackCoolTimeCheck() == true)
+		/*if (AttackCoolTimeCheck() == true)
 		{
 			AttackStart();
 		}
 		else
 		{
 			return;
-		}
+		}*/
 		
-		
+		AttackStart();
 		break;
 	case EnemyState::Attack_Init:
 		Attack_InitStart();

@@ -239,7 +239,14 @@ void Ghost_Man::RunUpdate(float _Delta)
 			}
 			if (DetectAttackCollision->Collision<ContentsCollisionType>(ContentsCollisionType::Player))
 			{
-				ChangeState(EnemyState::Attack);
+				if (AttackCoolTimeCheck() == true)
+				{
+					ChangeState(EnemyState::Attack);
+				}
+				else
+				{
+					Transform.AddLocalPosition(-Dir * _Delta * MoveSpeed);
+				}
 			}
 			return;
 		}
