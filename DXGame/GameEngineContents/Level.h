@@ -84,6 +84,9 @@ public:
 		return MovieBarPtr;
 	}
 
+	void BGMOff();
+
+
 protected:
 	std::shared_ptr<FX> FXActor;
 	std::shared_ptr<class Shader> ShaderActor = nullptr;
@@ -106,6 +109,7 @@ protected:
 	float4 PrevShackeRotationPos = float4::ZERO;
 
 	class GameEngineSoundPlayer Bgm;
+	class GameEngineSoundPlayer BgmEffect;
 
 private:
 

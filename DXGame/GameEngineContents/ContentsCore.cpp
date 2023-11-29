@@ -197,6 +197,7 @@ void ContentsCore::ContentsCoreSoundLoad()
 		GameEngineSound::SoundLoad("BossBGStart", FilePath.PlusFilePath("BossBGStart.wav"));
 		GameEngineSound::SoundLoad("BossBGBattle", FilePath.PlusFilePath("BossBGBattle.wav"));
 		GameEngineSound::SoundLoad("BossBGEnd", FilePath.PlusFilePath("BossBGEnd.wav"));
+		GameEngineSound::SoundLoad("BGMEffect", FilePath.PlusFilePath("BGMEffect.wav"));
 	}
 	
 	

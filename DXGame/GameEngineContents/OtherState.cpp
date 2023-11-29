@@ -80,7 +80,7 @@ void Player::EnterElavatorUpdate(float _Delta)
 		}
 		else if (GetLevel()->GetName() == "BossLevel")
 		{
-			GetContentsLevel()->LevelChangerStart("BossLevel");
+			GetContentsLevel()->LevelChangerStart("TitleLevel");
 			//GameEngineCore::ChangeLevel("BossLevel");
 		}
 	}

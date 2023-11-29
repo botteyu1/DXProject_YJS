@@ -35,6 +35,7 @@ protected:
 
 	void DeathCheck() override;
 
+	void EndSceneMoveUpdate(float _Detla);
 
 	void IdleStart();
 	void IdleUpdate(float _Delta);
@@ -89,8 +90,14 @@ private:
 	float4 TargetPlayerPos = float4::ZERO;
 	float4 TargetPos = float4::ZERO; //공격용 좌표 저장
 	float4 MoveVec = float4::ZERO;
+	float4 EndScenePrePos = float4::ZERO;
 	float BulletDelay = 0.3f;
 	float BulletDelayCheck = 0.0f;
+
+	bool EndSceneMovementValue1 = false;
+	float EndSceneMovementValue1Timer = 0.0f;
+	bool EndSceneMovementValue2 = false;
+	float EndSceneMovementValue2Timer = 0.0f;
 
 
 	std::shared_ptr<class BossDesk> DeskActor;

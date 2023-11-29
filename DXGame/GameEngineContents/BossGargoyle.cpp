@@ -69,11 +69,11 @@ void BossGargoyle::Start()
 	}
 
 	MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::FX);
-	MainSpriteRenderer->CreateAnimation("Gargoyle_Combo1", "Gargoyle_Combo1", 0.0666f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("Gargoyle_Combo1", "Gargoyle_Combo1", 0.0366f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Combo1", { 1.0f, 300.0f, false,
 		{230.0f, 150.0f}, {130.0f, 80.0f},10 }));
 
-	MainSpriteRenderer->CreateAnimation("Gargoyle_Combo2", "Gargoyle_Combo2", 0.0666f, -1, -1, true);
+	MainSpriteRenderer->CreateAnimation("Gargoyle_Combo2", "Gargoyle_Combo2", 0.0366f, -1, -1, true);
 	AnimationDataMap.insert(std::pair<std::string, AnimationData>("Gargoyle_Combo2", { 1.0f,120.0f, false,
 	{250.0f, 350.0f}, {100.0f, 200.0f},6 }));
 
@@ -190,21 +190,35 @@ void BossGargoyle::Start()
 
 	MainSpriteRenderer->SetFrameEvent("Gargoyle_End", 69, [=](GameEngineSpriteRenderer* _Renderer) {
 
-		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado_UL, false, Transform.GetLocalPosition() + float4(-200.0f, -43.0f, 0.33f), float4(1.0f, 1.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
-		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado_UL, false, Transform.GetLocalPosition() + float4(-350.0f, -205.0f, 0.66f), float4(2.0f, 2.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
-		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado_UL, false, Transform.GetLocalPosition() + float4(-500.0f, -403.0f, 0.99f), float4(3.0f, 3.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
+		//GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado_UL, false, Transform.GetLocalPosition() + float4(-200.0f, -43.0f, 0.33f), float4(1.0f, 1.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado_UL, false, Transform.GetLocalPosition() + float4(-350.0f, -105.0f, 0.66f), float4(2.0f, 2.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado_UL, false, Transform.GetLocalPosition() + float4(-500.0f, -303.0f, 0.88f), float4(3.0f, 3.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado_UL, false, Transform.GetLocalPosition() + float4(-800.0f, -663.0f, 0.99f), float4(5.0f, 5.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
 
-		DarkTornadoFXRenderer = GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado, false, Transform.GetLocalPosition() + float4(-200.0f, 0.0f, -2.0f), float4(1.0f, 1.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
-		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado, false, Transform.GetLocalPosition() + float4(-350.0f, -120.0f, -3.0f), float4(2.0f, 2.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
-		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado, false, Transform.GetLocalPosition() + float4(-500.0f, -273.0f, -4.0f), float4(3.0f, 3.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
+		DarkTornadoFXRenderer = GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado, false, Transform.GetLocalPosition() + float4(-350.0f, -20.0f, -3.0f), float4(2.0f, 2.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado, false, Transform.GetLocalPosition() + float4(-500.0f, -173.0f, -4.0f), float4(3.0f, 3.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
+		GetContentsLevel()->GetFXActor()->FXStart(FXType::Gargoyle_DarkTornado, false, Transform.GetLocalPosition() + float4(-800.0f, -446.0f, -5.0f), float4(5.0f, 5.0f, 1.0f), float4(1.0f, 1.0f, 1.0f));
 		GetContentsLevel()->GetShaderActor()->BossOutroShaderStart();
 
 		static_cast<BossLevel*>(GetContentsLevel())->GetEndBG() = GameEngineSound::SoundPlay("BossBGEnd");
 		static_cast<BossLevel*>(GetContentsLevel())->GetEndBG().SetVolume(0.6f);
 
-
+		//엔드씬 이동 초기화
+		EndScenePrePos = MainSpriteRenderer->Transform.GetLocalPosition();
+		MainSpriteRenderer->SetAutoScaleRatio({ 1.2f,1.2f,1.2f });
+		EndSceneMovementValue1 = true;
+		ForceGrivityOff = true;
+		EndSceneMovementValue1Timer = 0.0f;
 
 		});
+
+
+	MainSpriteRenderer->SetFrameEvent("Gargoyle_End", 80, [=](GameEngineSpriteRenderer* _Renderer) {
+		EndSceneMovementValue2 = true;
+		ForceGrivityOff = true;
+		EndSceneMovementValue2Timer = 0.0f;
+		});
+
 
 	MainSpriteRenderer->SetFrameEvent("Gargoyle_Intro", 36, [=](GameEngineSpriteRenderer* _Renderer) {
 		
@@ -216,25 +230,6 @@ void BossGargoyle::Start()
 	MainSpriteRenderer->SetPivotValue({ 0.0f, 1.0f });
 
 
-
-	//데스크
-	//DeskActor = GetLevel()->CreateActor<StageObject>(ContentsObjectType::StageObject);
-
-	//DeskActor->MainSpriteRenderer = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::BackGroundobject);
-	//DeskActor->MainSpriteRenderer->CreateAnimation("Gargoyle_Intro_Desk", "Gargoyle_Intro_Desk", 0.0633f, -1, -1, true);
-	//DeskActor->MainSpriteRenderer->CreateAnimation("Gargoyle_Intro_Desk_Lock", "Gargoyle_Intro_Desk", 0.0633f, 0, 0, true);
-	//DeskActor->MainSpriteRenderer->ChangeAnimation("Gargoyle_Intro_Desk_Lock");
-	//DeskActor->MainSpriteRenderer->AutoSpriteSizeOn();
-	////DeskActor->MainSpriteRenderer->Off();
-	//DeskActor->MainSpriteRenderer->LeftFlip();
-	//DeskActor->MainSpriteRenderer->SetPivotValue({0.0f,1.0f});
-	//DeskActor->MainSpriteRenderer->Transform.SetLocalPosition({ 4984.0f, -3526.0f , -4.0f });
-	
-
-
-	
-
-	
 
 	//콜리전
 
@@ -276,6 +271,7 @@ void BossGargoyle::Start()
 void BossGargoyle::Update(float _Delta)
 {
 	Enemy::Update(_Delta);
+	EndSceneMoveUpdate( _Delta);
 }
 
 void BossGargoyle::DeathCheck()
@@ -285,6 +281,31 @@ void BossGargoyle::DeathCheck()
 		ForceGrivityOff = false;
 		DeathValue = true;
 		ChangeState(EnemyState::Death);
+	}
+}
+
+void BossGargoyle::EndSceneMoveUpdate(float _Delta)
+{
+	if (EndSceneMovementValue1 == true)
+	{
+		EndSceneMovementValue1Timer += _Delta;
+		MainSpriteRenderer->Transform.AddLocalPosition({ 0.0f, (_Delta * 150.0f) * (1.0f - EndSceneMovementValue1Timer / 1.0f)});
+
+		if (EndSceneMovementValue1Timer >= 1.0f)
+		{
+			EndSceneMovementValue1 = false;
+		}
+	}
+
+	if (EndSceneMovementValue2 == true)
+	{
+		EndSceneMovementValue2Timer += _Delta;
+		MainSpriteRenderer->Transform.AddLocalPosition({ 0.0f, (_Delta * 150.0f) * (1.0f - EndSceneMovementValue2Timer / 1.0f) });
+
+		if (EndSceneMovementValue2Timer >= 1.0f)
+		{
+			EndSceneMovementValue2 = false;
+		}
 	}
 }
 
@@ -340,12 +361,12 @@ void BossGargoyle::AttackStart()
 		}
 		ComboCount++;
 		AnimationName = "Gargoyle_Combo" + std::to_string(ComboCount);
-		if (ComboCount <= 2)
+		if (ComboCount == 1)
 		{
 
 			GameEngineSound::SoundPlay("BossCombo");
 		}
-		else
+		else if (ComboCount == 3)
 		{
 			GameEngineSound::SoundPlay("BossCombo2");
 		}
@@ -882,11 +903,6 @@ void BossGargoyle::RunUpdate(float _Delta)
 	default:
 		break;
 	}
-	
-	
-
-
-	
 }
 
 void BossGargoyle::SurprisedStart()
@@ -972,6 +988,7 @@ void BossGargoyle::OutroStart()
 {
 	MotionTime = 0.0f;
 	ChangeMainAnimation("Gargoyle_Outro");
+	MainSpriteRenderer->Transform.SetLocalPosition(EndScenePrePos);
 }
 
 void BossGargoyle::OutroUpdate(float _Delta)

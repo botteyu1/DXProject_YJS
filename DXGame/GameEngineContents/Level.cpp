@@ -833,3 +833,17 @@ void Level::UpdateScreenShake(float _deltaTime)
 	}
 }
 
+void Level::BGMOff()
+{
+	if(Bgm.IsPlaying() == true)
+	{
+		Bgm.Stop();
+	}
+
+	if(BgmEffect.IsPlaying() == true)
+	{
+		BgmEffect.Stop();
+	}
+
+}
+

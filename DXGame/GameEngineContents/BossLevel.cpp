@@ -218,20 +218,20 @@ void BossLevel::Start()
 					PlayerPos.X = 3250.f;
 					PlayerPtr->Transform.SetLocalPosition(PlayerPos);
 				}
-				else if (PlayerPos.X > 5100.f)
+				else if (PlayerPos.X > 5150.f)
 				{
-					PlayerPos.X = 5100.f;
+					PlayerPos.X = 5150.f;
 					PlayerPtr->Transform.SetLocalPosition(PlayerPos);
 				}
 
-				if (BossPos.X < 3275.f)
+				if (BossPos.X < 3250.f)
 				{
-					BossPos.X = 3275.f;
+					BossPos.X = 3250.f;
 					BossPtr->Transform.SetLocalPosition(BossPos);
 				}
-				else if (BossPos.X > 5075.f)
+				else if (BossPos.X > 5150.f)
 				{
-					BossPos.X = 5075.f;
+					BossPos.X = 5150.f;
 					BossPtr->Transform.SetLocalPosition(BossPos);
 				}
 
@@ -400,5 +400,6 @@ void BossLevel::LevelStart(GameEngineLevel* _PrevLevel)
 
 void BossLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
-	Bgm.Stop();
+	BGMOff();
+	EndBG.Stop();
 }

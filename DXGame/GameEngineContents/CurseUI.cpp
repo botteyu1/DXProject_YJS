@@ -503,6 +503,7 @@ void CurseUI::Update(float _Delta)
 		FadeStrength = 1.0f;
 		ExitValue = true;
 
+		GetContentsLevel()->StartScreenShake(0.5f, 12.0f, 10.0f);
 		GameEngineSound::SoundPlay("CurseUISelect");
 	}
 

@@ -25,7 +25,7 @@ void WeaponDrop::Spawn()
 	std::shared_ptr<FxSpriteRenderer> Renderer = GetContentsLevel()->GetFXActor()->FXStart(FXType::Flash, false, Transform.GetLocalPosition() + float4(0.0f, 20.0f), float4(0.0f,0.0f,1.0f));
 	Renderer->SetSpawnObject(this);
 	BouncingStart();
-
+	GetContentsLevel()->StartScreenShake(0.5f, 12.0f, 10.0f);
 
 	GameEngineSound::SoundPlay("WeaponDrop");
 }
