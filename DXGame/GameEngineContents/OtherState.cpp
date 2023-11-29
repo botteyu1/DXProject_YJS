@@ -42,11 +42,13 @@ void Player::EnterElavatorStart()
 	}
 	ChangeMainAnimation("LD_Run");
 	MotionTime = 0.0f;
+	NextLevelCheck = false;
 }
 
 void Player::EnterElavatorUpdate(float _Delta)
 {
 	MotionTime += _Delta ;
+
 	if (0.5f >= MotionTime)
 	{
 		float4 Pos = float4::LerpClamp(TargetPlayerPos, TargetPos, MotionTime * 2.0f);
@@ -62,8 +64,10 @@ void Player::EnterElavatorUpdate(float _Delta)
 	{
 		ChangeMainAnimation("LD_Elevator_End");
 	}
-	else if (3.0f <= MotionTime)
+	else if (3.0f <= MotionTime and NextLevelCheck == false)
 	{
+		NextLevelCheck = true;
+
 		if (GetLevel()->GetName() == "PlayLevel")
 		{
 			GetContentsLevel()->LevelChangerStart("PlayLevel2");
