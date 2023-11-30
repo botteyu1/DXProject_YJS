@@ -183,6 +183,7 @@ enum class ActorType
 	Contractor,
 	GroundTile,
 	WallBackground_Sprite2,
+	Anima,
 
 
 	

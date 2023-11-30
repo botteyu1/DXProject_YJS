@@ -34,8 +34,10 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Cape_BG;
 	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Cape2_Outline;
 	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Cape2_BG;
+
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Ult;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Ult_BG;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_Ult_White;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Ult_Line;
 
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_LifeBar;

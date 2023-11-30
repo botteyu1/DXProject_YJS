@@ -170,7 +170,7 @@ public:
 		return State;
 	}
 
-	void AddUltGauge(float _UltGauge = 5.0f)
+	void AddUltGauge(float _UltGauge = 6.0f)
 	{
 		if (Player::GetMainPlayerData().UltGauge < Player::GetMainPlayerData().MaxUltGauge)
 		{

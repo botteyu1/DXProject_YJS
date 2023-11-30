@@ -21,6 +21,7 @@
 #include <GameEngineCore/BlurPostEffect.h>
 #include "ContentsCore.h"
 #include "MovieBar.h"
+#include "AnimaDrop.h"
 
 Level::Level() 
 {
@@ -616,6 +617,10 @@ std::shared_ptr<ContentObject> Level::AddActor(ActorType _Type, float4 _Pos, flo
 	case ActorType::Contractor:
 		Object = CreateActor<Contractor>(ContentsObjectType::BackGroundobject);
 		//static_cast<WeaponDrop*>(Object.get())->Init("W1_Miniboss.png");
+		break;
+	case ActorType::Anima:
+		Object = CreateActor<AnimaDrop>(ContentsObjectType::StageObject);
+		//static_cast<AnimaDrop*>(Object.get())->Init(ElevatorState::Start);
 		break;
 
 

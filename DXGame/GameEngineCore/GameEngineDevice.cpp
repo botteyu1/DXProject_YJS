@@ -230,6 +230,8 @@ void GameEngineDevice::CreateSwapChain()
 	// 점개수
 	ScInfo.SampleDesc.Count = 1;
 
+	//ScInfo.Windowed = 
+
 	// ScInfo.BufferCount = 2;
 	// 교체순서와 방식을 정의합니다.
 	ScInfo.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_FLIP_DISCARD;

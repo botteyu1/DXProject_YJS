@@ -53,6 +53,12 @@ void AnimaDrop::Start()
 
 	ForceGrivityOff = false;
 
+	GameEngineInput::AddInputObject(this);
+
+	static int Num = 0;
+	Num++;
+
+	SetName("Anima_" + std::to_string(Num));
 }
 
 void AnimaDrop::Update(float _Delta)
