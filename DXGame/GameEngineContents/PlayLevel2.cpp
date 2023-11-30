@@ -244,7 +244,7 @@ void PlayLevel2::Start()
 
 				MainCamara->Transform.AddLocalPosition(Pos);
 
-				if (MainCamara->Transform.GetLocalPosition().Y <= -650.0f)
+				if (MainCamara->Transform.GetLocalPosition().Y >= -650.0f)
 				{
 					MainCamara->Transform.SetLocalPosition(TargetPos);
 					State.ChangeState(PlayLevelState::GimmickEnd);
