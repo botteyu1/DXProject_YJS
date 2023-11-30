@@ -82,13 +82,24 @@ void PlayLevel2::Start()
 		CreateStateParameter NewPara;
 
 
-
-
-		NewPara.Start = [=](class GameEngineState* _Parent)
+		NewPara.Init = [=](class GameEngineState* _Parent)
 			{
+				// MainSpriteRenderer->ChangeAnimation("Idle");
+				//std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
+				//float4 PlayerPos = PlayerPtr->Transform.GetWorldPosition();
+				//float4 Pos = { PlayerPos.X, -3150.0f,-1000.0f };
+				//MainCamara->Transform.SetWorldPosition(PlayerPos);
+
 				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
 				float4 PlayerPos = PlayerPtr->Transform.GetWorldPosition() + float4{ 0.0f,0.0f,-1000.0f };
 				MainCamara->Transform.SetLocalPosition(PlayerPos);
+			};
+
+		NewPara.Start = [=](class GameEngineState* _Parent)
+			{
+				/*std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
+				float4 PlayerPos = PlayerPtr->Transform.GetWorldPosition() + float4{ 0.0f,0.0f,-1000.0f };
+				MainCamara->Transform.SetLocalPosition(PlayerPos);*/
 				
 			};
 
