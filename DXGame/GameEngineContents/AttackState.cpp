@@ -262,6 +262,7 @@ void Player::UltAttackUpdate(float _Delta)
 	{
 		if (MainSpriteRenderer->IsCurAnimationEnd())
 		{
+			Player::GetMainPlayerData().UltGauge = 0.f;
 			//MainSpriteRenderer->Off();
 			ChangeMainAnimation("LD_ComboKatanas_Ult");
 			MainSpriteRenderer->GetColorData().MulColor = float4::ZERONULL;
@@ -333,7 +334,7 @@ void Player::UltAttack_RestUpdate(float _Delta)
 
 bool Player::InputAttackUpdate(float _Delta)
 {
-	if(GameEngineInput::IsDown('R', this)/* and UltGauge >= MaxUltGauge*/)
+	if(GameEngineInput::IsDown('R', this) and Player::GetMainPlayerData().UltGauge >= Player::GetMainPlayerData().MaxUltGauge)
 	{
 		ChangeState(PlayerState::UltAttack);
 	}

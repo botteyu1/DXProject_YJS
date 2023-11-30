@@ -121,7 +121,7 @@ void Enemy::DeathCheck()
 
 		AnimaCount++;
 
-		if (AnimaCount >= 15)
+		if (AnimaCount >= 12)
 		{
 			AnimaCount = 0;
 

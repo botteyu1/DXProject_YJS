@@ -90,6 +90,22 @@ void Shader::Update(float _Delta)
 		}
 		GlobalShader->GetColorData().MulColor = float4{ 1.0f - (  Alpha * 0.9f),1.0f - (Alpha *1.0f ),1.0f - (Alpha * 0.75f),1.0f - (Alpha * 0.3f ) };
 	}
+
+	if (BossOutroStartAnimationValue == true)
+	{
+		float Alpha = AnimationTime * 1.0f;
+		if (Alpha > 1.0f)
+		{
+			Alpha = 1.0f;
+		}
+		else
+		{
+			BossOutroStartAnimationValue = false;
+			GlobalShader->GetColorData().MulColor = float4{ 0.07f,0.11f,0.0f,0.2f };
+			return;
+		}
+		GlobalShader->GetColorData().MulColor = float4{ 1.0f - (  Alpha * 0.93f),1.0f - (Alpha * 0.89f ),1.0f - (Alpha * 1.0f), 1.0f - (Alpha * 0.8f ) };
+	}
 	
 	if (UltStartAnimationValue == true)
 	{
@@ -135,4 +151,16 @@ void Shader::UltShaderEnd()
 	UltVignetteShader->Off();
 	AnimationTime = 0.0f;
 	GlobalShader->GetColorData().MulColor = float4{ 0.07f,0.11f,0.0f,0.2f };
+}
+
+void Shader::CurseShaderStart()
+{
+	CurseStartAnimationValue = true;
+	//UltEndAnimationValue = false;
+	AnimationTime = 0.0f;
+	//UltVignetteShader->On();
+}
+
+void Shader::CurseShaderEnd()
+{
 }

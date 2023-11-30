@@ -141,7 +141,7 @@ void PlayUI::Start()
 	HUD_Cape2_Text = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Cape2_Text->SetCameraOrder(ECAMERAORDER::UI);
 	HUD_Cape2_Text->SetText("메이플스토리", "50 / 65", 20.0f, float4(0.f, 0.7f, 0.f, 1.0f));
-	HUD_Cape2_Text->Transform.SetLocalPosition({ -850.0f,440.0f,0.0f });
+	HUD_Cape2_Text->Transform.SetLocalPosition({ -820.0f,430.0f,0.0f });
 	HUD_Cape2_Text->SetName("HUD_Cape2_Text");
 
 	HUD_Ult_BG = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
@@ -156,12 +156,22 @@ void PlayUI::Start()
 	HUD_Ult = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Ult-> SetMaterial("2DTextureAlwaysDepth");
 	HUD_Ult->AutoSpriteSizeOn();
-	HUD_Ult->SetAutoScaleRatio({ 0.75f,0.75f,0.75f });
+	//HUD_Ult->SetAutoScaleRatio({ 0.75f,0.75f,0.75f });
 	HUD_Ult->SetCameraOrder(ECAMERAORDER::UI);
 	HUD_Ult->SetSprite("HUD_Main_Purple.png");
-	HUD_Ult->Transform.SetLocalPosition({-865.0f,390.0f,-1.0f });
+	HUD_Ult->Transform.SetLocalPosition({-865.0f,389.0f,-1.0f });
 	HUD_Ult->SetName("HUD_Ult_BG");
 	HUD_Ult->GetColorData().MulColor = float4(1.0f,1.0f,1.0f,1.0f);
+
+	HUD_Ult_Line = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
+	HUD_Ult_Line-> SetMaterial("2DTextureAlwaysDepth");
+	HUD_Ult_Line->AutoSpriteSizeOn();
+	//HUD_Ult->SetAutoScaleRatio({ 0.75f,0.75f,0.75f });
+	HUD_Ult_Line->SetCameraOrder(ECAMERAORDER::UI);
+	HUD_Ult_Line->SetSprite("HUD_Main_Purple_Line.png");
+	HUD_Ult_Line->Transform.SetLocalPosition({-865.0f,389.0f,-1.0f });
+	HUD_Ult_Line->SetName("HUD_Main_Purple_Line");
+	HUD_Ult_Line->GetColorData().MulColor = float4(1.0f,1.0f,1.0f,1.0f);
 
 	
 
@@ -593,12 +603,27 @@ void PlayUI::Update(float _Delta)
 	}
 	
 	// 궁극기 체크
-	float UltGauge = PlayerPtr->UltGauge;
-	float MaxUltGauge = PlayerPtr->MaxUltGauge;
+	float UltGauge = Player::GetMainPlayerData().UltGauge;
+	float MaxUltGauge = Player::GetMainPlayerData().MaxUltGauge;
 
 
 	HUD_Ult->GetColorData().MulColor = float4(1.f, 1.f, 1.0f, UltGauge / MaxUltGauge);
 
+	if (UltGauge >= MaxUltGauge)
+	{
+		HUD_Ult_Line->On();
+		HUD_Ult_LineTimer += _Delta;
+		if (HUD_Ult_LineTimer >= 1.0f)
+		{
+			HUD_Ult_LineTimer -= 1.0f;
+		}
+		float Scale = HUD_Ult_LineTimer * -0.3f + 1.2f;
+		HUD_Ult_Line->SetAutoScaleRatio({ Scale ,Scale ,Scale  });
+	}
+	else
+	{
+		HUD_Ult_Line->Off();
+	}
 }
 
 void PlayUI::LevelStart(GameEngineLevel* _NextLevel)

@@ -27,6 +27,9 @@ public:
 	void UltShaderStart();
 	void UltShaderEnd();
 
+	void CurseShaderStart();
+	void CurseShaderEnd();
+
 
 protected:
 	void Start() override;
@@ -37,6 +40,9 @@ protected:
 
 	bool UltStartAnimationValue = false;
 	bool UltEndAnimationValue = false;
+
+	bool CurseStartAnimationValue = false;
+	bool CurseEndAnimationValue = false;
 
 	float AnimationTime = 0.0f;
 

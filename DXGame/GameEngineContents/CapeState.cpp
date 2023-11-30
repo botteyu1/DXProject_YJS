@@ -51,9 +51,9 @@ void Player::CapeStart()
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
 			{
-				CheckStartAttackFrame(0,20.0f);
+				CheckStartAttackFrame(0,23.0f);
 				CheckEndAttackFrame(2);
-				CheckStartAttackFrame(4, 20.0f);
+				CheckStartAttackFrame(4, 23.0f);
 				CheckEndAttackFrame(8);
 				DashProcessUpdate(_DeltaTime, float4::LEFT, 3000.0f);
 				CheckAttackCollision();

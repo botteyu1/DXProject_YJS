@@ -134,7 +134,19 @@ void Contractor::Start()
 				{
 					if (GameEngineInput::IsDown('F', this) and GetContentsLevel()->GetCurseUI()->IsUpdate() == false)
 					{
-						GetContentsLevel()->GetCurseUI()->CurseUIStart(1);
+						static bool Type = false;
+						if(Type == false)
+						{
+							Type = true;
+							GetContentsLevel()->GetCurseUI()->CurseUIStart(1);
+						}
+						else
+						{
+							Type = false;
+							GetContentsLevel()->GetCurseUI()->CurseUIStart(2);
+						}
+						
+						
 					}
 				}
 

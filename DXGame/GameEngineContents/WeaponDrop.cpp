@@ -18,7 +18,7 @@ void WeaponDrop::CollisionUpdate(GameEngineCollision* _Left, GameEngineCollision
 
 
 
-void WeaponDrop::Spawn()
+void WeaponDrop::Spawn(CapeType _Type)
 {
 	Off();
 	GetContentsLevel()->StartScreenShake(0.5f, 8.0f, 10.0f);
@@ -26,6 +26,7 @@ void WeaponDrop::Spawn()
 	Renderer->SetSpawnObject(this);
 	BouncingStart();
 	GetContentsLevel()->StartScreenShake(0.5f, 12.0f, 10.0f);
+	Type = _Type;
 
 	GameEngineSound::SoundPlay("WeaponDrop");
 }

@@ -36,6 +36,7 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> HUD_Cape2_BG;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Ult;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_Ult_BG;
+	std::shared_ptr< GameEngineSpriteRenderer> HUD_Ult_Line;
 
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_LifeBar;
 	std::shared_ptr< GameEngineSpriteRenderer> HUD_LifeBar_Hit;
@@ -75,7 +76,7 @@ private:
 	int PrevHP = 0;
 	float HPTimer = 500.0f;
 	float HPAnimaTimer = 500.0f;
-
+	float HUD_Ult_LineTimer = 0.0f;
 
 
 

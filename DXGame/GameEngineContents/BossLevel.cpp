@@ -30,7 +30,7 @@ void BossLevel::Start()
 
 	{
 		 PlayerPtr = CreateActor<Player>(ContentsObjectType::Player);
-		 PlayerPtr->Transform.SetLocalPosition({ 1107.0f, -3574.0f, -2.0f });
+		 PlayerPtr->Transform.SetLocalPosition({ 1107.0f, -3574.0f, -3.0f });
 	}
 
 	{

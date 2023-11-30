@@ -98,7 +98,7 @@ void Ghost_Med::Start()
 	//SetName("Ghost_Med_" + std::to_string(Num));
 	SetName("Ghost_Me");
 
-	HP = 200;
+	HP = 150;
 }
 
 void Ghost_Med::Update(float _Delta)
@@ -156,7 +156,7 @@ void Ghost_Med::AttackStart()
 {
 	if (ComboStart == true)
 	{
-		GameEngineSound::SoundPlay("MedAttackInit");
+		GameEngineSound::SoundPlay("ManAttackInit");
 		if (AttackPatern == MedAttackPatern::Combo)
 		{
 			AttackPatern = MedAttackPatern::Power;

@@ -2,6 +2,7 @@
 #include "CurseUI.h"
 #include "ContentsCore.h"
 #include "Player.h"
+#include "Shader.h"
 
 CurseUI::CurseUI() 
 {
@@ -301,10 +302,10 @@ void CurseUI::CurseUIStart(int _Type)
 	switch (_Type)
 	{
 	case 1:
-
-		Curse_MainText_Red->SetText("메이플스토리", "아다만티움 대낫", 35.0f, float4(1.f, 1.0f, 1.f, 1.0f), FW1_CENTER);
-		Curse_SubText_Red->SetText("메이플스토리", "낫 무기 피해량 +5", 25.0f, float4(1.f, 1.0f, 1.f, 1.0f), FW1_CENTER);
-		Curse_Img_Red->SetSprite("ICONS_CURSE_RED_0095.Png");
+		Curse_MainText_Red->SetText("메이플스토리", "화신의 망토", 35.0f, float4(1.f, 1.0f, 1.f, 1.0f), FW1_CENTER);
+		Curse_SubText_Red->SetText("메이플스토리", "망토 무기 피해량 +25%", 25.0f, float4(1.f, 1.0f, 1.f, 1.0f), FW1_CENTER);
+		Curse_Img_Red->SetSprite("ICONS_CURSE_RED_0086.Png");
+		
 
 		Curse_MainText_Blue->SetText("메이플스토리", "빨리, 더 빨리!", 35.0f, float4(1.f, 1.0f, 1.f, 1.0f), FW1_CENTER);
 		Curse_SubText_Blue->SetText("메이플스토리", "대쉬의 횟수 1회 증가", 25.0f, float4(1.f, 1.0f, 1.f, 1.0f),FW1_CENTER);
@@ -317,9 +318,10 @@ void CurseUI::CurseUIStart(int _Type)
 
 		break;
 	case 2:
-		Curse_MainText_Red->SetText("화신의 망토 ", "화신의 망토", 35.0f, float4(1.f, 1.0f, 1.f, 1.0f), FW1_CENTER);
-		Curse_SubText_Red->SetText("메이플스토리", "망토 무기 피해량 +25%", 25.0f, float4(1.f, 1.0f, 1.f, 1.0f), FW1_CENTER);
-		Curse_Img_Red->SetSprite("ICONS_CURSE_RED_0086.Png");
+		
+		Curse_MainText_Red->SetText("메이플스토리", "아다만티움 대낫", 35.0f, float4(1.f, 1.0f, 1.f, 1.0f), FW1_CENTER);
+		Curse_SubText_Red->SetText("메이플스토리", "낫 무기 피해량 +5", 25.0f, float4(1.f, 1.0f, 1.f, 1.0f), FW1_CENTER);
+		Curse_Img_Red->SetSprite("ICONS_CURSE_RED_0095.Png");
 
 		Curse_MainText_Blue->SetText("메이플스토리", "더 있다니까...", 35.0f, float4(1.f, 1.0f, 1.f, 1.0f), FW1_CENTER);
 		Curse_SubText_Blue->SetText("메이플스토리", "아니마 보관 슬롯 +1", 25.0f, float4(1.f, 1.0f, 1.f, 1.0f), FW1_CENTER);
@@ -399,11 +401,11 @@ void CurseUI::ExitAnimationUpdate(float _Delta)
 	case 1:
 		if (Type == 1)
 		{
-			Player::GetMainPlayerData().DamageComobo += 5.0f;
+			Player::GetMainPlayerData().DamageCapeScale += 0.25f;
 		}
 		else
 		{
-			Player::GetMainPlayerData().DamageCapeScale += 0.25f;
+			Player::GetMainPlayerData().DamageComobo += 5.0f;
 		}
 
 		BlueMove(float4{ 1.0f,0.0f,0.0f } *5000.0f * _Delta);
@@ -499,6 +501,7 @@ void CurseUI::Update(float _Delta)
 	if (GameEngineInput::IsDown('F', this))
 	{
 		Curse_Transition->ChangeAnimation("CurseTansition", true);
+		GetContentsLevel()->GetShaderActor()->CurseShaderStart();
 		Curse_Transition->On();
 		FadeStrength = 1.0f;
 		ExitValue = true;

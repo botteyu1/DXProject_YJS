@@ -39,7 +39,7 @@ void PlayLevel::Start()
 
 	{
 		PlayerPtr = CreateActor<Player>(ContentsObjectType::Player);
-		PlayerPtr->Transform.SetLocalPosition({ 432.0f, -2475.0f, 5.0f });
+		PlayerPtr->Transform.SetLocalPosition({ 432.0f, -2475.0f, -3.0f });
 	}
 	{
 		std::shared_ptr<PlayMap> Object = CreateActor<PlayMap>(ContentsObjectType::BackGround);
@@ -271,7 +271,7 @@ void PlayLevel::Start()
 				float4 TargetPos = float4{ 11000.0f,-2320.0f, 5.0f };
 				WeaponDropObject = CreateActor<WeaponDrop>(ContentsObjectType::BackGround);
 				WeaponDropObject->Transform.SetLocalPosition(TargetPos);
-				WeaponDropObject->Spawn();
+				WeaponDropObject->Spawn(CapeType::Tornado);
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)
@@ -309,25 +309,25 @@ void PlayLevel::Update(float _Delta)
 	UpdateScreenShake(_Delta);
 
 
-	if (GameEngineInput::IsDown('1', this))
-	{
-		PlayerPtr->AddHP(5);
-	}
-	if (GameEngineInput::IsDown('2', this))
-	{
-		PlayerPtr->AddHP(-5);
-		//StartScreenShake(0.5f, 10.0f, 1.0f);
-	}
-	if (GameEngineInput::IsDown('3', this))
-	{
-		PlayerPtr->AddHP(2);
-		//StartScreenShake(0.5f, 12.0f, 3.0f);
-	}
-	if (GameEngineInput::IsDown('4', this))
-	{
-		PlayerPtr->AddHP(-2);
-		//StartScreenShake(0.5f, 5.0f, 3.0f);
-	}
+	//if (GameEngineInput::IsDown('1', this))
+	//{
+	//	PlayerPtr->AddHP(5);
+	//}
+	//if (GameEngineInput::IsDown('2', this))
+	//{
+	//	PlayerPtr->AddHP(-5);
+	//	//StartScreenShake(0.5f, 10.0f, 1.0f);
+	//}
+	//if (GameEngineInput::IsDown('3', this))
+	//{
+	//	PlayerPtr->AddHP(2);
+	//	//StartScreenShake(0.5f, 12.0f, 3.0f);
+	//}
+	//if (GameEngineInput::IsDown('4', this))
+	//{
+	//	PlayerPtr->AddHP(-2);
+	//	//StartScreenShake(0.5f, 5.0f, 3.0f);
+	//}
 	//if (GameEngineInput::IsDown('V', this))
 	//{
 	//	/*GetCurseUI()->CurseUIStart(1);
@@ -342,6 +342,16 @@ void PlayLevel::Update(float _Delta)
 	//	WeaponDropObject->Transform.SetLocalPosition(PlayerPtr->Transform.GetLocalPosition());
 	//	WeaponDropObject->Spawn();
 	//}
+
+
+	if (GameEngineInput::IsDown('Z', this))
+	{
+		Player::GetMainPlayerData().DebugScale = 100.0f;
+	}
+	if (GameEngineInput::IsDown('X', this))
+	{
+		Player::GetMainPlayerData().DebugScale = 1.0f;
+	}
 }
 
 void PlayLevel::LevelStart(GameEngineLevel* _PrevLevel)

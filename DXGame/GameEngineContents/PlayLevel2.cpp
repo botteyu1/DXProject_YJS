@@ -38,7 +38,7 @@ void PlayLevel2::Start()
 
 	{
 		PlayerPtr = CreateActor<Player>(ContentsObjectType::Player);
-		PlayerPtr->Transform.SetLocalPosition({ 1085.0f, -3507.0f, 5.0f });
+		PlayerPtr->Transform.SetLocalPosition({ 1085.0f, -3507.0f, -3.0f });
 	}
 	{
 		std::shared_ptr<PlayMap> Object = CreateActor<PlayMap>(ContentsObjectType::BackGround);
@@ -257,7 +257,7 @@ void PlayLevel2::Start()
 				float4 TargetPos = float4{ 11780.0f,-650.0f, 5.0f };
 				WeaponDropObject = CreateActor<WeaponDrop>(ContentsObjectType::BackGround);
 				WeaponDropObject->Transform.SetLocalPosition(TargetPos);
-				WeaponDropObject->Spawn();
+				WeaponDropObject->Spawn(CapeType::EvilHands);
 			};
 
 		NewPara.Stay = [=](float _DeltaTime, class GameEngineState* _Parent)

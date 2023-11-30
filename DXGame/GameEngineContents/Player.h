@@ -43,7 +43,7 @@ public:
 	float MaxMP = 50;
 	float MP = 50;
 	int Soulary = 0;
-	float DamageComobo = 10000.f; // 기본 공격 추가 데미지
+	float DamageComobo = 0.0f; // 기본 공격 추가 데미지
 	float DamageComoboScale = 1.0f; // 기본 공격 스케일
 
 	int DamageCape= 0; // 망토 추가 데미지
@@ -51,6 +51,8 @@ public:
 
 	int DamageMagic= 0; // 마법 추가 데미지
 	float DamageMagicScale = 1.0f; // 마법 추가 스케일
+
+	float DebugScale = 1.0f;
 
 	float MPScale = 1.0f;
 
@@ -61,8 +63,12 @@ public:
 	int MaxAnima = 4;
 	int Anima = 1;
 
-	
+	float UltGauge = 0.0f;
+	float MaxUltGauge = 100.0f;
 
+
+	CapeType CurCapeType = CapeType::EvilBirds; // 현재 착용중인 망토 타입
+	CapeType CurCapeType2 = CapeType::Katana; // 현재 착용중인 서브 망토 타입
 
 	void AddAnima(int _Num = 1)
 	{
@@ -166,7 +172,15 @@ public:
 
 	void AddUltGauge(float _UltGauge = 5.0f)
 	{
-		UltGauge += _UltGauge;
+		if (Player::GetMainPlayerData().UltGauge < Player::GetMainPlayerData().MaxUltGauge)
+		{
+			Player::GetMainPlayerData().UltGauge += _UltGauge;
+
+		}
+		else
+		{
+			Player::GetMainPlayerData().UltGauge = Player::GetMainPlayerData().MaxUltGauge;
+		}
 	}
 
 protected:
@@ -227,9 +241,7 @@ private:
 	void CapeStart();
 	void CapeUpdate(float _Delta);
 
-	float UltGauge = 0.0f;
-	float MaxUltGauge = 100.0f;
-
+	
 	std::shared_ptr<class GameEngineSpriteRenderer> UltSpriteRenderer;
 	std::shared_ptr<GameEngineSpriteRenderer> UltmateSpriteRenderer;
 
@@ -238,8 +250,8 @@ private:
 
 	GameEngineState CapeState;
 	CapeType CurCapeType = CapeType::EvilBirds; // 현재 착용중인 망토 타입
-	float CurCapeCoolTime = 0.0f;
 	CapeType CurCapeType2 = CapeType::Tornado; // 현재 착용중인 서브 망토 타입
+	float CurCapeCoolTime = 0.0f;
 	float CurCapeCoolTime2 = 0.0f;
 
 

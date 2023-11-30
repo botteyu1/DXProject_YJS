@@ -53,11 +53,13 @@ void Player::ComboHit(GameEngineCollision* _Left, GameEngineCollision* _Right)
 	float Damage;
 	if (Player::GetMainPlayer()->State == PlayerState::CapeAttack)
 	{
-		Damage = (_Left->GetParent<Player>()->GetCurDamage() + Player::GetMainPlayerData().DamageCape) * Player::GetMainPlayerData().DamageCapeScale;_Right->GetParent<Enemy>()->TakeDamage(_Left, Damage);
+		Damage = (_Left->GetParent<Player>()->GetCurDamage() + Player::GetMainPlayerData().DamageCape) * Player::GetMainPlayerData().DamageCapeScale * Player::GetMainPlayerData().DebugScale;
+		_Right->GetParent<Enemy>()->TakeDamage(_Left, Damage);
 	}
 	else
 	{
-		Damage = (_Left->GetParent<Player>()->GetCurDamage() + Player::GetMainPlayerData().DamageComobo) * Player::GetMainPlayerData().DamageComoboScale;_Right->GetParent<Enemy>()->TakeDamage(_Left, Damage);
+		Damage = (_Left->GetParent<Player>()->GetCurDamage() + Player::GetMainPlayerData().DamageComobo) * Player::GetMainPlayerData().DamageComoboScale * Player::GetMainPlayerData().DebugScale;
+		_Right->GetParent<Enemy>()->TakeDamage(_Left, Damage);
 
 	}
 	 
@@ -346,6 +348,11 @@ void Player::Update(float _Delta)
 
 	}
 
+	if (HP < 0)
+	{
+		HP = 50;
+	}
+
 
 	DataUpdate();
 	
@@ -360,6 +367,9 @@ void Player::DataUpdate()
 	PlayerDataPtr.MP = MP;
 	PlayerDataPtr.MaxHP = MaxHP;
 	PlayerDataPtr.Soulary = Soulary;
+	PlayerDataPtr.CurCapeType = CurCapeType;
+	PlayerDataPtr.CurCapeType2 = CurCapeType2;
+
 }
 
 
@@ -509,6 +519,8 @@ void Player::LevelStart(GameEngineLevel* _NextLevel)
 	MaxHP = PlayerDataPtr.MaxHP;
 	MaxMP = PlayerDataPtr.MaxMP;
 	Soulary = PlayerDataPtr.Soulary;
+	CurCapeType2 = PlayerDataPtr.CurCapeType2;
+	CurCapeType = PlayerDataPtr.CurCapeType;
 
 	Off();
 }
