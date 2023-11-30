@@ -82,6 +82,8 @@ void PlayLevel2::Start()
 		CreateStateParameter NewPara;
 
 
+
+
 		NewPara.Start = [=](class GameEngineState* _Parent)
 			{
 				std::shared_ptr<GameEngineCamera> MainCamara = GetMainCamera();
@@ -292,6 +294,15 @@ void PlayLevel2::Update(float _Delta)
 	//카메라 포커스
 
 	State.Update(_Delta);
+
+	if (GameEngineInput::IsDown('Z', this))
+	{
+		Player::GetMainPlayerData().DebugScale = 100.0f;
+	}
+	if (GameEngineInput::IsDown('X', this))
+	{
+		Player::GetMainPlayerData().DebugScale = 1.0f;
+	}
 
 
 	//if (GameEngineInput::IsDown('V', this))

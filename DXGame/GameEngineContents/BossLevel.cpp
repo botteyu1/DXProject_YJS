@@ -347,6 +347,15 @@ void BossLevel::Update(float _Delta)
 {
 	State.Update(_Delta);
 
+	if (GameEngineInput::IsDown('Z', this))
+	{
+		Player::GetMainPlayerData().DebugScale = 100.0f;
+	}
+	if (GameEngineInput::IsDown('X', this))
+	{
+		Player::GetMainPlayerData().DebugScale = 1.0f;
+	}
+
 	/*if (GameEngineInput::IsDown('3', this))
 	{
 		std::shared_ptr<FxSpriteRenderer> Renderer = GetFXActor()->FXStart(FXType::Circle_Gradient, false, BossPtr->Transform.GetLocalPosition() + float4(0.0f, 20.0f, -3.0f), float4(0.0f, 0.0f, 1.0f));
