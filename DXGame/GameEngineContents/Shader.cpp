@@ -91,7 +91,7 @@ void Shader::Update(float _Delta)
 		GlobalShader->GetColorData().MulColor = float4{ 1.0f - (  Alpha * 0.9f),1.0f - (Alpha *1.0f ),1.0f - (Alpha * 0.75f),1.0f - (Alpha * 0.3f ) };
 	}
 
-	if (BossOutroStartAnimationValue == true)
+	if (CurseStartAnimationValue == true)
 	{
 		float Alpha = AnimationTime * 1.0f;
 		if (Alpha > 1.0f)
@@ -100,7 +100,7 @@ void Shader::Update(float _Delta)
 		}
 		else
 		{
-			BossOutroStartAnimationValue = false;
+			CurseStartAnimationValue = false;
 			GlobalShader->GetColorData().MulColor = float4{ 0.07f,0.11f,0.0f,0.2f };
 			return;
 		}
