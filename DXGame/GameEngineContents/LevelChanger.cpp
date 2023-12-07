@@ -52,10 +52,19 @@ void LevelChanger::LevelChangeStart(std::string_view _Name)
 {
 	MainSpriteRenderer->On();
 	MainSpriteRenderer->ChangeAnimation("TransitionIntro", true);
-	GameEngineSound::SoundPlay("TransitionIntro");
+
+	if (_Name == "PlayLevel")
+	{
+		GameEngineSound::SoundPlay("LevelChangeEnd");
+	}
+	else
+	{
+		GameEngineSound::SoundPlay("TransitionIntro");
+	}
+	
 	NextLevelName = _Name;
 
-	GetContentsLevel()->BGMOff();
+	
 
 }
 
@@ -68,10 +77,16 @@ void LevelChanger::Update(float _Delta)
 		if (MainSpriteRenderer->IsCurAnimation("TransitionIntro"))
 		{
 			DelayTime += _Delta;
+			if (DelayTime >= 0.2f)
+			{
+				GetContentsLevel()->BGMOff();
+			}
+
 			if (DelayTime >= 1.0f)
 			{
-				GameEngineCore::ChangeLevel(NextLevelName);
 				DelayTime = 0.0f;
+				MainSpriteRenderer->Off();
+				GameEngineCore::ChangeLevel(NextLevelName);
 			}
 		}
 		else
@@ -84,7 +99,11 @@ void LevelChanger::Update(float _Delta)
 void LevelChanger::LevelStart(GameEngineLevel* _NextLevel)
 {
 	if (IntroOff == true)
+	{
+		IntroOff = false;
 		return;
+	}
+		
 
 	MainSpriteRenderer->ChangeAnimation("TransitionOuttro", true);
 	

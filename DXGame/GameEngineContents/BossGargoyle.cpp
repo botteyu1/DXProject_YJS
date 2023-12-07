@@ -40,6 +40,7 @@ void BossGargoyle::TakeDamage(GameEngineCollision* _Attacker, float _Damage)
 		GameEngineSound::SoundPlay("EnemyHit2");
 	}
 
+	//Player::GetMainPlayer()->AddUltGauge(4.0f);
 
 	GetContentsLevel()->StartScreenShake(0.5f, 8.0f, 10.0f);
 

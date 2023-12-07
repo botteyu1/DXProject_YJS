@@ -141,7 +141,7 @@ void PlayUI::Start()
 	HUD_Cape2_Text = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
 	HUD_Cape2_Text->SetCameraOrder(ECAMERAORDER::UI);
 	HUD_Cape2_Text->SetText("메이플스토리", "50 / 65", 20.0f, float4(0.f, 0.7f, 0.f, 1.0f));
-	HUD_Cape2_Text->Transform.SetLocalPosition({ -820.0f,433.0f,0.0f });
+	HUD_Cape2_Text->Transform.SetLocalPosition({ -820.0f,442.0f,0.0f });
 	HUD_Cape2_Text->SetName("HUD_Cape2_Text");
 
 	HUD_Ult_BG = CreateComponent<GameEngineSpriteRenderer>(ContentsRenderType::UI);
