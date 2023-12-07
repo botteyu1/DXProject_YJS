@@ -36,6 +36,7 @@ void TitleLevel::Update(float _Delta)
 void TitleLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	Bgm = GameEngineSound::SoundPlay("OST Main Menu", 100);
+	Bgm.SetVolume(0.6f);
 }
 
 void TitleLevel::LevelEnd(GameEngineLevel* _NextLevel)

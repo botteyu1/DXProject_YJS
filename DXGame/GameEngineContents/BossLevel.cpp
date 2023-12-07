@@ -107,7 +107,7 @@ void BossLevel::Start()
 
 				if (BossIntroOver == false)
 				{
-					float Volume = PlayerPos.X / (3450.0f - 1107.0f) * 0.4f + 0.3f;
+					float Volume = PlayerPos.X / (3450.0f - 1107.0f) * 0.5f + 0.3f;
 					Bgm.SetVolume(Volume);
 				}
 
@@ -139,7 +139,7 @@ void BossLevel::Start()
 				GameEngineSound::SoundPlay("BossIntro1");
 
 				BattleBG = GameEngineSound::SoundPlay("BossBGBattle");
-				BattleBG.SetVolume(0.7f);
+				BattleBG.SetVolume(0.8f);
 
 			};
 
@@ -404,7 +404,7 @@ void BossLevel::Update(float _Delta)
 void BossLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	Bgm = GameEngineSound::SoundPlay("BossBGStart", 100);
-	Bgm.SetVolume(0.5f);
+	Bgm.SetVolume(0.6f);
 }
 
 void BossLevel::LevelEnd(GameEngineLevel* _NextLevel)
