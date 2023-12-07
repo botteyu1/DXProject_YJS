@@ -41,5 +41,5 @@ void TitleLevel::LevelStart(GameEngineLevel* _PrevLevel)
 
 void TitleLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
-	Bgm.Stop();
+	//Bgm.Stop();
 }
