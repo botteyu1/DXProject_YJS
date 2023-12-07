@@ -79,7 +79,7 @@ void GameEngineWindow::InitInstance()
 
 	// WS_OVERLAPPEDWINDOW
 
-	hWnd = CreateWindowA("DefaultWindow", Title.c_str(), WS_OVERLAPPEDWINDOW,
+	hWnd = CreateWindowA("DefaultWindow", Title.c_str(), WS_POPUP,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, Instance, nullptr);
 
 	if (!hWnd)
@@ -157,6 +157,7 @@ void GameEngineWindow::MyRegisterClass()
 	// LRESULT(CALLBACK* WNDPROC)(HWND, unsigned int, unsigned int, unsigned int);
 	wcex.lpfnWndProc = GameEngineWindow::WndProc;
 	wcex.cbClsExtra = 0;
+
 	wcex.cbWndExtra = 0;
 	wcex.hInstance = Instance;
 	wcex.hIcon = nullptr;
@@ -257,7 +258,7 @@ void GameEngineWindow::SetPosAndScale(const float4& _Pos, const float4& _Scale)
 	RECT Rc = { 0, 0, _Scale.iX(), _Scale.iY() };
 
 
-	AdjustWindowRect(&Rc, WS_OVERLAPPEDWINDOW,FALSE);
+	AdjustWindowRect(&Rc, WS_POPUP,FALSE);
 
 	//                          100        100         500          500
 	SetWindowPos(hWnd, nullptr, _Pos.iX(), _Pos.iY(), Rc.right - Rc.left, Rc.bottom - Rc.top, SWP_NOZORDER);
