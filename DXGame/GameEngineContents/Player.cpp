@@ -167,7 +167,7 @@ void Player::Start()
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatanas_Ult_Init", {}));
 
 		MainSpriteRenderer->CreateAnimation("LD_ComboKatanas_Ult", "LD_ComboKatanas_Ult", 0.0333f, -1, -1, false);
-		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatanas_Ult", { 0.5f, 0.0f, false, {1920.0f, 1080.0f} }));
+		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatanas_Ult", { 0.5f, 0.0f, false, {3000.0f, 1880.0f} }));
 		
 		MainSpriteRenderer->CreateAnimation("LD_ComboKatanas_Ult_Rest", "LD_ComboKatanas_Ult_Rest", 0.0833f, -1, -1, false);
 		AnimationDataMap.insert(std::pair<std::string, AnimationData>("LD_ComboKatanas_Ult_Rest", {}));
